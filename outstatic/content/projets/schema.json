@@ -1,0 +1,28 @@
+{
+  "title": "projets",
+  "type": "object",
+  "properties": {
+    "etat": {
+      "required": true,
+      "fieldType": "Tags",
+      "dataType": "array",
+      "title": "etat",
+      "values": [
+        { "label": "En cours", "value": "En cours" },
+        { "label": "Terminé", "value": "Terminé" }
+      ]
+    },
+    "image": {
+      "required": false,
+      "fieldType": "Image",
+      "dataType": "image",
+      "title": "image"
+    },
+    "description": {
+      "required": true,
+      "fieldType": "Text",
+      "dataType": "string",
+      "title": "description"
+    }
+  }
+}

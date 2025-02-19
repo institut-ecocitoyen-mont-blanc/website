@@ -1,0 +1,192 @@
+{
+  "commit": "0584e67643389f7fd0c9e0104b7108cdc25de98f",
+  "generated": "2025-02-19T11:13:11.201Z",
+  "metadata": [
+    {
+      "__outstatic": {
+        "commit": "",
+        "hash": "2340368290",
+        "path": "outstatic/content/projets/evaluation-des-perturbateurs-endocriniens-dans-l-eau-potable.mdx"
+      },
+      "author": {
+        "name": "Mathieu Dutour",
+        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
+      },
+      "collection": "projets",
+      "description": "Analyse de la présence de perturbateurs endocriniens dans l'eau du robinet et développement de méthodes de filtration avancées.",
+      "etat": [
+        {
+          "label": "Terminé",
+          "value": "Terminé"
+        }
+      ],
+      "image": "/images/alexander-schimmeck-YpOhhVGPkyQ-unsplash.jpg",
+      "publishedAt": "2025-02-18T09:18:56.687Z",
+      "slug": "evaluation-des-perturbateurs-endocriniens-dans-l-eau-potable",
+      "status": "published",
+      "title": "Évaluation des perturbateurs endocriniens dans l'eau potable"
+    },
+    {
+      "__outstatic": {
+        "commit": "041b11e61db3486db97658a4c1f6cc595c928865",
+        "hash": "1818215829",
+        "path": "outstatic/content/projets/cartographie-des-pollutions-sonores.mdx"
+      },
+      "author": {
+        "name": "Mathieu Dutour",
+        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
+      },
+      "collection": "projets",
+      "description": "Création d'une carte interactive des niveaux de bruit dans les zones urbaines et étude de leurs effets sur le stress et le sommeil.",
+      "etat": [
+        {
+          "label": "Terminé",
+          "value": "Terminé"
+        }
+      ],
+      "image": "/images/elyas-pasban-uAm_c9heHxo-unsplash.jpg",
+      "publishedAt": "2025-02-18T09:20:05.231Z",
+      "slug": "cartographie-des-pollutions-sonores",
+      "status": "published",
+      "title": "Cartographie des pollutions sonores"
+    },
+    {
+      "__outstatic": {
+        "commit": "11fc2d66a4f8a807134f5ae6749e6dd2ca6e84c1",
+        "hash": "3055526392",
+        "path": "outstatic/content/projets/impact-des-microplastiques-sur-la-chaine-alimentaire.mdx"
+      },
+      "author": {
+        "name": "Mathieu Dutour",
+        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
+      },
+      "collection": "projets",
+      "description": "Recherche sur la présence de microplastiques dans les produits de la mer et leurs conséquences sur la santé humaine.",
+      "etat": [
+        {
+          "label": "En cours",
+          "value": "En cours"
+        }
+      ],
+      "image": "/images/antoine-giret-7_TSzqJms4w-unsplash.jpg",
+      "publishedAt": "2025-02-18T09:20:34.455Z",
+      "slug": "impact-des-microplastiques-sur-la-chaine-alimentaire",
+      "status": "published",
+      "title": "Impact des microplastiques sur la chaîne alimentaire"
+    },
+    {
+      "__outstatic": {
+        "commit": "a6de6d20f4019a15fd0fd24f197708913d5252a2",
+        "hash": "1490353392",
+        "path": "outstatic/content/actualites/nouveau-partenariat-pour-la-recherche-sur-l-eau-potable.mdx"
+      },
+      "author": {
+        "name": "Mathieu Dutour",
+        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
+      },
+      "collection": "actualites",
+      "description": "Nous sommes fiers d'annoncer un nouveau partenariat avec l'Université de Paris pour étudier la qualité de l'eau potable dans la région parisienne.",
+      "image": "/images/alexander-schimmeck-YpOhhVGPkyQ-unsplash.jpg",
+      "publishedAt": "2025-02-18T09:36:36.076Z",
+      "slug": "nouveau-partenariat-pour-la-recherche-sur-l-eau-potable",
+      "status": "published",
+      "title": "Nouveau partenariat pour la recherche sur l'eau potable"
+    },
+    {
+      "__outstatic": {
+        "commit": "1bc48040752a5cab3a91dba593b7d302569dc601",
+        "hash": "2910473247",
+        "path": "outstatic/content/actualites/resultats-de-l-etude-sur-la-pollution-sonore.mdx"
+      },
+      "author": {
+        "name": "Mathieu Dutour",
+        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
+      },
+      "collection": "actualites",
+      "description": "Notre étude sur la pollution sonore dans les zones urbaines est terminée. Les résultats montrent un impact significatif sur la santé des résidents.",
+      "image": "/images/elyas-pasban-uAm_c9heHxo-unsplash.jpg",
+      "publishedAt": "2025-02-18T09:37:55.499Z",
+      "slug": "resultats-de-l-etude-sur-la-pollution-sonore",
+      "status": "published",
+      "title": "Résultats de l'étude sur la pollution sonore"
+    },
+    {
+      "__outstatic": {
+        "commit": "2f7ff9e5a2af3cd50ada1cc331631b4616141c73",
+        "hash": "2218005472",
+        "path": "outstatic/content/actualites/lancement-de-notre-campagne-de-sensibilisation.mdx"
+      },
+      "author": {
+        "name": "Mathieu Dutour",
+        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
+      },
+      "collection": "actualites",
+      "description": "Nous lançons une nouvelle campagne pour sensibiliser le public aux dangers des perturbateurs endocriniens. Découvrez comment vous pouvez participer.",
+      "image": "/images/marc-kargel-qb3Z5BfiAgg-unsplash.jpg",
+      "publishedAt": "2025-02-18T09:38:35.547Z",
+      "slug": "lancement-de-notre-campagne-de-sensibilisation",
+      "status": "published",
+      "title": "Lancement de notre campagne de sensibilisation"
+    },
+    {
+      "__outstatic": {
+        "commit": "712bd26c3272436e171b83f9bffaff55c932d8ac",
+        "hash": "3464607136",
+        "path": "outstatic/content/actualites/conference-sur-les-effets-des-microplastiques.mdx"
+      },
+      "author": {
+        "name": "Mathieu Dutour",
+        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
+      },
+      "collection": "actualites",
+      "description": "Rejoignez-nous pour une conférence passionnante sur l'impact des microplastiques sur notre santé et l'environnement, animée par des experts reconnus.",
+      "image": "/images/antoine-giret-7_TSzqJms4w-unsplash.jpg",
+      "publishedAt": "2025-02-18T09:38:57.243Z",
+      "slug": "conference-sur-les-effets-des-microplastiques",
+      "status": "published",
+      "title": "Conférence sur les effets des microplastiques"
+    },
+    {
+      "__outstatic": {
+        "commit": "02117274660ae5add8094527d78a9d7e49aab23d",
+        "hash": "2823425153",
+        "path": "outstatic/content/projets/etude-sur-la-qualite-de-l-air-urbain.mdx"
+      },
+      "author": {
+        "name": "Mathieu Dutour",
+        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
+      },
+      "collection": "projets",
+      "description": "Analyse approfondie des polluants atmosphériques dans les grandes villes françaises et leurs effets sur la santé respiratoire.",
+      "etat": [
+        {
+          "label": "En cours",
+          "value": "En cours"
+        }
+      ],
+      "image": "/images/kristen-morith-IWpd8KixceA-unsplash.jpg",
+      "publishedAt": "2025-02-18T09:21:03.325Z",
+      "slug": "etude-sur-la-qualite-de-l-air-urbain",
+      "status": "published",
+      "title": "Étude sur la qualité de l'air urbain"
+    },
+    {
+      "__outstatic": {
+        "commit": "0584e67643389f7fd0c9e0104b7108cdc25de98f",
+        "hash": "2359691536",
+        "path": "outstatic/content/actualites/nouvelle-etude-sur-la-qualite-de-l-air-urbain.mdx"
+      },
+      "author": {
+        "name": "Mathieu Dutour",
+        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
+      },
+      "collection": "actualites",
+      "description": "Notre dernière étude révèle des niveaux préoccupants de particules fines dans les grandes villes françaises. Découvrez les résultats et nos recommandations.",
+      "image": "",
+      "publishedAt": "2025-02-18T09:39:21.933Z",
+      "slug": "nouvelle-etude-sur-la-qualite-de-l-air-urbain",
+      "status": "published",
+      "title": "Nouvelle étude sur la qualité de l'air urbain"
+    }
+  ]
+}
