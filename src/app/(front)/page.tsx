@@ -143,7 +143,7 @@ export default async function Home() {
             pouvez contribuer à notre cause.
           </p>
           <Link
-            href="/comment-aider"
+            href="/nous-aider"
             className="bg-green-600 text-white px-6 py-3 rounded-lg text-lg font-semibold hover:bg-green-700 transition duration-300"
           >
             Découvrir comment aider
