@@ -35,7 +35,24 @@
       "fieldType": "Tags",
       "dataType": "array",
       "title": "categories",
-      "values": []
+      "values": [
+        {
+          "label": "Eau",
+          "value": "Eau"
+        },
+        {
+          "label": "Air",
+          "value": "Air"
+        },
+        {
+          "label": "Sol",
+          "value": "Sol"
+        },
+        {
+          "label": "Santé",
+          "value": "Santé"
+        }
+      ]
     }
   }
 }
