@@ -1,25 +1,7 @@
 {
-  "commit": "077eeba4c0f927b1823f3a1095bd942e5c221d52",
-  "generated": "2025-03-01T13:13:25.920Z",
+  "commit": "30c23ea9bda161c54045bbaa199fffa07da3b172",
+  "generated": "2025-03-01T13:13:33.089Z",
   "metadata": [
-    {
-      "__outstatic": {
-        "commit": "1bc48040752a5cab3a91dba593b7d302569dc601",
-        "hash": "2910473247",
-        "path": "outstatic/content/actualites/resultats-de-l-etude-sur-la-pollution-sonore.mdx"
-      },
-      "author": {
-        "name": "Mathieu Dutour",
-        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
-      },
-      "collection": "actualites",
-      "description": "Notre étude sur la pollution sonore dans les zones urbaines est terminée. Les résultats montrent un impact significatif sur la santé des résidents.",
-      "image": "/images/elyas-pasban-uAm_c9heHxo-unsplash.jpg",
-      "publishedAt": "2025-02-18T09:37:55.499Z",
-      "slug": "resultats-de-l-etude-sur-la-pollution-sonore",
-      "status": "published",
-      "title": "Résultats de l'étude sur la pollution sonore"
-    },
     {
       "__outstatic": {
         "commit": "2f7ff9e5a2af3cd50ada1cc331631b4616141c73",
@@ -241,6 +223,30 @@
       "slug": "nouvelle-etude-sur-la-qualite-de-l-air-urbain",
       "status": "published",
       "title": "Nouvelle étude sur la qualité de l'air urbain"
+    },
+    {
+      "__outstatic": {
+        "commit": "30c23ea9bda161c54045bbaa199fffa07da3b172",
+        "hash": "2475939072",
+        "path": "outstatic/content/actualites/resultats-de-l-etude-sur-la-pollution-sonore.mdx"
+      },
+      "author": {
+        "name": "Mathieu Dutour",
+        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
+      },
+      "categories": [
+        {
+          "label": "Santé",
+          "value": "Santé"
+        }
+      ],
+      "collection": "actualites",
+      "description": "Notre étude sur la pollution sonore dans les zones urbaines est terminée. Les résultats montrent un impact significatif sur la santé des résidents.",
+      "image": "/images/elyas-pasban-uAm_c9heHxo-unsplash.jpg",
+      "publishedAt": "2025-02-18T09:37:55.499Z",
+      "slug": "resultats-de-l-etude-sur-la-pollution-sonore",
+      "status": "published",
+      "title": "Résultats de l'étude sur la pollution sonore"
     }
   ]
 }
