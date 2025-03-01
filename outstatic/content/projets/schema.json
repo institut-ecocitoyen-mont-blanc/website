@@ -31,7 +31,7 @@
       "title": "description"
     },
     "categories": {
-      "required": true,
+      "required": false,
       "fieldType": "Tags",
       "dataType": "array",
       "title": "categories",
