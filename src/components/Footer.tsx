@@ -43,6 +43,11 @@ export default function Footer() {
         <nav>
           <ul className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-4">
             <li>
+              <Link href="/a-propos" className="hover:underline">
+                À propos
+              </Link>
+            </li>
+            <li>
               <Link href="/mentions-legales" className="hover:underline">
                 Mentions légales
               </Link>
