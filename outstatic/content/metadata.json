@@ -1,25 +1,7 @@
 {
-  "commit": "8944b9996c400309db0846cb443c8efab273aa60",
-  "generated": "2025-03-01T13:12:53.662Z",
+  "commit": "66c04745ad32baae264179b04538efd397808d4d",
+  "generated": "2025-03-01T13:13:16.017Z",
   "metadata": [
-    {
-      "__outstatic": {
-        "commit": "a6de6d20f4019a15fd0fd24f197708913d5252a2",
-        "hash": "1490353392",
-        "path": "outstatic/content/actualites/nouveau-partenariat-pour-la-recherche-sur-l-eau-potable.mdx"
-      },
-      "author": {
-        "name": "Mathieu Dutour",
-        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
-      },
-      "collection": "actualites",
-      "description": "Nous sommes fiers d'annoncer un nouveau partenariat avec l'Université de Paris pour étudier la qualité de l'eau potable dans la région parisienne.",
-      "image": "/images/alexander-schimmeck-YpOhhVGPkyQ-unsplash.jpg",
-      "publishedAt": "2025-02-18T09:36:36.076Z",
-      "slug": "nouveau-partenariat-pour-la-recherche-sur-l-eau-potable",
-      "status": "published",
-      "title": "Nouveau partenariat pour la recherche sur l'eau potable"
-    },
     {
       "__outstatic": {
         "commit": "1bc48040752a5cab3a91dba593b7d302569dc601",
@@ -229,6 +211,30 @@
       "slug": "conference-sur-les-effets-des-microplastiques",
       "status": "published",
       "title": "Conférence sur les effets des microplastiques"
+    },
+    {
+      "__outstatic": {
+        "commit": "66c04745ad32baae264179b04538efd397808d4d",
+        "hash": "379580923",
+        "path": "outstatic/content/actualites/nouveau-partenariat-pour-la-recherche-sur-l-eau-potable.mdx"
+      },
+      "author": {
+        "name": "Mathieu Dutour",
+        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
+      },
+      "categories": [
+        {
+          "label": "Eau",
+          "value": "Eau"
+        }
+      ],
+      "collection": "actualites",
+      "description": "Nous sommes fiers d'annoncer un nouveau partenariat avec l'Université de Paris pour étudier la qualité de l'eau potable dans la région parisienne.",
+      "image": "/images/alexander-schimmeck-YpOhhVGPkyQ-unsplash.jpg",
+      "publishedAt": "2025-02-18T09:36:36.076Z",
+      "slug": "nouveau-partenariat-pour-la-recherche-sur-l-eau-potable",
+      "status": "published",
+      "title": "Nouveau partenariat pour la recherche sur l'eau potable"
     }
   ]
 }
