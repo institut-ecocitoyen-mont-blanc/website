@@ -94,13 +94,13 @@ export default async function ProjectPage({
                 </h2>
                 <p className="mb-4">
                   Votre soutien est essentiel pour la réussite de ce projet.
-                  Découvrez comment vous pouvez nous aider.
+                  Découvrez comment vous pouvez agir.
                 </p>
                 <Link
-                  href="/nous-aider"
+                  href="/etre-acteur"
                   className="inline-block bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition duration-300"
                 >
-                  Nous Aider
+                  Être Acteur
                 </Link>
               </div>
             </div>

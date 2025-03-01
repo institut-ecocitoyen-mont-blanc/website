@@ -41,7 +41,7 @@ export default function HowToHelpPage() {
     <main className="flex-grow">
       <section className="py-16 pt-32 bg-gray-100">
         <div className="container mx-auto">
-          <h1 className="text-4xl font-bold mb-8 text-center">Comment Aider</h1>
+          <h1 className="text-4xl font-bold mb-8 text-center">Comment Agir</h1>
           <p className="text-xl text-center mb-12">
             Ensemble, nous pouvons faire la différence pour notre environnement
             et notre santé. Voici comment vous pouvez nous aider :

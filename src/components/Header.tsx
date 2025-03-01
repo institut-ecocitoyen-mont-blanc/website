@@ -30,10 +30,10 @@ export default function Header() {
             </li>
             <li>
               <Link
-                href="/nous-aider"
+                href="/etre-acteur"
                 className={`px-4 py-2 rounded-md font-semibold transition duration-300 bg-blue-900 text-white hover:bg-blue-700`}
               >
-                Nous Aider
+                Être Acteur
               </Link>
             </li>
           </ul>

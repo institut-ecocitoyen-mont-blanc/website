@@ -63,10 +63,10 @@ export default async function Home() {
             indépendantes sur les pollutions et leurs effets sur la santé.
           </p>
           <a
-            href="/nous-aider"
+            href="/etre-acteur"
             className="bg-green-500 text-white px-6 py-3 rounded-lg text-lg font-semibold hover:bg-green-600 transition duration-300"
           >
-            Nous Aider
+            Être Acteur
           </a>
         </div>
       </section>
@@ -148,16 +148,16 @@ export default async function Home() {
 
       <section className="py-16 bg-white">
         <div className="container mx-auto text-center">
-          <h2 className="text-3xl font-bold mb-4">Comment Nous Aider</h2>
+          <h2 className="text-3xl font-bold mb-4">Comment Agir</h2>
           <p className="mb-8">
             Votre soutien est crucial pour notre mission. Découvrez comment vous
             pouvez contribuer à notre cause.
           </p>
           <Link
-            href="/nous-aider"
+            href="/etre-acteur"
             className="bg-green-600 text-white px-6 py-3 rounded-lg text-lg font-semibold hover:bg-green-700 transition duration-300"
           >
-            Découvrir comment aider
+            Découvrir comment agir
           </Link>
         </div>
       </section>
