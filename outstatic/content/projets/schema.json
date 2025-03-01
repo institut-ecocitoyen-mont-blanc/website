@@ -8,8 +8,14 @@
       "dataType": "array",
       "title": "etat",
       "values": [
-        { "label": "En cours", "value": "En cours" },
-        { "label": "Terminé", "value": "Terminé" }
+        {
+          "label": "En cours",
+          "value": "En cours"
+        },
+        {
+          "label": "Terminé",
+          "value": "Terminé"
+        }
       ]
     },
     "image": {
@@ -23,6 +29,13 @@
       "fieldType": "Text",
       "dataType": "string",
       "title": "description"
+    },
+    "categories": {
+      "required": true,
+      "fieldType": "Tags",
+      "dataType": "array",
+      "title": "categories",
+      "values": []
     }
   }
 }
