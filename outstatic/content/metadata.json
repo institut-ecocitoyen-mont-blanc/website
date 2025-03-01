@@ -1,6 +1,6 @@
 {
-  "commit": "0584e67643389f7fd0c9e0104b7108cdc25de98f",
-  "generated": "2025-02-19T11:13:11.201Z",
+  "commit": "58bbd7a730743d9d8b09e86ed37561d915e05fa3",
+  "generated": "2025-03-01T13:12:09.948Z",
   "metadata": [
     {
       "__outstatic": {
@@ -25,30 +25,6 @@
       "slug": "evaluation-des-perturbateurs-endocriniens-dans-l-eau-potable",
       "status": "published",
       "title": "Évaluation des perturbateurs endocriniens dans l'eau potable"
-    },
-    {
-      "__outstatic": {
-        "commit": "041b11e61db3486db97658a4c1f6cc595c928865",
-        "hash": "1818215829",
-        "path": "outstatic/content/projets/cartographie-des-pollutions-sonores.mdx"
-      },
-      "author": {
-        "name": "Mathieu Dutour",
-        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
-      },
-      "collection": "projets",
-      "description": "Création d'une carte interactive des niveaux de bruit dans les zones urbaines et étude de leurs effets sur le stress et le sommeil.",
-      "etat": [
-        {
-          "label": "Terminé",
-          "value": "Terminé"
-        }
-      ],
-      "image": "/images/elyas-pasban-uAm_c9heHxo-unsplash.jpg",
-      "publishedAt": "2025-02-18T09:20:05.231Z",
-      "slug": "cartographie-des-pollutions-sonores",
-      "status": "published",
-      "title": "Cartographie des pollutions sonores"
     },
     {
       "__outstatic": {
@@ -187,6 +163,36 @@
       "slug": "nouvelle-etude-sur-la-qualite-de-l-air-urbain",
       "status": "published",
       "title": "Nouvelle étude sur la qualité de l'air urbain"
+    },
+    {
+      "__outstatic": {
+        "commit": "58bbd7a730743d9d8b09e86ed37561d915e05fa3",
+        "hash": "3344903081",
+        "path": "outstatic/content/projets/cartographie-des-pollutions-sonores.mdx"
+      },
+      "author": {
+        "name": "Mathieu Dutour",
+        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
+      },
+      "categories": [
+        {
+          "label": "Santé",
+          "value": "Santé"
+        }
+      ],
+      "collection": "projets",
+      "description": "Création d'une carte interactive des niveaux de bruit dans les zones urbaines et étude de leurs effets sur le stress et le sommeil.",
+      "etat": [
+        {
+          "label": "Terminé",
+          "value": "Terminé"
+        }
+      ],
+      "image": "/images/elyas-pasban-uAm_c9heHxo-unsplash.jpg",
+      "publishedAt": "2025-02-18T09:20:05.231Z",
+      "slug": "cartographie-des-pollutions-sonores",
+      "status": "published",
+      "title": "Cartographie des pollutions sonores"
     }
   ]
 }
