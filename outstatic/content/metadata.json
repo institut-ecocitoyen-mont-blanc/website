@@ -1,6 +1,6 @@
 {
-  "commit": "66c04745ad32baae264179b04538efd397808d4d",
-  "generated": "2025-03-01T13:13:16.017Z",
+  "commit": "077eeba4c0f927b1823f3a1095bd942e5c221d52",
+  "generated": "2025-03-01T13:13:25.920Z",
   "metadata": [
     {
       "__outstatic": {
@@ -37,24 +37,6 @@
       "slug": "lancement-de-notre-campagne-de-sensibilisation",
       "status": "published",
       "title": "Lancement de notre campagne de sensibilisation"
-    },
-    {
-      "__outstatic": {
-        "commit": "0584e67643389f7fd0c9e0104b7108cdc25de98f",
-        "hash": "2359691536",
-        "path": "outstatic/content/actualites/nouvelle-etude-sur-la-qualite-de-l-air-urbain.mdx"
-      },
-      "author": {
-        "name": "Mathieu Dutour",
-        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
-      },
-      "collection": "actualites",
-      "description": "Notre dernière étude révèle des niveaux préoccupants de particules fines dans les grandes villes françaises. Découvrez les résultats et nos recommandations.",
-      "image": "",
-      "publishedAt": "2025-02-18T09:39:21.933Z",
-      "slug": "nouvelle-etude-sur-la-qualite-de-l-air-urbain",
-      "status": "published",
-      "title": "Nouvelle étude sur la qualité de l'air urbain"
     },
     {
       "__outstatic": {
@@ -235,6 +217,30 @@
       "slug": "nouveau-partenariat-pour-la-recherche-sur-l-eau-potable",
       "status": "published",
       "title": "Nouveau partenariat pour la recherche sur l'eau potable"
+    },
+    {
+      "__outstatic": {
+        "commit": "077eeba4c0f927b1823f3a1095bd942e5c221d52",
+        "hash": "3379739640",
+        "path": "outstatic/content/actualites/nouvelle-etude-sur-la-qualite-de-l-air-urbain.mdx"
+      },
+      "author": {
+        "name": "Mathieu Dutour",
+        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
+      },
+      "categories": [
+        {
+          "label": "Air",
+          "value": "Air"
+        }
+      ],
+      "collection": "actualites",
+      "description": "Notre dernière étude révèle des niveaux préoccupants de particules fines dans les grandes villes françaises. Découvrez les résultats et nos recommandations.",
+      "image": "/images/kristen-morith-IWpd8KixceA-unsplash.jpg",
+      "publishedAt": "2025-02-18T09:39:21.933Z",
+      "slug": "nouvelle-etude-sur-la-qualite-de-l-air-urbain",
+      "status": "published",
+      "title": "Nouvelle étude sur la qualité de l'air urbain"
     }
   ]
 }
