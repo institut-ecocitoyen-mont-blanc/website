@@ -1,31 +1,7 @@
 {
-  "commit": "1de08bbaee05deba43b0ed34f02dc40fdd212182",
-  "generated": "2025-03-01T13:12:31.557Z",
+  "commit": "0f8e1f85fc5ad096e36fe26d34791111f2770301",
+  "generated": "2025-03-01T13:12:38.386Z",
   "metadata": [
-    {
-      "__outstatic": {
-        "commit": "11fc2d66a4f8a807134f5ae6749e6dd2ca6e84c1",
-        "hash": "3055526392",
-        "path": "outstatic/content/projets/impact-des-microplastiques-sur-la-chaine-alimentaire.mdx"
-      },
-      "author": {
-        "name": "Mathieu Dutour",
-        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
-      },
-      "collection": "projets",
-      "description": "Recherche sur la présence de microplastiques dans les produits de la mer et leurs conséquences sur la santé humaine.",
-      "etat": [
-        {
-          "label": "En cours",
-          "value": "En cours"
-        }
-      ],
-      "image": "/images/antoine-giret-7_TSzqJms4w-unsplash.jpg",
-      "publishedAt": "2025-02-18T09:20:34.455Z",
-      "slug": "impact-des-microplastiques-sur-la-chaine-alimentaire",
-      "status": "published",
-      "title": "Impact des microplastiques sur la chaîne alimentaire"
-    },
     {
       "__outstatic": {
         "commit": "a6de6d20f4019a15fd0fd24f197708913d5252a2",
@@ -213,6 +189,36 @@
       "slug": "evaluation-des-perturbateurs-endocriniens-dans-l-eau-potable",
       "status": "published",
       "title": "Évaluation des perturbateurs endocriniens dans l'eau potable"
+    },
+    {
+      "__outstatic": {
+        "commit": "0f8e1f85fc5ad096e36fe26d34791111f2770301",
+        "hash": "1769692887",
+        "path": "outstatic/content/projets/impact-des-microplastiques-sur-la-chaine-alimentaire.mdx"
+      },
+      "author": {
+        "name": "Mathieu Dutour",
+        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
+      },
+      "categories": [
+        {
+          "label": "Santé",
+          "value": "Santé"
+        }
+      ],
+      "collection": "projets",
+      "description": "Recherche sur la présence de microplastiques dans les produits de la mer et leurs conséquences sur la santé humaine.",
+      "etat": [
+        {
+          "label": "En cours",
+          "value": "En cours"
+        }
+      ],
+      "image": "/images/antoine-giret-7_TSzqJms4w-unsplash.jpg",
+      "publishedAt": "2025-02-18T09:20:34.455Z",
+      "slug": "impact-des-microplastiques-sur-la-chaine-alimentaire",
+      "status": "published",
+      "title": "Impact des microplastiques sur la chaîne alimentaire"
     }
   ]
 }
