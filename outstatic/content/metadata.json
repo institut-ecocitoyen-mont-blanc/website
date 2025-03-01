@@ -1,31 +1,7 @@
 {
-  "commit": "bdd220735087677a790cf3e525ef877985ba75dc",
-  "generated": "2025-03-01T13:12:19.400Z",
+  "commit": "1de08bbaee05deba43b0ed34f02dc40fdd212182",
+  "generated": "2025-03-01T13:12:31.557Z",
   "metadata": [
-    {
-      "__outstatic": {
-        "commit": "",
-        "hash": "2340368290",
-        "path": "outstatic/content/projets/evaluation-des-perturbateurs-endocriniens-dans-l-eau-potable.mdx"
-      },
-      "author": {
-        "name": "Mathieu Dutour",
-        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
-      },
-      "collection": "projets",
-      "description": "Analyse de la présence de perturbateurs endocriniens dans l'eau du robinet et développement de méthodes de filtration avancées.",
-      "etat": [
-        {
-          "label": "Terminé",
-          "value": "Terminé"
-        }
-      ],
-      "image": "/images/alexander-schimmeck-YpOhhVGPkyQ-unsplash.jpg",
-      "publishedAt": "2025-02-18T09:18:56.687Z",
-      "slug": "evaluation-des-perturbateurs-endocriniens-dans-l-eau-potable",
-      "status": "published",
-      "title": "Évaluation des perturbateurs endocriniens dans l'eau potable"
-    },
     {
       "__outstatic": {
         "commit": "11fc2d66a4f8a807134f5ae6749e6dd2ca6e84c1",
@@ -203,6 +179,40 @@
       "slug": "etude-sur-la-qualite-de-l-air-urbain",
       "status": "published",
       "title": "Étude sur la qualité de l'air urbain"
+    },
+    {
+      "__outstatic": {
+        "commit": "1de08bbaee05deba43b0ed34f02dc40fdd212182",
+        "hash": "656715676",
+        "path": "outstatic/content/projets/evaluation-des-perturbateurs-endocriniens-dans-l-eau-potable.mdx"
+      },
+      "author": {
+        "name": "Mathieu Dutour",
+        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
+      },
+      "categories": [
+        {
+          "label": "Eau",
+          "value": "Eau"
+        },
+        {
+          "label": "Santé",
+          "value": "Santé"
+        }
+      ],
+      "collection": "projets",
+      "description": "Analyse de la présence de perturbateurs endocriniens dans l'eau du robinet et développement de méthodes de filtration avancées.",
+      "etat": [
+        {
+          "label": "Terminé",
+          "value": "Terminé"
+        }
+      ],
+      "image": "/images/alexander-schimmeck-YpOhhVGPkyQ-unsplash.jpg",
+      "publishedAt": "2025-02-18T09:18:56.687Z",
+      "slug": "evaluation-des-perturbateurs-endocriniens-dans-l-eau-potable",
+      "status": "published",
+      "title": "Évaluation des perturbateurs endocriniens dans l'eau potable"
     }
   ]
 }
