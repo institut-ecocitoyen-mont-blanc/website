@@ -1,49 +1,14 @@
 import Image from "next/image";
-import {
-  Microscope,
-  MessageCircle,
-  Lightbulb,
-  ClipboardCheck,
-  FileSearch,
-  ArrowRight,
-} from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
-import { load } from "outstatic/server";
+import { getDocuments, load } from "outstatic/server";
 import Link from "next/link";
 import { ProjectCard } from "@/components/ProjectCard";
 import { NewsCard } from "@/components/NewsCard";
 import { ActualiteCategory, ProjectCategory } from "@/lib/types";
 
 export default async function Home() {
-  const objectives = [
-    {
-      icon: <Microscope className="w-8 h-8 text-blue-500" />,
-      title: "Recherche Indépendante",
-      text: "Développer et partager une connaissance scientifique indépendante des pollutions et polluants, des contaminations qu'ils engendrent et de leurs effets sur la santé des habitants",
-    },
-    {
-      icon: <MessageCircle className="w-8 h-8 text-green-500" />,
-      title: "Communication Transparente",
-      text: "Communiquer les données scientifiques avec transparence et pédagogie",
-    },
-    {
-      icon: <Lightbulb className="w-8 h-8 text-yellow-500" />,
-      title: "Propositions Concrètes",
-      text: "Proposer des orientations et des actions concrètes à mettre en œuvre aux structures compétentes",
-    },
-    {
-      icon: <ClipboardCheck className="w-8 h-8 text-purple-500" />,
-      title: "Évaluation des Actions",
-      text: "Évaluer les actions menées par les pouvoirs publics en réponse aux propositions de l'association",
-    },
-    {
-      icon: <FileSearch className="w-8 h-8 text-red-500" />,
-      title: "Recommandations",
-      text: "Émettre un avis et des recommandations sur l'efficacité des actions mises en place en lien avec les problèmes de pollutions et de santé du territoire",
-    },
-  ];
-
-  const { projects, news } = await getData();
+  const { projects, news, objectifs } = await getData();
 
   return (
     <main className="flex-grow">
@@ -77,7 +42,7 @@ export default async function Home() {
         <div className="container mx-auto">
           <h2 className="text-3xl font-bold mb-8 text-center">Nos Objectifs</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {objectives.map((objective, index) => (
+            {objectifs.map((objectif, index) => (
               <Card
                 key={index}
                 className="overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
@@ -85,15 +50,17 @@ export default async function Home() {
                 <CardContent className="p-6">
                   <div className="flex items-start">
                     <div className="flex-shrink-0 mr-4">
-                      <div className="p-3 rounded-full bg-gray-100">
-                        {objective.icon}
-                      </div>
+                      <div
+                        className="p-3 rounded-full bg-gray-100"
+                        style={{ color: objectif.color }}
+                        dangerouslySetInnerHTML={{ __html: objectif.icon }}
+                      />
                     </div>
                     <div>
                       <h3 className="text-xl font-semibold mb-2">
-                        {objective.title}
+                        {objectif.title}
                       </h3>
-                      <p className="text-gray-600">{objective.text}</p>
+                      <p className="text-gray-600">{objectif.content}</p>
                     </div>
                   </div>
                 </CardContent>
@@ -221,5 +188,19 @@ async function getData() {
     categories: ActualiteCategory[];
   }[];
 
-  return { projects, news };
+  const objectifs = getDocuments("objectifs", [
+    "title",
+    "description",
+    "icon",
+    "color",
+    "content",
+  ]).reverse() as unknown as {
+    title: string;
+    description: string;
+    icon: string;
+    color: string;
+    content: string;
+  }[];
+
+  return { projects, news, objectifs };
 }
