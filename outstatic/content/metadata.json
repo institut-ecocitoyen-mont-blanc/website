@@ -1,6 +1,6 @@
 {
-  "commit": "8a869eeca70b2f2ac31642d6f71bb7a0f6b8c8ec",
-  "generated": "2025-03-05T12:39:48.430Z",
+  "commit": "809e8832b4e61d29a9eb385324e8e4623e82a975",
+  "generated": "2025-03-05T12:40:32.153Z",
   "metadata": [
     {
       "__outstatic": {
@@ -319,6 +319,24 @@
       "slug": "evaluation-des-actions",
       "status": "draft",
       "title": "Évaluation des Actions"
+    },
+    {
+      "__outstatic": {
+        "commit": "809e8832b4e61d29a9eb385324e8e4623e82a975",
+        "hash": "2269813363",
+        "path": "outstatic/content/landing-panels/recommandations.mdx"
+      },
+      "author": {
+        "name": "Mathieu Dutour",
+        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
+      },
+      "collection": "landing-panels",
+      "color": "#ef4444",
+      "icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-file-search\"><path d=\"M14 2v4a2 2 0 0 0 2 2h4\"/><path d=\"M4.268 21a2 2 0 0 0 1.727 1H18a2 2 0 0 0 2-2V7l-5-5H6a2 2 0 0 0-2 2v3\"/><path d=\"m9 18-1.5-1.5\"/><circle cx=\"5\" cy=\"14\" r=\"3\"/></svg>",
+      "publishedAt": "2025-03-05T12:45:53.139Z",
+      "slug": "recommandations",
+      "status": "published",
+      "title": "Recommandations"
     }
   ]
 }
