@@ -1,6 +1,6 @@
 {
-  "commit": "809e8832b4e61d29a9eb385324e8e4623e82a975",
-  "generated": "2025-03-05T12:40:32.153Z",
+  "commit": "47eac709e62e967b8928d36595d3f7e8bc6c5168",
+  "generated": "2025-03-05T12:40:37.581Z",
   "metadata": [
     {
       "__outstatic": {
@@ -304,24 +304,6 @@
     },
     {
       "__outstatic": {
-        "commit": "8a869eeca70b2f2ac31642d6f71bb7a0f6b8c8ec",
-        "hash": "377732686",
-        "path": "outstatic/content/landing-panels/evaluation-des-actions.mdx"
-      },
-      "author": {
-        "name": "Mathieu Dutour",
-        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
-      },
-      "collection": "landing-panels",
-      "color": "#a855f7",
-      "icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-clipboard-check\"><rect width=\"8\" height=\"4\" x=\"8\" y=\"2\" rx=\"1\" ry=\"1\"/><path d=\"M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2\"/><path d=\"m9 14 2 2 4-4\"/></svg>",
-      "publishedAt": "2025-03-05T12:45:09.259Z",
-      "slug": "evaluation-des-actions",
-      "status": "draft",
-      "title": "Évaluation des Actions"
-    },
-    {
-      "__outstatic": {
         "commit": "809e8832b4e61d29a9eb385324e8e4623e82a975",
         "hash": "2269813363",
         "path": "outstatic/content/landing-panels/recommandations.mdx"
@@ -337,6 +319,24 @@
       "slug": "recommandations",
       "status": "published",
       "title": "Recommandations"
+    },
+    {
+      "__outstatic": {
+        "commit": "47eac709e62e967b8928d36595d3f7e8bc6c5168",
+        "hash": "1117891024",
+        "path": "outstatic/content/landing-panels/evaluation-des-actions.mdx"
+      },
+      "author": {
+        "name": "Mathieu Dutour",
+        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
+      },
+      "collection": "landing-panels",
+      "color": "#a855f7",
+      "icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-clipboard-check\"><rect width=\"8\" height=\"4\" x=\"8\" y=\"2\" rx=\"1\" ry=\"1\"/><path d=\"M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2\"/><path d=\"m9 14 2 2 4-4\"/></svg>",
+      "publishedAt": "2025-03-05T12:45:09.259Z",
+      "slug": "evaluation-des-actions",
+      "status": "published",
+      "title": "Évaluation des Actions"
     }
   ]
 }
