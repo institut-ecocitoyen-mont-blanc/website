@@ -1,6 +1,6 @@
 {
-  "commit": "47eac709e62e967b8928d36595d3f7e8bc6c5168",
-  "generated": "2025-03-05T12:40:37.581Z",
+  "commit": "9a169e3aa35a3401d7e09adb455093244f28fd30",
+  "generated": "2025-03-05T12:42:31.041Z",
   "metadata": [
     {
       "__outstatic": {
@@ -337,6 +337,24 @@
       "slug": "evaluation-des-actions",
       "status": "published",
       "title": "Évaluation des Actions"
+    },
+    {
+      "__outstatic": {
+        "commit": "9a169e3aa35a3401d7e09adb455093244f28fd30",
+        "hash": "972305474",
+        "path": "outstatic/content/landing-panels/sciences-participatives.mdx"
+      },
+      "author": {
+        "name": "Mathieu Dutour",
+        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
+      },
+      "collection": "landing-panels",
+      "color": "#14b8a6",
+      "icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-users\"><path d=\"M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2\"/><circle cx=\"9\" cy=\"7\" r=\"4\"/><path d=\"M22 21v-2a4 4 0 0 0-3-3.87\"/><path d=\"M16 3.13a4 4 0 0 1 0 7.75\"/></svg>",
+      "publishedAt": "2025-03-05T12:46:45.242Z",
+      "slug": "sciences-participatives",
+      "status": "published",
+      "title": "Sciences Participatives"
     }
   ]
 }
