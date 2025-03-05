@@ -16,5 +16,11 @@
     "slug": "projets",
     "path": "outstatic/content/projets",
     "children": []
+  },
+  {
+    "title": "Landing Panels",
+    "slug": "landing-panels",
+    "path": "outstatic/content/landing-panels",
+    "children": []
   }
 ]
