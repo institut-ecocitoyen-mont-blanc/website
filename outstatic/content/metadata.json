@@ -1,6 +1,6 @@
 {
-  "commit": "4f162b964413d6122701aec2f220b7c9792788b9",
-  "generated": "2025-03-05T12:27:55.458Z",
+  "commit": "67925980811a1b1fb47bd9f3c5f07c90298e63e3",
+  "generated": "2025-03-05T12:29:06.496Z",
   "metadata": [
     {
       "__outstatic": {
@@ -265,6 +265,24 @@
       "slug": "recherche-independante",
       "status": "published",
       "title": "Recherche Indépendante"
+    },
+    {
+      "__outstatic": {
+        "commit": "67925980811a1b1fb47bd9f3c5f07c90298e63e3",
+        "hash": "1319820135",
+        "path": "outstatic/content/landing-panels/communication-transparente.mdx"
+      },
+      "author": {
+        "name": "Mathieu Dutour",
+        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
+      },
+      "collection": "landing-panels",
+      "color": "#22c55e",
+      "icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-message-circle\"><path d=\"M7.9 20A9 9 0 1 0 4 16.1L2 22Z\"/></svg>",
+      "publishedAt": "2025-03-05T12:34:05.863Z",
+      "slug": "communication-transparente",
+      "status": "published",
+      "title": "Communication Transparente"
     }
   ]
 }
