@@ -8,6 +8,12 @@
       "fieldType": "Text",
       "dataType": "string",
       "title": "icon"
+    },
+    "color": {
+      "required": false,
+      "fieldType": "String",
+      "dataType": "string",
+      "title": "color"
     }
   }
 }
