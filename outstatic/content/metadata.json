@@ -1,6 +1,6 @@
 {
-  "commit": "67925980811a1b1fb47bd9f3c5f07c90298e63e3",
-  "generated": "2025-03-05T12:29:06.496Z",
+  "commit": "2f44834f85860d7ed8e3a48f9b129ee597bb3870",
+  "generated": "2025-03-05T12:39:05.833Z",
   "metadata": [
     {
       "__outstatic": {
@@ -283,6 +283,24 @@
       "slug": "communication-transparente",
       "status": "published",
       "title": "Communication Transparente"
+    },
+    {
+      "__outstatic": {
+        "commit": "2f44834f85860d7ed8e3a48f9b129ee597bb3870",
+        "hash": "2135829118",
+        "path": "outstatic/content/landing-panels/propositions-concretes.mdx"
+      },
+      "author": {
+        "name": "Mathieu Dutour",
+        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
+      },
+      "collection": "landing-panels",
+      "color": "#eab308",
+      "icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-lightbulb\"><path d=\"M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5\"/><path d=\"M9 18h6\"/><path d=\"M10 22h4\"/></svg>",
+      "publishedAt": "2025-03-05T12:44:26.244Z",
+      "slug": "propositions-concretes",
+      "status": "published",
+      "title": "Propositions Concrètes"
     }
   ]
 }
