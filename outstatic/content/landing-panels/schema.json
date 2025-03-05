@@ -1,6 +1,13 @@
 {
-  "title": "Landing Panels",
-  "slug": "landing-panels",
+  "title": "landing-panels",
   "type": "object",
-  "properties": {}
+  "properties": {
+    "icon": {
+      "description": "The icon of the panel as an SVG",
+      "required": false,
+      "fieldType": "Text",
+      "dataType": "string",
+      "title": "icon"
+    }
+  }
 }
