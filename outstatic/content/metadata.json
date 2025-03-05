@@ -252,13 +252,13 @@
       "__outstatic": {
         "commit": "4f162b964413d6122701aec2f220b7c9792788b9",
         "hash": "2534799463",
-        "path": "outstatic/content/landing-panels/recherche-independante.mdx"
+        "path": "outstatic/content/objectifs/recherche-independante.mdx"
       },
       "author": {
         "name": "Mathieu Dutour",
         "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
       },
-      "collection": "landing-panels",
+      "collection": "objectifs",
       "color": "#3b82f6",
       "icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-microscope\"><path d=\"M6 18h8\"/><path d=\"M3 22h18\"/><path d=\"M14 22a7 7 0 1 0 0-14h-1\"/><path d=\"M9 14h2\"/><path d=\"M9 12a2 2 0 0 1-2-2V6h6v4a2 2 0 0 1-2 2Z\"/><path d=\"M12 6V3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3\"/></svg>",
       "publishedAt": "2025-03-05T12:30:24.098Z",
@@ -270,13 +270,13 @@
       "__outstatic": {
         "commit": "67925980811a1b1fb47bd9f3c5f07c90298e63e3",
         "hash": "1319820135",
-        "path": "outstatic/content/landing-panels/communication-transparente.mdx"
+        "path": "outstatic/content/objectifs/communication-transparente.mdx"
       },
       "author": {
         "name": "Mathieu Dutour",
         "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
       },
-      "collection": "landing-panels",
+      "collection": "objectifs",
       "color": "#22c55e",
       "icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-message-circle\"><path d=\"M7.9 20A9 9 0 1 0 4 16.1L2 22Z\"/></svg>",
       "publishedAt": "2025-03-05T12:34:05.863Z",
@@ -288,13 +288,13 @@
       "__outstatic": {
         "commit": "2f44834f85860d7ed8e3a48f9b129ee597bb3870",
         "hash": "2135829118",
-        "path": "outstatic/content/landing-panels/propositions-concretes.mdx"
+        "path": "outstatic/content/objectifs/propositions-concretes.mdx"
       },
       "author": {
         "name": "Mathieu Dutour",
         "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
       },
-      "collection": "landing-panels",
+      "collection": "objectifs",
       "color": "#eab308",
       "icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-lightbulb\"><path d=\"M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5\"/><path d=\"M9 18h6\"/><path d=\"M10 22h4\"/></svg>",
       "publishedAt": "2025-03-05T12:44:26.244Z",
@@ -306,13 +306,13 @@
       "__outstatic": {
         "commit": "809e8832b4e61d29a9eb385324e8e4623e82a975",
         "hash": "2269813363",
-        "path": "outstatic/content/landing-panels/recommandations.mdx"
+        "path": "outstatic/content/objectifs/recommandations.mdx"
       },
       "author": {
         "name": "Mathieu Dutour",
         "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
       },
-      "collection": "landing-panels",
+      "collection": "objectifs",
       "color": "#ef4444",
       "icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-file-search\"><path d=\"M14 2v4a2 2 0 0 0 2 2h4\"/><path d=\"M4.268 21a2 2 0 0 0 1.727 1H18a2 2 0 0 0 2-2V7l-5-5H6a2 2 0 0 0-2 2v3\"/><path d=\"m9 18-1.5-1.5\"/><circle cx=\"5\" cy=\"14\" r=\"3\"/></svg>",
       "publishedAt": "2025-03-05T12:45:53.139Z",
@@ -324,13 +324,13 @@
       "__outstatic": {
         "commit": "47eac709e62e967b8928d36595d3f7e8bc6c5168",
         "hash": "1117891024",
-        "path": "outstatic/content/landing-panels/evaluation-des-actions.mdx"
+        "path": "outstatic/content/objectifs/evaluation-des-actions.mdx"
       },
       "author": {
         "name": "Mathieu Dutour",
         "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
       },
-      "collection": "landing-panels",
+      "collection": "objectifs",
       "color": "#a855f7",
       "icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-clipboard-check\"><rect width=\"8\" height=\"4\" x=\"8\" y=\"2\" rx=\"1\" ry=\"1\"/><path d=\"M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2\"/><path d=\"m9 14 2 2 4-4\"/></svg>",
       "publishedAt": "2025-03-05T12:45:09.259Z",
@@ -342,13 +342,13 @@
       "__outstatic": {
         "commit": "9a169e3aa35a3401d7e09adb455093244f28fd30",
         "hash": "972305474",
-        "path": "outstatic/content/landing-panels/sciences-participatives.mdx"
+        "path": "outstatic/content/objectifs/sciences-participatives.mdx"
       },
       "author": {
         "name": "Mathieu Dutour",
         "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
       },
-      "collection": "landing-panels",
+      "collection": "objectifs",
       "color": "#14b8a6",
       "icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-users\"><path d=\"M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2\"/><circle cx=\"9\" cy=\"7\" r=\"4\"/><path d=\"M22 21v-2a4 4 0 0 0-3-3.87\"/><path d=\"M16 3.13a4 4 0 0 1 0 7.75\"/></svg>",
       "publishedAt": "2025-03-05T12:46:45.242Z",
