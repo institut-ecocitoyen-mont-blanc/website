@@ -1,11 +1,5 @@
 [
   {
-    "title": "sections",
-    "slug": "sections",
-    "path": "outstatic/content/sections",
-    "children": []
-  },
-  {
     "title": "Actualités",
     "slug": "actualites",
     "path": "outstatic/content/actualites",
