@@ -1,6 +1,6 @@
 {
-  "commit": "1faace515ae9d51e10131fed8e7a04680b924d5a",
-  "generated": "2025-03-05T12:24:18.415Z",
+  "commit": "0b36e22a76c5119eabb5786ba7059c118169390f",
+  "generated": "2025-03-05T12:26:55.095Z",
   "metadata": [
     {
       "__outstatic": {
@@ -247,6 +247,23 @@
       "slug": "resultats-de-l-etude-sur-la-pollution-sonore",
       "status": "published",
       "title": "Résultats de l'étude sur la pollution sonore"
+    },
+    {
+      "__outstatic": {
+        "commit": "0b36e22a76c5119eabb5786ba7059c118169390f",
+        "hash": "1656045615",
+        "path": "outstatic/content/landing-panels/recherche-independante.mdx"
+      },
+      "author": {
+        "name": "Mathieu Dutour",
+        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
+      },
+      "collection": "landing-panels",
+      "icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-microscope\"><path d=\"M6 18h8\"/><path d=\"M3 22h18\"/><path d=\"M14 22a7 7 0 1 0 0-14h-1\"/><path d=\"M9 14h2\"/><path d=\"M9 12a2 2 0 0 1-2-2V6h6v4a2 2 0 0 1-2 2Z\"/><path d=\"M12 6V3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3\"/></svg>",
+      "publishedAt": "2025-03-05T12:30:24.098Z",
+      "slug": "recherche-independante",
+      "status": "published",
+      "title": "Recherche Indépendante"
     }
   ]
 }
