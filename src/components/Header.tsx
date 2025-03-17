@@ -14,8 +14,8 @@ export default function Header() {
         <nav>
           <ul className="flex space-x-4">
             <li>
-              <Link href="/#objectifs" className="hover:underline">
-                Objectifs
+              <Link href="/#missions" className="hover:underline">
+                Missions
               </Link>
             </li>
             <li>

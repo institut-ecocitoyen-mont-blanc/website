@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Facebook, Instagram, Linkedin } from "lucide-react";
+import { Facebook, Instagram, Linkedin, Youtube } from "lucide-react";
 
 export default function Footer() {
   return (
@@ -12,7 +12,7 @@ export default function Footer() {
           <p>Ensemble pour un environnement sain</p>
           <div className="flex space-x-4  pt-4">
             <Link
-              href="https://www.facebook.com"
+              href="https://www.facebook.com/people/Institut-Écocitoyen-Pays-du-Mont-Blanc/61570992711918/"
               target="_blank"
               rel="noopener noreferrer"
               className="text-white/70 hover:text-white transition-colors"
@@ -21,7 +21,7 @@ export default function Footer() {
               <Facebook className="w-6 h-6" />
             </Link>
             <Link
-              href="https://www.instagram.com"
+              href="https://www.instagram.com/institut_ecocitoyen_du_pays_mb"
               target="_blank"
               rel="noopener noreferrer"
               className="text-white/70 hover:text-white transition-colors"
@@ -30,7 +30,16 @@ export default function Footer() {
               <Instagram className="w-6 h-6" />
             </Link>
             <Link
-              href="https://www.linkedin.com"
+              href="https://www.youtube.com/@IECPMB"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-white/70 hover:text-white transition-colors"
+            >
+              <span className="sr-only">Youtube</span>
+              <Youtube className="w-6 h-6" />
+            </Link>
+            <Link
+              href="https://www.linkedin.com/company/institut-ecocitoyen-pays-du-mont-blanc"
               target="_blank"
               rel="noopener noreferrer"
               className="text-white/70 hover:text-white transition-colors"

@@ -12,6 +12,7 @@ import {
   Linkedin,
   Instagram,
   ArrowRight,
+  Youtube,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -165,7 +166,7 @@ export default function AboutPage() {
                 <h3 className="text-xl font-semibold mb-4">Nous Contacter</h3>
                 <div className="flex items-center gap-3">
                   <Mail className="w-5 h-5 text-gray-600" />
-                  <span>contact@institut-ecocitoyen.fr</span>
+                  <span>contact@institut-ecocitoyen-pmb.fr</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <Phone className="w-5 h-5 text-gray-600" />
@@ -174,9 +175,9 @@ export default function AboutPage() {
                 <div className="flex items-center gap-3">
                   <MapPin className="w-5 h-5 text-gray-600" />
                   <span>
-                    123 rue de l'Environnement
+                    648 Rue des prés caton
                     <br />
-                    74000 Annecy
+                    74190 Passy
                   </span>
                 </div>
               </div>
@@ -184,7 +185,7 @@ export default function AboutPage() {
                 <h3 className="text-xl font-semibold mb-4">Suivez-nous</h3>
                 <div className="flex gap-4">
                   <Link
-                    href="https://www.facebook.com"
+                    href="https://www.facebook.com/people/Institut-Écocitoyen-Pays-du-Mont-Blanc/61570992711918/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors"
@@ -193,22 +194,31 @@ export default function AboutPage() {
                     <span className="sr-only">Facebook</span>
                   </Link>
                   <Link
-                    href="https://www.linkedin.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors"
-                  >
-                    <Linkedin className="w-6 h-6" />
-                    <span className="sr-only">LinkedIn</span>
-                  </Link>
-                  <Link
-                    href="https://www.instagram.com"
+                    href="https://www.instagram.com/institut_ecocitoyen_du_pays_mb"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors"
                   >
                     <Instagram className="w-6 h-6" />
                     <span className="sr-only">Instagram</span>
+                  </Link>
+                  <Link
+                    href="https://www.youtube.com/@IECPMB"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors"
+                  >
+                    <Youtube className="w-6 h-6" />
+                    <span className="sr-only">YouTube</span>
+                  </Link>
+                  <Link
+                    href="https://www.linkedin.com/company/institut-ecocitoyen-pays-du-mont-blanc"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors"
+                  >
+                    <Linkedin className="w-6 h-6" />
+                    <span className="sr-only">LinkedIn</span>
                   </Link>
                 </div>
               </div>
