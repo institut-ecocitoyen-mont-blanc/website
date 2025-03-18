@@ -6,12 +6,13 @@ import {
   ProjectCard,
 } from "@/components/ProjectCard";
 import { Search, X } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { ProjectCategory } from "@/lib/types";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export function ProjectList({
   projects,
@@ -25,8 +26,34 @@ export function ProjectList({
     categories: ProjectCategory[];
   }[];
 }) {
-  const [activeFilters, setActiveFilters] = useState<ProjectCategory[]>([]);
-  const [searchQuery, setSearchQuery] = useState("");
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const [activeFilters, setActiveFilters] = useState<ProjectCategory[]>(() => {
+    const categoriesParam = searchParams.get("categories");
+    return categoriesParam
+      ? (categoriesParam.split(",") as ProjectCategory[])
+      : [];
+  });
+  const [searchQuery, setSearchQuery] = useState(
+    () => searchParams.get("q") || ""
+  );
+
+  // Update URL when filters or search query changes
+  useEffect(() => {
+    const params = new URLSearchParams();
+
+    if (activeFilters.length > 0) {
+      params.set("categories", activeFilters.join(","));
+    }
+
+    if (searchQuery) {
+      params.set("q", searchQuery);
+    }
+
+    const newUrl = params.toString() ? `?${params.toString()}` : "";
+    router.push(`/projets${newUrl}`, { scroll: false });
+  }, [activeFilters, searchQuery, router]);
 
   const toggleFilter = (filter: ProjectCategory) => {
     setActiveFilters((current) =>

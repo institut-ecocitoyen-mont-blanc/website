@@ -33,7 +33,7 @@ export default async function ActualitePage({
           <h1 className="text-3xl font-bold mb-4">{newsItem.title}</h1>
           <div className="flex items-center text-gray-600 mb-6">
             <Calendar className="w-4 h-4 mr-2" />
-            <span>{newsItem.publishedAt.toString()}</span>
+            <span>{newsItem.publishedAt.toDateString()}</span>
             {/* <Badge variant="secondary" className="ml-4">
               {newsItem.category}
             </Badge> */}
@@ -95,6 +95,7 @@ async function getData(params: { slug: string }) {
 
   return {
     ...projet,
+    publishedAt: new Date(projet.publishedAt),
     content: content.value,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } as any as {

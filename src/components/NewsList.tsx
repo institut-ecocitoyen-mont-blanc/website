@@ -6,12 +6,13 @@ import {
   NewsCard,
 } from "@/components/NewsCard";
 import { Search, X } from "lucide-react";
-import { useMemo, useState } from "react";
+import { act, useEffect, useMemo, useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { ActualiteCategory } from "@/lib/types";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export function NewsList({
   items,
@@ -21,11 +22,41 @@ export function NewsList({
     description: string;
     image: string;
     slug: string;
+    publishedAt: Date;
+    dateEvenement: Date | null;
     categories: ActualiteCategory[];
   }[];
 }) {
-  const [activeFilters, setActiveFilters] = useState<ActualiteCategory[]>([]);
-  const [searchQuery, setSearchQuery] = useState("");
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const [activeFilters, setActiveFilters] = useState<ActualiteCategory[]>(
+    () => {
+      const categoriesParam = searchParams.get("categories");
+      return categoriesParam
+        ? (categoriesParam.split(",") as ActualiteCategory[])
+        : [];
+    }
+  );
+  const [searchQuery, setSearchQuery] = useState(
+    () => searchParams.get("q") || ""
+  );
+
+  // Update URL when filters or search query changes
+  useEffect(() => {
+    const params = new URLSearchParams();
+
+    if (activeFilters.length > 0) {
+      params.set("categories", activeFilters.join(","));
+    }
+
+    if (searchQuery) {
+      params.set("q", searchQuery);
+    }
+
+    const newUrl = params.toString() ? `?${params.toString()}` : "";
+    router.push(`/actualites${newUrl}`, { scroll: false });
+  }, [activeFilters, searchQuery, router]);
 
   const toggleFilter = (filter: ActualiteCategory) => {
     setActiveFilters((current) =>
@@ -41,7 +72,7 @@ export function NewsList({
   };
 
   const filteredNews = useMemo(() => {
-    return items.filter((item) => {
+    const result = items.filter((item) => {
       // Category filter
       const matchesCategory =
         activeFilters.length === 0 ||
@@ -56,6 +87,17 @@ export function NewsList({
 
       return matchesCategory && matchesSearch;
     });
+
+    if (activeFilters.includes("Événement")) {
+      return result.sort((a, b) => {
+        if (a.dateEvenement && b.dateEvenement) {
+          return a.dateEvenement.getTime() - b.dateEvenement.getTime();
+        }
+        return 0;
+      });
+    }
+
+    return result;
   }, [activeFilters, searchQuery, items]);
 
   return (

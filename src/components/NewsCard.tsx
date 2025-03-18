@@ -1,6 +1,7 @@
 import Image from "next/image";
 import {
   ArrowRight,
+  Calendar,
   CalendarDays,
   Droplet,
   Heart,
@@ -90,12 +91,21 @@ export function NewsCard({
     image: string;
     title: string;
     description: string;
+    publishedAt: Date;
+    dateEvenement: Date | null;
     categories: ActualiteCategory[];
   };
 }) {
+  const isEvent = item.categories.includes("Événement");
+
   return (
     <Card key={item.slug} className="group bg-white/80">
-      <div className="relative h-48 overflow-hidden rounded-t-lg">
+      <div
+        className={cn(
+          "relative h-48 overflow-hidden rounded-t-lg",
+          isEvent && "border-l-4 border-r-4 border-purple-500"
+        )}
+      >
         <Image
           src={item.image || "/placeholder.svg"}
           alt={item.title}
@@ -103,30 +113,56 @@ export function NewsCard({
           className="object-cover transition-transform duration-300 group-hover:scale-105"
         />
         <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent" />
+        {isEvent && (
+          <div className="absolute top-0 left-0 w-full bg-purple-500 text-white py-2 px-4 text-center font-semibold z-10">
+            <CalendarDays className="w-4 h-4 inline-block mr-2" />
+            Événement
+          </div>
+        )}
+        {isEvent && (
+          <div className="absolute bottom-0 left-0 w-full bg-black/50 backdrop-blur-sm text-white p-3">
+            <div className="text-center">
+              <span className="block text-sm opacity-80">
+                Date de l&apos;événement
+              </span>
+              <span className="block text-xl font-bold">
+                {(item.dateEvenement || item.publishedAt).toDateString()}
+              </span>
+            </div>
+          </div>
+        )}
       </div>
-      <CardContent className="p-6">
+      <CardContent>
         <div className="flex flex-wrap gap-2 mb-3">
-          {item.categories.map((category) => {
-            const styles = categoryStyles[category];
-            return (
-              <Badge
-                key={category}
-                variant="secondary"
-                className={cn(
-                  "transition-colors",
-                  styles?.lightBg,
-                  styles?.lightText
-                )}
-              >
-                {categoryFilters.find((f) => f.id === category)?.icon}
-                <span className="ml-1">
-                  {categoryFilters.find((f) => f.id === category)?.label}
-                </span>
-              </Badge>
-            );
-          })}
+          {item.categories
+            .filter((x) => x !== "Événement")
+            .map((category) => {
+              const styles = categoryStyles[category];
+              return (
+                <Badge
+                  key={category}
+                  variant="secondary"
+                  className={cn(
+                    "transition-colors",
+                    styles?.lightBg,
+                    styles?.lightText
+                  )}
+                >
+                  {categoryFilters.find((f) => f.id === category)?.icon}
+                  <span className="ml-1">
+                    {categoryFilters.find((f) => f.id === category)?.label}
+                  </span>
+                </Badge>
+              );
+            })}
         </div>
         <h3 className="text-xl font-semibold mb-2 text-black">{item.title}</h3>
+        {!isEvent && (
+          <div className="flex items-center text-gray-600 mb-2">
+            <Calendar className="w-4 h-4 mr-2" />
+            <span>{item.publishedAt.toDateString()}</span>
+          </div>
+        )}
         <p className="text-black/70 mb-4">{item.description}</p>
       </CardContent>
       <CardFooter className="p-6 pt-0">

@@ -7,6 +7,7 @@ import {
   Heart,
   Mountain,
   Wind,
+  Users,
 } from "lucide-react";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -57,6 +58,14 @@ export const categoryStyles: Record<
     lightBg: "bg-red-50",
     lightText: "text-red-900",
   },
+  "Science Participative": {
+    background: "bg-emerald-600",
+    hover: "hover:bg-emerald-700",
+    border: "border-emerald-600",
+    text: "text-emerald-600",
+    lightBg: "bg-emerald-50",
+    lightText: "text-emerald-900",
+  },
 };
 
 export const categoryFilters: {
@@ -68,6 +77,11 @@ export const categoryFilters: {
   { id: "Eau", label: "Eau", icon: <Droplet className="w-4 h-4" /> },
   { id: "Sol", label: "Sol", icon: <Mountain className="w-4 h-4" /> },
   { id: "Santé", label: "Santé", icon: <Heart className="w-4 h-4" /> },
+  {
+    id: "Science Participative",
+    label: "Science Participative",
+    icon: <Users className="w-4 h-4" />,
+  },
 ];
 
 export function ProjectCard({
@@ -128,7 +142,7 @@ export function ProjectCard({
           })}
         </div>
       </div>
-      <CardContent className="p-6">
+      <CardContent>
         <h3 className="text-xl font-semibold mb-2 text-black">
           {project.title}
         </h3>

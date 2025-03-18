@@ -51,6 +51,10 @@
         {
           "label": "Santé",
           "value": "Santé"
+        },
+        {
+          "label": "Science Participative",
+          "value": "Science Participative"
         }
       ]
     }

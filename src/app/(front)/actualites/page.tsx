@@ -21,9 +21,12 @@ async function getData() {
     "slug",
     "publishedAt",
     "categories",
+    "dateEvenement",
   ]) // eslint-disable-next-line @typescript-eslint/no-explicit-any
     .map((x: any) => ({
       ...x,
+      publishedAt: new Date(x.publishedAt),
+      dateEvenement: x.dateEvenement ? new Date(x.dateEvenement) : null,
       categories: x.categories?.map((y: { value: string }) => y.value) ?? [],
     })) as unknown as {
     title: string;
@@ -31,6 +34,7 @@ async function getData() {
     image: string;
     slug: string;
     publishedAt: Date;
+    dateEvenement: Date | null;
     categories: ActualiteCategory[];
   }[];
 
