@@ -115,16 +115,13 @@ export function NewsCard({
         <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent" />
         {isEvent && (
           <div className="absolute top-0 left-0 w-full bg-purple-500 text-white py-2 px-4 text-center font-semibold z-10">
-            <CalendarDays className="w-4 h-4 inline-block mr-2" />
+            <CalendarDays className="w-4 h-4 inline-block mr-2 -mt-1.5" />
             Événement
           </div>
         )}
         {isEvent && (
           <div className="absolute bottom-0 left-0 w-full bg-black/50 backdrop-blur-sm text-white p-3">
             <div className="text-center">
-              <span className="block text-sm opacity-80">
-                Date de l&apos;événement
-              </span>
               <span className="block text-xl font-bold">
                 {(item.dateEvenement || item.publishedAt).toDateString()}
               </span>
