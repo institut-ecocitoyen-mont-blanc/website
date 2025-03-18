@@ -29,7 +29,7 @@ export default async function Home() {
           </p>
           <a
             href="/etre-acteur"
-            className="bg-green-500 text-white px-6 py-3 rounded-lg text-lg font-semibold hover:bg-green-600 transition duration-300"
+            className="bg-green-iec text-white px-6 py-3 rounded-lg text-lg font-semibold hover:bg-green-600 transition duration-300"
           >
             Être Acteur
           </a>
@@ -69,7 +69,7 @@ export default async function Home() {
           </div>
         </div>
       </section>
-      <section className="py-24 bg-blue-500/10">
+      <section className="py-24 bg-blue-iec/10">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center mb-16">
             <h2 className="text-3xl font-bold mb-4 text-black">Nos Projets</h2>
@@ -122,7 +122,7 @@ export default async function Home() {
           </p>
           <Link
             href="/etre-acteur"
-            className="bg-green-600 text-white px-6 py-3 rounded-lg text-lg font-semibold hover:bg-green-700 transition duration-300"
+            className="bg-green-iec text-white px-6 py-3 rounded-lg text-lg font-semibold hover:bg-green-700 transition duration-300"
           >
             Découvrir comment agir
           </Link>

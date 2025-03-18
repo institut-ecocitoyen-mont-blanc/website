@@ -21,7 +21,7 @@ const helpOptions = [
     icon: <Volunteer className="w-12 h-12 text-blue-600" />,
     action: (
       <Link
-        className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition duration-300"
+        className="bg-blue-iec text-white px-4 py-2 rounded-md hover:bg-blue-700 transition duration-300"
         href="/projets"
       >
         En savoir plus
@@ -35,7 +35,7 @@ const helpOptions = [
     icon: <DollarSign className="w-12 h-12 text-green-600" />,
     action: (
       <Link
-        className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition duration-300"
+        className="bg-blue-iec text-white px-4 py-2 rounded-md hover:bg-blue-700 transition duration-300"
         href="https://www.helloasso.com/associations/institut-ecocitoyen-de-recherche-et-d-action-environnementale-du-pays-du-mont-blanc"
       >
         Adhérer
@@ -53,7 +53,7 @@ const helpOptions = [
           href="https://www.facebook.com/people/Institut-Écocitoyen-Pays-du-Mont-Blanc/61570992711918/"
           target="_blank"
           rel="noopener noreferrer"
-          className="text-blue-600 hover:text-blue-700 transition-colors"
+          className="text-blue-iec hover:text-blue-700 transition-colors"
         >
           <span className="sr-only">Facebook</span>
           <Facebook className="w-6 h-6" />
@@ -62,7 +62,7 @@ const helpOptions = [
           href="https://www.instagram.com/institut_ecocitoyen_du_pays_mb"
           target="_blank"
           rel="noopener noreferrer"
-          className="text-blue-600 hover:text-blue-700 transition-colors"
+          className="text-blue-iec hover:text-blue-700 transition-colors"
         >
           <span className="sr-only">Instagram</span>
           <Instagram className="w-6 h-6" />
@@ -71,7 +71,7 @@ const helpOptions = [
           href="https://www.youtube.com/@IECPMB"
           target="_blank"
           rel="noopener noreferrer"
-          className="text-blue-600 hover:text-blue-700 transition-colors"
+          className="text-blue-iec hover:text-blue-700 transition-colors"
         >
           <span className="sr-only">YouTube</span>
           <Youtube className="w-6 h-6" />
@@ -80,7 +80,7 @@ const helpOptions = [
           href="https://www.linkedin.com/company/institut-ecocitoyen-pays-du-mont-blanc"
           target="_blank"
           rel="noopener noreferrer"
-          className="text-blue-600 hover:text-blue-700 transition-colors"
+          className="text-blue-iec hover:text-blue-700 transition-colors"
         >
           <span className="sr-only">LinkedIn</span>
           <Linkedin className="w-6 h-6" />
@@ -95,7 +95,7 @@ const helpOptions = [
     icon: <Users className="w-12 h-12 text-purple-600" />,
     action: (
       <Link
-        className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition duration-300"
+        className="bg-blue-iec text-white px-4 py-2 rounded-md hover:bg-blue-700 transition duration-300"
         href="https://www.helloasso.com/associations/institut-ecocitoyen-de-recherche-et-d-action-environnementale-du-pays-du-mont-blanc"
       >
         Adhérer
@@ -131,7 +131,7 @@ export default function HowToHelpPage() {
 
         <div className="container mt-16 mb-16">
           <div className="flex items-center gap-2 mb-6">
-            <Mail className="w-6 h-6 text-blue-600" />
+            <Mail className="w-6 h-6 text-blue-iec" />
             <h2 className="text-2xl font-semibold">Contacts et Réseaux</h2>
           </div>
           <div className="grid md:grid-cols-2 gap-8">

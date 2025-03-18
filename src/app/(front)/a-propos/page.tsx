@@ -52,7 +52,7 @@ export default function AboutPage() {
           {/* Histoire/Origine */}
           <div className="mb-16">
             <div className="flex items-center gap-2 mb-6">
-              <History className="w-6 h-6 text-blue-600" />
+              <History className="w-6 h-6 text-blue-iec" />
               <h2 className="text-2xl font-semibold">Histoire et Origine</h2>
             </div>
             <div className="grid md:grid-cols-2 gap-8 items-center">
@@ -84,7 +84,7 @@ export default function AboutPage() {
           {/* Organisation/Fonctionnement */}
           <div className="mb-16">
             <div className="flex items-center gap-2 mb-6">
-              <Users className="w-6 h-6 text-blue-600" />
+              <Users className="w-6 h-6 text-blue-iec" />
               <h2 className="text-2xl font-semibold">
                 Organisation et Fonctionnement
               </h2>
@@ -127,7 +127,7 @@ export default function AboutPage() {
           {/* Partenaires */}
           <div className="mb-16">
             <div className="flex items-center gap-2 mb-6">
-              <Handshake className="w-6 h-6 text-blue-600" />
+              <Handshake className="w-6 h-6 text-blue-iec" />
               <h2 className="text-2xl font-semibold">Nos Partenaires</h2>
             </div>
             <div className="grid md:grid-cols-2 gap-6">
@@ -158,7 +158,7 @@ export default function AboutPage() {
           {/* Contacts/Réseaux */}
           <div className="mb-16">
             <div className="flex items-center gap-2 mb-6">
-              <Mail className="w-6 h-6 text-blue-600" />
+              <Mail className="w-6 h-6 text-blue-iec" />
               <h2 className="text-2xl font-semibold">Contacts et Réseaux</h2>
             </div>
             <div className="grid md:grid-cols-2 gap-8">

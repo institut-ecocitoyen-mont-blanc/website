@@ -25,7 +25,7 @@ export default async function ProjectPage({
       <div className="container mx-auto px-4">
         <Link
           href="/projets"
-          className="inline-flex items-center text-blue-600 hover:underline mb-6"
+          className="inline-flex items-center text-blue-iec hover:underline mb-6"
         >
           <ArrowLeft className="w-4 h-4 mr-2" />
           Retour aux projets
@@ -37,8 +37,8 @@ export default async function ProjectPage({
               variant="outline"
               className={`mb-4 ${
                 projet.etat === "En cours"
-                  ? "border-green-500 text-green-500"
-                  : "border-blue-500 text-blue-500"
+                  ? "border-green-iec text-green-iec"
+                  : "border-blue-iec text-blue-iec"
               }`}
             >
               {projet.etat === "En cours" ? (
@@ -98,7 +98,7 @@ export default async function ProjectPage({
                 </p>
                 <Link
                   href="/etre-acteur"
-                  className="inline-block bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition duration-300"
+                  className="inline-block bg-blue-iec text-white px-4 py-2 rounded-md hover:bg-blue-700 transition duration-300"
                 >
                   Être Acteur
                 </Link>

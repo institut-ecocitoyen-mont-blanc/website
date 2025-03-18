@@ -24,7 +24,7 @@ export default async function ActualitePage({
       <article className="container mx-auto px-4">
         <Link
           href="/actualites"
-          className="inline-flex items-center text-blue-600 hover:underline mb-6"
+          className="inline-flex items-center text-blue-iec hover:underline mb-6"
         >
           <ArrowLeft className="w-4 h-4 mr-2" />
           Retour aux actualités

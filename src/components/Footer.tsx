@@ -3,7 +3,7 @@ import { Facebook, Instagram, Linkedin, Youtube } from "lucide-react";
 
 export default function Footer() {
   return (
-    <footer className="bg-blue-900 text-white py-8">
+    <footer className="bg-blue-iec text-white py-8">
       <div className="container mx-auto flex flex-col md:flex-row justify-between items-center">
         <div className="mb-4 md:mb-0">
           <h3 className="text-xl font-semibold mb-2">
