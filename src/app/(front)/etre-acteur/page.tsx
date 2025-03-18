@@ -106,7 +106,7 @@ const helpOptions = [
 
 export default function HowToHelpPage() {
   return (
-    <main className="flex-grow">
+    <main className="grow">
       <section className="py-16 pt-32 bg-gray-100">
         <div className="container mx-auto">
           <h1 className="text-4xl font-bold mb-8 text-center">Comment Agir</h1>

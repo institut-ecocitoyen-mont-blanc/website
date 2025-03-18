@@ -42,8 +42,8 @@ const partners = [
 
 export default function AboutPage() {
   return (
-    <main className="flex-grow">
-      <section className="py-16 pt-32 bg-gradient-to-b from-gray-50 to-white">
+    <main className="grow">
+      <section className="py-16 pt-32 bg-linear-to-b from-gray-50 to-white">
         <div className="container mx-auto px-4">
           <h1 className="text-4xl font-bold mb-8 text-center">
             À Propos de l'Institut

@@ -102,7 +102,7 @@ export function NewsCard({
           fill
           className="object-cover transition-transform duration-300 group-hover:scale-105"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+        <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent" />
       </div>
       <CardContent className="p-6">
         <div className="flex flex-wrap gap-2 mb-3">

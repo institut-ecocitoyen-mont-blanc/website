@@ -21,7 +21,7 @@ export default async function ProjectPage({
   }
 
   return (
-    <main className="flex-grow py-16 pt-32">
+    <main className="grow py-16 pt-32">
       <div className="container mx-auto px-4">
         <Link
           href="/projets"

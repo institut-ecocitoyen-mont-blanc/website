@@ -6,7 +6,7 @@ export default async function ProjectsPage() {
   const { projects } = await getData();
 
   return (
-    <main className="flex-grow min-h-screen bg-gray-100">
+    <main className="grow min-h-screen bg-gray-100">
       <section className="py-16 pt-32">
         <ProjectList projects={projects} />
       </section>

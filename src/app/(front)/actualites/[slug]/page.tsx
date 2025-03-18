@@ -19,10 +19,8 @@ export default async function ActualitePage({
     return <div>Article non trouvé</div>;
   }
 
-  console.log(newsItem);
-
   return (
-    <main className="flex-grow py-16 pt-32">
+    <main className="grow py-16 pt-32">
       <article className="container mx-auto px-4">
         <Link
           href="/actualites"

@@ -5,7 +5,7 @@ import { NewsList } from "@/components/NewsList";
 export default async function NewsPage() {
   const { news } = await getData();
   return (
-    <main className="flex-grow">
+    <main className="grow">
       <section className="py-16 pt-32 bg-gray-100">
         <NewsList items={news} />
       </section>

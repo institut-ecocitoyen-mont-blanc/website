@@ -11,7 +11,7 @@ export default async function Home() {
   const { projects, news, objectifs } = await getData();
 
   return (
-    <main className="flex-grow">
+    <main className="grow">
       <section className="relative h-[500px] flex items-center justify-center">
         <Image
           src="/images/marc-kargel-qb3Z5BfiAgg-unsplash.jpg"
@@ -37,7 +37,7 @@ export default async function Home() {
       </section>
       <section
         id="missions"
-        className="py-16 bg-gradient-to-b from-white to-gray-50"
+        className="py-16 bg-linear-to-b from-white to-gray-50"
       >
         <div className="container mx-auto">
           <h2 className="text-3xl font-bold mb-8 text-center">Nos Missions</h2>
@@ -49,7 +49,7 @@ export default async function Home() {
               >
                 <CardContent className="p-6">
                   <div className="flex items-start">
-                    <div className="flex-shrink-0 mr-4">
+                    <div className="shrink-0 mr-4">
                       <div
                         className="p-3 rounded-full bg-gray-100"
                         style={{ color: objectif.color }}

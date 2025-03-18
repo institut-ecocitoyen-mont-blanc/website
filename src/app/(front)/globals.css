@@ -1,15 +1,178 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+@plugin 'tailwindcss-animate';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+
+  --color-chart-1: hsl(var(--chart-1));
+  --color-chart-2: hsl(var(--chart-2));
+  --color-chart-3: hsl(var(--chart-3));
+  --color-chart-4: hsl(var(--chart-4));
+  --color-chart-5: hsl(var(--chart-5));
+
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
 }
 
-html {
-  scroll-behavior: smooth;
+/*
+  The default border color has changed to `currentColor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+}
+
+@utility container {
+  @apply px-4 mx-auto;
+  max-width: 1200px;
+}
+
+@utility markdown {
+  a {
+    color: #4183c4;
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  p,
+  blockquote,
+  ul,
+  ol,
+  dl,
+  table,
+  pre {
+    margin: 15px 0;
+  }
+
+  ul,
+  ol {
+    list-style: initial;
+    padding-left: 30px;
+  }
+
+  h1 {
+    border-bottom: 1px solid #ddd;
+    color: #000;
+    font-size: 2.5em;
+  }
+
+  h2 {
+    border-bottom: 1px solid #eee;
+    color: #000;
+    font-size: 2em;
+  }
+
+  h3 {
+    font-size: 1.5em;
+  }
+
+  h4 {
+    font-size: 1.2em;
+  }
+
+  h5 {
+    font-size: 1em;
+  }
+
+  h6 {
+    color: #777;
+    font-size: 1em;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: bold;
+    line-height: 1.7;
+    margin: 1em 0 15px 0;
+  }
+
+  h1 + p,
+  h2 + p,
+  h3 + p {
+    margin-top: 10px;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  code,
+  pre {
+    background-color: #f8f8f8;
+    border-radius: 3px;
+    border: 1px solid #ddd;
+    font-family: Consolas, 'Liberation Mono', Courier, monospace;
+    font-size: 12px;
+    margin: 0 2px;
+    padding: 0 5px;
+    white-space: pre;
+  }
+
+  pre code {
+    border: none;
+    margin: 0;
+    padding: 0;
+    white-space: pre;
+  }
+}
+
+@layer utilities {
+  :root {
+    --foreground-rgb: 0, 0, 0;
+    --background-start-rgb: 214, 219, 220;
+    --background-end-rgb: 255, 255, 255;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
 @layer base {
@@ -74,108 +237,5 @@ html {
   }
   body {
     @apply bg-background text-foreground;
-  }
-}
-
-@layer utilities {
-  .container {
-    @apply px-4 mx-auto;
-    max-width: 1200px;
-  }
-
-  .markdown {
-    a {
-      color: #4183c4;
-      text-decoration: none;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
-
-    p,
-    blockquote,
-    ul,
-    ol,
-    dl,
-    table,
-    pre {
-      margin: 15px 0;
-    }
-
-    ul,
-    ol {
-      list-style: initial;
-      padding-left: 30px;
-    }
-
-    h1 {
-      border-bottom: 1px solid #ddd;
-      color: #000;
-      font-size: 2.5em;
-    }
-
-    h2 {
-      border-bottom: 1px solid #eee;
-      color: #000;
-      font-size: 2em;
-    }
-
-    h3 {
-      font-size: 1.5em;
-    }
-
-    h4 {
-      font-size: 1.2em;
-    }
-
-    h5 {
-      font-size: 1em;
-    }
-
-    h6 {
-      color: #777;
-      font-size: 1em;
-    }
-
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-      font-weight: bold;
-      line-height: 1.7;
-      margin: 1em 0 15px 0;
-    }
-
-    h1 + p,
-    h2 + p,
-    h3 + p {
-      margin-top: 10px;
-    }
-
-    img {
-      max-width: 100%;
-    }
-
-    code,
-    pre {
-      background-color: #f8f8f8;
-      border-radius: 3px;
-      border: 1px solid #ddd;
-      font-family: Consolas, "Liberation Mono", Courier, monospace;
-      font-size: 12px;
-      margin: 0 2px;
-      padding: 0 5px;
-      white-space: pre;
-    }
-
-    pre code {
-      border: none;
-      margin: 0;
-      padding: 0;
-      white-space: pre;
-    }
   }
 }
