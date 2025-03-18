@@ -1,13 +1,16 @@
 import { getDocuments } from "outstatic/server";
 import { ActualiteCategory } from "@/lib/types";
 import { NewsList } from "@/components/NewsList";
+import { Suspense } from "react";
 
 export default async function NewsPage() {
   const { news } = await getData();
   return (
     <main className="grow">
       <section className="py-16 pt-32 bg-gray-100 min-h-screen">
-        <NewsList items={news} />
+        <Suspense>
+          <NewsList items={news} />
+        </Suspense>
       </section>
     </main>
   );

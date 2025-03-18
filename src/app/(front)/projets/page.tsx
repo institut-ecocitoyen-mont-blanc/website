@@ -1,6 +1,7 @@
 import { getDocuments } from "outstatic/server";
 import { ProjectCategory } from "@/lib/types";
 import { ProjectList } from "@/components/ProjectList";
+import { Suspense } from "react";
 
 export default async function ProjectsPage() {
   const { projects } = await getData();
@@ -8,7 +9,9 @@ export default async function ProjectsPage() {
   return (
     <main className="grow min-h-screen bg-gray-100">
       <section className="py-16 pt-32 min-h-screen">
-        <ProjectList projects={projects} />
+        <Suspense>
+          <ProjectList projects={projects} />
+        </Suspense>
       </section>
     </main>
   );
