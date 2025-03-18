@@ -40,6 +40,13 @@
           "value": "Événement"
         }
       ]
+    },
+    "dateEvenement": {
+      "description": "Si c'est un événement, sa date",
+      "required": false,
+      "fieldType": "Date",
+      "dataType": "date",
+      "title": "Date evenement"
     }
   }
 }
