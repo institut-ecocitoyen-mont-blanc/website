@@ -6,7 +6,7 @@ import {
   NewsCard,
 } from "@/components/NewsCard";
 import { Search, X } from "lucide-react";
-import { act, useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";

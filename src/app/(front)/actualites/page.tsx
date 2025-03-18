@@ -6,7 +6,7 @@ export default async function NewsPage() {
   const { news } = await getData();
   return (
     <main className="grow">
-      <section className="py-16 pt-32 bg-gray-100">
+      <section className="py-16 pt-32 bg-gray-100 min-h-screen">
         <NewsList items={news} />
       </section>
     </main>

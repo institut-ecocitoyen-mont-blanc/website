@@ -7,7 +7,7 @@ export default async function ProjectsPage() {
 
   return (
     <main className="grow min-h-screen bg-gray-100">
-      <section className="py-16 pt-32">
+      <section className="py-16 pt-32 min-h-screen">
         <ProjectList projects={projects} />
       </section>
     </main>
