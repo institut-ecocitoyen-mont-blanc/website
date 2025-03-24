@@ -1,6 +1,6 @@
 {
-  "commit": "",
-  "generated": "Tue, 18 Feb 2025 09:13:42 GMT",
+  "commit": "cb5aba553afcb8b64a7a8c2c0b61255164aff17e",
+  "generated": "2025-03-24T16:04:56.414Z",
   "media": [
     {
       "__outstatic": {
@@ -22,6 +22,17 @@
       "alt": "",
       "filename": "antoine-giret-7_TSzqJms4w-unsplash.jpg",
       "publishedAt": "2025-02-18T09:13:41.885Z",
+      "type": "image"
+    },
+    {
+      "__outstatic": {
+        "commit": "cb5aba553afcb8b64a7a8c2c0b61255164aff17e",
+        "hash": "1613808551",
+        "path": "public/images/capture-d--cran-du-2025-03-24-17-03-17-E5OT.png"
+      },
+      "alt": "",
+      "filename": "capture-d--cran-du-2025-03-24-17-03-17-E5OT.png",
+      "publishedAt": "2025-03-24T16:04:56.414Z",
       "type": "image"
     },
     {
