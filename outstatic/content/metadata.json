@@ -1,6 +1,6 @@
 {
-  "commit": "381f7770236311c7ffaab81065329b9cff6ebff6",
-  "generated": "2025-03-24T16:09:20.686Z",
+  "commit": "3a8568011f21ba38c29bc6a19189fb2324279bfd",
+  "generated": "2025-03-24T16:12:06.480Z",
   "metadata": [
     {
       "__outstatic": {
@@ -358,8 +358,8 @@
     },
     {
       "__outstatic": {
-        "commit": "381f7770236311c7ffaab81065329b9cff6ebff6",
-        "hash": "3865358101",
+        "commit": "3a8568011f21ba38c29bc6a19189fb2324279bfd",
+        "hash": "3470656704",
         "path": "outstatic/content/projets/lichens.mdx"
       },
       "author": {
@@ -387,7 +387,7 @@
       "image": "/images/capture-d--cran-du-2025-03-24-17-03-17-E5OT.png",
       "publishedAt": "2025-03-24T16:03:04.927Z",
       "slug": "lichens",
-      "status": "draft",
+      "status": "published",
       "title": "Lichens"
     }
   ]
