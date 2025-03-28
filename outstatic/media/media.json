@@ -1,6 +1,6 @@
 {
-  "commit": "6d427e53116163f21f00aa1c2118e3a6d0e78e85",
-  "generated": "2025-03-28T15:09:12.051Z",
+  "commit": "57f7d55aed1b050230e464ea94d9777da35251b0",
+  "generated": "2025-03-28T15:10:08.169Z",
   "media": [
     {
       "__outstatic": {
@@ -110,6 +110,17 @@
       "alt": "",
       "filename": "lb_docs-MyOT.png",
       "publishedAt": "2025-03-28T15:09:12.051Z",
+      "type": "image"
+    },
+    {
+      "__outstatic": {
+        "commit": "57f7d55aed1b050230e464ea94d9777da35251b0",
+        "hash": "2123717065",
+        "path": "public/images/lb_docs-g4MD.png"
+      },
+      "alt": "",
+      "filename": "lb_docs-g4MD.png",
+      "publishedAt": "2025-03-28T15:10:08.169Z",
       "type": "image"
     },
     {
