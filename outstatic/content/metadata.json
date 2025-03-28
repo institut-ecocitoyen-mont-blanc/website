@@ -1,6 +1,6 @@
 {
-  "commit": "87d94315875f30d03017dc7f7cab938d36c2d3de",
-  "generated": "2025-03-28T15:20:40.395Z",
+  "commit": "a74815ab0b3c740e79f8827d9e9fbc9e0bf01204",
+  "generated": "2025-03-28T15:32:34.651Z",
   "metadata": [
     {
       "__outstatic": {
@@ -431,6 +431,52 @@
       "slug": "livre-blanc-pollutions-polluants",
       "status": "draft",
       "title": "Livre blanc: pollutions et polluants"
+    },
+    {
+      "__outstatic": {
+        "commit": "a74815ab0b3c740e79f8827d9e9fbc9e0bf01204",
+        "hash": "2053060593",
+        "path": "outstatic/content/projets/livre-blanc-etudes-documents.mdx"
+      },
+      "author": {
+        "name": "JPP",
+        "picture": "https://avatars.githubusercontent.com/u/204351074?v=4"
+      },
+      "categories": [
+        {
+          "label": "Eau",
+          "value": "Eau"
+        },
+        {
+          "label": "Air",
+          "value": "Air"
+        },
+        {
+          "label": "Sol",
+          "value": "Sol"
+        },
+        {
+          "label": "Santé",
+          "value": "Santé"
+        },
+        {
+          "label": "Science Participative",
+          "value": "Science Participative"
+        }
+      ],
+      "collection": "projets",
+      "description": "Etat des lieux documentaire des connaissances sur les pollutions, les polluants et leurs impacts sur la santé et l’environnement.\nAteliers de sciences participatives citoyennes afin de collecter les données.\n",
+      "etat": [
+        {
+          "label": "En cours",
+          "value": "En cours"
+        }
+      ],
+      "image": "/images/lb_docs-g4MD.png",
+      "publishedAt": "2025-03-28T15:27:14.211Z",
+      "slug": "livre-blanc-etudes-documents",
+      "status": "draft",
+      "title": "Livre blanc: études et documents"
     }
   ]
 }
