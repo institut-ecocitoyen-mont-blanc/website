@@ -1,6 +1,6 @@
 {
-  "commit": "f142b7b3c7ce72a7bb8984876754cb84063d20c9",
-  "generated": "2025-03-28T15:05:50.937Z",
+  "commit": "e4dfba13baa92a3621527506df05e4dcadff2ecd",
+  "generated": "2025-03-28T15:07:04.362Z",
   "media": [
     {
       "__outstatic": {
@@ -88,6 +88,17 @@
       "alt": "",
       "filename": "kristen-morith-IWpd8KixceA-unsplash.jpg",
       "publishedAt": "2025-02-18T09:13:41.885Z",
+      "type": "image"
+    },
+    {
+      "__outstatic": {
+        "commit": "e4dfba13baa92a3621527506df05e4dcadff2ecd",
+        "hash": "838927343",
+        "path": "public/images/lettre_info-QwOD.png"
+      },
+      "alt": "",
+      "filename": "lettre_info-QwOD.png",
+      "publishedAt": "2025-03-28T15:07:04.362Z",
       "type": "image"
     },
     {
