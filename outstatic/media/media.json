@@ -1,6 +1,6 @@
 {
-  "commit": "cb5aba553afcb8b64a7a8c2c0b61255164aff17e",
-  "generated": "2025-03-24T16:04:56.414Z",
+  "commit": "445788daabda2d44be9ea918d161dca8581071bf",
+  "generated": "2025-03-28T15:05:20.942Z",
   "media": [
     {
       "__outstatic": {
@@ -22,6 +22,17 @@
       "alt": "",
       "filename": "antoine-giret-7_TSzqJms4w-unsplash.jpg",
       "publishedAt": "2025-02-18T09:13:41.885Z",
+      "type": "image"
+    },
+    {
+      "__outstatic": {
+        "commit": "445788daabda2d44be9ea918d161dca8581071bf",
+        "hash": "3278265673",
+        "path": "public/images/bureaux-cwOD.png"
+      },
+      "alt": "",
+      "filename": "bureaux-cwOD.png",
+      "publishedAt": "2025-03-28T15:05:20.942Z",
       "type": "image"
     },
     {
