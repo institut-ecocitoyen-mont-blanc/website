@@ -1,6 +1,6 @@
 {
-  "commit": "996e2b88f8aefde087fd8474a13e588024dd6bd6",
-  "generated": "2025-03-28T15:54:23.742Z",
+  "commit": "47585778c6fd558b2e0cc1fa2f857861368785f8",
+  "generated": "2025-03-28T15:57:52.336Z",
   "metadata": [
     {
       "__outstatic": {
@@ -647,6 +647,30 @@
       "slug": "recherche-terrains",
       "status": "draft",
       "title": "Recherche de terrains"
+    },
+    {
+      "__outstatic": {
+        "commit": "47585778c6fd558b2e0cc1fa2f857861368785f8",
+        "hash": "3982029113",
+        "path": "outstatic/content/actualites/lettre-information.mdx"
+      },
+      "author": {
+        "name": "JPP",
+        "picture": "https://avatars.githubusercontent.com/u/204351074?v=4"
+      },
+      "categories": [
+        {
+          "label": "Événement",
+          "value": "Événement"
+        }
+      ],
+      "collection": "actualites",
+      "description": "Le numéro 2 de la lettre d'information est paru en janviier 2025",
+      "image": "/images/lettre_info-QwOD.png",
+      "publishedAt": "2025-03-28T16:00:39.824Z",
+      "slug": "lettre-information",
+      "status": "draft",
+      "title": "Lettre d'information"
     }
   ]
 }
