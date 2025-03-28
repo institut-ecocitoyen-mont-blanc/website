@@ -1,6 +1,6 @@
 {
-  "commit": "c6e024a812b9ab1e9b51e25b7b45e555f974061d",
-  "generated": "2025-03-28T15:51:16.979Z",
+  "commit": "996e2b88f8aefde087fd8474a13e588024dd6bd6",
+  "generated": "2025-03-28T15:54:23.742Z",
   "metadata": [
     {
       "__outstatic": {
@@ -623,6 +623,30 @@
       "slug": "journees-etude-lichens",
       "status": "draft",
       "title": "Journées d'étude des lichens"
+    },
+    {
+      "__outstatic": {
+        "commit": "996e2b88f8aefde087fd8474a13e588024dd6bd6",
+        "hash": "487544064",
+        "path": "outstatic/content/actualites/recherche-terrains.mdx"
+      },
+      "author": {
+        "name": "JPP",
+        "picture": "https://avatars.githubusercontent.com/u/204351074?v=4"
+      },
+      "categories": [
+        {
+          "label": "Air",
+          "value": "Air"
+        }
+      ],
+      "collection": "actualites",
+      "description": "Pierre Couëtoux, doctorant, étudie le déplacement des polluants sur les pentes de la vallée. Il recherche des terrains pour mettre en œuvre des mini-stations afin de récolter des données sur les particules fines à différentes altitudes.\nSi vous souhaitez participer à cette étude, vous pouvez contacter Pierre Couëtoux – pierre-couetoutx@univ-grenoble-alpes.fr",
+      "image": "/images/implantation_balises-Y2Mz.png",
+      "publishedAt": "2025-03-28T15:57:55.830Z",
+      "slug": "recherche-terrains",
+      "status": "draft",
+      "title": "Recherche de terrains"
     }
   ]
 }
