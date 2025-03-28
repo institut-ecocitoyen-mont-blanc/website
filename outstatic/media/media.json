@@ -1,6 +1,6 @@
 {
-  "commit": "e4dfba13baa92a3621527506df05e4dcadff2ecd",
-  "generated": "2025-03-28T15:07:04.362Z",
+  "commit": "d3b3968ebceee9c279687152592909456922329b",
+  "generated": "2025-03-28T15:08:17.472Z",
   "media": [
     {
       "__outstatic": {
@@ -66,6 +66,17 @@
       "alt": "",
       "filename": "elyas-pasban-uAm_c9heHxo-unsplash.jpg",
       "publishedAt": "2025-02-18T09:13:41.885Z",
+      "type": "image"
+    },
+    {
+      "__outstatic": {
+        "commit": "d3b3968ebceee9c279687152592909456922329b",
+        "hash": "2972460296",
+        "path": "public/images/epidemiologie-Y3Mz.png"
+      },
+      "alt": "",
+      "filename": "epidemiologie-Y3Mz.png",
+      "publishedAt": "2025-03-28T15:08:17.472Z",
       "type": "image"
     },
     {
