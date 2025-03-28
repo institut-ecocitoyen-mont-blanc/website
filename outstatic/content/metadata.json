@@ -1,6 +1,6 @@
 {
-  "commit": "f7121f14ae03a6fc3ee4f50c803fddc5879be428",
-  "generated": "2025-03-28T16:07:05.912Z",
+  "commit": "a7cfad4a91082ae84d097f9132e9b9a5238922f1",
+  "generated": "2025-03-28T16:07:32.747Z",
   "metadata": [
     {
       "__outstatic": {
@@ -597,35 +597,6 @@
     },
     {
       "__outstatic": {
-        "commit": "c6e024a812b9ab1e9b51e25b7b45e555f974061d",
-        "hash": "2734819790",
-        "path": "outstatic/content/actualites/journees-etude-lichens.mdx"
-      },
-      "author": {
-        "name": "JPP",
-        "picture": "https://avatars.githubusercontent.com/u/204351074?v=4"
-      },
-      "categories": [
-        {
-          "label": "Air",
-          "value": "Air"
-        },
-        {
-          "label": "Événement",
-          "value": "Événement"
-        }
-      ],
-      "collection": "actualites",
-      "dateEvenement": "2025-05-20T22:00:00.000Z",
-      "description": "Du 20 au 22 mai, journées d’étude sur les lichens, en partenariat avec L’institut Ecocitoyen de Fos sur Mer, ouvertes aux partenaires associatifs du territoire du Mont-Blanc.",
-      "image": "/images/capture-d--cran-du-2025-03-24-17-03-17-E5OT.png",
-      "publishedAt": "2025-03-28T15:54:17.537Z",
-      "slug": "journees-etude-lichens",
-      "status": "draft",
-      "title": "Journées d'étude des lichens"
-    },
-    {
-      "__outstatic": {
         "commit": "996e2b88f8aefde087fd8474a13e588024dd6bd6",
         "hash": "487544064",
         "path": "outstatic/content/actualites/recherche-terrains.mdx"
@@ -724,6 +695,35 @@
       "slug": "conference-particules-ultrafines",
       "status": "draft",
       "title": "Conférence sur les particules ultrafines"
+    },
+    {
+      "__outstatic": {
+        "commit": "a7cfad4a91082ae84d097f9132e9b9a5238922f1",
+        "hash": "2909755319",
+        "path": "outstatic/content/actualites/journees-etude-lichens.mdx"
+      },
+      "author": {
+        "name": "JPP",
+        "picture": "https://avatars.githubusercontent.com/u/204351074?v=4"
+      },
+      "categories": [
+        {
+          "label": "Air",
+          "value": "Air"
+        },
+        {
+          "label": "Événement",
+          "value": "Événement"
+        }
+      ],
+      "collection": "actualites",
+      "dateEvenement": "2025-05-20T22:00:00.000Z",
+      "description": "Du 20 au 22 mai, journées d’étude sur les lichens, en partenariat avec L’institut Ecocitoyen de Fos sur Mer, ouvertes aux partenaires associatifs du territoire du Mont-Blanc.",
+      "image": "",
+      "publishedAt": "2025-03-28T15:54:17.537Z",
+      "slug": "journees-etude-lichens",
+      "status": "draft",
+      "title": "Journées d'étude des lichens"
     }
   ]
 }
