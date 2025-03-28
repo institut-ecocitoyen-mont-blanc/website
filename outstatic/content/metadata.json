@@ -1,6 +1,6 @@
 {
-  "commit": "a74815ab0b3c740e79f8827d9e9fbc9e0bf01204",
-  "generated": "2025-03-28T15:32:34.651Z",
+  "commit": "47c26bbff86a076e9b181423903c9107e428a3f5",
+  "generated": "2025-03-28T15:36:07.437Z",
   "metadata": [
     {
       "__outstatic": {
@@ -477,6 +477,40 @@
       "slug": "livre-blanc-etudes-documents",
       "status": "draft",
       "title": "Livre blanc: études et documents"
+    },
+    {
+      "__outstatic": {
+        "commit": "47c26bbff86a076e9b181423903c9107e428a3f5",
+        "hash": "1718274356",
+        "path": "outstatic/content/projets/etude-epidemiologique.mdx"
+      },
+      "author": {
+        "name": "JPP",
+        "picture": "https://avatars.githubusercontent.com/u/204351074?v=4"
+      },
+      "categories": [
+        {
+          "label": "Santé",
+          "value": "Santé"
+        },
+        {
+          "label": "Science Participative",
+          "value": "Science Participative"
+        }
+      ],
+      "collection": "projets",
+      "description": "Sur le modèle des études épidémiologiques réalisées par l’Institut Ecocitoyen de Fos sur Mer, le collège des praticiens de santé mène une démarche en quatre volets permettant d’établir les liens entre les pollutions et l’impact sur la santé humaine.\nCette étude nécessite la participation des habitants du Pays du Mont-Blanc.\n",
+      "etat": [
+        {
+          "label": "En cours",
+          "value": "En cours"
+        }
+      ],
+      "image": "/images/epidemiologie-Y3Mz.png",
+      "publishedAt": "2025-03-28T15:39:07.887Z",
+      "slug": "etude-epidemiologique",
+      "status": "draft",
+      "title": "Etude épidémiologique"
     }
   ]
 }
