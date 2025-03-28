@@ -1,6 +1,6 @@
 {
-  "commit": "445788daabda2d44be9ea918d161dca8581071bf",
-  "generated": "2025-03-28T15:05:20.942Z",
+  "commit": "5ab52b0fbc2c016d039a971bc7f8eda8ea29b6b8",
+  "generated": "2025-03-28T15:05:34.762Z",
   "media": [
     {
       "__outstatic": {
@@ -55,6 +55,17 @@
       "alt": "",
       "filename": "elyas-pasban-uAm_c9heHxo-unsplash.jpg",
       "publishedAt": "2025-02-18T09:13:41.885Z",
+      "type": "image"
+    },
+    {
+      "__outstatic": {
+        "commit": "5ab52b0fbc2c016d039a971bc7f8eda8ea29b6b8",
+        "hash": "3043277042",
+        "path": "public/images/implantation_balises-Y2Mz.png"
+      },
+      "alt": "",
+      "filename": "implantation_balises-Y2Mz.png",
+      "publishedAt": "2025-03-28T15:05:34.762Z",
       "type": "image"
     },
     {
