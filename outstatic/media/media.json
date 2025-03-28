@@ -1,6 +1,6 @@
 {
-  "commit": "185ff8c8d8a86d9dba50e8bfa0ec5c3ddc7e93a6",
-  "generated": "2025-03-28T15:11:08.303Z",
+  "commit": "896d128d5f98697f62000d14b463a9ef6195e954",
+  "generated": "2025-03-28T15:11:52.223Z",
   "media": [
     {
       "__outstatic": {
@@ -132,6 +132,17 @@
       "alt": "",
       "filename": "marc-kargel-qb3Z5BfiAgg-unsplash.jpg",
       "publishedAt": "2025-02-18T09:13:41.885Z",
+      "type": "image"
+    },
+    {
+      "__outstatic": {
+        "commit": "896d128d5f98697f62000d14b463a9ef6195e954",
+        "hash": "2884778667",
+        "path": "public/images/pollutions-U1Mj.png"
+      },
+      "alt": "",
+      "filename": "pollutions-U1Mj.png",
+      "publishedAt": "2025-03-28T15:11:52.223Z",
       "type": "image"
     },
     {
