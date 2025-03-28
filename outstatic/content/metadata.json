@@ -1,6 +1,6 @@
 {
-  "commit": "e303f9d274b3cbbf0d91fa5b612800d1d513d20d",
-  "generated": "2025-03-28T15:45:04.971Z",
+  "commit": "86d879d03b6932e97438b32492a9b7fd7b578624",
+  "generated": "2025-03-28T15:47:54.314Z",
   "metadata": [
     {
       "__outstatic": {
@@ -569,6 +569,31 @@
       "slug": "webinaire-etude-epidemiologique",
       "status": "draft",
       "title": "Webinaire: étude épidémiologique"
+    },
+    {
+      "__outstatic": {
+        "commit": "86d879d03b6932e97438b32492a9b7fd7b578624",
+        "hash": "508738590",
+        "path": "outstatic/content/actualites/assemblee-generale.mdx"
+      },
+      "author": {
+        "name": "JPP",
+        "picture": "https://avatars.githubusercontent.com/u/204351074?v=4"
+      },
+      "categories": [
+        {
+          "label": "Événement",
+          "value": "Événement"
+        }
+      ],
+      "collection": "actualites",
+      "dateEvenement": "2025-04-04T22:00:00.000Z",
+      "description": "Assemblée Générale de L'institut Ecocitoyen du Pays du Mont-Blanc",
+      "image": "/images/ag-I4Nz.png",
+      "publishedAt": "2025-03-28T15:51:20.497Z",
+      "slug": "assemblee-generale",
+      "status": "draft",
+      "title": "Assemblée Générale"
     }
   ]
 }
