@@ -1,6 +1,6 @@
 {
-  "commit": "9084c98ee0bdb0ffe16bd2678598a878bed6b15a",
-  "generated": "2025-03-29T09:04:12.052Z",
+  "commit": "6294293c15ca22170654bbb0184364e2aba8a9be",
+  "generated": "2025-03-29T09:04:50.044Z",
   "metadata": [
     {
       "__outstatic": {
@@ -592,30 +592,6 @@
     },
     {
       "__outstatic": {
-        "commit": "9143b6457445a13ceef66a13334fa66e3c069596",
-        "hash": "2457330106",
-        "path": "outstatic/content/actualites/nouveaux-locaux-institut.mdx"
-      },
-      "author": {
-        "name": "JPP",
-        "picture": "https://avatars.githubusercontent.com/u/204351074?v=4"
-      },
-      "categories": [
-        {
-          "label": "Événement",
-          "value": "Événement"
-        }
-      ],
-      "collection": "actualites",
-      "description": "Début mars, l'Institut occupe de nouveaux locaux au 57 route des Vorziers à Sallanches.",
-      "image": "/images/bureaux-cwOD.png",
-      "publishedAt": "2025-03-28T16:07:53.900Z",
-      "slug": "nouveaux-locaux-institut",
-      "status": "draft",
-      "title": "Nouveaux locaux pour l'Institut"
-    },
-    {
-      "__outstatic": {
         "commit": "f7121f14ae03a6fc3ee4f50c803fddc5879be428",
         "hash": "2932968907",
         "path": "outstatic/content/actualites/conference-particules-ultrafines.mdx"
@@ -724,6 +700,31 @@
       "slug": "lettre-information",
       "status": "draft",
       "title": "Lettre d'information"
+    },
+    {
+      "__outstatic": {
+        "commit": "6294293c15ca22170654bbb0184364e2aba8a9be",
+        "hash": "3110619426",
+        "path": "outstatic/content/actualites/nouveaux-locaux-institut.mdx"
+      },
+      "author": {
+        "name": "JPP",
+        "picture": "https://avatars.githubusercontent.com/u/204351074?v=4"
+      },
+      "categories": [
+        {
+          "label": "Événement",
+          "value": "Événement"
+        }
+      ],
+      "collection": "actualites",
+      "dateEvenement": "2025-03-02T23:00:00.000Z",
+      "description": "Début mars, l'Institut occupe de nouveaux locaux au 57 route des Vorziers à Sallanches.",
+      "image": "/images/bureaux-cwOD.png",
+      "publishedAt": "2025-03-28T16:07:53.900Z",
+      "slug": "nouveaux-locaux-institut",
+      "status": "draft",
+      "title": "Nouveaux locaux pour l'Institut"
     }
   ]
 }
