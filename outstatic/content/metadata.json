@@ -1,6 +1,6 @@
 {
-  "commit": "81881e5999d930406d523a9a2a23e7e71a2c4269",
-  "generated": "2025-03-29T09:20:43.093Z",
+  "commit": "250e98e2bb6d0acbbbfc0567d8f4147aa50167ca",
+  "generated": "2025-03-29T09:21:42.892Z",
   "metadata": [
     {
       "__outstatic": {
@@ -109,34 +109,6 @@
       "slug": "sciences-participatives",
       "status": "published",
       "title": "Sciences Participatives"
-    },
-    {
-      "__outstatic": {
-        "commit": "0215f81308c01a5e7a57293bc7b078eee94d3882",
-        "hash": "1535670893",
-        "path": "outstatic/content/actualites/webinaire-etude-epidemiologique.mdx"
-      },
-      "author": {
-        "name": "JPP",
-        "picture": "https://avatars.githubusercontent.com/u/204351074?v=4"
-      },
-      "categories": [
-        {
-          "label": "Santé",
-          "value": "Santé"
-        },
-        {
-          "label": "Événement",
-          "value": "Événement"
-        }
-      ],
-      "collection": "actualites",
-      "description": "L’Institut Ecocitoyen du Pays du Mont-Blanc, l'Institut Ecocitoyen pour la Connaissance des Pollutions et l’Institut Ecocitoyen en santé environnementale de l’Aude ont proposé leur premier webinaire sur la thématique suivante : « Santé environnementale et épidémiologie participative : comment s’appuyer sur les habitants pour faire évoluer la recherche sur l’impact des pollutions ? »",
-      "image": "/images/epidemiologie-Y3Mz.png",
-      "publishedAt": "2025-03-28T15:48:27.394Z",
-      "slug": "webinaire-etude-epidemiologique",
-      "status": "draft",
-      "title": "Webinaire: étude épidémiologique"
     },
     {
       "__outstatic": {
@@ -726,6 +698,35 @@
       "slug": "recherche-terrains",
       "status": "published",
       "title": "Recherche de terrains"
+    },
+    {
+      "__outstatic": {
+        "commit": "250e98e2bb6d0acbbbfc0567d8f4147aa50167ca",
+        "hash": "2521201550",
+        "path": "outstatic/content/actualites/webinaire-etude-epidemiologique.mdx"
+      },
+      "author": {
+        "name": "JPP",
+        "picture": "https://avatars.githubusercontent.com/u/204351074?v=4"
+      },
+      "categories": [
+        {
+          "label": "Santé",
+          "value": "Santé"
+        },
+        {
+          "label": "Événement",
+          "value": "Événement"
+        }
+      ],
+      "collection": "actualites",
+      "dateEvenement": "2025-03-09T23:00:00.000Z",
+      "description": "L’Institut Ecocitoyen du Pays du Mont-Blanc, l'Institut Ecocitoyen pour la Connaissance des Pollutions et l’Institut Ecocitoyen en santé environnementale de l’Aude ont proposé leur premier webinaire sur la thématique suivante : « Santé environnementale et épidémiologie participative : comment s’appuyer sur les habitants pour faire évoluer la recherche sur l’impact des pollutions ? »",
+      "image": "/images/epidemiologie-Y3Mz.png",
+      "publishedAt": "2025-03-28T15:48:27.394Z",
+      "slug": "webinaire-etude-epidemiologique",
+      "status": "published",
+      "title": "Webinaire: étude épidémiologique"
     }
   ]
 }
