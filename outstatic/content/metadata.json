@@ -1,6 +1,6 @@
 {
-  "commit": "6bbb180fceaae1201254a4a30ae525178bc92f68",
-  "generated": "2025-03-29T09:18:23.110Z",
+  "commit": "ac27f618a2a24b7892ecf7a869f12e0589ea63db",
+  "generated": "2025-03-29T09:19:08.474Z",
   "metadata": [
     {
       "__outstatic": {
@@ -161,31 +161,6 @@
       "slug": "webinaire-etude-epidemiologique",
       "status": "draft",
       "title": "Webinaire: étude épidémiologique"
-    },
-    {
-      "__outstatic": {
-        "commit": "9084c98ee0bdb0ffe16bd2678598a878bed6b15a",
-        "hash": "2768370978",
-        "path": "outstatic/content/actualites/lettre-information.mdx"
-      },
-      "author": {
-        "name": "JPP",
-        "picture": "https://avatars.githubusercontent.com/u/204351074?v=4"
-      },
-      "categories": [
-        {
-          "label": "Événement",
-          "value": "Événement"
-        }
-      ],
-      "collection": "actualites",
-      "dateEvenement": "2025-01-26T23:00:00.000Z",
-      "description": "Le numéro 2 de la lettre d'information est paru en janviier 2025",
-      "image": "/images/lettre_info-QwOD.png",
-      "publishedAt": "2025-03-28T16:00:39.824Z",
-      "slug": "lettre-information",
-      "status": "draft",
-      "title": "Lettre d'information"
     },
     {
       "__outstatic": {
@@ -727,6 +702,30 @@
       "slug": "journees-etudes-epidemiologiques",
       "status": "published",
       "title": "Journées d'études épidémiologiques"
+    },
+    {
+      "__outstatic": {
+        "commit": "ac27f618a2a24b7892ecf7a869f12e0589ea63db",
+        "hash": "924948028",
+        "path": "outstatic/content/actualites/lettre-information.mdx"
+      },
+      "author": {
+        "name": "JPP",
+        "picture": "https://avatars.githubusercontent.com/u/204351074?v=4"
+      },
+      "categories": [
+        {
+          "label": "Événement",
+          "value": "Événement"
+        }
+      ],
+      "collection": "actualites",
+      "description": "Le numéro 2 de la lettre d'information est paru en janviier 2025",
+      "image": "/images/lettre_info-QwOD.png",
+      "publishedAt": "2025-03-28T16:00:39.824Z",
+      "slug": "lettre-information",
+      "status": "draft",
+      "title": "Lettre d'information"
     }
   ]
 }
