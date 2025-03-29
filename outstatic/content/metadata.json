@@ -1,6 +1,6 @@
 {
-  "commit": "5aaf06c6b6b16ec9b1e82de087d9c9fabd9c93ca",
-  "generated": "2025-03-29T09:09:24.171Z",
+  "commit": "0d431ed0cf7932e266b563d5610d1e52edfd1699",
+  "generated": "2025-03-29T09:09:46.802Z",
   "metadata": [
     {
       "__outstatic": {
@@ -19,40 +19,6 @@
       "slug": "lancement-de-notre-campagne-de-sensibilisation",
       "status": "published",
       "title": "Lancement de notre campagne de sensibilisation"
-    },
-    {
-      "__outstatic": {
-        "commit": "bdd220735087677a790cf3e525ef877985ba75dc",
-        "hash": "3089162198",
-        "path": "outstatic/content/projets/etude-sur-la-qualite-de-l-air-urbain.mdx"
-      },
-      "author": {
-        "name": "Mathieu Dutour",
-        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
-      },
-      "categories": [
-        {
-          "label": "Air",
-          "value": "Air"
-        },
-        {
-          "label": "Santé",
-          "value": "Santé"
-        }
-      ],
-      "collection": "projets",
-      "description": "Analyse approfondie des polluants atmosphériques dans les grandes villes françaises et leurs effets sur la santé respiratoire.",
-      "etat": [
-        {
-          "label": "En cours",
-          "value": "En cours"
-        }
-      ],
-      "image": "/images/kristen-morith-IWpd8KixceA-unsplash.jpg",
-      "publishedAt": "2025-02-18T09:21:03.325Z",
-      "slug": "etude-sur-la-qualite-de-l-air-urbain",
-      "status": "published",
-      "title": "Étude sur la qualité de l'air urbain"
     },
     {
       "__outstatic": {
@@ -725,6 +691,40 @@
       "slug": "cartographie-des-pollutions-sonores",
       "status": "draft",
       "title": "Cartographie des pollutions sonores"
+    },
+    {
+      "__outstatic": {
+        "commit": "0d431ed0cf7932e266b563d5610d1e52edfd1699",
+        "hash": "4258102847",
+        "path": "outstatic/content/projets/etude-sur-la-qualite-de-l-air-urbain.mdx"
+      },
+      "author": {
+        "name": "Mathieu Dutour",
+        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
+      },
+      "categories": [
+        {
+          "label": "Air",
+          "value": "Air"
+        },
+        {
+          "label": "Santé",
+          "value": "Santé"
+        }
+      ],
+      "collection": "projets",
+      "description": "Analyse approfondie des polluants atmosphériques dans les grandes villes françaises et leurs effets sur la santé respiratoire.",
+      "etat": [
+        {
+          "label": "En cours",
+          "value": "En cours"
+        }
+      ],
+      "image": "/images/kristen-morith-IWpd8KixceA-unsplash.jpg",
+      "publishedAt": "2025-02-18T09:21:03.325Z",
+      "slug": "etude-sur-la-qualite-de-l-air-urbain",
+      "status": "draft",
+      "title": "Étude sur la qualité de l'air urbain"
     }
   ]
 }
