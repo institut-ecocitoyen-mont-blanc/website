@@ -1,6 +1,6 @@
 {
-  "commit": "6c756385a0b0f68e737a9e7c2337b7566c6d56aa",
-  "generated": "2025-03-29T15:14:39.683Z",
+  "commit": "f2a963d29c7609b8cb2f5f3af5315aca358d401f",
+  "generated": "2025-03-29T15:16:38.170Z",
   "metadata": [
     {
       "__outstatic": {
@@ -565,30 +565,6 @@
     },
     {
       "__outstatic": {
-        "commit": "c6da77779604fb71ac748d24d7425e5db9c31606",
-        "hash": "4017735897",
-        "path": "outstatic/content/actualites/lettre-information.mdx"
-      },
-      "author": {
-        "name": "JPP",
-        "picture": "https://avatars.githubusercontent.com/u/204351074?v=4"
-      },
-      "categories": [
-        {
-          "label": "Événement",
-          "value": "Événement"
-        }
-      ],
-      "collection": "actualites",
-      "description": "Le numéro 2 de la lettre d'information est paru en janviier 2025",
-      "image": "/images/lettre_info-QwOD.png",
-      "publishedAt": "2025-03-28T16:00:39.824Z",
-      "slug": "lettre-information",
-      "status": "published",
-      "title": "Lettre d'information"
-    },
-    {
-      "__outstatic": {
         "commit": "81881e5999d930406d523a9a2a23e7e71a2c4269",
         "hash": "3541021166",
         "path": "outstatic/content/actualites/recherche-terrains.mdx"
@@ -727,6 +703,31 @@
       "slug": "conference-particules-ultrafines",
       "status": "published",
       "title": "Conférence sur les particules ultrafines"
+    },
+    {
+      "__outstatic": {
+        "commit": "f2a963d29c7609b8cb2f5f3af5315aca358d401f",
+        "hash": "247099157",
+        "path": "outstatic/content/actualites/lettre-information.mdx"
+      },
+      "author": {
+        "name": "JPP",
+        "picture": "https://avatars.githubusercontent.com/u/204351074?v=4"
+      },
+      "categories": [
+        {
+          "label": "Événement",
+          "value": "Événement"
+        }
+      ],
+      "collection": "actualites",
+      "dateEvenement": "2025-01-26T23:00:00.000Z",
+      "description": "Le numéro 2 de la lettre d'information est paru en janviier 2025",
+      "image": "/images/lettre_info-QwOD.png",
+      "publishedAt": "2025-03-28T16:00:39.824Z",
+      "slug": "lettre-information",
+      "status": "published",
+      "title": "Lettre d'information"
     }
   ]
 }
