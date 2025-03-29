@@ -1,6 +1,6 @@
 {
-  "commit": "ac27f618a2a24b7892ecf7a869f12e0589ea63db",
-  "generated": "2025-03-29T09:19:08.474Z",
+  "commit": "c6da77779604fb71ac748d24d7425e5db9c31606",
+  "generated": "2025-03-29T09:19:18.915Z",
   "metadata": [
     {
       "__outstatic": {
@@ -705,8 +705,8 @@
     },
     {
       "__outstatic": {
-        "commit": "ac27f618a2a24b7892ecf7a869f12e0589ea63db",
-        "hash": "924948028",
+        "commit": "c6da77779604fb71ac748d24d7425e5db9c31606",
+        "hash": "4017735897",
         "path": "outstatic/content/actualites/lettre-information.mdx"
       },
       "author": {
@@ -724,7 +724,7 @@
       "image": "/images/lettre_info-QwOD.png",
       "publishedAt": "2025-03-28T16:00:39.824Z",
       "slug": "lettre-information",
-      "status": "draft",
+      "status": "published",
       "title": "Lettre d'information"
     }
   ]
