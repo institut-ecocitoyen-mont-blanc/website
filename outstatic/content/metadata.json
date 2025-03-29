@@ -1,6 +1,6 @@
 {
-  "commit": "8f32305f0814ef583c5a59e7c3393ccc77fd3a33",
-  "generated": "2025-03-29T09:10:34.416Z",
+  "commit": "4dbbca013de337ea5ebd38da751792e7420f372b",
+  "generated": "2025-03-29T09:11:10.260Z",
   "metadata": [
     {
       "__outstatic": {
@@ -19,34 +19,6 @@
       "slug": "lancement-de-notre-campagne-de-sensibilisation",
       "status": "published",
       "title": "Lancement de notre campagne de sensibilisation"
-    },
-    {
-      "__outstatic": {
-        "commit": "8944b9996c400309db0846cb443c8efab273aa60",
-        "hash": "527085915",
-        "path": "outstatic/content/actualites/conference-sur-les-effets-des-microplastiques.mdx"
-      },
-      "author": {
-        "name": "Mathieu Dutour",
-        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
-      },
-      "categories": [
-        {
-          "label": "Événement",
-          "value": "Événement"
-        },
-        {
-          "label": "Santé",
-          "value": "Santé"
-        }
-      ],
-      "collection": "actualites",
-      "description": "Rejoignez-nous pour une conférence passionnante sur l'impact des microplastiques sur notre santé et l'environnement, animée par des experts reconnus.",
-      "image": "/images/antoine-giret-7_TSzqJms4w-unsplash.jpg",
-      "publishedAt": "2025-02-18T09:38:57.243Z",
-      "slug": "conference-sur-les-effets-des-microplastiques",
-      "status": "published",
-      "title": "Conférence sur les effets des microplastiques"
     },
     {
       "__outstatic": {
@@ -725,6 +697,34 @@
       "slug": "impact-des-microplastiques-sur-la-chaine-alimentaire",
       "status": "draft",
       "title": "Impact des microplastiques sur la chaîne alimentaire"
+    },
+    {
+      "__outstatic": {
+        "commit": "4dbbca013de337ea5ebd38da751792e7420f372b",
+        "hash": "3911103274",
+        "path": "outstatic/content/actualites/conference-sur-les-effets-des-microplastiques.mdx"
+      },
+      "author": {
+        "name": "Mathieu Dutour",
+        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
+      },
+      "categories": [
+        {
+          "label": "Événement",
+          "value": "Événement"
+        },
+        {
+          "label": "Santé",
+          "value": "Santé"
+        }
+      ],
+      "collection": "actualites",
+      "description": "Rejoignez-nous pour une conférence passionnante sur l'impact des microplastiques sur notre santé et l'environnement, animée par des experts reconnus.",
+      "image": "/images/antoine-giret-7_TSzqJms4w-unsplash.jpg",
+      "publishedAt": "2025-02-18T09:38:57.243Z",
+      "slug": "conference-sur-les-effets-des-microplastiques",
+      "status": "draft",
+      "title": "Conférence sur les effets des microplastiques"
     }
   ]
 }
