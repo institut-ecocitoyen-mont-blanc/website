@@ -1,6 +1,6 @@
 {
-  "commit": "4b1c1029b4ce60814a407015b0af401022ba4390",
-  "generated": "2025-03-29T09:13:06.282Z",
+  "commit": "08de6e18580a2950a4d8564035d0b70b5b0fd8c5",
+  "generated": "2025-03-29T09:14:10.085Z",
   "metadata": [
     {
       "__outstatic": {
@@ -138,31 +138,6 @@
       "slug": "journees-etudes-epidemiologiques",
       "status": "draft",
       "title": "Journées d'études épidémiologiques"
-    },
-    {
-      "__outstatic": {
-        "commit": "86d879d03b6932e97438b32492a9b7fd7b578624",
-        "hash": "508738590",
-        "path": "outstatic/content/actualites/assemblee-generale.mdx"
-      },
-      "author": {
-        "name": "JPP",
-        "picture": "https://avatars.githubusercontent.com/u/204351074?v=4"
-      },
-      "categories": [
-        {
-          "label": "Événement",
-          "value": "Événement"
-        }
-      ],
-      "collection": "actualites",
-      "dateEvenement": "2025-04-04T22:00:00.000Z",
-      "description": "Assemblée Générale de L'institut Ecocitoyen du Pays du Mont-Blanc",
-      "image": "/images/ag-I4Nz.png",
-      "publishedAt": "2025-03-28T15:51:20.497Z",
-      "slug": "assemblee-generale",
-      "status": "draft",
-      "title": "Assemblée Générale"
     },
     {
       "__outstatic": {
@@ -727,6 +702,31 @@
       "slug": "resultats-de-l-etude-sur-la-pollution-sonore",
       "status": "draft",
       "title": "Résultats de l'étude sur la pollution sonore"
+    },
+    {
+      "__outstatic": {
+        "commit": "08de6e18580a2950a4d8564035d0b70b5b0fd8c5",
+        "hash": "582461542",
+        "path": "outstatic/content/actualites/assemblee-generale.mdx"
+      },
+      "author": {
+        "name": "JPP",
+        "picture": "https://avatars.githubusercontent.com/u/204351074?v=4"
+      },
+      "categories": [
+        {
+          "label": "Événement",
+          "value": "Événement"
+        }
+      ],
+      "collection": "actualites",
+      "dateEvenement": "2025-04-04T22:00:00.000Z",
+      "description": "Assemblée Générale de L'institut Ecocitoyen du Pays du Mont-Blanc",
+      "image": "/images/ag-I4Nz.png",
+      "publishedAt": "2025-03-28T15:51:20.497Z",
+      "slug": "assemblee-generale",
+      "status": "published",
+      "title": "Assemblée Générale"
     }
   ]
 }
