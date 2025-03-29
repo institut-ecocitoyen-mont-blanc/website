@@ -1,31 +1,7 @@
 {
-  "commit": "b48898f311a5ba317e7e2a7eb829b82a270e8b31",
-  "generated": "2025-03-29T09:11:35.862Z",
+  "commit": "ae581247502c20fac53d3effedba2db343ce31c0",
+  "generated": "2025-03-29T09:11:59.309Z",
   "metadata": [
-    {
-      "__outstatic": {
-        "commit": "66c04745ad32baae264179b04538efd397808d4d",
-        "hash": "379580923",
-        "path": "outstatic/content/actualites/nouveau-partenariat-pour-la-recherche-sur-l-eau-potable.mdx"
-      },
-      "author": {
-        "name": "Mathieu Dutour",
-        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
-      },
-      "categories": [
-        {
-          "label": "Eau",
-          "value": "Eau"
-        }
-      ],
-      "collection": "actualites",
-      "description": "Nous sommes fiers d'annoncer un nouveau partenariat avec l'Université de Paris pour étudier la qualité de l'eau potable dans la région parisienne.",
-      "image": "/images/alexander-schimmeck-YpOhhVGPkyQ-unsplash.jpg",
-      "publishedAt": "2025-02-18T09:36:36.076Z",
-      "slug": "nouveau-partenariat-pour-la-recherche-sur-l-eau-potable",
-      "status": "published",
-      "title": "Nouveau partenariat pour la recherche sur l'eau potable"
-    },
     {
       "__outstatic": {
         "commit": "077eeba4c0f927b1823f3a1095bd942e5c221d52",
@@ -727,6 +703,30 @@
       "slug": "lancement-de-notre-campagne-de-sensibilisation",
       "status": "draft",
       "title": "Lancement de notre campagne de sensibilisation"
+    },
+    {
+      "__outstatic": {
+        "commit": "ae581247502c20fac53d3effedba2db343ce31c0",
+        "hash": "1366385056",
+        "path": "outstatic/content/actualites/nouveau-partenariat-pour-la-recherche-sur-l-eau-potable.mdx"
+      },
+      "author": {
+        "name": "Mathieu Dutour",
+        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
+      },
+      "categories": [
+        {
+          "label": "Eau",
+          "value": "Eau"
+        }
+      ],
+      "collection": "actualites",
+      "description": "Nous sommes fiers d'annoncer un nouveau partenariat avec l'Université de Paris pour étudier la qualité de l'eau potable dans la région parisienne.",
+      "image": "/images/alexander-schimmeck-YpOhhVGPkyQ-unsplash.jpg",
+      "publishedAt": "2025-02-18T09:36:36.076Z",
+      "slug": "nouveau-partenariat-pour-la-recherche-sur-l-eau-potable",
+      "status": "draft",
+      "title": "Nouveau partenariat pour la recherche sur l'eau potable"
     }
   ]
 }
