@@ -1,6 +1,6 @@
 {
-  "commit": "da096f2ebe7a3cc6602b0d85c9527fb69990d9a9",
-  "generated": "2025-03-30T15:12:18.300Z",
+  "commit": "aacae563213ecd628fa7eb1aa9ce0784677b1263",
+  "generated": "2025-03-31T13:02:29.399Z",
   "metadata": [
     {
       "__outstatic": {
@@ -577,31 +577,6 @@
     },
     {
       "__outstatic": {
-        "commit": "f2a963d29c7609b8cb2f5f3af5315aca358d401f",
-        "hash": "247099157",
-        "path": "outstatic/content/actualites/lettre-information.mdx"
-      },
-      "author": {
-        "name": "JPP",
-        "picture": "https://avatars.githubusercontent.com/u/204351074?v=4"
-      },
-      "categories": [
-        {
-          "label": "Événement",
-          "value": "Événement"
-        }
-      ],
-      "collection": "actualites",
-      "dateEvenement": "2025-01-26T23:00:00.000Z",
-      "description": "Le numéro 2 de la lettre d'information est paru en janviier 2025",
-      "image": "/images/lettre_info-QwOD.png",
-      "publishedAt": "2025-03-28T16:00:39.824Z",
-      "slug": "lettre-information",
-      "status": "published",
-      "title": "Lettre d'information"
-    },
-    {
-      "__outstatic": {
         "commit": "71f69a51f3f150f78b4aa202152242e83dcf47fd",
         "hash": "1366240250",
         "path": "outstatic/content/actualites/assemblee-generale.mdx"
@@ -728,6 +703,31 @@
       "slug": "journees-etudes-epidemiologiques",
       "status": "published",
       "title": "Journées d'études épidémiologiques"
+    },
+    {
+      "__outstatic": {
+        "commit": "aacae563213ecd628fa7eb1aa9ce0784677b1263",
+        "hash": "1806370579",
+        "path": "outstatic/content/actualites/lettre-information.mdx"
+      },
+      "author": {
+        "name": "JPP",
+        "picture": "https://avatars.githubusercontent.com/u/204351074?v=4"
+      },
+      "categories": [
+        {
+          "label": "Événement",
+          "value": "Événement"
+        }
+      ],
+      "collection": "actualites",
+      "dateEvenement": "2025-01-26T23:00:00.000Z",
+      "description": "Le numéro 2 de la lettre d'information est paru en janviier 2025",
+      "image": "/images/lettre_info-QwOD.png",
+      "publishedAt": "2025-03-30T22:00:00.000Z",
+      "slug": "lettre-information",
+      "status": "draft",
+      "title": "Lettre d'information"
     }
   ]
 }
