@@ -7,6 +7,10 @@ import remarkParse from "remark-parse";
 import remarkGfm from "remark-gfm";
 import remarkRehype from "remark-rehype";
 import rehypeStringify from "rehype-stringify";
+import { ActualiteCategory } from "@/lib/types";
+import { categoryFilters, categoryStyles } from "@/components/NewsCard";
+import { Badge } from "@/components/ui/badge";
+import { cn } from "@/lib/utils";
 
 export default async function ActualitePage({
   params,
@@ -21,7 +25,7 @@ export default async function ActualitePage({
 
   return (
     <main className="grow py-16 pt-32">
-      <article className="container mx-auto px-4">
+      <article className="container min-h-screen mx-auto px-4">
         <Link
           href="/actualites"
           className="inline-flex items-center text-blue-iec hover:underline mb-6"
@@ -34,9 +38,29 @@ export default async function ActualitePage({
           <div className="flex items-center text-gray-600 mb-6">
             <Calendar className="w-4 h-4 mr-2" />
             <span>{newsItem.publishedAt.toDateString()}</span>
-            {/* <Badge variant="secondary" className="ml-4">
-              {newsItem.category}
-            </Badge> */}
+          </div>
+          <div className="flex flex-wrap gap-2 mb-3">
+            {newsItem.categories
+              .filter((x) => x !== "Événement")
+              .map((category) => {
+                const styles = categoryStyles[category];
+                return (
+                  <Badge
+                    key={category}
+                    variant="secondary"
+                    className={cn(
+                      "transition-colors",
+                      styles?.lightBg,
+                      styles?.lightText
+                    )}
+                  >
+                    {categoryFilters.find((f) => f.id === category)?.icon}
+                    <span className="ml-1">
+                      {categoryFilters.find((f) => f.id === category)?.label}
+                    </span>
+                  </Badge>
+                );
+              })}
           </div>
           <Image
             src={newsItem.image || "/placeholder.svg"}
@@ -85,6 +109,8 @@ async function getData(params: { slug: string }) {
     "content",
     "author",
     "publishedAt",
+    "categories",
+    "dateEvenement",
   ]);
 
   if (!projet) {
@@ -96,6 +122,8 @@ async function getData(params: { slug: string }) {
   return {
     ...projet,
     publishedAt: new Date(projet.publishedAt),
+    dateEvenement: projet.dateEvenement ? new Date(projet.dateEvenement as string) : null,
+    categories: (projet.categories as any)?.map((y: { value: string }) => y.value) ?? [],
     content: content.value,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } as any as {
@@ -106,6 +134,8 @@ async function getData(params: { slug: string }) {
     content: string;
     author: { name: string };
     publishedAt: Date;
+    dateEvenement: Date | null;
+    categories: ActualiteCategory[];
   };
 }
 

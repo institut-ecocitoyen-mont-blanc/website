@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { getDocumentBySlug } from "outstatic/server";
 
 const partners = [
   {
@@ -40,13 +41,16 @@ const partners = [
   },
 ];
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const { page } = await getData();
+  const content = page.content.split("---").map((x) => x.trim()).filter(Boolean);
+
   return (
     <main className="grow">
       <section className="py-16 pt-32 bg-linear-to-b from-gray-50 to-white">
         <div className="container mx-auto px-4">
           <h1 className="text-4xl font-bold mb-8 text-center">
-            À Propos de l'Institut
+            {content[0]}
           </h1>
 
           {/* Histoire/Origine */}
@@ -58,21 +62,11 @@ export default function AboutPage() {
             <div className="grid md:grid-cols-2 gap-8 items-center">
               <div>
                 <p className="text-gray-600 mb-4">
-                  Fondé en 2015, l'Institut Ecocitoyen du Pays du Mont Blanc est
-                  né de la volonté commune de citoyens, de scientifiques et
-                  d'élus locaux de répondre aux préoccupations croissantes
-                  concernant la qualité de l'air et ses impacts sur la santé
-                  dans la vallée de l'Arve.
-                </p>
-                <p className="text-gray-600">
-                  Notre institut s'est progressivement développé pour devenir un
-                  acteur majeur de la recherche environnementale et de la
-                  sensibilisation aux enjeux de santé publique liés aux
-                  pollutions.
+                  {content[1]}
                 </p>
               </div>
               <Image
-                src="/placeholder.svg?height=300&width=500"
+                src={page.image || "/placeholder.svg"}
                 alt="Histoire de l'institut"
                 width={500}
                 height={300}
@@ -93,31 +87,42 @@ export default function AboutPage() {
               <Card>
                 <CardContent className="pt-6">
                   <h3 className="text-xl font-semibold mb-2">
-                    Conseil d'Administration
+                    Le Conseil d’administration
                   </h3>
-                  <p className="text-gray-600">
-                    Composé de 12 membres élus, le conseil d'administration
-                    définit les orientations stratégiques de l'institut.
+                  <p className="text-gray-600 mb-4">
+                    Des représentants de chaque collège prennent les
+                    décisions. Ils sont dotés de voix décisionnelles, sauf les
+                    collectivités et les experts, qui eux ont un rôle consultatif.
                   </p>
                 </CardContent>
               </Card>
               <Card>
                 <CardContent className="pt-6">
                   <h3 className="text-xl font-semibold mb-2">
-                    Équipe Scientifique
+                    L’Agora
                   </h3>
-                  <p className="text-gray-600">
-                    Notre équipe de chercheurs et techniciens mène les études et
-                    analyses sur le terrain et en laboratoire.
+                  <p className="text-gray-600 mb-4">
+                    Un conseil dédié à tous les habitants,
+                    résidents secondaires et touristes qui
+                    souhaitent s’engager dans des actions
+                    de sensibilisation, intégrer des
+                    protocoles de sciences participatives,
+                    partager des idées et transmettre les
+                    informations entre l’Institut et la
+                    population.
                   </p>
                 </CardContent>
               </Card>
               <Card>
                 <CardContent className="pt-6">
-                  <h3 className="text-xl font-semibold mb-2">Comité Citoyen</h3>
-                  <p className="text-gray-600">
-                    Un groupe de citoyens engagés participe à la définition des
-                    priorités et au suivi des projets.
+                  <h3 className="text-xl font-semibold mb-2">Le Conseil Scientifique</h3>
+                  <p className="text-gray-600 mb-4">
+                    Des chercheurs de la recherche publique,
+                    chargés de conseiller sur les études à
+                    mener, vulgariser les résultats,
+                    transformer les questions locales en
+                    problématiques scientifiques et proposer
+                    des études pour tenter d’y répondre.
                   </p>
                 </CardContent>
               </Card>
@@ -228,12 +233,10 @@ export default function AboutPage() {
           {/* Call to Action */}
           <div className="bg-blue-50 rounded-xl p-8 text-center">
             <h2 className="text-2xl font-semibold mb-4">
-              Rejoignez-nous dans notre mission
+              {content[2]}
             </h2>
             <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
-              Votre soutien est essentiel pour continuer notre travail de
-              recherche et de sensibilisation. Découvrez comment vous pouvez
-              contribuer à notre cause.
+              {content[3]}
             </p>
             <Link href="/etre-acteur">
               <Button size="lg" className="gap-2">
@@ -246,4 +249,13 @@ export default function AboutPage() {
       </section>
     </main>
   );
+}
+
+async function getData() {
+  const page = getDocumentBySlug("static-pages", "a-propos", [
+    "content",
+    "image",
+  ]) as any as {content: string, image: string};
+
+  return { page };
 }

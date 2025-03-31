@@ -1,14 +1,15 @@
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
-import { getDocuments, load } from "outstatic/server";
+import { getDocumentBySlug, getDocuments, load } from "outstatic/server";
 import Link from "next/link";
 import { ProjectCard } from "@/components/ProjectCard";
 import { NewsCard } from "@/components/NewsCard";
 import { ActualiteCategory, ProjectCategory } from "@/lib/types";
 
 export default async function Home() {
-  const { projects, news, objectifs } = await getData();
+  const { projects, news, objectifs, page } = await getData();
+  const content = page.content.split("---").map((x) => x.trim()).filter(Boolean);
 
   return (
     <main className="grow">
@@ -21,11 +22,10 @@ export default async function Home() {
         />
         <div className="relative z-10 text-center text-white">
           <h2 className="text-4xl font-bold mb-4">
-            Avec les citoyens pour leur santé
+            {content[0]}
           </h2>
           <p className="text-xl mb-8 max-w-2xl mx-auto">
-            Nous développons et partageons des connaissances scientifiques
-            indépendantes sur les pollutions et leurs effets sur la santé.
+            {content[1]}
           </p>
           <a
             href="/etre-acteur"
@@ -74,8 +74,7 @@ export default async function Home() {
           <div className="max-w-3xl mx-auto text-center mb-16">
             <h2 className="text-3xl font-bold mb-4 text-black">Nos Projets</h2>
             <p className="text-lg text-black/70 mb-8">
-              Découvrez les projets sur lesquels nous travaillons pour améliorer
-              la santé environnementale.
+              {content[2]}
             </p>
             <Link
               href="/projets"
@@ -115,10 +114,9 @@ export default async function Home() {
 
       <section className="py-16 bg-white">
         <div className="container mx-auto text-center">
-          <h2 className="text-3xl font-bold mb-4">Comment Agir</h2>
+          <h2 className="text-3xl font-bold mb-4">{content[3]}</h2>
           <p className="mb-8">
-            Votre soutien est crucial pour notre mission. Découvrez comment vous
-            pouvez contribuer à notre cause.
+            {content[4]}
           </p>
           <Link
             href="/etre-acteur"
@@ -204,7 +202,11 @@ async function getData() {
     icon: string;
     color: string;
     content: string;
-  }[];
+    }[];
 
-  return { projects, news, objectifs };
+  const page = getDocumentBySlug("static-pages", "page-d-accueil", [
+    "content",
+  ]) as {content: string};
+
+  return { projects, news, objectifs, page };
 }

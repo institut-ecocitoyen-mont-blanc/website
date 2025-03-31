@@ -8,6 +8,9 @@ import remarkParse from "remark-parse";
 import remarkGfm from "remark-gfm";
 import remarkRehype from "remark-rehype";
 import { unified } from "unified";
+import { ProjectCategory } from "@/lib/types";
+import { categoryStyles, categoryFilters } from "@/components/ProjectCard"
+import { cn } from "@/lib/utils";
 
 export default async function ProjectPage({
   params,
@@ -22,7 +25,7 @@ export default async function ProjectPage({
 
   return (
     <main className="grow py-16 pt-32">
-      <div className="container mx-auto px-4">
+      <div className="container min-h-screen mx-auto px-4">
         <Link
           href="/projets"
           className="inline-flex items-center text-blue-iec hover:underline mb-6"
@@ -88,6 +91,27 @@ export default async function ProjectPage({
                 height={400}
                 className="rounded-lg shadow-md mb-6"
               />
+              <div className="absolute top-4 left-4 flex flex-wrap gap-2 max-w-[calc(100%-120px)]">
+                {projet.categories.map((category) => {
+                  const styles = categoryStyles[category];
+                  return (
+                    <Badge
+                      key={category}
+                      variant="secondary"
+                      className={cn(
+                        "transition-colors",
+                        styles.lightBg,
+                        styles.lightText
+                      )}
+                    >
+                      {categoryFilters.find((f) => f.id === category)?.icon}
+                      <span className="ml-1">
+                        {categoryFilters.find((f) => f.id === category)?.label}
+                      </span>
+                    </Badge>
+                  );
+                })}
+              </div>
               <div className="bg-gray-100 p-4 rounded-lg">
                 <h2 className="text-xl font-semibold mb-2">
                   Contribuer à ce projet
@@ -125,6 +149,7 @@ async function getData(params: { slug: string }) {
     "image",
     "slug",
     "content",
+    "categories",
   ]);
 
   if (!projet) {
@@ -138,6 +163,7 @@ async function getData(params: { slug: string }) {
     // @ts-expect-error bla bla bla
     etat: projet.etat[0].value,
     content: content.value,
+    categories: (projet.categories as any)?.map((y: { value: string }) => y.value) ?? [],
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } as any as {
     title: string;
@@ -146,6 +172,7 @@ async function getData(params: { slug: string }) {
     image: string;
     slug: string;
     content: string;
+    categories: ProjectCategory[];
   };
 }
 
