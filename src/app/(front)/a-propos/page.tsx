@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unescaped-entities */
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -16,33 +15,10 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { getDocumentBySlug } from "outstatic/server";
-
-const partners = [
-  {
-    name: "Université de Paris",
-    logo: "/placeholder.svg?height=100&width=200",
-    description: "Collaboration sur des projets de recherche environnementale",
-  },
-  {
-    name: "Airparif",
-    logo: "/placeholder.svg?height=100&width=200",
-    description: "Partenariat pour la surveillance de la qualité de l'air",
-  },
-  {
-    name: "Agence de l'Eau",
-    logo: "/placeholder.svg?height=100&width=200",
-    description: "Soutien technique et financier pour les projets liés à l'eau",
-  },
-  {
-    name: "Santé Publique France",
-    logo: "/placeholder.svg?height=100&width=200",
-    description: "Collaboration sur les études d'impact sanitaire",
-  },
-];
+import { getDocumentBySlug, load } from "outstatic/server";
 
 export default async function AboutPage() {
-  const { page } = await getData();
+  const { page, partenaires } = await getData();
   const content = page.content.split("---").map((x) => x.trim()).filter(Boolean);
 
   return (
@@ -136,21 +112,21 @@ export default async function AboutPage() {
               <h2 className="text-2xl font-semibold">Nos Partenaires</h2>
             </div>
             <div className="grid md:grid-cols-2 gap-6">
-              {partners.map((partner, index) => (
+              {partenaires.map((partner, index) => (
                 <Card key={index} className="overflow-hidden">
                   <CardContent className="p-6">
                     <div className="flex items-center gap-4">
                       <Image
-                        src={partner.logo || "/placeholder.svg"}
-                        alt={partner.name}
+                        src={partner.image || "/placeholder.svg"}
+                        alt={partner.title}
                         width={100}
                         height={50}
                         className="object-contain"
                       />
                       <div>
-                        <h3 className="font-semibold mb-1">{partner.name}</h3>
+                        <h3 className="font-semibold mb-1">{partner.title}</h3>
                         <p className="text-sm text-gray-600">
-                          {partner.description}
+                          {partner.content}
                         </p>
                       </div>
                     </div>
@@ -255,7 +231,26 @@ async function getData() {
   const page = getDocumentBySlug("static-pages", "a-propos", [
     "content",
     "image",
-  ]) as any as {content: string, image: string};
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ]) as any as { content: string, image: string };
 
-  return { page };
+  const db = await load();
+  const partenaires = (
+    await db
+      .find({ collection: "partenaires" }, [
+        "title",
+        "content",
+        "image",
+      ])
+      .sort({ publishedAt: -1 })
+      .limit(4)
+      .toArray()
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ) as any[] as {
+    title: string;
+    content: string;
+    image: string;
+  }[];
+
+  return { page, partenaires };
 }

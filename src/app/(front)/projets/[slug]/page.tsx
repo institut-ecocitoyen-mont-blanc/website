@@ -163,6 +163,7 @@ async function getData(params: { slug: string }) {
     // @ts-expect-error bla bla bla
     etat: projet.etat[0].value,
     content: content.value,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     categories: (projet.categories as any)?.map((y: { value: string }) => y.value) ?? [],
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } as any as {

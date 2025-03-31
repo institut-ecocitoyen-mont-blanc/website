@@ -123,6 +123,7 @@ async function getData(params: { slug: string }) {
     ...projet,
     publishedAt: new Date(projet.publishedAt),
     dateEvenement: projet.dateEvenement ? new Date(projet.dateEvenement as string) : null,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     categories: (projet.categories as any)?.map((y: { value: string }) => y.value) ?? [],
     content: content.value,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
