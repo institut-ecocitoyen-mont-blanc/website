@@ -1,6 +1,6 @@
 {
-  "commit": "552fa0ae699592971d8af57dc3776d21769ae52a",
-  "generated": "2025-03-31T13:03:41.276Z",
+  "commit": "210911754f2b329f5e55faf6274b9b054af2de3b",
+  "generated": "2025-03-31T13:06:51.136Z",
   "metadata": [
     {
       "__outstatic": {
@@ -681,31 +681,6 @@
     },
     {
       "__outstatic": {
-        "commit": "aacae563213ecd628fa7eb1aa9ce0784677b1263",
-        "hash": "1806370579",
-        "path": "outstatic/content/actualites/lettre-information.mdx"
-      },
-      "author": {
-        "name": "JPP",
-        "picture": "https://avatars.githubusercontent.com/u/204351074?v=4"
-      },
-      "categories": [
-        {
-          "label": "Événement",
-          "value": "Événement"
-        }
-      ],
-      "collection": "actualites",
-      "dateEvenement": "2025-01-26T23:00:00.000Z",
-      "description": "Le numéro 2 de la lettre d'information est paru en janviier 2025",
-      "image": "/images/lettre_info-QwOD.png",
-      "publishedAt": "2025-03-30T22:00:00.000Z",
-      "slug": "lettre-information",
-      "status": "draft",
-      "title": "Lettre d'information"
-    },
-    {
-      "__outstatic": {
         "commit": "552fa0ae699592971d8af57dc3776d21769ae52a",
         "hash": "3216343610",
         "path": "outstatic/content/actualites/nouveaux-locaux-institut.mdx"
@@ -728,6 +703,31 @@
       "slug": "nouveaux-locaux-institut",
       "status": "draft",
       "title": "Nouveaux locaux pour l'Institut"
+    },
+    {
+      "__outstatic": {
+        "commit": "210911754f2b329f5e55faf6274b9b054af2de3b",
+        "hash": "2176951736",
+        "path": "outstatic/content/actualites/lettre-information.mdx"
+      },
+      "author": {
+        "name": "JPP",
+        "picture": "https://avatars.githubusercontent.com/u/204351074?v=4"
+      },
+      "categories": [
+        {
+          "label": "Événement",
+          "value": "Événement"
+        }
+      ],
+      "collection": "actualites",
+      "dateEvenement": "2025-01-26T23:00:00.000Z",
+      "description": "Le numéro 2 de la lettre d'information est paru en janviier 2025",
+      "image": "/images/lettre_info-QwOD.png",
+      "publishedAt": "2025-03-30T22:00:00.000Z",
+      "slug": "lettre-information",
+      "status": "published",
+      "title": "Lettre d'information"
     }
   ]
 }
