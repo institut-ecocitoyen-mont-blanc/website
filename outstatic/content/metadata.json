@@ -1,6 +1,6 @@
 {
-  "commit": "50ce7dc3e24b39e21a0eeb6fbd26a79657d2dab9",
-  "generated": "2025-03-31T16:27:45.231Z",
+  "commit": "6dbcff3abe6a58ab573bcf29073903fb957d5ef5",
+  "generated": "2025-03-31T16:28:21.479Z",
   "metadata": [
     {
       "__outstatic": {
@@ -764,8 +764,8 @@
     },
     {
       "__outstatic": {
-        "commit": "50ce7dc3e24b39e21a0eeb6fbd26a79657d2dab9",
-        "hash": "2497209312",
+        "commit": "6dbcff3abe6a58ab573bcf29073903fb957d5ef5",
+        "hash": "3750767130",
         "path": "outstatic/content/partenaires/ccpmb.mdx"
       },
       "author": {
@@ -773,10 +773,10 @@
         "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
       },
       "collection": "partenaires",
-      "image": "",
+      "image": "/images/logopmb-cmjn-U3Mj.png",
       "publishedAt": "2025-03-31T16:34:05.948Z",
       "slug": "ccpmb",
-      "status": "draft",
+      "status": "published",
       "title": "CCPMB"
     }
   ]
