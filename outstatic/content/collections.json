@@ -16,5 +16,11 @@
     "slug": "objectifs",
     "path": "outstatic/content/objectifs",
     "children": []
+  },
+  {
+    "title": "Static Pages",
+    "slug": "static-pages",
+    "path": "outstatic/content/static-pages",
+    "children": []
   }
 ]
