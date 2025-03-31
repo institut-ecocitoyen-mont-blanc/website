@@ -1,6 +1,6 @@
 {
-  "commit": "6d53bf6bfbf75e3668520acfafd17ad366902c2f",
-  "generated": "2025-03-31T15:56:17.137Z",
+  "commit": "0744dadc2950f2165b93644e39b9bd08265ee849",
+  "generated": "2025-03-31T15:56:50.714Z",
   "metadata": [
     {
       "__outstatic": {
@@ -747,8 +747,8 @@
     },
     {
       "__outstatic": {
-        "commit": "6d53bf6bfbf75e3668520acfafd17ad366902c2f",
-        "hash": "1241405482",
+        "commit": "0744dadc2950f2165b93644e39b9bd08265ee849",
+        "hash": "2826560950",
         "path": "outstatic/content/static-pages/a-propos.mdx"
       },
       "author": {
@@ -756,6 +756,7 @@
         "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
       },
       "collection": "static-pages",
+      "image": "",
       "publishedAt": "2025-03-31T16:05:11.742Z",
       "slug": "a-propos",
       "status": "published",
