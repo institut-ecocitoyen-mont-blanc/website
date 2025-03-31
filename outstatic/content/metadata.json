@@ -1,6 +1,6 @@
 {
-  "commit": "e84f1855e7fb4ed0e10fd48ca4877c6a1dd1d359",
-  "generated": "2025-03-31T13:07:26.662Z",
+  "commit": "2c4fe1f6b6f6a5a7c4b32e178c94a8a1b023eded",
+  "generated": "2025-03-31T15:53:05.864Z",
   "metadata": [
     {
       "__outstatic": {
@@ -728,6 +728,22 @@
       "slug": "nouveaux-locaux-institut",
       "status": "published",
       "title": "Nouveaux locaux pour l'Institut"
+    },
+    {
+      "__outstatic": {
+        "commit": "2c4fe1f6b6f6a5a7c4b32e178c94a8a1b023eded",
+        "hash": "139017556",
+        "path": "outstatic/content/static-pages/page-d-accueil.mdx"
+      },
+      "author": {
+        "name": "Mathieu Dutour",
+        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
+      },
+      "collection": "static-pages",
+      "publishedAt": "2025-03-31T16:02:31.764Z",
+      "slug": "page-d-accueil",
+      "status": "published",
+      "title": "Page d'Accueil"
     }
   ]
 }
