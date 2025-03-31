@@ -1,6 +1,6 @@
 {
-  "commit": "0744dadc2950f2165b93644e39b9bd08265ee849",
-  "generated": "2025-03-31T15:56:50.714Z",
+  "commit": "50ce7dc3e24b39e21a0eeb6fbd26a79657d2dab9",
+  "generated": "2025-03-31T16:27:45.231Z",
   "metadata": [
     {
       "__outstatic": {
@@ -761,6 +761,23 @@
       "slug": "a-propos",
       "status": "published",
       "title": "À Propos"
+    },
+    {
+      "__outstatic": {
+        "commit": "50ce7dc3e24b39e21a0eeb6fbd26a79657d2dab9",
+        "hash": "2497209312",
+        "path": "outstatic/content/partenaires/ccpmb.mdx"
+      },
+      "author": {
+        "name": "Mathieu Dutour",
+        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
+      },
+      "collection": "partenaires",
+      "image": "",
+      "publishedAt": "2025-03-31T16:34:05.948Z",
+      "slug": "ccpmb",
+      "status": "draft",
+      "title": "CCPMB"
     }
   ]
 }
