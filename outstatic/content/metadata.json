@@ -1,6 +1,6 @@
 {
-  "commit": "2c4fe1f6b6f6a5a7c4b32e178c94a8a1b023eded",
-  "generated": "2025-03-31T15:53:05.864Z",
+  "commit": "6d53bf6bfbf75e3668520acfafd17ad366902c2f",
+  "generated": "2025-03-31T15:56:17.137Z",
   "metadata": [
     {
       "__outstatic": {
@@ -744,6 +744,22 @@
       "slug": "page-d-accueil",
       "status": "published",
       "title": "Page d'Accueil"
+    },
+    {
+      "__outstatic": {
+        "commit": "6d53bf6bfbf75e3668520acfafd17ad366902c2f",
+        "hash": "1241405482",
+        "path": "outstatic/content/static-pages/a-propos.mdx"
+      },
+      "author": {
+        "name": "Mathieu Dutour",
+        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
+      },
+      "collection": "static-pages",
+      "publishedAt": "2025-03-31T16:05:11.742Z",
+      "slug": "a-propos",
+      "status": "published",
+      "title": "À Propos"
     }
   ]
 }
