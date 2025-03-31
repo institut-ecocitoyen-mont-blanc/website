@@ -1,6 +1,6 @@
 {
-  "commit": "896d128d5f98697f62000d14b463a9ef6195e954",
-  "generated": "2025-03-28T15:11:52.223Z",
+  "commit": "d11b8406a1ebe67e5c8e876dd9f271c95f062d51",
+  "generated": "2025-03-31T16:27:56.807Z",
   "media": [
     {
       "__outstatic": {
@@ -121,6 +121,17 @@
       "alt": "",
       "filename": "lettre_info-QwOD.png",
       "publishedAt": "2025-03-28T15:07:04.362Z",
+      "type": "image"
+    },
+    {
+      "__outstatic": {
+        "commit": "d11b8406a1ebe67e5c8e876dd9f271c95f062d51",
+        "hash": "1730790797",
+        "path": "public/images/logopmb-cmjn-U3Mj.png"
+      },
+      "alt": "",
+      "filename": "logopmb-cmjn-U3Mj.png",
+      "publishedAt": "2025-03-31T16:27:56.807Z",
       "type": "image"
     },
     {
