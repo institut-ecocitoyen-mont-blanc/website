@@ -1,6 +1,12 @@
 {
-  "title": "Partenaires",
-  "slug": "partenaires",
+  "title": "partenaires",
   "type": "object",
-  "properties": {}
+  "properties": {
+    "image": {
+      "required": false,
+      "fieldType": "Image",
+      "dataType": "image",
+      "title": "image"
+    }
+  }
 }
