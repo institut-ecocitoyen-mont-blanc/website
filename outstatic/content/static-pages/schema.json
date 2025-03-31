@@ -1,6 +1,12 @@
 {
-  "title": "Static Pages",
-  "slug": "static-pages",
+  "title": "static-pages",
   "type": "object",
-  "properties": {}
+  "properties": {
+    "image": {
+      "required": false,
+      "fieldType": "Image",
+      "dataType": "image",
+      "title": "image"
+    }
+  }
 }
