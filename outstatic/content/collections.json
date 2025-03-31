@@ -22,5 +22,11 @@
     "slug": "static-pages",
     "path": "outstatic/content/static-pages",
     "children": []
+  },
+  {
+    "title": "Partenaires",
+    "slug": "partenaires",
+    "path": "outstatic/content/partenaires",
+    "children": []
   }
 ]
