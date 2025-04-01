@@ -5,7 +5,6 @@ import {
   Users,
   Handshake,
   Mail,
-  Phone,
   MapPin,
   Facebook,
   Linkedin,
@@ -143,11 +142,7 @@ export default async function AboutPage() {
                 <h3 className="text-xl font-semibold mb-4">Nous Contacter</h3>
                 <div className="flex items-center gap-3">
                   <Mail className="w-5 h-5 text-gray-600" />
-                  <span>contact@institut-ecocitoyen-pmb.fr</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <Phone className="w-5 h-5 text-gray-600" />
-                  <span>+33 (0)4 50 XX XX XX</span>
+                  <span>contact@institut-ecocitoyen.fr</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <MapPin className="w-5 h-5 text-gray-600" />
