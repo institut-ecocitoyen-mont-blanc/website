@@ -9,10 +9,25 @@ import {
   Linkedin,
   Mail,
   MapPin,
+  Microscope,
 } from "lucide-react";
 import Link from "next/link";
 
 const helpOptions = [
+  {
+    title: "Devenir scientifique en herbe",
+    description:
+      "Participez à nos projets de science participative et contribuez à la collecte de données environnementales importantes.",
+    icon: <Microscope className="w-12 h-12 text-teal-500" />,
+    action: (
+      <Link
+        className="bg-blue-iec text-white px-4 py-2 rounded-md hover:bg-blue-700 transition duration-300"
+        href="/projets?categories=Science+Participative"
+      >
+        En Savoir Plus
+      </Link>
+    ),
+  },
   {
     title: "Devenir Bénévole",
     description:
@@ -21,17 +36,17 @@ const helpOptions = [
     action: (
       <Link
         className="bg-blue-iec text-white px-4 py-2 rounded-md hover:bg-blue-700 transition duration-300"
-        href="/projets?categories=Science+Participative"
+        href="mailto:contact@institut-pmb.fr?subjet=Devenir%20Bénévole&body=Bonjour,%0A%0AJe%20souhaite%20devenir%20bénévole%20auprès%20de%20l'Institut%20Ecocitoyen.%0A%0ACordialement,%0A[Votre%20Nom]"
       >
-        En savoir plus
+        Nous Contacter
       </Link>
     ),
   },
   {
-    title: "Faire un Don",
+    title: "Adhérer à l'Association",
     description:
-      "Votre soutien financier nous aide à mener des études indépendantes et à sensibiliser le public.",
-    icon: <DollarSign className="w-12 h-12 text-green-600" />,
+      "Devenez membre de notre association pour participer activement à nos décisions et actions.",
+    icon: <Users className="w-12 h-12 text-purple-600" />,
     action: (
       <Link
         className="bg-blue-iec text-white px-4 py-2 rounded-md hover:bg-blue-700 transition duration-300"
@@ -42,10 +57,24 @@ const helpOptions = [
     ),
   },
   {
+    title: "Faire un Don",
+    description:
+      "Votre soutien financier nous aide à mener des études indépendantes et à sensibiliser le public.",
+    icon: <DollarSign className="w-12 h-12 text-yellow-500" />,
+    action: (
+      <Link
+        className="bg-blue-iec text-white px-4 py-2 rounded-md hover:bg-blue-700 transition duration-300"
+        href="https://www.helloasso.com/associations/institut-ecocitoyen-de-recherche-et-d-action-environnementale-du-pays-du-mont-blanc"
+      >
+        Donner
+      </Link>
+    ),
+  },
+  {
     title: "Partager nos Informations",
     description:
       "Aidez-nous à diffuser nos messages en partageant nos publications sur les réseaux sociaux.",
-    icon: <Megaphone className="w-12 h-12 text-yellow-600" />,
+    icon: <Megaphone className="w-12 h-12 text-green-500" />,
     action: (
       <div className="flex space-x-4  pt-4">
         <Link
@@ -88,16 +117,16 @@ const helpOptions = [
     ),
   },
   {
-    title: "Adhérer à l'Association",
+    title: "S'abonner à la newsletter",
     description:
-      "Devenez membre de notre association pour participer activement à nos décisions et actions.",
-    icon: <Users className="w-12 h-12 text-purple-600" />,
+      "Restez informé de nos actions, événements et découvertes scientifiques en vous abonnant à notre newsletter mensuelle.",
+    icon: <Mail className="w-12 h-12 text-red-500" />,
     action: (
       <Link
         className="bg-blue-iec text-white px-4 py-2 rounded-md hover:bg-blue-700 transition duration-300"
-        href="https://www.helloasso.com/associations/institut-ecocitoyen-de-recherche-et-d-action-environnementale-du-pays-du-mont-blanc"
+        href="mailto:contact@institut-pmb.fr?subjet=Inscription%20à%20la%20newsletter&body=Bonjour,%0A%0AJe%20souhaite%20m'inscrire%20à%20la%20newsletter%20de%20l'Institut%20Ecocitoyen.%0A%0ACordialement,%0A[Votre%20Nom]"
       >
-        Adhérer
+        S&apos;Abonner
       </Link>
     ),
   },
@@ -138,7 +167,7 @@ export default function HowToHelpPage() {
               <h3 className="text-xl font-semibold mb-4">Nous Contacter</h3>
               <div className="flex items-center gap-3">
                 <Mail className="w-5 h-5 text-gray-600" />
-                <span>contact@institut-ecocitoyen.fr</span>
+                <span>contact@institut-pmb.fr</span>
               </div>
               <div className="flex items-center gap-3">
                 <MapPin className="w-5 h-5 text-gray-600" />
