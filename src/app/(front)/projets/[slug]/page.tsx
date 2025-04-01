@@ -112,21 +112,25 @@ export default async function ProjectPage({
                   );
                 })}
               </div>
-              <div className="bg-gray-100 p-4 rounded-lg">
-                <h2 className="text-xl font-semibold mb-2">
-                  Contribuer à ce projet
-                </h2>
-                <p className="mb-4">
-                  Votre soutien est essentiel pour la réussite de ce projet.
-                  Découvrez comment vous pouvez agir.
-                </p>
-                <Link
-                  href="/etre-acteur"
-                  className="inline-block bg-blue-iec text-white px-4 py-2 rounded-md hover:bg-blue-700 transition duration-300"
-                >
-                  Être Acteur
-                </Link>
-              </div>
+              {projet.lienScienceParticipative ? (
+                <div className="bg-gray-100 p-4 rounded-lg">
+                  <h2 className="text-xl font-semibold mb-2">
+                    Contribuer à ce projet
+                  </h2>
+                  <p className="mb-4">
+                    Votre soutien est essentiel pour la réussite de ce projet.
+                    Découvrez comment vous pouvez agir.
+                  </p>
+                  <Link
+                    href={projet.lienScienceParticipative}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-block bg-blue-iec text-white px-4 py-2 rounded-md hover:bg-blue-700 transition duration-300"
+                  >
+                    Être Acteur
+                  </Link>
+                </div>
+              ) : null}
             </div>
           </div>
         </div>
@@ -150,6 +154,7 @@ async function getData(params: { slug: string }) {
     "slug",
     "content",
     "categories",
+    "lienScienceParticipative",
   ]);
 
   if (!projet) {
@@ -175,6 +180,7 @@ async function getData(params: { slug: string }) {
     slug: string;
     content: string;
     categories: ProjectCategory[];
+    lienScienceParticipative?: string;
   };
 }
 
