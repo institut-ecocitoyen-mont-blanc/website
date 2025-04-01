@@ -229,10 +229,9 @@ async function getData() {
   const db = await load();
   const partenaires = (await db
     .find({ collection: "partenaires" }, ["title", "content", "image"])
-    .sort({ publishedAt: -1 })
-    .limit(4)
-    .toArray()) as // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  any[] as {
+    .sort({ publishedAt: 1 })
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    .toArray()) as any[] as {
     title: string;
     content: string;
     image: string;
