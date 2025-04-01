@@ -9,7 +9,7 @@ import remarkGfm from "remark-gfm";
 import remarkRehype from "remark-rehype";
 import { unified } from "unified";
 import { ProjectCategory } from "@/lib/types";
-import { categoryStyles, categoryFilters } from "@/components/ProjectCard"
+import { categoryStyles, categoryFilters } from "@/components/ProjectCard";
 import { cn } from "@/lib/utils";
 
 export default async function ProjectPage({
@@ -163,8 +163,9 @@ async function getData(params: { slug: string }) {
     // @ts-expect-error bla bla bla
     etat: projet.etat[0].value,
     content: content.value,
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    categories: (projet.categories as any)?.map((y: { value: string }) => y.value) ?? [],
+    categories:
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (projet.categories as any)?.map((y: { value: string }) => y.value) ?? [],
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } as any as {
     title: string;

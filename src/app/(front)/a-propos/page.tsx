@@ -19,15 +19,16 @@ import { getDocumentBySlug, load } from "outstatic/server";
 
 export default async function AboutPage() {
   const { page, partenaires } = await getData();
-  const content = page.content.split("---").map((x) => x.trim()).filter(Boolean);
+  const content = page.content
+    .split("---")
+    .map((x) => x.trim())
+    .filter(Boolean);
 
   return (
     <main className="grow">
       <section className="py-16 pt-32 bg-linear-to-b from-gray-50 to-white">
         <div className="container mx-auto px-4">
-          <h1 className="text-4xl font-bold mb-8 text-center">
-            {content[0]}
-          </h1>
+          <h1 className="text-4xl font-bold mb-8 text-center">{content[0]}</h1>
 
           {/* Histoire/Origine */}
           <div className="mb-16">
@@ -37,9 +38,7 @@ export default async function AboutPage() {
             </div>
             <div className="grid md:grid-cols-2 gap-8 items-center">
               <div>
-                <p className="text-gray-600 mb-4">
-                  {content[1]}
-                </p>
+                <p className="text-gray-600 mb-4">{content[1]}</p>
               </div>
               <Image
                 src={page.image || "/placeholder.svg"}
@@ -66,39 +65,36 @@ export default async function AboutPage() {
                     Le Conseil d’administration
                   </h3>
                   <p className="text-gray-600 mb-4">
-                    Des représentants de chaque collège prennent les
-                    décisions. Ils sont dotés de voix décisionnelles, sauf les
-                    collectivités et les experts, qui eux ont un rôle consultatif.
+                    Des représentants de chaque collège prennent les décisions.
+                    Ils sont dotés de voix décisionnelles, sauf les
+                    collectivités et les experts, qui eux ont un rôle
+                    consultatif.
+                  </p>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardContent className="pt-6">
+                  <h3 className="text-xl font-semibold mb-2">L’Agora</h3>
+                  <p className="text-gray-600 mb-4">
+                    Un conseil dédié à tous les habitants, résidents secondaires
+                    et touristes qui souhaitent s’engager dans des actions de
+                    sensibilisation, intégrer des protocoles de sciences
+                    participatives, partager des idées et transmettre les
+                    informations entre l’Institut et la population.
                   </p>
                 </CardContent>
               </Card>
               <Card>
                 <CardContent className="pt-6">
                   <h3 className="text-xl font-semibold mb-2">
-                    L’Agora
+                    Le Conseil Scientifique
                   </h3>
                   <p className="text-gray-600 mb-4">
-                    Un conseil dédié à tous les habitants,
-                    résidents secondaires et touristes qui
-                    souhaitent s’engager dans des actions
-                    de sensibilisation, intégrer des
-                    protocoles de sciences participatives,
-                    partager des idées et transmettre les
-                    informations entre l’Institut et la
-                    population.
-                  </p>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardContent className="pt-6">
-                  <h3 className="text-xl font-semibold mb-2">Le Conseil Scientifique</h3>
-                  <p className="text-gray-600 mb-4">
-                    Des chercheurs de la recherche publique,
-                    chargés de conseiller sur les études à
-                    mener, vulgariser les résultats,
-                    transformer les questions locales en
-                    problématiques scientifiques et proposer
-                    des études pour tenter d’y répondre.
+                    Des chercheurs de la recherche publique, chargés de
+                    conseiller sur les études à mener, vulgariser les résultats,
+                    transformer les questions locales en problématiques
+                    scientifiques et proposer des études pour tenter d’y
+                    répondre.
                   </p>
                 </CardContent>
               </Card>
@@ -208,12 +204,8 @@ export default async function AboutPage() {
 
           {/* Call to Action */}
           <div className="bg-blue-50 rounded-xl p-8 text-center">
-            <h2 className="text-2xl font-semibold mb-4">
-              {content[2]}
-            </h2>
-            <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
-              {content[3]}
-            </p>
+            <h2 className="text-2xl font-semibold mb-4">{content[2]}</h2>
+            <p className="text-gray-600 mb-6 max-w-2xl mx-auto">{content[3]}</p>
             <Link href="/etre-acteur">
               <Button size="lg" className="gap-2">
                 Comment Agir
@@ -232,21 +224,15 @@ async function getData() {
     "content",
     "image",
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  ]) as any as { content: string, image: string };
+  ]) as any as { content: string; image: string };
 
   const db = await load();
-  const partenaires = (
-    await db
-      .find({ collection: "partenaires" }, [
-        "title",
-        "content",
-        "image",
-      ])
-      .sort({ publishedAt: -1 })
-      .limit(4)
-      .toArray()
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  ) as any[] as {
+  const partenaires = (await db
+    .find({ collection: "partenaires" }, ["title", "content", "image"])
+    .sort({ publishedAt: -1 })
+    .limit(4)
+    .toArray()) as // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  any[] as {
     title: string;
     content: string;
     image: string;

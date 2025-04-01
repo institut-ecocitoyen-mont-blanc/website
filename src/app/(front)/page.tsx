@@ -9,24 +9,23 @@ import { ActualiteCategory, ProjectCategory } from "@/lib/types";
 
 export default async function Home() {
   const { projects, news, objectifs, page } = await getData();
-  const content = page.content.split("---").map((x) => x.trim()).filter(Boolean);
+  const content = page.content
+    .split("---")
+    .map((x) => x.trim())
+    .filter(Boolean);
 
   return (
     <main className="grow">
       <section className="relative h-[500px] flex items-center justify-center">
         <Image
-          src="/images/marc-kargel-qb3Z5BfiAgg-unsplash.jpg"
+          src="/images/Varan.jpg"
           alt="Environmental research"
           fill
           className="object-cover absolute z-0"
         />
         <div className="relative z-10 text-center text-white">
-          <h2 className="text-4xl font-bold mb-4">
-            {content[0]}
-          </h2>
-          <p className="text-xl mb-8 max-w-2xl mx-auto">
-            {content[1]}
-          </p>
+          <h2 className="text-4xl font-bold mb-4">{content[0]}</h2>
+          <p className="text-xl mb-8 max-w-2xl mx-auto">{content[1]}</p>
           <a
             href="/etre-acteur"
             className="bg-green-iec text-white px-6 py-3 rounded-lg text-lg font-semibold hover:bg-green-600 transition duration-300"
@@ -73,9 +72,7 @@ export default async function Home() {
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center mb-16">
             <h2 className="text-3xl font-bold mb-4 text-black">Nos Projets</h2>
-            <p className="text-lg text-black/70 mb-8">
-              {content[2]}
-            </p>
+            <p className="text-lg text-black/70 mb-8">{content[2]}</p>
             <Link
               href="/projets"
               className="inline-flex items-center px-6 py-3 rounded-full bg-white text-black font-medium hover:bg-white/90 transition-colors"
@@ -115,9 +112,7 @@ export default async function Home() {
       <section className="py-16 bg-white">
         <div className="container mx-auto text-center">
           <h2 className="text-3xl font-bold mb-4">{content[3]}</h2>
-          <p className="mb-8">
-            {content[4]}
-          </p>
+          <p className="mb-8">{content[4]}</p>
           <Link
             href="/etre-acteur"
             className="bg-green-iec text-white px-6 py-3 rounded-lg text-lg font-semibold hover:bg-green-700 transition duration-300"
@@ -202,11 +197,11 @@ async function getData() {
     icon: string;
     color: string;
     content: string;
-    }[];
+  }[];
 
   const page = getDocumentBySlug("static-pages", "page-d-accueil", [
     "content",
-  ]) as {content: string};
+  ]) as { content: string };
 
   return { projects, news, objectifs, page };
 }
