@@ -57,6 +57,13 @@
           "value": "Science Participative"
         }
       ]
+    },
+    "lienScienceParticipative": {
+      "description": "Quand le projet accepte des bénévoles, lien vers le formulaire pour devenir bénévole",
+      "required": false,
+      "fieldType": "String",
+      "dataType": "string",
+      "title": "Lien Science Participative"
     }
   }
 }
