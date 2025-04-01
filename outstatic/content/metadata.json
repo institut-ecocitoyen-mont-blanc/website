@@ -1,6 +1,6 @@
 {
-  "commit": "2900a7a269da977963474bccb82f2f70689b84da",
-  "generated": "2025-04-01T07:12:35.115Z",
+  "commit": "6b67af5314bf1bcc5eab9bcbfdd735923e3e2c7f",
+  "generated": "2025-04-01T07:15:16.199Z",
   "metadata": [
     {
       "__outstatic": {
@@ -788,8 +788,8 @@
     },
     {
       "__outstatic": {
-        "commit": "2900a7a269da977963474bccb82f2f70689b84da",
-        "hash": "486766198",
+        "commit": "6b67af5314bf1bcc5eab9bcbfdd735923e3e2c7f",
+        "hash": "1845967342",
         "path": "outstatic/content/static-pages/politique-de-confidentialite.mdx"
       },
       "author": {
@@ -798,7 +798,7 @@
       },
       "collection": "static-pages",
       "image": "",
-      "publishedAt": "2025-04-01T07:07:12.631Z",
+      "publishedAt": "2025-03-30T22:00:00.000Z",
       "slug": "politique-de-confidentialite",
       "status": "published",
       "title": "Politique de Confidentialité"
