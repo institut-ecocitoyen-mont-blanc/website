@@ -1,6 +1,6 @@
 {
-  "commit": "9442929854c4756daa9f55577133f200d31492fb",
-  "generated": "2025-04-01T06:53:56.897Z",
+  "commit": "5e23d7b50e81da9a95dfe6c322263548570c8dda",
+  "generated": "2025-04-01T06:54:12.163Z",
   "metadata": [
     {
       "__outstatic": {
@@ -681,31 +681,6 @@
     },
     {
       "__outstatic": {
-        "commit": "e84f1855e7fb4ed0e10fd48ca4877c6a1dd1d359",
-        "hash": "2159661595",
-        "path": "outstatic/content/actualites/nouveaux-locaux-institut.mdx"
-      },
-      "author": {
-        "name": "JPP",
-        "picture": "https://avatars.githubusercontent.com/u/204351074?v=4"
-      },
-      "categories": [
-        {
-          "label": "Événement",
-          "value": "Événement"
-        }
-      ],
-      "collection": "actualites",
-      "dateEvenement": "2025-03-02T23:00:00.000Z",
-      "description": "Début mars, l'Institut occupe de nouveaux locaux au 54 route des Vorziers à Sallanches.",
-      "image": "/images/bureaux-cwOD.png",
-      "publishedAt": "2025-03-30T22:00:00.000Z",
-      "slug": "nouveaux-locaux-institut",
-      "status": "published",
-      "title": "Nouveaux locaux pour l'Institut"
-    },
-    {
-      "__outstatic": {
         "commit": "2c4fe1f6b6f6a5a7c4b32e178c94a8a1b023eded",
         "hash": "139017556",
         "path": "outstatic/content/static-pages/page-d-accueil.mdx"
@@ -773,6 +748,26 @@
       "slug": "lettre-information",
       "status": "published",
       "title": "Lettre d'information"
+    },
+    {
+      "__outstatic": {
+        "commit": "5e23d7b50e81da9a95dfe6c322263548570c8dda",
+        "hash": "2172463903",
+        "path": "outstatic/content/actualites/nouveaux-locaux-institut.mdx"
+      },
+      "author": {
+        "name": "JPP",
+        "picture": "https://avatars.githubusercontent.com/u/204351074?v=4"
+      },
+      "categories": [
+      ],
+      "collection": "actualites",
+      "description": "Début Mars, l'Institut occupe de nouveaux locaux au 54 route des Vorziers à Sallanches.",
+      "image": "/images/bureaux-cwOD.png",
+      "publishedAt": "2025-03-30T22:00:00.000Z",
+      "slug": "nouveaux-locaux-institut",
+      "status": "published",
+      "title": "Nouveaux locaux pour l'Institut"
     }
   ]
 }
