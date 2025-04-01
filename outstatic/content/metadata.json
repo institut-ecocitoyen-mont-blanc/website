@@ -1,6 +1,6 @@
 {
-  "commit": "6222f2a6d1bde6b0c9df4e8fcf1de04f580aa947",
-  "generated": "2025-04-01T07:25:02.769Z",
+  "commit": "2d87e5960cdcf1101794e16f7994b7242975ba07",
+  "generated": "2025-04-01T07:34:38.864Z",
   "metadata": [
     {
       "__outstatic": {
@@ -788,23 +788,6 @@
     },
     {
       "__outstatic": {
-        "commit": "4af0d5a09bd4c5a90796acd5af76fa86d47821a4",
-        "hash": "2893900866",
-        "path": "outstatic/content/partenaires/patagonia.mdx"
-      },
-      "author": {
-        "name": "Mathieu Dutour",
-        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
-      },
-      "collection": "partenaires",
-      "image": "/images/patagonia_-unternehmen-_logo-M5MT.svg",
-      "publishedAt": "2025-04-01T07:33:55.823Z",
-      "slug": "patagonia",
-      "status": "draft",
-      "title": "Patagonia"
-    },
-    {
-      "__outstatic": {
         "commit": "6222f2a6d1bde6b0c9df4e8fcf1de04f580aa947",
         "hash": "2831496621",
         "path": "outstatic/content/partenaires/ccpmb.mdx"
@@ -819,6 +802,24 @@
       "slug": "ccpmb",
       "status": "published",
       "title": "Communauté de Communes du Pays du Mont Blanc"
+    },
+    {
+      "__outstatic": {
+        "commit": "2d87e5960cdcf1101794e16f7994b7242975ba07",
+        "hash": "2252661255",
+        "path": "outstatic/content/partenaires/patagonia.mdx"
+      },
+      "author": {
+        "name": "Mathieu Dutour",
+        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
+      },
+      "collection": "partenaires",
+      "image": "/images/patagonia_-unternehmen-_logo-M5MT.svg",
+      "lien": "https://www.patagonia.com/",
+      "publishedAt": "2025-04-01T07:33:55.823Z",
+      "slug": "patagonia",
+      "status": "draft",
+      "title": "Patagonia"
     }
   ]
 }
