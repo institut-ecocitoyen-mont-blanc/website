@@ -1,6 +1,6 @@
 {
-  "commit": "6b67af5314bf1bcc5eab9bcbfdd735923e3e2c7f",
-  "generated": "2025-04-01T07:15:16.199Z",
+  "commit": "088c86ab780d810a9b071914ba95def07bc39feb",
+  "generated": "2025-04-01T07:23:19.018Z",
   "metadata": [
     {
       "__outstatic": {
@@ -802,6 +802,23 @@
       "slug": "politique-de-confidentialite",
       "status": "published",
       "title": "Politique de Confidentialité"
+    },
+    {
+      "__outstatic": {
+        "commit": "088c86ab780d810a9b071914ba95def07bc39feb",
+        "hash": "2037887562",
+        "path": "outstatic/content/partenaires/patagonia.mdx"
+      },
+      "author": {
+        "name": "Mathieu Dutour",
+        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
+      },
+      "collection": "partenaires",
+      "image": "",
+      "publishedAt": "2025-04-01T07:33:55.823Z",
+      "slug": "patagonia",
+      "status": "draft",
+      "title": "Patagonia"
     }
   ]
 }
