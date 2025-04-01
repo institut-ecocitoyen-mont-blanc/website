@@ -1,6 +1,6 @@
 {
-  "commit": "088c86ab780d810a9b071914ba95def07bc39feb",
-  "generated": "2025-04-01T07:23:19.018Z",
+  "commit": "4af0d5a09bd4c5a90796acd5af76fa86d47821a4",
+  "generated": "2025-04-01T07:24:03.405Z",
   "metadata": [
     {
       "__outstatic": {
@@ -805,8 +805,8 @@
     },
     {
       "__outstatic": {
-        "commit": "088c86ab780d810a9b071914ba95def07bc39feb",
-        "hash": "2037887562",
+        "commit": "4af0d5a09bd4c5a90796acd5af76fa86d47821a4",
+        "hash": "2893900866",
         "path": "outstatic/content/partenaires/patagonia.mdx"
       },
       "author": {
@@ -814,7 +814,7 @@
         "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
       },
       "collection": "partenaires",
-      "image": "",
+      "image": "/images/patagonia_-unternehmen-_logo-M5MT.svg",
       "publishedAt": "2025-04-01T07:33:55.823Z",
       "slug": "patagonia",
       "status": "draft",
