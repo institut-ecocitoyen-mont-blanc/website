@@ -89,14 +89,20 @@ export default async function Footer() {
                 key={index}
                 className="bg-white/10 p-3 rounded-lg hover:bg-white/15 transition-colors"
               >
-                <Image
-                  src={partner.image || "/placeholder.svg"}
-                  alt={partner.title}
-                  width={120}
-                  height={60}
-                  className="h-12 w-auto object-contain max-w-30"
-                />
-                <span className="sr-only">{partner.title}</span>
+                <Link
+                  href={partner.lien}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Image
+                    src={partner.image || "/placeholder.svg"}
+                    alt={partner.title}
+                    width={120}
+                    height={60}
+                    className="h-12 w-auto object-contain max-w-30"
+                  />
+                  <span className="sr-only">{partner.title}</span>
+                </Link>
               </div>
             ))}
           </div>
@@ -109,12 +115,12 @@ export default async function Footer() {
 async function getData() {
   const db = await load();
   const partenaires = (await db
-    .find({ collection: "partenaires" }, ["title", "content", "image"])
+    .find({ collection: "partenaires" }, ["title", "lien", "image"])
     .sort({ publishedAt: 1 })
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     .toArray()) as any[] as {
     title: string;
-    content: string;
+    lien: string;
     image: string;
   }[];
 

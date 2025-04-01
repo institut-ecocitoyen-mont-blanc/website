@@ -111,15 +111,29 @@ export default async function AboutPage() {
                 <Card key={index} className="overflow-hidden">
                   <CardContent className="p-6">
                     <div className="flex items-center gap-4">
-                      <Image
-                        src={partner.image || "/placeholder.svg"}
-                        alt={partner.title}
-                        width={100}
-                        height={50}
-                        className="object-contain"
-                      />
+                      <Link
+                        href={partner.lien}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <Image
+                          src={partner.image || "/placeholder.svg"}
+                          alt={partner.title}
+                          width={100}
+                          height={50}
+                          className="object-contain"
+                        />
+                      </Link>
                       <div>
-                        <h3 className="font-semibold mb-1">{partner.title}</h3>
+                        <Link
+                          href={partner.lien}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <h3 className="font-semibold mb-1">
+                            {partner.title}
+                          </h3>
+                        </Link>
                         <p className="text-sm text-gray-600">
                           {partner.content}
                         </p>
@@ -223,13 +237,14 @@ async function getData() {
 
   const db = await load();
   const partenaires = (await db
-    .find({ collection: "partenaires" }, ["title", "content", "image"])
+    .find({ collection: "partenaires" }, ["title", "content", "image", "lien"])
     .sort({ publishedAt: 1 })
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     .toArray()) as any[] as {
     title: string;
     content: string;
     image: string;
+    lien: string;
   }[];
 
   return { page, partenaires };
