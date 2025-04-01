@@ -7,6 +7,12 @@
       "fieldType": "Image",
       "dataType": "image",
       "title": "image"
+    },
+    "lien": {
+      "required": true,
+      "fieldType": "String",
+      "dataType": "string",
+      "title": "lien"
     }
   }
 }
