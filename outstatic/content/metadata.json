@@ -1,6 +1,6 @@
 {
-  "commit": "2d87e5960cdcf1101794e16f7994b7242975ba07",
-  "generated": "2025-04-01T07:34:38.864Z",
+  "commit": "ab00029a82cb0a7f3d390c2544cad639c4c16d65",
+  "generated": "2025-04-01T07:34:55.475Z",
   "metadata": [
     {
       "__outstatic": {
@@ -788,23 +788,6 @@
     },
     {
       "__outstatic": {
-        "commit": "6222f2a6d1bde6b0c9df4e8fcf1de04f580aa947",
-        "hash": "2831496621",
-        "path": "outstatic/content/partenaires/ccpmb.mdx"
-      },
-      "author": {
-        "name": "Mathieu Dutour",
-        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
-      },
-      "collection": "partenaires",
-      "image": "/images/logopmb-cmjn-U3Mj.png",
-      "publishedAt": "2025-03-31T16:34:05.948Z",
-      "slug": "ccpmb",
-      "status": "published",
-      "title": "Communauté de Communes du Pays du Mont Blanc"
-    },
-    {
-      "__outstatic": {
         "commit": "2d87e5960cdcf1101794e16f7994b7242975ba07",
         "hash": "2252661255",
         "path": "outstatic/content/partenaires/patagonia.mdx"
@@ -820,6 +803,24 @@
       "slug": "patagonia",
       "status": "draft",
       "title": "Patagonia"
+    },
+    {
+      "__outstatic": {
+        "commit": "ab00029a82cb0a7f3d390c2544cad639c4c16d65",
+        "hash": "4159584166",
+        "path": "outstatic/content/partenaires/ccpmb.mdx"
+      },
+      "author": {
+        "name": "Mathieu Dutour",
+        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
+      },
+      "collection": "partenaires",
+      "image": "/images/logopmb-cmjn-U3Mj.png",
+      "lien": "https://www.ccpmb.fr/",
+      "publishedAt": "2025-03-31T16:34:05.948Z",
+      "slug": "ccpmb",
+      "status": "published",
+      "title": "Communauté de Communes du Pays du Mont Blanc"
     }
   ]
 }
