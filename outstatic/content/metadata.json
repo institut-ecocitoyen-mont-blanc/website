@@ -1,6 +1,6 @@
 {
-  "commit": "5e23d7b50e81da9a95dfe6c322263548570c8dda",
-  "generated": "2025-04-01T06:54:12.163Z",
+  "commit": "c4dc8e98baba14e543be2f63dabbc15d2d7674fc",
+  "generated": "2025-04-01T06:55:04.765Z",
   "metadata": [
     {
       "__outstatic": {
@@ -768,6 +768,23 @@
       "slug": "nouveaux-locaux-institut",
       "status": "published",
       "title": "Nouveaux locaux pour l'Institut"
+    },
+    {
+      "__outstatic": {
+        "commit": "c4dc8e98baba14e543be2f63dabbc15d2d7674fc",
+        "hash": "3407098246",
+        "path": "outstatic/content/static-pages/mentions-legales.mdx"
+      },
+      "author": {
+        "name": "Mathieu Dutour",
+        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
+      },
+      "collection": "static-pages",
+      "image": "",
+      "publishedAt": "2025-04-01T07:06:51.582Z",
+      "slug": "mentions-legales",
+      "status": "published",
+      "title": "Mentions Légales"
     }
   ]
 }
