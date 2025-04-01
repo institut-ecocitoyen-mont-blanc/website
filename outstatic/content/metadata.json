@@ -1,6 +1,6 @@
 {
-  "commit": "16f6d09e018cb7450c04067bd1a5f609a92caead",
-  "generated": "2025-04-01T07:04:53.317Z",
+  "commit": "2900a7a269da977963474bccb82f2f70689b84da",
+  "generated": "2025-04-01T07:12:35.115Z",
   "metadata": [
     {
       "__outstatic": {
@@ -771,23 +771,6 @@
     },
     {
       "__outstatic": {
-        "commit": "2580fedfb57fa8091c03a6befb06837e1cf36987",
-        "hash": "946531168",
-        "path": "outstatic/content/static-pages/politique-de-confidentialite.mdx"
-      },
-      "author": {
-        "name": "Mathieu Dutour",
-        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
-      },
-      "collection": "static-pages",
-      "image": "",
-      "publishedAt": "2025-04-01T07:07:12.631Z",
-      "slug": "politique-de-confidentialite",
-      "status": "published",
-      "title": "Politique de Confidentialité"
-    },
-    {
-      "__outstatic": {
         "commit": "16f6d09e018cb7450c04067bd1a5f609a92caead",
         "hash": "2683760994",
         "path": "outstatic/content/static-pages/mentions-legales.mdx"
@@ -802,6 +785,23 @@
       "slug": "mentions-legales",
       "status": "published",
       "title": "Mentions Légales"
+    },
+    {
+      "__outstatic": {
+        "commit": "2900a7a269da977963474bccb82f2f70689b84da",
+        "hash": "486766198",
+        "path": "outstatic/content/static-pages/politique-de-confidentialite.mdx"
+      },
+      "author": {
+        "name": "Mathieu Dutour",
+        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
+      },
+      "collection": "static-pages",
+      "image": "",
+      "publishedAt": "2025-04-01T07:07:12.631Z",
+      "slug": "politique-de-confidentialite",
+      "status": "published",
+      "title": "Politique de Confidentialité"
     }
   ]
 }
