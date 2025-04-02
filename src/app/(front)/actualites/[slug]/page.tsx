@@ -33,61 +33,65 @@ export default async function ActualitePage({
           <ArrowLeft className="w-4 h-4 mr-2" />
           Retour aux actualités
         </Link>
-        <div className="max-w-3xl mx-auto">
-          <h1 className="text-3xl font-bold mb-4">{newsItem.title}</h1>
-          <div className="flex items-center text-gray-600 mb-6">
-            <Calendar className="w-4 h-4 mr-2" />
-            <span>{newsItem.publishedAt.toDateString()}</span>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="md:col-span-2">
+            <h1 className="text-3xl font-bold mb-4">{newsItem.title}</h1>
+            <div className="flex items-center text-gray-600 mb-6">
+              <Calendar className="w-4 h-4 mr-2" />
+              <span>{newsItem.publishedAt.toDateString()}</span>
+            </div>
+            <div
+              className="prose max-w-none mb-8 markdown"
+              dangerouslySetInnerHTML={{ __html: newsItem.content }}
+            />
+            <div className="border-t border-gray-200 pt-4 mt-8">
+              <p className="text-gray-600">Auteur: {newsItem.author.name}</p>
+            </div>
           </div>
-          <div className="flex flex-wrap gap-2 mb-3">
-            {newsItem.categories
-              .filter((x) => x !== "Événement")
-              .map((category) => {
-                const styles = categoryStyles[category];
-                return (
-                  <Badge
-                    key={category}
-                    variant="secondary"
-                    className={cn(
-                      "transition-colors",
-                      styles?.lightBg,
-                      styles?.lightText
-                    )}
-                  >
-                    {categoryFilters.find((f) => f.id === category)?.icon}
-                    <span className="ml-1">
-                      {categoryFilters.find((f) => f.id === category)?.label}
-                    </span>
-                  </Badge>
-                );
-              })}
+          <div className="sticky top-24">
+            <Image
+              src={newsItem.image || "/placeholder.svg"}
+              alt={newsItem.title}
+              width={600}
+              height={400}
+              className="rounded-lg shadow-md mb-6"
+            />
+            <div className="flex flex-wrap gap-2 mb-3">
+              {newsItem.categories
+                .filter((x) => x !== "Événement")
+                .map((category) => {
+                  const styles = categoryStyles[category];
+                  return (
+                    <Badge
+                      key={category}
+                      variant="secondary"
+                      className={cn(
+                        "transition-colors",
+                        styles?.lightBg,
+                        styles?.lightText
+                      )}
+                    >
+                      {categoryFilters.find((f) => f.id === category)?.icon}
+                      <span className="ml-1">
+                        {categoryFilters.find((f) => f.id === category)?.label}
+                      </span>
+                    </Badge>
+                  );
+                })}
+            </div>
+            {newsItem.slugProjet ? (
+              <div className="bg-gray-100 p-4 rounded-lg">
+                <Link
+                  href={newsItem.slugProjet}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block bg-blue-iec text-white px-4 py-2 rounded-md hover:bg-blue-700 transition duration-300"
+                >
+                  Voir le projet associé
+                </Link>
+              </div>
+            ) : null}
           </div>
-          <Image
-            src={newsItem.image || "/placeholder.svg"}
-            alt={newsItem.title}
-            width={800}
-            height={400}
-            className="rounded-lg shadow-md mb-6"
-          />
-          <div
-            className="prose max-w-none mb-8 markdown"
-            dangerouslySetInnerHTML={{ __html: newsItem.content }}
-          />
-          <div className="border-t border-gray-200 pt-4 mt-8">
-            <p className="text-gray-600">Auteur: {newsItem.author.name}</p>
-          </div>
-          {/* <div className="flex items-center justify-between mt-8">
-            <Link
-              href={`/projets/${newsItem.relatedProjects[0]}`}
-              className="text-blue-600 hover:underline"
-            >
-              Voir le projet associé
-            </Link>
-            <button className="inline-flex items-center text-gray-600 hover:text-gray-800">
-              <Share2 className="w-4 h-4 mr-2" />
-              Partager
-            </button>
-          </div> */}
         </div>
       </article>
     </main>
@@ -111,6 +115,7 @@ async function getData(params: { slug: string }) {
     "publishedAt",
     "categories",
     "dateEvenement",
+    "slugProjet",
   ]);
 
   if (!projet) {
@@ -140,6 +145,7 @@ async function getData(params: { slug: string }) {
     publishedAt: Date;
     dateEvenement: Date | null;
     categories: ActualiteCategory[];
+    slugProjet?: string;
   };
 }
 
