@@ -1,6 +1,6 @@
 {
-  "commit": "d5aa7f7487694b427d1c535892284065d1d56ba5",
-  "generated": "2025-04-02T08:44:52.748Z",
+  "commit": "f4671459c46d5fe35143e63194a89bb19a054878",
+  "generated": "2025-04-02T08:46:43.945Z",
   "metadata": [
     {
       "__outstatic": {
@@ -801,8 +801,8 @@
     },
     {
       "__outstatic": {
-        "commit": "d5aa7f7487694b427d1c535892284065d1d56ba5",
-        "hash": "2284939240",
+        "commit": "f4671459c46d5fe35143e63194a89bb19a054878",
+        "hash": "1396438313",
         "path": "outstatic/content/actualites/assemblee-generale.mdx"
       },
       "author": {
