@@ -1,6 +1,6 @@
 {
-  "commit": "2d74ed4fca39147278c7a9c8f31d45362431b198",
-  "generated": "2025-04-02T16:16:42.247Z",
+  "commit": "197e89264968902429efd05c663d90dd63540f1a",
+  "generated": "2025-04-02T16:19:31.804Z",
   "metadata": [
     {
       "__outstatic": {
@@ -730,23 +730,6 @@
     },
     {
       "__outstatic": {
-        "commit": "83ff50e6fc9ca373a41accfdf5f793173463ec4b",
-        "hash": "3662155384",
-        "path": "outstatic/content/static-pages/a-propos.mdx"
-      },
-      "author": {
-        "name": "Mathieu Dutour",
-        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
-      },
-      "collection": "static-pages",
-      "image": "",
-      "publishedAt": "2025-03-31T16:05:11.742Z",
-      "slug": "a-propos",
-      "status": "published",
-      "title": "À Propos"
-    },
-    {
-      "__outstatic": {
         "commit": "3a5c3f2e309265b52c075b977685d5cc25312fba",
         "hash": "2222289182",
         "path": "outstatic/content/static-pages/mentions-legales.mdx"
@@ -823,6 +806,23 @@
       "slug": "assemblee-generale",
       "status": "published",
       "title": "Assemblée Générale"
+    },
+    {
+      "__outstatic": {
+        "commit": "197e89264968902429efd05c663d90dd63540f1a",
+        "hash": "3622668696",
+        "path": "outstatic/content/static-pages/a-propos.mdx"
+      },
+      "author": {
+        "name": "Mathieu Dutour",
+        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
+      },
+      "collection": "static-pages",
+      "image": "",
+      "publishedAt": "2025-03-31T16:05:11.742Z",
+      "slug": "a-propos",
+      "status": "published",
+      "title": "À Propos"
     }
   ]
 }
