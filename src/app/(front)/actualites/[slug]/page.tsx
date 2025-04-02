@@ -82,9 +82,7 @@ export default async function ActualitePage({
             {newsItem.slugProjet ? (
               <div className="bg-gray-100 p-4 rounded-lg">
                 <Link
-                  href={newsItem.slugProjet}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href={`/projets/${newsItem.slugProjet}`}
                   className="inline-block bg-blue-iec text-white px-4 py-2 rounded-md hover:bg-blue-700 transition duration-300"
                 >
                   Voir le projet associé
