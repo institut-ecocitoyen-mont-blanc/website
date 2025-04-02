@@ -1,6 +1,6 @@
 {
-  "commit": "454d0ea205fa8872f6937374c0a0b20e6406e99c",
-  "generated": "2025-04-02T06:38:50.216Z",
+  "commit": "83ff50e6fc9ca373a41accfdf5f793173463ec4b",
+  "generated": "2025-04-02T08:20:03.344Z",
   "metadata": [
     {
       "__outstatic": {
@@ -639,23 +639,6 @@
     },
     {
       "__outstatic": {
-        "commit": "0744dadc2950f2165b93644e39b9bd08265ee849",
-        "hash": "2826560950",
-        "path": "outstatic/content/static-pages/a-propos.mdx"
-      },
-      "author": {
-        "name": "Mathieu Dutour",
-        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
-      },
-      "collection": "static-pages",
-      "image": "",
-      "publishedAt": "2025-03-31T16:05:11.742Z",
-      "slug": "a-propos",
-      "status": "published",
-      "title": "À Propos"
-    },
-    {
-      "__outstatic": {
         "commit": "9442929854c4756daa9f55577133f200d31492fb",
         "hash": "1129538410",
         "path": "outstatic/content/actualites/lettre-information.mdx"
@@ -823,6 +806,23 @@
       "slugProjet": "lichens",
       "status": "published",
       "title": "Journées d'études épidémiologiques"
+    },
+    {
+      "__outstatic": {
+        "commit": "83ff50e6fc9ca373a41accfdf5f793173463ec4b",
+        "hash": "3662155384",
+        "path": "outstatic/content/static-pages/a-propos.mdx"
+      },
+      "author": {
+        "name": "Mathieu Dutour",
+        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
+      },
+      "collection": "static-pages",
+      "image": "",
+      "publishedAt": "2025-03-31T16:05:11.742Z",
+      "slug": "a-propos",
+      "status": "published",
+      "title": "À Propos"
     }
   ]
 }
