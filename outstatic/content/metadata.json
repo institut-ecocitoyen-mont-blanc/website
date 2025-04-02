@@ -1,6 +1,6 @@
 {
-  "commit": "e88ae03b4d47e3bb695457e88d97b6121830aaa7",
-  "generated": "2025-04-02T09:06:38.660Z",
+  "commit": "2d74ed4fca39147278c7a9c8f31d45362431b198",
+  "generated": "2025-04-02T16:16:42.247Z",
   "metadata": [
     {
       "__outstatic": {
@@ -801,8 +801,8 @@
     },
     {
       "__outstatic": {
-        "commit": "e88ae03b4d47e3bb695457e88d97b6121830aaa7",
-        "hash": "1674127321",
+        "commit": "2d74ed4fca39147278c7a9c8f31d45362431b198",
+        "hash": "1857086157",
         "path": "outstatic/content/actualites/assemblee-generale.mdx"
       },
       "author": {
@@ -816,6 +816,7 @@
         }
       ],
       "collection": "actualites",
+      "dateEvenement": "2025-04-04T22:00:00.000Z",
       "description": "Assemblée Générale de L'institut Ecocitoyen du Pays du Mont-Blanc.\nEn matinée, tenue de l’AG. Petite restauration proposée pour le déjeuner. L’après-midi, animations sur la pollutions et la santé environnementale, temps d’échange et moment de convivialité.",
       "image": "",
       "publishedAt": "2025-03-28T15:51:20.497Z",
