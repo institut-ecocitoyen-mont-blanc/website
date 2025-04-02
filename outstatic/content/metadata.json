@@ -1,6 +1,6 @@
 {
-  "commit": "f265dfb467c82df36d0f780898344e3377379813",
-  "generated": "2025-04-02T08:32:00.631Z",
+  "commit": "20f5b8e07894e3fee946c5b49156f83d8d93e0fa",
+  "generated": "2025-04-02T08:35:40.700Z",
   "metadata": [
     {
       "__outstatic": {
@@ -614,26 +614,6 @@
     },
     {
       "__outstatic": {
-        "commit": "9442929854c4756daa9f55577133f200d31492fb",
-        "hash": "1129538410",
-        "path": "outstatic/content/actualites/lettre-information.mdx"
-      },
-      "author": {
-        "name": "JPP",
-        "picture": "https://avatars.githubusercontent.com/u/204351074?v=4"
-      },
-      "categories": [
-      ],
-      "collection": "actualites",
-      "description": "Le numéro 2 de la lettre d'information est paru en Janvier 2025",
-      "image": "/images/lettre_info-QwOD.png",
-      "publishedAt": "2025-03-30T22:00:00.000Z",
-      "slug": "lettre-information",
-      "status": "published",
-      "title": "Lettre d'information"
-    },
-    {
-      "__outstatic": {
         "commit": "5e23d7b50e81da9a95dfe6c322263548570c8dda",
         "hash": "2172463903",
         "path": "outstatic/content/actualites/nouveaux-locaux-institut.mdx"
@@ -823,6 +803,26 @@
       "slug": "assemblee-generale",
       "status": "published",
       "title": "Assemblée Générale"
+    },
+    {
+      "__outstatic": {
+        "commit": "20f5b8e07894e3fee946c5b49156f83d8d93e0fa",
+        "hash": "4165037686",
+        "path": "outstatic/content/actualites/lettre-information.mdx"
+      },
+      "author": {
+        "name": "JPP",
+        "picture": "https://avatars.githubusercontent.com/u/204351074?v=4"
+      },
+      "categories": [
+      ],
+      "collection": "actualites",
+      "description": "Le numéro 2 de la lettre d'information est paru en Janvier 2025",
+      "image": "/images/lettre_info-QwOD.png",
+      "publishedAt": "2025-03-30T22:00:00.000Z",
+      "slug": "lettre-information",
+      "status": "published",
+      "title": "Lettre d'information"
     }
   ]
 }
