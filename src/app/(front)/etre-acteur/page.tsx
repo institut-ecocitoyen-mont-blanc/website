@@ -64,7 +64,7 @@ const helpOptions = [
     action: (
       <Link
         className="bg-blue-iec text-white px-4 py-2 rounded-md hover:bg-blue-700 transition duration-300"
-        href="https://www.helloasso.com/associations/institut-ecocitoyen-de-recherche-et-d-action-environnementale-du-pays-du-mont-blanc"
+        href="https://www.helloasso.com/associations/institut-ecocitoyen-de-recherche-et-d-action-environnementale-du-pays-du-mont-blanc/formulaires/1"
       >
         Donner
       </Link>
