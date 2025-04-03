@@ -1,6 +1,6 @@
 {
-  "commit": "7079491f08e2a2e4c7db170dd756f98b2270decf",
-  "generated": "2025-04-03T08:17:17.228Z",
+  "commit": "646966a2762ddb488592a0e18934f79c050370d5",
+  "generated": "2025-04-03T08:20:26.783Z",
   "metadata": [
     {
       "__outstatic": {
@@ -809,13 +809,13 @@
     },
     {
       "__outstatic": {
-        "commit": "7079491f08e2a2e4c7db170dd756f98b2270decf",
-        "hash": "757569038",
+        "commit": "646966a2762ddb488592a0e18934f79c050370d5",
+        "hash": "3035207337",
         "path": "outstatic/content/static-pages/a-propos.mdx"
       },
       "author": {
-        "name": "Mathieu Dutour",
-        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
+        "name": "Direction",
+        "picture": "https://avatars.githubusercontent.com/u/204351074?v=4"
       },
       "collection": "static-pages",
       "image": "/images/logo---rvb-U5OD.jpg",
