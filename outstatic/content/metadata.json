@@ -1,6 +1,6 @@
 {
-  "commit": "295c8683a651a17e6a6ecbbf9b98821a103b0e33",
-  "generated": "2025-04-03T07:31:10.754Z",
+  "commit": "7079491f08e2a2e4c7db170dd756f98b2270decf",
+  "generated": "2025-04-03T08:17:17.228Z",
   "metadata": [
     {
       "__outstatic": {
@@ -809,8 +809,8 @@
     },
     {
       "__outstatic": {
-        "commit": "295c8683a651a17e6a6ecbbf9b98821a103b0e33",
-        "hash": "741557871",
+        "commit": "7079491f08e2a2e4c7db170dd756f98b2270decf",
+        "hash": "757569038",
         "path": "outstatic/content/static-pages/a-propos.mdx"
       },
       "author": {
