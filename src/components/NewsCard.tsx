@@ -107,7 +107,7 @@ export function NewsCard({
         )}
       >
         <Image
-          src={item.image || "/placeholder.svg"}
+          src={item.image || "/logo.png"}
           alt={item.title}
           fill
           className="object-cover transition-transform duration-300 group-hover:scale-105"

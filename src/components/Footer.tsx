@@ -95,7 +95,7 @@ export default async function Footer() {
                   rel="noopener noreferrer"
                 >
                   <Image
-                    src={partner.image || "/placeholder.svg"}
+                    src={partner.image || "/logo.png"}
                     alt={partner.title}
                     width={120}
                     height={60}

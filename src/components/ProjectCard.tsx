@@ -100,7 +100,7 @@ export function ProjectCard({
     <Card key={project.slug} className="group bg-white/80">
       <div className="relative h-48 overflow-hidden rounded-t-lg">
         <Image
-          src={project.image || "/placeholder.svg"}
+          src={project.image || "/logo.png"}
           alt={project.title}
           fill
           className="object-cover transition-transform duration-300 group-hover:scale-105"

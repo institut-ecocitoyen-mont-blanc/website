@@ -50,7 +50,7 @@ export default async function ActualitePage({
           </div>
           <div className="sticky top-24">
             <Image
-              src={newsItem.image || "/placeholder.svg"}
+              src={newsItem.image || "/logo.png"}
               alt={newsItem.title}
               width={600}
               height={400}

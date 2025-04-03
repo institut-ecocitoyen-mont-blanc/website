@@ -2,24 +2,29 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, Clock, CheckCircle2 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { getDocumentBySlug, getDocumentSlugs } from "outstatic/server";
+import {
+  getDocumentBySlug,
+  getDocuments,
+  getDocumentSlugs,
+} from "outstatic/server";
 import rehypeStringify from "rehype-stringify";
 import remarkParse from "remark-parse";
 import remarkGfm from "remark-gfm";
 import remarkRehype from "remark-rehype";
 import { unified } from "unified";
-import { ProjectCategory } from "@/lib/types";
+import { ActualiteCategory, ProjectCategory } from "@/lib/types";
 import { categoryStyles, categoryFilters } from "@/components/ProjectCard";
 import { cn } from "@/lib/utils";
+import { NewsCard } from "@/components/NewsCard";
 
 export default async function ProjectPage({
   params,
 }: {
   params: Promise<{ slug: string }>;
 }) {
-  const projet = await getData(await params);
+  const { projet, relatedNews } = (await getData(await params)) || {};
 
-  if (!projet) {
+  if (!projet || !relatedNews) {
     return <div>Projet non trouvé</div>;
   }
 
@@ -55,6 +60,19 @@ export default async function ProjectPage({
               className="text-gray-600 mb-6 markdown"
               dangerouslySetInnerHTML={{ __html: projet.content }}
             />
+            {/* Related News Section */}
+            {relatedNews.length > 0 && (
+              <div className="mt-10 border-t border-gray-200 py-8">
+                <h2 className="text-2xl font-semibold mb-6">
+                  Actualités liées à ce projet
+                </h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  {relatedNews.map((newsItem) => (
+                    <NewsCard key={newsItem.slug} item={newsItem} />
+                  ))}
+                </div>
+              </div>
+            )}
             {/* <div className="mb-6">
               <h2 className="text-xl font-semibold mb-2">Période du projet</h2>
               <p>
@@ -85,7 +103,7 @@ export default async function ProjectPage({
           <div>
             <div className="sticky top-24">
               <Image
-                src={projet.image || "/placeholder.svg"}
+                src={projet.image || "/logo.png"}
                 alt={projet.title}
                 width={600}
                 height={400}
@@ -146,7 +164,7 @@ const processor = unified()
   .use(rehypeStringify);
 
 async function getData(params: { slug: string }) {
-  const projet = getDocumentBySlug("projets", params.slug, [
+  const result = getDocumentBySlug("projets", params.slug, [
     "title",
     "description",
     "etat",
@@ -157,20 +175,20 @@ async function getData(params: { slug: string }) {
     "lienScienceParticipative",
   ]);
 
-  if (!projet) {
+  if (!result) {
     return null;
   }
 
-  const content = await processor.process(projet.content || "");
+  const content = await processor.process(result.content || "");
 
-  return {
-    ...projet,
+  const projet = {
+    ...result,
     // @ts-expect-error bla bla bla
-    etat: projet.etat[0].value,
+    etat: result.etat[0].value,
     content: content.value,
     categories:
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      (projet.categories as any)?.map((y: { value: string }) => y.value) ?? [],
+      (result.categories as any)?.map((y: { value: string }) => y.value) ?? [],
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } as any as {
     title: string;
@@ -182,6 +200,35 @@ async function getData(params: { slug: string }) {
     categories: ProjectCategory[];
     lienScienceParticipative?: string;
   };
+
+  const relatedNews = getDocuments("actualites", [
+    "title",
+    "description",
+    "image",
+    "slug",
+    "publishedAt",
+    "categories",
+    "dateEvenement",
+    "slugProjet",
+  ]) // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    .map((x: any) => ({
+      ...x,
+      publishedAt: new Date(x.publishedAt),
+      dateEvenement: x.dateEvenement ? new Date(x.dateEvenement) : null,
+      categories: x.categories?.map((y: { value: string }) => y.value) ?? [],
+    }))
+    .filter((x) => x.slugProjet === params.slug) as unknown as {
+    title: string;
+    description: string;
+    image: string;
+    slug: string;
+    publishedAt: Date;
+    dateEvenement: Date | null;
+    categories: ActualiteCategory[];
+    slugProjet?: string;
+  }[];
+
+  return { projet, relatedNews };
 }
 
 export async function generateStaticParams() {

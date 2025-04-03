@@ -53,7 +53,7 @@ export default async function AboutPage() {
                 }}
               ></div>
               <Image
-                src={page.image || "/placeholder.svg"}
+                src={page.image || "/logo.png"}
                 alt="Histoire de l'institut"
                 width={500}
                 height={300}
@@ -130,7 +130,7 @@ export default async function AboutPage() {
                         rel="noopener noreferrer"
                       >
                         <Image
-                          src={partner.image || "/placeholder.svg"}
+                          src={partner.image || "/logo.png"}
                           alt={partner.title}
                           width={100}
                           height={50}
