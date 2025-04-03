@@ -50,7 +50,7 @@ export default async function AboutPage() {
           </div>
 
           {/* Organisation/Fonctionnement */}
-          <div className="mb-16">
+          {/* <div className="mb-16">
             <div className="flex items-center gap-2 mb-6">
               <Users className="w-6 h-6 text-blue-iec" />
               <h2 className="text-2xl font-semibold">
@@ -98,7 +98,7 @@ export default async function AboutPage() {
                 </CardContent>
               </Card>
             </div>
-          </div>
+          </div> */}
 
           {/* Partenaires */}
           <div className="mb-16">
