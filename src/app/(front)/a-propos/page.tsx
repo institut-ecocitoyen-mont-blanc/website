@@ -2,7 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 import {
   History,
-  Users,
   Handshake,
   Mail,
   MapPin,
@@ -15,6 +14,17 @@ import {
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { getDocumentBySlug, load } from "outstatic/server";
+import { unified } from "unified";
+import rehypeStringify from "rehype-stringify";
+import remarkGfm from "remark-gfm";
+import remarkParse from "remark-parse";
+import remarkRehype from "remark-rehype";
+
+const processor = unified()
+  .use(remarkParse)
+  .use(remarkGfm)
+  .use(remarkRehype, { allowDangerousHtml: true })
+  .use(rehypeStringify);
 
 export default async function AboutPage() {
   const { page, partenaires } = await getData();
@@ -36,9 +46,12 @@ export default async function AboutPage() {
               <h2 className="text-2xl font-semibold">Histoire et Origine</h2>
             </div>
             <div className="grid md:grid-cols-2 gap-8 items-center">
-              <div>
-                <p className="text-gray-600 mb-4">{content[1]}</p>
-              </div>
+              <div
+                className="text-gray-600 mb markdown"
+                dangerouslySetInnerHTML={{
+                  __html: processor.processSync(content[1]).value,
+                }}
+              ></div>
               <Image
                 src={page.image || "/placeholder.svg"}
                 alt="Histoire de l'institut"
