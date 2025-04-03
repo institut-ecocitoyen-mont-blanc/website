@@ -1,6 +1,6 @@
 {
-  "commit": "bd8067b0397260d0e8a7769190e7bb9e290a35c7",
-  "generated": "2025-04-02T16:57:37.293Z",
+  "commit": "295c8683a651a17e6a6ecbbf9b98821a103b0e33",
+  "generated": "2025-04-03T07:31:10.754Z",
   "metadata": [
     {
       "__outstatic": {
@@ -809,8 +809,8 @@
     },
     {
       "__outstatic": {
-        "commit": "bd8067b0397260d0e8a7769190e7bb9e290a35c7",
-        "hash": "2623806964",
+        "commit": "295c8683a651a17e6a6ecbbf9b98821a103b0e33",
+        "hash": "741557871",
         "path": "outstatic/content/static-pages/a-propos.mdx"
       },
       "author": {
@@ -818,8 +818,8 @@
         "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
       },
       "collection": "static-pages",
-      "image": "",
-      "publishedAt": "2025-03-31T16:05:11.742Z",
+      "image": "/images/logo---rvb-U5OD.jpg",
+      "publishedAt": "2025-03-31T22:00:00.000Z",
       "slug": "a-propos",
       "status": "published",
       "title": "À Propos"
