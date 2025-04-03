@@ -1,6 +1,6 @@
 {
-  "commit": "e5679bb4b36a32f8ff09407ec3b0fce80a4c49f9",
-  "generated": "2025-04-01T07:23:45.853Z",
+  "commit": "67592f786c19cc0895d23a90d373d575d76971fc",
+  "generated": "2025-04-03T07:30:51.057Z",
   "media": [
     {
       "__outstatic": {
@@ -121,6 +121,17 @@
       "alt": "",
       "filename": "lettre_info-QwOD.png",
       "publishedAt": "2025-03-28T15:07:04.362Z",
+      "type": "image"
+    },
+    {
+      "__outstatic": {
+        "commit": "67592f786c19cc0895d23a90d373d575d76971fc",
+        "hash": "4272988128",
+        "path": "public/images/logo---rvb-U5OD.jpg"
+      },
+      "alt": "",
+      "filename": "logo---rvb-U5OD.jpg",
+      "publishedAt": "2025-04-03T07:30:51.057Z",
       "type": "image"
     },
     {
