@@ -1,6 +1,6 @@
 {
-  "commit": "4653317a0be735caa170adb29770fd7a173e0f88",
-  "generated": "2025-04-04T08:05:53.887Z",
+  "commit": "d5902744f117cde93b807e87978616e24b419e7c",
+  "generated": "2025-04-04T08:06:34.641Z",
   "metadata": [
     {
       "__outstatic": {
@@ -532,26 +532,6 @@
     },
     {
       "__outstatic": {
-        "commit": "5e23d7b50e81da9a95dfe6c322263548570c8dda",
-        "hash": "2172463903",
-        "path": "outstatic/content/actualites/nouveaux-locaux-institut.mdx"
-      },
-      "author": {
-        "name": "JPP",
-        "picture": "https://avatars.githubusercontent.com/u/204351074?v=4"
-      },
-      "categories": [
-      ],
-      "collection": "actualites",
-      "description": "Début Mars, l'Institut occupe de nouveaux locaux au 54 route des Vorziers à Sallanches.",
-      "image": "/images/bureaux-cwOD.png",
-      "publishedAt": "2025-03-30T22:00:00.000Z",
-      "slug": "nouveaux-locaux-institut",
-      "status": "published",
-      "title": "Nouveaux locaux pour l'Institut"
-    },
-    {
-      "__outstatic": {
         "commit": "2d87e5960cdcf1101794e16f7994b7242975ba07",
         "hash": "2252661255",
         "path": "outstatic/content/partenaires/patagonia.mdx"
@@ -823,6 +803,26 @@
       "slug": "conference-particules-ultrafines",
       "status": "published",
       "title": "Conférence sur les particules ultrafines"
+    },
+    {
+      "__outstatic": {
+        "commit": "d5902744f117cde93b807e87978616e24b419e7c",
+        "hash": "2518983759",
+        "path": "outstatic/content/actualites/nouveaux-locaux-institut.mdx"
+      },
+      "author": {
+        "name": "JPP",
+        "picture": "https://avatars.githubusercontent.com/u/204351074?v=4"
+      },
+      "categories": [
+      ],
+      "collection": "actualites",
+      "description": "Début Mars, l'Institut occupe de nouveaux locaux au 54 route des Vorziers à Sallanches.",
+      "image": "/images/bureaux-cwOD.png",
+      "publishedAt": "2025-02-28T23:00:00.000Z",
+      "slug": "nouveaux-locaux-institut",
+      "status": "published",
+      "title": "Nouveaux locaux pour l'Institut"
     }
   ]
 }
