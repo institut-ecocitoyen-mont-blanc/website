@@ -112,7 +112,6 @@ export function NewsCard({
           fill
           className="object-cover transition-transform duration-300 group-hover:scale-105"
         />
-        <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent" />
         {isEvent && (
           <div className="absolute top-0 left-0 w-full bg-purple-500 text-white py-2 px-4 text-center font-semibold z-10">
             <CalendarDays className="w-4 h-4 inline-block mr-2 -mt-1.5" />
