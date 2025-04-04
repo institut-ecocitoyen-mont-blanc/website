@@ -1,6 +1,6 @@
 {
-  "commit": "20f78291e72674a925c323c6ee222cbe46da7f77",
-  "generated": "2025-04-04T08:03:13.530Z",
+  "commit": "8b32ecee191f363bc26e750516eaf56b8dd1a14a",
+  "generated": "2025-04-04T08:03:53.159Z",
   "metadata": [
     {
       "__outstatic": {
@@ -753,26 +753,6 @@
     },
     {
       "__outstatic": {
-        "commit": "8fbb46dd4425c938d59852e60dbe8cc43de86b87",
-        "hash": "2823938203",
-        "path": "outstatic/content/actualites/lettre-information.mdx"
-      },
-      "author": {
-        "name": "JPP",
-        "picture": "https://avatars.githubusercontent.com/u/204351074?v=4"
-      },
-      "categories": [
-      ],
-      "collection": "actualites",
-      "description": "Le numéro 2 de la lettre d'information est paru en Janvier 2025",
-      "image": "/images/lettre_info-QwOD.png",
-      "publishedAt": "2025-01-26T23:00:00.000Z",
-      "slug": "lettre-information",
-      "status": "published",
-      "title": "Lettre d'information"
-    },
-    {
-      "__outstatic": {
         "commit": "0ad9b1fa30bf0500dd2e9741772070fd7ef2e893",
         "hash": "2684355174",
         "path": "outstatic/content/actualites/webinaire-etude-epidemiologique.mdx"
@@ -823,6 +803,26 @@
       "slug": "recherche-terrains",
       "status": "published",
       "title": "Recherche de terrains"
+    },
+    {
+      "__outstatic": {
+        "commit": "8b32ecee191f363bc26e750516eaf56b8dd1a14a",
+        "hash": "1939676082",
+        "path": "outstatic/content/actualites/lettre-information.mdx"
+      },
+      "author": {
+        "name": "JPP",
+        "picture": "https://avatars.githubusercontent.com/u/204351074?v=4"
+      },
+      "categories": [
+      ],
+      "collection": "actualites",
+      "description": "Le numéro 2 de la lettre d'information est paru en Janvier 2025",
+      "image": "",
+      "publishedAt": "2025-01-26T23:00:00.000Z",
+      "slug": "lettre-information",
+      "status": "published",
+      "title": "Lettre d'information #2"
     }
   ]
 }
