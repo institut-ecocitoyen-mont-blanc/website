@@ -1,6 +1,6 @@
 {
-  "commit": "4570e97497a3450671a444b877099c055f76cc07",
-  "generated": "2025-04-07T05:55:58.149Z",
+  "commit": "3b0fbd42a80de78c39f55ea135446a08353f3015",
+  "generated": "2025-04-07T05:58:07.542Z",
   "metadata": [
     {
       "__outstatic": {
@@ -602,31 +602,6 @@
     },
     {
       "__outstatic": {
-        "commit": "2d74ed4fca39147278c7a9c8f31d45362431b198",
-        "hash": "1857086157",
-        "path": "outstatic/content/actualites/assemblee-generale.mdx"
-      },
-      "author": {
-        "name": "JPP",
-        "picture": "https://avatars.githubusercontent.com/u/204351074?v=4"
-      },
-      "categories": [
-        {
-          "label": "Événement",
-          "value": "Événement"
-        }
-      ],
-      "collection": "actualites",
-      "dateEvenement": "2025-04-04T22:00:00.000Z",
-      "description": "Assemblée Générale de L'institut Ecocitoyen du Pays du Mont-Blanc.\nEn matinée, tenue de l’AG. Petite restauration proposée pour le déjeuner. L’après-midi, animations sur la pollutions et la santé environnementale, temps d’échange et moment de convivialité.",
-      "image": "",
-      "publishedAt": "2025-03-28T15:51:20.497Z",
-      "slug": "assemblee-generale",
-      "status": "published",
-      "title": "Assemblée Générale"
-    },
-    {
-      "__outstatic": {
         "commit": "646966a2762ddb488592a0e18934f79c050370d5",
         "hash": "3035207337",
         "path": "outstatic/content/static-pages/a-propos.mdx"
@@ -825,6 +800,31 @@
       "slug": "lettre-information",
       "status": "published",
       "title": "Lettre d'information #2"
+    },
+    {
+      "__outstatic": {
+        "commit": "3b0fbd42a80de78c39f55ea135446a08353f3015",
+        "hash": "2375523651",
+        "path": "outstatic/content/actualites/assemblee-generale.mdx"
+      },
+      "author": {
+        "name": "JPP",
+        "picture": "https://avatars.githubusercontent.com/u/204351074?v=4"
+      },
+      "categories": [
+        {
+          "label": "Événement",
+          "value": "Événement"
+        }
+      ],
+      "collection": "actualites",
+      "dateEvenement": "2025-04-04T22:00:00.000Z",
+      "description": "Assemblée Générale de L'institut Ecocitoyen du Pays du Mont-Blanc.\nEn matinée, tenue de l’AG. Petite restauration proposée pour le déjeuner. L’après-midi, animations sur la pollutions et la santé environnementale, temps d’échange et moment de convivialité.",
+      "image": "/images/ag-I4Nz.png",
+      "publishedAt": "2025-03-28T15:51:20.497Z",
+      "slug": "assemblee-generale",
+      "status": "published",
+      "title": "Assemblée Générale"
     }
   ]
 }
