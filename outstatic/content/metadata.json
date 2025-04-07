@@ -1,6 +1,6 @@
 {
-  "commit": "d3d4dd8b9a0a4cf39cb664a4a81e3cf28874daf7",
-  "generated": "2025-04-07T05:52:54.319Z",
+  "commit": "030a8614d6cb05e4d39c45f4ce2aa85bc1605aec",
+  "generated": "2025-04-07T05:54:07.797Z",
   "metadata": [
     {
       "__outstatic": {
@@ -797,8 +797,8 @@
     },
     {
       "__outstatic": {
-        "commit": "d3d4dd8b9a0a4cf39cb664a4a81e3cf28874daf7",
-        "hash": "3499779548",
+        "commit": "030a8614d6cb05e4d39c45f4ce2aa85bc1605aec",
+        "hash": "2087515802",
         "path": "outstatic/content/actualites/webinaire-etude-epidemiologique.mdx"
       },
       "author": {
@@ -821,7 +821,7 @@
       "image": "/images/epidemiologie-Y3Mz.png",
       "publishedAt": "2025-03-09T23:00:00.000Z",
       "slug": "webinaire-etude-epidemiologique",
-      "slugProjet": "étude épidémiologique",
+      "slugProjet": "etude-epidémiologique",
       "status": "published",
       "title": "Webinaire: étude épidémiologique"
     }
