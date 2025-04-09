@@ -18,7 +18,8 @@ export default function Header() {
             alt="Logo Institut Ecocitoyen du Pays du Mont Blanc"
             width={120}
             height={40}
-            className="h-10 w-auto"
+            className="h-auto"
+            sizes="(max-width: 768px) 80px, 140px"
           />
           <h1 className="text-2xl font-bold hidden md:block">
             <span className="text-blue-iec">Institut Ecocitoyen</span>
@@ -27,7 +28,7 @@ export default function Header() {
               Pays du Mont Blanc
             </span>
           </h1>
-          <h1 className="text-xl font-bold md:hidden">
+          <h1 className="text-l font-bold md:hidden">
             Institut Ecocitoyen du Pays du Mont Blanc
           </h1>
         </Link>
