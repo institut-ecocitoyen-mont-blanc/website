@@ -14,7 +14,7 @@ export default async function Footer() {
             <h3 className="text-xl font-semibold mb-2">
               Institut Ecocitoyen du Pays du Mont Blanc
             </h3>
-            <p>Ensemble pour un environnement sain</p>
+            <p>Avec les citoyens pour leur santé</p>
             <div className="flex space-x-4  pt-4">
               <Link
                 href="https://www.facebook.com/people/Institut-Écocitoyen-Pays-du-Mont-Blanc/61570992711918/"
