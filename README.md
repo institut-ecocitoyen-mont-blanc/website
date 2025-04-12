@@ -1,6 +1,39 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Institut Ecocitoyen du Pays du Mont Blanc
 
-## Getting Started
+## Comment mettre à jour le contenu du site web?
+
+### Accès à l'editeur de contenu
+
+L'éditeur de contenu se trouve à l'adresse suivante: https://institut-ecocitoyen-pmb.fr/outstatic.
+
+Seules certaines personnes y ont accès. Pour se faire, suivre la procédure suivante:
+
+1. Créer un compte sur [GitHub](https://github.com/signup)
+2. Envoyer le nom d'utilisateur à Mathieu par email
+3. Accepter l'invitation reçu par email pour rejoindre l'organisation sur GitHub
+
+Vous pourrez maintenant vous connecter sur l'editeur de contenu.
+
+### Editer du contenu
+
+Il existe plusieurs catégories de contenu, regroupées par "Collection".
+
+Seules 2 sont peuvent être éditées sans soucis (les autres peuvent potentiellement demander des mises à jours du code source du site et sont à voir avec Mathieu):
+
+- les actualitées
+- les projets
+
+Chacunes des deux collections contiennent des données structurées qui apparaissent sur le site:
+
+#### Actualité
+
+![Actualité](./docs/actualite.png)
+
+#### Projet
+
+![Projet](./docs/projet.png)
+
+## Developers
 
 First, run the development server:
 
@@ -17,8 +50,6 @@ bun dev
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
 ## Learn More
 
