@@ -1,6 +1,6 @@
 {
-  "commit": "885c65b780690a93a292ca89e7854ae4d602b1b6",
-  "generated": "2025-04-12T12:54:26.738Z",
+  "commit": "4e1b33a0de3a8e92f8d20eec23e4e4626ffb8690",
+  "generated": "2025-04-14T06:26:19.867Z",
   "metadata": [
     {
       "__outstatic": {
@@ -143,48 +143,6 @@
       "slug": "etude-epidemiologique",
       "status": "published",
       "title": "Etude épidémiologique"
-    },
-    {
-      "__outstatic": {
-        "commit": "4cd0d5aff63964229bcc1a5ee2ae4eee9b2535ce",
-        "hash": "2161143750",
-        "path": "outstatic/content/projets/livre-blanc-pollutions-polluants.mdx"
-      },
-      "author": {
-        "name": "JPP",
-        "picture": "https://avatars.githubusercontent.com/u/204351074?v=4"
-      },
-      "categories": [
-        {
-          "label": "Eau",
-          "value": "Eau"
-        },
-        {
-          "label": "Air",
-          "value": "Air"
-        },
-        {
-          "label": "Sol",
-          "value": "Sol"
-        },
-        {
-          "label": "Science Participative",
-          "value": "Science Participative"
-        }
-      ],
-      "collection": "projets",
-      "description": "Réalisation d’une cartographie des sources de pollutions et des polluants de l’air, de l’eau et du sol sur le territoire. \nLes habitants sont acteurs de la collecte et de la remontée des données. Des ateliers de sciences participatives ont pour objectif de porter à la connaissance des habitants les méthodes et protocoles scientifiques déployés.",
-      "etat": [
-        {
-          "label": "En cours",
-          "value": "En cours"
-        }
-      ],
-      "image": "/images/pollutions-U1Mj.png",
-      "publishedAt": "2025-03-28T15:22:28.896Z",
-      "slug": "livre-blanc-pollutions-polluants",
-      "status": "published",
-      "title": "Livre blanc: pollutions et polluants"
     },
     {
       "__outstatic": {
@@ -826,6 +784,48 @@
       "slug": "livre-blanc-etudes-documents",
       "status": "published",
       "title": "Livre blanc: études et documents"
+    },
+    {
+      "__outstatic": {
+        "commit": "4e1b33a0de3a8e92f8d20eec23e4e4626ffb8690",
+        "hash": "1023368835",
+        "path": "outstatic/content/projets/livre-blanc-pollutions-polluants.mdx"
+      },
+      "author": {
+        "name": "JPP",
+        "picture": "https://avatars.githubusercontent.com/u/204351074?v=4"
+      },
+      "categories": [
+        {
+          "label": "Eau",
+          "value": "Eau"
+        },
+        {
+          "label": "Air",
+          "value": "Air"
+        },
+        {
+          "label": "Sol",
+          "value": "Sol"
+        },
+        {
+          "label": "Science Participative",
+          "value": "Science Participative"
+        }
+      ],
+      "collection": "projets",
+      "description": "Réalisation d’une cartographie des sources de pollutions et des polluants de l’air, de l’eau et du sol sur le territoire. \nLes habitants sont acteurs de la collecte et de la remontée des données. Des ateliers de sciences participatives ont pour objectif de porter à la connaissance des habitants les méthodes et protocoles scientifiques déployés.",
+      "etat": [
+        {
+          "label": "En cours",
+          "value": "En cours"
+        }
+      ],
+      "image": "",
+      "publishedAt": "2025-03-28T15:22:28.896Z",
+      "slug": "livre-blanc-pollutions-polluants",
+      "status": "published",
+      "title": "Inventaire des sources de pollutions dans la Vallée de l'Arve"
     }
   ]
 }
