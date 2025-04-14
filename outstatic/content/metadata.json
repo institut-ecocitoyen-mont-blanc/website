@@ -1,6 +1,6 @@
 {
-  "commit": "6295e87dfe09ddfd644aece18476c2eb95b418d4",
-  "generated": "2025-04-14T06:48:39.815Z",
+  "commit": "98d75e503a738bcfce2746002ad39f937b1a7dd7",
+  "generated": "2025-04-14T07:04:40.095Z",
   "metadata": [
     {
       "__outstatic": {
@@ -706,53 +706,6 @@
     },
     {
       "__outstatic": {
-        "commit": "885c65b780690a93a292ca89e7854ae4d602b1b6",
-        "hash": "3993125004",
-        "path": "outstatic/content/projets/livre-blanc-etudes-documents.mdx"
-      },
-      "author": {
-        "name": "JPP",
-        "picture": "https://avatars.githubusercontent.com/u/204351074?v=4"
-      },
-      "categories": [
-        {
-          "label": "Eau",
-          "value": "Eau"
-        },
-        {
-          "label": "Air",
-          "value": "Air"
-        },
-        {
-          "label": "Sol",
-          "value": "Sol"
-        },
-        {
-          "label": "Santé",
-          "value": "Santé"
-        },
-        {
-          "label": "Science Participative",
-          "value": "Science Participative"
-        }
-      ],
-      "collection": "projets",
-      "description": "Etat des lieux documentaire des connaissances sur les pollutions, les polluants et leurs impacts sur la santé et l’environnement.\nAteliers de sciences participatives citoyennes afin de collecter les données.\n",
-      "etat": [
-        {
-          "label": "En cours",
-          "value": "En cours"
-        }
-      ],
-      "image": "/images/lb_docs-g4MD.png",
-      "lienScienceParticipative": "https://docs.google.com/forms/d/1qTt_72Y2AS3Q7Y5ZhVfZUtLsoCetEqLddHt8Jt5kda4/edit?usp=sharing_eil&ts=67f8ede6",
-      "publishedAt": "2025-03-28T15:27:14.211Z",
-      "slug": "livre-blanc-etudes-documents",
-      "status": "published",
-      "title": "Livre blanc: études et documents"
-    },
-    {
-      "__outstatic": {
         "commit": "66c54c31bf210c6bd482eab816d5b879ab661366",
         "hash": "3960265247",
         "path": "outstatic/content/projets/livre-blanc-pollutions-polluants.mdx"
@@ -827,6 +780,53 @@
       "slug": "etude-epidemiologique",
       "status": "published",
       "title": "Projet d'étude sanitaire sur l'impact des pollutions ultra fines"
+    },
+    {
+      "__outstatic": {
+        "commit": "98d75e503a738bcfce2746002ad39f937b1a7dd7",
+        "hash": "4115940803",
+        "path": "outstatic/content/projets/livre-blanc-etudes-documents.mdx"
+      },
+      "author": {
+        "name": "JPP",
+        "picture": "https://avatars.githubusercontent.com/u/204351074?v=4"
+      },
+      "categories": [
+        {
+          "label": "Eau",
+          "value": "Eau"
+        },
+        {
+          "label": "Air",
+          "value": "Air"
+        },
+        {
+          "label": "Sol",
+          "value": "Sol"
+        },
+        {
+          "label": "Santé",
+          "value": "Santé"
+        },
+        {
+          "label": "Science Participative",
+          "value": "Science Participative"
+        }
+      ],
+      "collection": "projets",
+      "description": "Etat des lieux documentaire des connaissances sur les pollutions, les polluants et leurs impacts sur la santé et l’environnement.\nAteliers de sciences participatives citoyennes afin de collecter les données.\n",
+      "etat": [
+        {
+          "label": "En cours",
+          "value": "En cours"
+        }
+      ],
+      "image": "/images/lb_docs-g4MD.png",
+      "lienScienceParticipative": "https://docs.google.com/forms/d/1qTt_72Y2AS3Q7Y5ZhVfZUtLsoCetEqLddHt8Jt5kda4/edit?usp=sharing_eil&ts=67f8ede6",
+      "publishedAt": "2025-03-28T15:27:14.211Z",
+      "slug": "livre-blanc-etudes-documents",
+      "status": "published",
+      "title": "Livre blanc : État des lieux et des connaissances existantes sur les pollutions "
     }
   ]
 }
