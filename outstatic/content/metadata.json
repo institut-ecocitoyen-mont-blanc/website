@@ -1,6 +1,6 @@
 {
-  "commit": "4e1b33a0de3a8e92f8d20eec23e4e4626ffb8690",
-  "generated": "2025-04-14T06:26:19.867Z",
+  "commit": "78086ea19c78e57e9377e6b2e5e070660c179649",
+  "generated": "2025-04-14T06:40:17.936Z",
   "metadata": [
     {
       "__outstatic": {
@@ -787,8 +787,8 @@
     },
     {
       "__outstatic": {
-        "commit": "4e1b33a0de3a8e92f8d20eec23e4e4626ffb8690",
-        "hash": "1023368835",
+        "commit": "78086ea19c78e57e9377e6b2e5e070660c179649",
+        "hash": "1941464328",
         "path": "outstatic/content/projets/livre-blanc-pollutions-polluants.mdx"
       },
       "author": {
@@ -822,6 +822,7 @@
         }
       ],
       "image": "",
+      "lienScienceParticipative": "https://docs.google.com/forms/d/1qTt_72Y2AS3Q7Y5ZhVfZUtLsoCetEqLddHt8Jt5kda4/edit?ts=67f8ede6",
       "publishedAt": "2025-03-28T15:22:28.896Z",
       "slug": "livre-blanc-pollutions-polluants",
       "status": "published",
