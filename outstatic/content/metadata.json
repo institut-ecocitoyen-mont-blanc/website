@@ -1,6 +1,6 @@
 {
-  "commit": "7039e249f262545f40345cf26cdaf06844f088c3",
-  "generated": "2025-04-14T09:49:08.285Z",
+  "commit": "5c7c2d95ce392e5f9523ea74801bd6c0423bd19c",
+  "generated": "2025-04-14T09:51:33.989Z",
   "metadata": [
     {
       "__outstatic": {
@@ -800,13 +800,13 @@
     },
     {
       "__outstatic": {
-        "commit": "7039e249f262545f40345cf26cdaf06844f088c3",
-        "hash": "2818802167",
+        "commit": "5c7c2d95ce392e5f9523ea74801bd6c0423bd19c",
+        "hash": "875636168",
         "path": "outstatic/content/actualites/journees-etudes-epidemiologiques.mdx"
       },
       "author": {
-        "name": "JPP",
-        "picture": "https://avatars.githubusercontent.com/u/204351074?v=4"
+        "name": "",
+        "picture": ""
       },
       "categories": [
         {
