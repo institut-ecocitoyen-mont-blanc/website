@@ -1,6 +1,6 @@
 {
-  "commit": "5c7c2d95ce392e5f9523ea74801bd6c0423bd19c",
-  "generated": "2025-04-14T09:51:33.989Z",
+  "commit": "99c583f216bb4ad6f5d3b06ca21181ffa19ed672",
+  "generated": "2025-04-14T09:51:47.875Z",
   "metadata": [
     {
       "__outstatic": {
@@ -800,8 +800,8 @@
     },
     {
       "__outstatic": {
-        "commit": "5c7c2d95ce392e5f9523ea74801bd6c0423bd19c",
-        "hash": "875636168",
+        "commit": "99c583f216bb4ad6f5d3b06ca21181ffa19ed672",
+        "hash": "1629719658",
         "path": "outstatic/content/actualites/journees-etudes-epidemiologiques.mdx"
       },
       "author": {
@@ -825,7 +825,7 @@
       "slug": "journees-etudes-epidemiologiques",
       "slugProjet": "etude-epidemiologique",
       "status": "published",
-      "title": "Webinaire en santé environnementale"
+      "title": "Webinaire en santé environnementale - 10 mars 2025"
     }
   ]
 }
