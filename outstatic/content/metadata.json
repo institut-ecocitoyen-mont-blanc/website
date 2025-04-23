@@ -1,6 +1,6 @@
 {
-  "commit": "c0821668778370559ccd8739ce22d3b173631e14",
-  "generated": "2025-04-23T14:16:51.345Z",
+  "commit": "252f720ef37f13003a7c0cade7566071ae8c34ca",
+  "generated": "2025-04-23T14:18:45.026Z",
   "metadata": [
     {
       "__outstatic": {
@@ -305,40 +305,6 @@
       "slug": "resultats-de-l-etude-sur-la-pollution-sonore",
       "status": "draft",
       "title": "Résultats de l'étude sur la pollution sonore"
-    },
-    {
-      "__outstatic": {
-        "commit": "187769c543350d8deab3c3a59c1cec697b63e1d4",
-        "hash": "2294472565",
-        "path": "outstatic/content/projets/lichens.mdx"
-      },
-      "author": {
-        "name": "JPP",
-        "picture": "https://avatars.githubusercontent.com/u/204351074?v=4"
-      },
-      "categories": [
-        {
-          "label": "Air",
-          "value": "Air"
-        },
-        {
-          "label": "Science Participative",
-          "value": "Science Participative"
-        }
-      ],
-      "collection": "projets",
-      "description": "Les lichens permettent une évaluation de la qualité de l’air – bio-indication –\t\net une caractérisation physico-chimique des polluants – bio-accumulation.\t\n\t\nLa réalisation des relevés in situ pour la bio-indication et les prélèvements \t\n\tpour la bio-accumulation sont réalisés par des bénévoles dans le cadre\n\td’un protocole établi par un référent scientifique\n",
-      "etat": [
-        {
-          "label": "En cours",
-          "value": "En cours"
-        }
-      ],
-      "image": "/images/capture-d--cran-du-2025-03-24-17-03-17-E5OT.png",
-      "publishedAt": "2025-03-24T16:03:04.927Z",
-      "slug": "lichens",
-      "status": "published",
-      "title": "Lichens"
     },
     {
       "__outstatic": {
@@ -771,6 +737,40 @@
       "slugProjet": "etude-epidemiologique",
       "status": "published",
       "title": "Webinaire en santé environnementale - 10 mars 2025"
+    },
+    {
+      "__outstatic": {
+        "commit": "252f720ef37f13003a7c0cade7566071ae8c34ca",
+        "hash": "561280444",
+        "path": "outstatic/content/projets/lichens.mdx"
+      },
+      "author": {
+        "name": "Marine",
+        "picture": "https://avatars.githubusercontent.com/u/204351074?v=4"
+      },
+      "categories": [
+        {
+          "label": "Air",
+          "value": "Air"
+        },
+        {
+          "label": "Science Participative",
+          "value": "Science Participative"
+        }
+      ],
+      "collection": "projets",
+      "description": "Les lichens permettent une évaluation de la qualité de l’air – bio-indication –\t\net une caractérisation physico-chimique des polluants – bio-accumulation.\t\n\t\nLa réalisation des relevés in situ pour la bio-indication et les prélèvements \t\n\tpour la bio-accumulation sont réalisés par des bénévoles dans le cadre\n\td’un protocole établi par un référent scientifique\n",
+      "etat": [
+        {
+          "label": "En cours",
+          "value": "En cours"
+        }
+      ],
+      "image": "/images/capture-d--cran-du-2025-03-24-17-03-17-E5OT.png",
+      "publishedAt": "2025-03-24T16:03:04.927Z",
+      "slug": "lichens",
+      "status": "published",
+      "title": "Etudes participatives des lichens "
     }
   ]
 }
