@@ -1,6 +1,6 @@
 {
-  "commit": "a108f9a467db997e5c1f4b50df99f3a996c8bad5",
-  "generated": "2025-04-23T14:19:27.804Z",
+  "commit": "06b3c5d9008fff1f7f4b32e3f3d1b943c4088e01",
+  "generated": "2025-04-23T14:19:48.588Z",
   "metadata": [
     {
       "__outstatic": {
@@ -237,26 +237,6 @@
       "slug": "impact-des-microplastiques-sur-la-chaine-alimentaire",
       "status": "draft",
       "title": "Impact des microplastiques sur la chaîne alimentaire"
-    },
-    {
-      "__outstatic": {
-        "commit": "b48898f311a5ba317e7e2a7eb829b82a270e8b31",
-        "hash": "942532087",
-        "path": "outstatic/content/actualites/lancement-de-notre-campagne-de-sensibilisation.mdx"
-      },
-      "author": {
-        "name": "Mathieu Dutour",
-        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
-      },
-      "categories": [
-      ],
-      "collection": "actualites",
-      "description": "Nous lançons une nouvelle campagne pour sensibiliser le public aux dangers des perturbateurs endocriniens. Découvrez comment vous pouvez participer.",
-      "image": "/images/marc-kargel-qb3Z5BfiAgg-unsplash.jpg",
-      "publishedAt": "2025-02-18T09:38:35.547Z",
-      "slug": "lancement-de-notre-campagne-de-sensibilisation",
-      "status": "draft",
-      "title": "Lancement de notre campagne de sensibilisation"
     },
     {
       "__outstatic": {
