@@ -1,6 +1,6 @@
 {
-  "commit": "aa09aeb2e9e15def9528ee006fcf24a691e1065f",
-  "generated": "2025-04-23T14:20:24.786Z",
+  "commit": "722fd6e20dcdbe285c37b8a078778653ad0a1ad9",
+  "generated": "2025-04-23T14:20:40.233Z",
   "metadata": [
     {
       "__outstatic": {
@@ -109,36 +109,6 @@
       "slug": "sciences-participatives",
       "status": "published",
       "title": "Sciences Participatives"
-    },
-    {
-      "__outstatic": {
-        "commit": "5aaf06c6b6b16ec9b1e82de087d9c9fabd9c93ca",
-        "hash": "3169525702",
-        "path": "outstatic/content/projets/cartographie-des-pollutions-sonores.mdx"
-      },
-      "author": {
-        "name": "Mathieu Dutour",
-        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
-      },
-      "categories": [
-        {
-          "label": "Santé",
-          "value": "Santé"
-        }
-      ],
-      "collection": "projets",
-      "description": "Création d'une carte interactive des niveaux de bruit dans les zones urbaines et étude de leurs effets sur le stress et le sommeil.",
-      "etat": [
-        {
-          "label": "Terminé",
-          "value": "Terminé"
-        }
-      ],
-      "image": "/images/elyas-pasban-uAm_c9heHxo-unsplash.jpg",
-      "publishedAt": "2025-02-18T09:20:05.231Z",
-      "slug": "cartographie-des-pollutions-sonores",
-      "status": "draft",
-      "title": "Cartographie des pollutions sonores"
     },
     {
       "__outstatic": {
