@@ -1,6 +1,6 @@
 {
-  "commit": "233cb3f24d335f2575fe684ede3a4cb97b0a74e9",
-  "generated": "2025-04-23T14:20:47.515Z",
+  "commit": "eb6f4496d7ef6a640693db84243c5bd063c36288",
+  "generated": "2025-04-23T14:28:06.184Z",
   "metadata": [
     {
       "__outstatic": {
@@ -493,49 +493,6 @@
     },
     {
       "__outstatic": {
-        "commit": "85ccb9ecd21b6bbe924476ff62e4bf1d92b4e25b",
-        "hash": "2091160251",
-        "path": "outstatic/content/projets/livre-blanc-pollutions-polluants.mdx"
-      },
-      "author": {
-        "name": "JPP",
-        "picture": "https://avatars.githubusercontent.com/u/204351074?v=4"
-      },
-      "categories": [
-        {
-          "label": "Eau",
-          "value": "Eau"
-        },
-        {
-          "label": "Air",
-          "value": "Air"
-        },
-        {
-          "label": "Sol",
-          "value": "Sol"
-        },
-        {
-          "label": "Science Participative",
-          "value": "Science Participative"
-        }
-      ],
-      "collection": "projets",
-      "description": "Réalisation d’une cartographie des sources de pollutions et des polluants de l’air, de l’eau et du sol sur le territoire. \nLes habitants sont acteurs de la collecte et de la remontée des données. Des ateliers de sciences participatives ont pour objectif de porter à la connaissance des habitants les méthodes et protocoles scientifiques déployés.",
-      "etat": [
-        {
-          "label": "En cours",
-          "value": "En cours"
-        }
-      ],
-      "image": "",
-      "lienScienceParticipative": "",
-      "publishedAt": "2025-03-28T15:22:28.896Z",
-      "slug": "livre-blanc-pollutions-polluants",
-      "status": "published",
-      "title": "Inventaire des sources de pollutions dans la Vallée de l'Arve"
-    },
-    {
-      "__outstatic": {
         "commit": "cb65b8592cbff91c68cb6234ee690d8c65cdb9df",
         "hash": "970909225",
         "path": "outstatic/content/actualites/journees-etudes-epidemiologiques.mdx"
@@ -623,6 +580,49 @@
       "slug": "conference-sur-les-effets-des-microplastiques",
       "status": "draft",
       "title": "Conférence le 18 juin en présence de la chercheuse Julia Dusaucy, sur les effets des microplastiques dans les lacs de montagne "
+    },
+    {
+      "__outstatic": {
+        "commit": "eb6f4496d7ef6a640693db84243c5bd063c36288",
+        "hash": "280957742",
+        "path": "outstatic/content/projets/livre-blanc-pollutions-polluants.mdx"
+      },
+      "author": {
+        "name": "JPP",
+        "picture": "https://avatars.githubusercontent.com/u/204351074?v=4"
+      },
+      "categories": [
+        {
+          "label": "Eau",
+          "value": "Eau"
+        },
+        {
+          "label": "Air",
+          "value": "Air"
+        },
+        {
+          "label": "Sol",
+          "value": "Sol"
+        },
+        {
+          "label": "Science Participative",
+          "value": "Science Participative"
+        }
+      ],
+      "collection": "projets",
+      "description": "Réalisation d’une cartographie des sources de pollutions et des polluants de l’air, de l’eau et du sol sur le territoire. \nLes habitants sont acteurs de la collecte et de la remontée des données. Des ateliers de sciences participatives ont pour objectif de porter à la connaissance des habitants les méthodes et protocoles scientifiques déployés.",
+      "etat": [
+        {
+          "label": "En cours",
+          "value": "En cours"
+        }
+      ],
+      "image": "",
+      "lienScienceParticipative": "",
+      "publishedAt": "2025-03-28T15:22:28.896Z",
+      "slug": "livre-blanc-pollutions-polluants",
+      "status": "published",
+      "title": "Inventaire participatif des sources de pollutions dans la Vallée de l'Arve"
     }
   ]
 }
