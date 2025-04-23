@@ -90,10 +90,10 @@ export function NewsList({
 
     if (activeFilters.includes("Événement")) {
       return result.sort((a, b) => {
-        if (a.dateEvenement && b.dateEvenement) {
-          return a.dateEvenement.getTime() - b.dateEvenement.getTime();
-        }
-        return 0;
+        return (
+          (b.dateEvenement || b.publishedAt).getTime() -
+          (a.dateEvenement || a.publishedAt).getTime()
+        );
       });
     }
 
