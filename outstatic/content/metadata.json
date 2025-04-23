@@ -1,6 +1,6 @@
 {
-  "commit": "06b3c5d9008fff1f7f4b32e3f3d1b943c4088e01",
-  "generated": "2025-04-23T14:19:48.588Z",
+  "commit": "d3ed28cb3649755f3daa7376cb9319ff6827f9b5",
+  "generated": "2025-04-23T14:20:14.867Z",
   "metadata": [
     {
       "__outstatic": {
@@ -139,40 +139,6 @@
       "slug": "cartographie-des-pollutions-sonores",
       "status": "draft",
       "title": "Cartographie des pollutions sonores"
-    },
-    {
-      "__outstatic": {
-        "commit": "0d431ed0cf7932e266b563d5610d1e52edfd1699",
-        "hash": "4258102847",
-        "path": "outstatic/content/projets/etude-sur-la-qualite-de-l-air-urbain.mdx"
-      },
-      "author": {
-        "name": "Mathieu Dutour",
-        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
-      },
-      "categories": [
-        {
-          "label": "Air",
-          "value": "Air"
-        },
-        {
-          "label": "Santé",
-          "value": "Santé"
-        }
-      ],
-      "collection": "projets",
-      "description": "Analyse approfondie des polluants atmosphériques dans les grandes villes françaises et leurs effets sur la santé respiratoire.",
-      "etat": [
-        {
-          "label": "En cours",
-          "value": "En cours"
-        }
-      ],
-      "image": "/images/kristen-morith-IWpd8KixceA-unsplash.jpg",
-      "publishedAt": "2025-02-18T09:21:03.325Z",
-      "slug": "etude-sur-la-qualite-de-l-air-urbain",
-      "status": "draft",
-      "title": "Étude sur la qualité de l'air urbain"
     },
     {
       "__outstatic": {
