@@ -1,6 +1,6 @@
 {
-  "commit": "d74e68dff8bc470b0c17034a2a8ad6e62a0eefb6",
-  "generated": "2025-04-23T15:01:58.268Z",
+  "commit": "f8f4fbac70b25f35ce84b58b019fb702fa3b5650",
+  "generated": "2025-04-23T15:08:43.053Z",
   "metadata": [
     {
       "__outstatic": {
@@ -598,8 +598,8 @@
     },
     {
       "__outstatic": {
-        "commit": "d74e68dff8bc470b0c17034a2a8ad6e62a0eefb6",
-        "hash": "2118789436",
+        "commit": "f8f4fbac70b25f35ce84b58b019fb702fa3b5650",
+        "hash": "2423062596",
         "path": "outstatic/content/actualites/journees-etudes-epidemiologiques.mdx"
       },
       "author": {
@@ -619,7 +619,7 @@
       "collection": "actualites",
       "description": "Les 10 et 11 mars, une présentation de l’étude épidémiologique menée par L’Institut de Fos sur Mer est faite aux praticiens de santé. L’objectif est la construction commune des Instituts de Fos/Mer, de l’Aude et du Pays du Mont-Blanc d’un programme d’identification de l’état de santé des habitants à l’échelle du territoire du Pays du Mont-Blanc.",
       "image": "",
-      "publishedAt": "2025-04-23T15:13:32.140Z",
+      "publishedAt": "2025-03-03T23:00:00.000Z",
       "slug": "journees-etudes-epidemiologiques",
       "slugProjet": "etude-epidemiologique",
       "status": "published",
