@@ -1,6 +1,6 @@
 {
-  "commit": "65d3963f538da2a038a96214cf964cb635a828e3",
-  "generated": "2025-04-23T14:03:03.199Z",
+  "commit": "198578c556a36616f6c4dcaaf2c7d7f628405f93",
+  "generated": "2025-04-23T14:11:01.089Z",
   "metadata": [
     {
       "__outstatic": {
@@ -237,34 +237,6 @@
       "slug": "impact-des-microplastiques-sur-la-chaine-alimentaire",
       "status": "draft",
       "title": "Impact des microplastiques sur la chaîne alimentaire"
-    },
-    {
-      "__outstatic": {
-        "commit": "4dbbca013de337ea5ebd38da751792e7420f372b",
-        "hash": "3911103274",
-        "path": "outstatic/content/actualites/conference-sur-les-effets-des-microplastiques.mdx"
-      },
-      "author": {
-        "name": "Mathieu Dutour",
-        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
-      },
-      "categories": [
-        {
-          "label": "Événement",
-          "value": "Événement"
-        },
-        {
-          "label": "Santé",
-          "value": "Santé"
-        }
-      ],
-      "collection": "actualites",
-      "description": "Rejoignez-nous pour une conférence passionnante sur l'impact des microplastiques sur notre santé et l'environnement, animée par des experts reconnus.",
-      "image": "/images/antoine-giret-7_TSzqJms4w-unsplash.jpg",
-      "publishedAt": "2025-02-18T09:38:57.243Z",
-      "slug": "conference-sur-les-effets-des-microplastiques",
-      "status": "draft",
-      "title": "Conférence sur les effets des microplastiques"
     },
     {
       "__outstatic": {
@@ -796,6 +768,34 @@
       "slug": "livre-blanc-pollutions-polluants",
       "status": "published",
       "title": "Inventaire des sources de pollutions dans la Vallée de l'Arve"
+    },
+    {
+      "__outstatic": {
+        "commit": "198578c556a36616f6c4dcaaf2c7d7f628405f93",
+        "hash": "1031582929",
+        "path": "outstatic/content/actualites/conference-sur-les-effets-des-microplastiques.mdx"
+      },
+      "author": {
+        "name": "Mathieu Dutour",
+        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
+      },
+      "categories": [
+        {
+          "label": "Événement",
+          "value": "Événement"
+        },
+        {
+          "label": "Santé",
+          "value": "Santé"
+        }
+      ],
+      "collection": "actualites",
+      "description": "Rejoignez-nous pour une conférence passionnante sur l'impact des microplastiques sur notre santé et l'environnement, animée par des experts reconnus.",
+      "image": "/images/antoine-giret-7_TSzqJms4w-unsplash.jpg",
+      "publishedAt": "2025-02-18T09:38:57.243Z",
+      "slug": "conference-sur-les-effets-des-microplastiques",
+      "status": "draft",
+      "title": "Conférence le 18 juin en présence de la chercheuse Julia Dusaucy, sur les effets des microplastiques dans les lacs de montagne "
     }
   ]
 }
