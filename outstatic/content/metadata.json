@@ -1,6 +1,6 @@
 {
-  "commit": "0dd1b3643e5a6c86c594b35c0acfca9e8884f5de",
-  "generated": "2025-05-09T12:15:44.237Z",
+  "commit": "7e0085c9c18abb086113255bef9008a0bef7cf58",
+  "generated": "2025-05-09T12:16:25.503Z",
   "metadata": [
     {
       "__outstatic": {
@@ -597,8 +597,8 @@
     },
     {
       "__outstatic": {
-        "commit": "0dd1b3643e5a6c86c594b35c0acfca9e8884f5de",
-        "hash": "3663796917",
+        "commit": "7e0085c9c18abb086113255bef9008a0bef7cf58",
+        "hash": "3293976779",
         "path": "outstatic/content/actualites/journees-etude-lichens.mdx"
       },
       "author": {
