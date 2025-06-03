@@ -1,6 +1,6 @@
 {
-  "commit": "c9d14dfa8469b825986510c3d46504c7ac43515d",
-  "generated": "2025-05-09T12:17:10.093Z",
+  "commit": "b68eb1e4f561afab1b70b79762aa2e82e2223f28",
+  "generated": "2025-06-03T10:43:24.205Z",
   "metadata": [
     {
       "__outstatic": {
@@ -624,6 +624,26 @@
       "slugProjet": "lichens",
       "status": "published",
       "title": "A la découverte des lichens !"
+    },
+    {
+      "__outstatic": {
+        "commit": "b68eb1e4f561afab1b70b79762aa2e82e2223f28",
+        "hash": "1079899528",
+        "path": "outstatic/content/actualites/conference-pollution-de-l-eau-18-06-2025.mdx"
+      },
+      "author": {
+        "name": "Marine",
+        "picture": "https://avatars.githubusercontent.com/u/207458905?v=4"
+      },
+      "categories": [
+      ],
+      "collection": "actualites",
+      "description": "",
+      "image": "",
+      "publishedAt": "2025-06-03T09:48:10.052Z",
+      "slug": "conference-pollution-de-l-eau-18-06-2025",
+      "status": "draft",
+      "title": ""
     }
   ]
 }
