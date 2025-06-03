@@ -1,7 +1,18 @@
 {
-  "commit": "404c574ab695f405568b1a8880c233c45813211e",
-  "generated": "2025-05-19T12:55:33.747Z",
+  "commit": "6502b89a19713182ce7e03a3758ac1a55aade201",
+  "generated": "2025-06-03T10:52:02.899Z",
   "media": [
+    {
+      "__outstatic": {
+        "commit": "6502b89a19713182ce7e03a3758ac1a55aade201",
+        "hash": "3354347209",
+        "path": "public/images/affiche-conf-rence-18-juin--2--M3Mz.png"
+      },
+      "alt": "",
+      "filename": "affiche-conf-rence-18-juin--2--M3Mz.png",
+      "publishedAt": "2025-06-03T10:52:02.899Z",
+      "type": "image"
+    },
     {
       "__outstatic": {
         "commit": "f142b7b3c7ce72a7bb8984876754cb84063d20c9",
