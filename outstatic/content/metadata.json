@@ -1,6 +1,6 @@
 {
-  "commit": "55797137ddeb0a937d21e33e2ab3cf0b89d75b40",
-  "generated": "2025-06-03T10:52:41.684Z",
+  "commit": "fea46a2796ef8f54ec015bd9d803a2076f61da84",
+  "generated": "2025-06-15T08:28:17.860Z",
   "metadata": [
     {
       "__outstatic": {
@@ -627,8 +627,8 @@
     },
     {
       "__outstatic": {
-        "commit": "55797137ddeb0a937d21e33e2ab3cf0b89d75b40",
-        "hash": "2203956823",
+        "commit": "fea46a2796ef8f54ec015bd9d803a2076f61da84",
+        "hash": "1105755912",
         "path": "outstatic/content/actualites/conference-pollution-de-l-eau-18-06-2025.mdx"
       },
       "author": {
@@ -643,7 +643,7 @@
       "publishedAt": "2025-06-03T09:48:10.052Z",
       "slug": "conference-pollution-de-l-eau-18-06-2025",
       "status": "published",
-      "title": "Conférence \"La pollution de l'eau aux microplastiques dans les lacs périalpins\""
+      "title": "Report de la conférence \"La pollution de l'eau aux microplastiques dans les lacs périalpins\""
     }
   ]
 }
