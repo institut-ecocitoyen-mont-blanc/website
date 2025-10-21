@@ -1,6 +1,6 @@
 {
-  "commit": "b4b29358a4fd4945b98e0e5365da67b96b2843d4",
-  "generated": "2025-10-21T14:32:29.231Z",
+  "commit": "dc08dd638d328570c4794f150fe6cc9c51acba36",
+  "generated": "2025-10-21T14:44:25.847Z",
   "metadata": [
     {
       "__outstatic": {
@@ -600,8 +600,8 @@
     },
     {
       "__outstatic": {
-        "commit": "b4b29358a4fd4945b98e0e5365da67b96b2843d4",
-        "hash": "2372853418",
+        "commit": "dc08dd638d328570c4794f150fe6cc9c51acba36",
+        "hash": "3006677638",
         "path": "outstatic/content/projets/livre-blanc-etudes-documents.mdx"
       },
       "author": {
@@ -634,8 +634,8 @@
       "description": "Etat des lieux documentaire des connaissances sur les pollutions, les polluants et leurs impacts sur la santé et l’environnement.\nAteliers de sciences participatives citoyennes afin de collecter les données.\n",
       "etat": [
         {
-          "label": "En cours",
-          "value": "En cours"
+          "label": "Terminé",
+          "value": "Terminé"
         }
       ],
       "image": "/images/lb_docs-g4MD.png",
