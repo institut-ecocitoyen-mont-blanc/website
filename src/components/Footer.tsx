@@ -79,7 +79,7 @@ export default async function Footer() {
         </div>
 
         {/* Partners Section */}
-        <div className="border-t border-gray-700 pt-6 mt-6">
+        <div className="border-t border-white/70 pt-6 mt-6">
           <h4 className="text-center text-lg font-medium mb-4">
             Avec le soutien de
           </h4>
@@ -87,7 +87,7 @@ export default async function Footer() {
             {partenaires.map((partner, index) => (
               <div
                 key={index}
-                className="bg-white/10 p-3 rounded-lg hover:bg-white/15 transition-colors"
+                className="bg-white/50 p-3 rounded-lg hover:bg-white/65 transition-colors"
               >
                 <Link
                   href={partner.lien}
