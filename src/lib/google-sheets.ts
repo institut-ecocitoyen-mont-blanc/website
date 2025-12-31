@@ -18,17 +18,21 @@ interface GoogleSheetsResponse {
   };
 }
 
+export interface PollutionEntry {
+  environmentalCompartment: string;
+  chemicalForm: string;
+  chemicalFamilies: string;
+  frequency: string;
+  healthImpact: string;
+}
+
 export interface PollutionSiteBase {
   id: number;
   name: string;
   location: string;
   sector: string;
   pollutionType: string;
-  environmentalCompartment: string;
-  chemicalForm: string;
-  chemicalFamilies: string;
-  frequency: string;
-  healthImpact: string;
+  pollutions: PollutionEntry[];
   accidents: string;
   link: string;
 }
@@ -93,6 +97,10 @@ export async function fetchAllPollutionSites(): Promise<PollutionSitesResult> {
   const seenSites = new Map<string, PollutionSite>();
   const seenDiffuseSites = new Map<string, DiffusePollutionSite>();
 
+  // Track current site for sub-entries (rows without ID)
+  let currentSiteKey: string | null = null;
+  let currentSiteHasCoordinates = false;
+
   // Column mapping based on current spreadsheet structure:
   // 0: N° (ID)
   // 1: Identification (name)
@@ -114,104 +122,100 @@ export async function fetchAllPollutionSites(): Promise<PollutionSitesResult> {
     if (!row.c || row.c.length === 0) continue;
 
     const idValue = row.c[0]?.v;
-    // Skip rows without a valid ID number (these are sub-entries for the same site)
-    if (typeof idValue !== "number" || isNaN(idValue)) continue;
+    const isMainEntry = typeof idValue === "number" && !isNaN(idValue);
 
-    const id = idValue;
-    const name = getCellValue(row, 1);
-    const sector = getCellValue(row, 3); // Column D - sector category for colors
-    const pollutionType = getCellValue(row, 4);
-    const location = getCellValue(row, 5);
-    const latitude = getCellNumber(row, 6);
-    const longitude = getCellNumber(row, 7);
+    // Extract pollution entry data (common to both main and sub-entries)
     const environmentalCompartment = getCellValue(row, 8);
     const chemicalForm = getCellValue(row, 9);
     const chemicalFamilies = getCellValue(row, 10);
     const frequency = getCellValue(row, 11);
     const healthImpact = getCellValue(row, 12);
-    const accidents = getCellValue(row, 13);
-    const link = getCellValue(row, 14);
 
-    const siteKey = `${id}-${name}`;
-    const hasValidCoordinates =
-      latitude !== null &&
-      longitude !== null &&
-      latitude >= -90 &&
-      latitude <= 90 &&
-      longitude >= -180 &&
-      longitude <= 180;
+    const pollutionEntry: PollutionEntry = {
+      environmentalCompartment,
+      chemicalForm,
+      chemicalFamilies,
+      frequency,
+      healthImpact,
+    };
 
-    if (hasValidCoordinates) {
-      // If we've seen this site before, merge the data (for sub-entries)
-      if (seenSites.has(siteKey)) {
-        const existing = seenSites.get(siteKey)!;
-        // Append new chemical forms/families if different
-        if (chemicalForm && !existing.chemicalForm.includes(chemicalForm)) {
-          existing.chemicalForm = existing.chemicalForm
-            ? `${existing.chemicalForm}, ${chemicalForm}`
-            : chemicalForm;
+    // Check if this pollution entry has any meaningful data
+    const hasPollutionData =
+      environmentalCompartment || chemicalForm || chemicalFamilies || frequency || healthImpact;
+
+    if (isMainEntry) {
+      // This is a main site entry
+      const id = idValue;
+      const name = getCellValue(row, 1);
+      const sector = getCellValue(row, 3); // Column D - sector category for colors
+      const pollutionType = getCellValue(row, 4);
+      const location = getCellValue(row, 5);
+      const latitude = getCellNumber(row, 6);
+      const longitude = getCellNumber(row, 7);
+      const accidents = getCellValue(row, 13);
+      const link = getCellValue(row, 14);
+
+      const siteKey = `${id}-${name}`;
+      currentSiteKey = siteKey;
+
+      const hasValidCoordinates =
+        latitude !== null &&
+        longitude !== null &&
+        latitude >= -90 &&
+        latitude <= 90 &&
+        longitude >= -180 &&
+        longitude <= 180;
+
+      currentSiteHasCoordinates = hasValidCoordinates;
+
+      if (hasValidCoordinates) {
+        if (!seenSites.has(siteKey)) {
+          const site: PollutionSite = {
+            id,
+            name: name || "Site inconnu",
+            location: location || "",
+            sector: sector || "Non spécifié",
+            pollutionType: pollutionType || "",
+            pollutions: hasPollutionData ? [pollutionEntry] : [],
+            accidents: accidents || "",
+            link: link || "",
+            coordinates: { lat: latitude!, lng: longitude! },
+          };
+
+          seenSites.set(siteKey, site);
+          sites.push(site);
         }
-        if (chemicalFamilies && !existing.chemicalFamilies.includes(chemicalFamilies)) {
-          existing.chemicalFamilies = existing.chemicalFamilies
-            ? `${existing.chemicalFamilies}, ${chemicalFamilies}`
-            : chemicalFamilies;
+      } else {
+        if (!seenDiffuseSites.has(siteKey)) {
+          const diffuseSite: DiffusePollutionSite = {
+            id,
+            name: name || "Site inconnu",
+            location: location || "",
+            sector: sector || "Non spécifié",
+            pollutionType: pollutionType || "",
+            pollutions: hasPollutionData ? [pollutionEntry] : [],
+            accidents: accidents || "",
+            link: link || "",
+            coordinates: null,
+          };
+
+          seenDiffuseSites.set(siteKey, diffuseSite);
+          diffuseSites.push(diffuseSite);
         }
-        continue;
       }
-
-      const site: PollutionSite = {
-        id,
-        name: name || "Site inconnu",
-        location: location || "",
-        sector: sector || "Non spécifié",
-        pollutionType: pollutionType || "",
-        environmentalCompartment: environmentalCompartment || "",
-        chemicalForm: chemicalForm || "",
-        chemicalFamilies: chemicalFamilies || "",
-        frequency: frequency || "",
-        healthImpact: healthImpact || "",
-        accidents: accidents || "",
-        link: link || "",
-        coordinates: { lat: latitude!, lng: longitude! },
-      };
-
-      seenSites.set(siteKey, site);
-      sites.push(site);
-    } else {
-      // Handle diffuse pollution sites (without coordinates)
-      if (seenDiffuseSites.has(siteKey)) {
-        const existing = seenDiffuseSites.get(siteKey)!;
-        if (chemicalForm && !existing.chemicalForm.includes(chemicalForm)) {
-          existing.chemicalForm = existing.chemicalForm
-            ? `${existing.chemicalForm}, ${chemicalForm}`
-            : chemicalForm;
+    } else if (currentSiteKey && hasPollutionData) {
+      // This is a sub-entry for the current site - add pollution data
+      if (currentSiteHasCoordinates) {
+        const existing = seenSites.get(currentSiteKey);
+        if (existing) {
+          existing.pollutions.push(pollutionEntry);
         }
-        if (chemicalFamilies && !existing.chemicalFamilies.includes(chemicalFamilies)) {
-          existing.chemicalFamilies = existing.chemicalFamilies
-            ? `${existing.chemicalFamilies}, ${chemicalFamilies}`
-            : chemicalFamilies;
+      } else {
+        const existing = seenDiffuseSites.get(currentSiteKey);
+        if (existing) {
+          existing.pollutions.push(pollutionEntry);
         }
-        continue;
       }
-
-      const diffuseSite: DiffusePollutionSite = {
-        id,
-        name: name || "Site inconnu",
-        location: location || "",
-        sector: sector || "Non spécifié",
-        pollutionType: pollutionType || "",
-        environmentalCompartment: environmentalCompartment || "",
-        chemicalForm: chemicalForm || "",
-        chemicalFamilies: chemicalFamilies || "",
-        frequency: frequency || "",
-        healthImpact: healthImpact || "",
-        accidents: accidents || "",
-        link: link || "",
-        coordinates: null,
-      };
-
-      seenDiffuseSites.set(siteKey, diffuseSite);
-      diffuseSites.push(diffuseSite);
     }
   }
 
@@ -258,4 +262,30 @@ export function getSectorColor(sector: string): string {
   }
 
   return "#1d6ab2"; // Default blue
+}
+
+// Environmental compartment color mapping
+export const compartmentColors: Record<string, string> = {
+  "Air": "#87CEEB", // Sky blue
+  "Eau": "#1E90FF", // Dodger blue
+  "Sol": "#8B4513", // Saddle brown
+  "Sous-sol": "#654321", // Dark brown
+  "Nappe phréatique": "#4169E1", // Royal blue
+};
+
+export function getCompartmentColor(compartment: string): string {
+  // Try exact match first
+  if (compartmentColors[compartment]) {
+    return compartmentColors[compartment];
+  }
+
+  // Try partial match
+  const compartmentLower = compartment.toLowerCase();
+  for (const [key, color] of Object.entries(compartmentColors)) {
+    if (compartmentLower.includes(key.toLowerCase()) || key.toLowerCase().includes(compartmentLower)) {
+      return color;
+    }
+  }
+
+  return "#999999"; // Default gray
 }

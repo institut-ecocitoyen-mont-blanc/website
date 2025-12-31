@@ -9,6 +9,7 @@ import {
   type DiffusePollutionSite,
   type PollutionSiteBase,
   getSectorColor,
+  getCompartmentColor,
   sectorList,
 } from "@/lib/google-sheets";
 
@@ -212,52 +213,86 @@ export default function CarteClient({ sites, diffuseSites }: CarteClientProps) {
                 </div>
               )}
 
-              {selectedSite.environmentalCompartment && (
+              {/* Pollutions list */}
+              {selectedSite.pollutions.length > 0 && (
                 <div>
-                  <h4 className="font-semibold text-gray-700 text-sm uppercase tracking-wide">
-                    Compartiment environnemental
+                  <h4 className="font-semibold text-gray-700 text-sm uppercase tracking-wide mb-3">
+                    {selectedSite.pollutions.length > 1
+                      ? `Pollutions (${selectedSite.pollutions.length})`
+                      : "Pollution"}
                   </h4>
-                  <p className="text-gray-900">
-                    {selectedSite.environmentalCompartment}
-                  </p>
-                </div>
-              )}
-
-              {selectedSite.chemicalForm && (
-                <div>
-                  <h4 className="font-semibold text-gray-700 text-sm uppercase tracking-wide">
-                    Forme physico-chimique
-                  </h4>
-                  <p className="text-gray-900">{selectedSite.chemicalForm}</p>
-                </div>
-              )}
-
-              {selectedSite.chemicalFamilies && (
-                <div>
-                  <h4 className="font-semibold text-gray-700 text-sm uppercase tracking-wide">
-                    Familles chimiques
-                  </h4>
-                  <p className="text-gray-900">
-                    {selectedSite.chemicalFamilies}
-                  </p>
-                </div>
-              )}
-
-              {selectedSite.frequency && (
-                <div>
-                  <h4 className="font-semibold text-gray-700 text-sm uppercase tracking-wide">
-                    Fréquence
-                  </h4>
-                  <p className="text-gray-900">{selectedSite.frequency}</p>
-                </div>
-              )}
-
-              {selectedSite.healthImpact && (
-                <div>
-                  <h4 className="font-semibold text-gray-700 text-sm uppercase tracking-wide">
-                    Impact sanitaire
-                  </h4>
-                  <p className="text-gray-900">{selectedSite.healthImpact}</p>
+                  <div className="space-y-3">
+                    {selectedSite.pollutions.map((pollution, index) => (
+                      <div
+                        key={index}
+                        className={`${
+                          selectedSite.pollutions.length > 1
+                            ? "bg-gray-50 rounded-lg p-3 border-l-4"
+                            : ""
+                        }`}
+                        style={
+                          selectedSite.pollutions.length > 1
+                            ? {
+                                borderLeftColor: getCompartmentColor(
+                                  pollution.environmentalCompartment
+                                ),
+                              }
+                            : undefined
+                        }
+                      >
+                        {pollution.environmentalCompartment && (
+                          <div className="mb-2">
+                            <span className="text-xs text-gray-500 uppercase">
+                              Compartiment
+                            </span>
+                            <p className="text-gray-900 text-sm">
+                              {pollution.environmentalCompartment}
+                            </p>
+                          </div>
+                        )}
+                        {pollution.chemicalForm && (
+                          <div className="mb-2">
+                            <span className="text-xs text-gray-500 uppercase">
+                              Forme physico-chimique
+                            </span>
+                            <p className="text-gray-900 text-sm">
+                              {pollution.chemicalForm}
+                            </p>
+                          </div>
+                        )}
+                        {pollution.chemicalFamilies && (
+                          <div className="mb-2">
+                            <span className="text-xs text-gray-500 uppercase">
+                              Familles chimiques
+                            </span>
+                            <p className="text-gray-900 text-sm">
+                              {pollution.chemicalFamilies}
+                            </p>
+                          </div>
+                        )}
+                        {pollution.frequency && (
+                          <div className="mb-2">
+                            <span className="text-xs text-gray-500 uppercase">
+                              Fréquence
+                            </span>
+                            <p className="text-gray-900 text-sm">
+                              {pollution.frequency}
+                            </p>
+                          </div>
+                        )}
+                        {pollution.healthImpact && (
+                          <div>
+                            <span className="text-xs text-gray-500 uppercase">
+                              Impact sanitaire
+                            </span>
+                            <p className="text-gray-900 text-sm">
+                              {pollution.healthImpact}
+                            </p>
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
                 </div>
               )}
 
