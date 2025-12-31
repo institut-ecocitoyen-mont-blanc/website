@@ -71,7 +71,7 @@ export default async function Home() {
         </div>
       </section>
 
-      <HomeMapSection sites={pollutionSites} />
+      {/* <HomeMapSection sites={pollutionSites} /> */}
 
       <section className="py-24 bg-blue-iec/10">
         <div className="container mx-auto px-4">

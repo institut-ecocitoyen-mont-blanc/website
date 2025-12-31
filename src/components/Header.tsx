@@ -63,11 +63,6 @@ export default function Header() {
               </Link>
             </li>
             <li>
-              <Link href="/carte" className="hover:underline">
-                Carte
-              </Link>
-            </li>
-            <li>
               <Link
                 href="/etre-acteur"
                 className={`px-4 py-2 rounded-md font-semibold transition duration-300 bg-blue-iec text-white hover:bg-blue-700`}

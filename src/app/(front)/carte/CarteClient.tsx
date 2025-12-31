@@ -87,6 +87,25 @@ export default function CarteClient({ sites, diffuseSites }: CarteClientProps) {
             </p>
           </div>
 
+          {/* Note about collaborative inventory */}
+          <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 mb-6">
+            <p className="text-amber-800 text-sm">
+              Cet inventaire est en cours de construction. Nous nous appuyons
+              également sur la mémoire et la connaissance collective. Si vous
+              connaissez une source de pollution qui ne figure pas sur cette
+              carte,{" "}
+              <a
+                href="https://forms.gle/oUp7WnxcNppePk5PA"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-semibold underline hover:text-amber-900"
+              >
+                merci de remplir ce formulaire
+              </a>
+              .
+            </p>
+          </div>
+
           {/* Map container */}
           <div className="relative bg-white rounded-lg shadow-lg overflow-hidden">
             <MapComponent sites={sites} onSelectSite={handleSelectSite} />
