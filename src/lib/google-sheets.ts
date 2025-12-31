@@ -101,6 +101,11 @@ export async function fetchAllPollutionSites(): Promise<PollutionSitesResult> {
   let currentSiteKey: string | null = null;
   let currentSiteHasCoordinates = false;
 
+  // Track previous row values for fields that should carry over when empty
+  let prevCompartment = "";
+  let prevChemicalForm = "";
+  let prevChemicalFamilies = "";
+
   // Column mapping based on current spreadsheet structure:
   // 0: N° (ID)
   // 1: Identification (name)
@@ -125,9 +130,20 @@ export async function fetchAllPollutionSites(): Promise<PollutionSitesResult> {
     const isMainEntry = typeof idValue === "number" && !isNaN(idValue);
 
     // Extract pollution entry data (common to both main and sub-entries)
-    const environmentalCompartment = getCellValue(row, 8);
-    const chemicalForm = getCellValue(row, 9);
-    const chemicalFamilies = getCellValue(row, 10);
+    // Use previous row value if current cell is empty
+    const rawCompartment = getCellValue(row, 8);
+    const rawChemicalForm = getCellValue(row, 9);
+    const rawChemicalFamilies = getCellValue(row, 10);
+
+    const environmentalCompartment = rawCompartment || prevCompartment;
+    const chemicalForm = rawChemicalForm || prevChemicalForm;
+    const chemicalFamilies = rawChemicalFamilies || prevChemicalFamilies;
+
+    // Update previous values for next iteration
+    if (rawCompartment) prevCompartment = rawCompartment;
+    if (rawChemicalForm) prevChemicalForm = rawChemicalForm;
+    if (rawChemicalFamilies) prevChemicalFamilies = rawChemicalFamilies;
+
     const frequency = getCellValue(row, 11);
     const healthImpact = getCellValue(row, 12);
 

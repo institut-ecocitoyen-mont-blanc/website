@@ -11,7 +11,6 @@ import {
   getSectorColor,
   getCompartmentColor,
   sectorList,
-  compartmentList,
 } from "@/lib/google-sheets";
 
 // Dynamically import the map component to avoid SSR issues with Leaflet
@@ -44,6 +43,21 @@ export default function CarteClient({ sites, diffuseSites }: CarteClientProps) {
   const [selectedCompartments, setSelectedCompartments] = useState<Set<string>>(
     new Set()
   );
+
+  // Dynamically extract unique compartments from all sites
+  const compartmentList = useMemo(() => {
+    const allCompartments = new Set<string>();
+    [...sites, ...diffuseSites].forEach((site) => {
+      site.pollutions.forEach((p) => {
+        if (p.environmentalCompartment) {
+          allCompartments.add(p.environmentalCompartment);
+        }
+      });
+    });
+    return Array.from(allCompartments)
+      .sort()
+      .map((name) => ({ name, color: getCompartmentColor(name) }));
+  }, [sites, diffuseSites]);
 
   // Filter sites based on selected sectors and compartments
   const filteredSites = useMemo(() => {
