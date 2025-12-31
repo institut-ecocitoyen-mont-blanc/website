@@ -1,9 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
-import { MapPin, ExternalLink, X } from "lucide-react";
+import { MapPin, ExternalLink, X, Filter, XCircle } from "lucide-react";
 import {
   type PollutionSite,
   type DiffusePollutionSite,
@@ -11,6 +11,7 @@ import {
   getSectorColor,
   getCompartmentColor,
   sectorList,
+  compartmentList,
 } from "@/lib/google-sheets";
 
 // Dynamically import the map component to avoid SSR issues with Leaflet
@@ -37,6 +38,81 @@ export default function CarteClient({ sites, diffuseSites }: CarteClientProps) {
   const [selectedSite, setSelectedSite] = useState<PollutionSiteBase | null>(
     null
   );
+  const [selectedSectors, setSelectedSectors] = useState<Set<string>>(
+    new Set()
+  );
+  const [selectedCompartments, setSelectedCompartments] = useState<Set<string>>(
+    new Set()
+  );
+
+  // Filter sites based on selected sectors and compartments
+  const filteredSites = useMemo(() => {
+    return sites.filter((site) => {
+      // Filter by sector
+      if (selectedSectors.size > 0 && !selectedSectors.has(site.sector)) {
+        return false;
+      }
+      // Filter by compartment (site must have at least one pollution with matching compartment)
+      if (selectedCompartments.size > 0) {
+        const hasMatchingCompartment = site.pollutions.some((p) =>
+          selectedCompartments.has(p.environmentalCompartment)
+        );
+        if (!hasMatchingCompartment) {
+          return false;
+        }
+      }
+      return true;
+    });
+  }, [sites, selectedSectors, selectedCompartments]);
+
+  const filteredDiffuseSites = useMemo(() => {
+    return diffuseSites.filter((site) => {
+      if (selectedSectors.size > 0 && !selectedSectors.has(site.sector)) {
+        return false;
+      }
+      if (selectedCompartments.size > 0) {
+        const hasMatchingCompartment = site.pollutions.some((p) =>
+          selectedCompartments.has(p.environmentalCompartment)
+        );
+        if (!hasMatchingCompartment) {
+          return false;
+        }
+      }
+      return true;
+    });
+  }, [diffuseSites, selectedSectors, selectedCompartments]);
+
+  const hasActiveFilters =
+    selectedSectors.size > 0 || selectedCompartments.size > 0;
+
+  const toggleSector = (sector: string) => {
+    setSelectedSectors((prev) => {
+      const newSet = new Set(prev);
+      if (newSet.has(sector)) {
+        newSet.delete(sector);
+      } else {
+        newSet.add(sector);
+      }
+      return newSet;
+    });
+  };
+
+  const toggleCompartment = (compartment: string) => {
+    setSelectedCompartments((prev) => {
+      const newSet = new Set(prev);
+      if (newSet.has(compartment)) {
+        newSet.delete(compartment);
+      } else {
+        newSet.add(compartment);
+      }
+      return newSet;
+    });
+  };
+
+  const clearFilters = () => {
+    setSelectedSectors(new Set());
+    setSelectedCompartments(new Set());
+  };
 
   // Open site from URL search param on initial load
   useEffect(() => {
@@ -109,31 +185,101 @@ export default function CarteClient({ sites, diffuseSites }: CarteClientProps) {
 
           {/* Map container */}
           <div className="relative bg-white rounded-lg shadow-lg overflow-hidden">
-            <MapComponent sites={sites} onSelectSite={handleSelectSite} />
+            <MapComponent
+              sites={filteredSites}
+              onSelectSite={handleSelectSite}
+            />
           </div>
 
-          {/* Legend - below map */}
-          <div className="bg-white rounded-lg shadow-md p-4 mt-6">
-            <h2 className="font-semibold text-gray-800 mb-3 flex items-center gap-2">
-              <MapPin className="w-5 h-5" />
-              Légende
-            </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-              {sectorList.map(({ name, color }) => (
-                <div key={name} className="flex items-center gap-2">
-                  <div
-                    className="w-4 h-4 rounded-full border-2 border-white shadow flex-shrink-0"
-                    style={{ backgroundColor: color }}
-                  />
-                  <span className="text-sm text-gray-600">{name}</span>
-                </div>
-              ))}
+          {/* Filters */}
+          <div className="bg-white rounded-lg shadow-md p-4 mb-6">
+            <div className="flex items-center justify-between mb-4">
+              {/* Results count */}
+              <span className="text-gray-500 text-sm">
+                {filteredSites.length} site
+                {filteredSites.length !== 1 ? "s" : ""} de pollution affiché
+                {filteredSites.length !== 1 ? "s" : ""}
+                {hasActiveFilters && ` (sur ${sites.length} au total)`}
+              </span>
+              {hasActiveFilters && (
+                <button
+                  onClick={clearFilters}
+                  className="text-sm text-gray-500 hover:text-gray-700 flex items-center gap-1"
+                >
+                  <XCircle className="w-4 h-4" />
+                  Effacer les filtres
+                </button>
+              )}
+            </div>
+
+            {/* Compartment filters */}
+            <div className="mb-4">
+              <h3 className="text-sm font-medium text-gray-700 mb-2">
+                Compartiment environnemental
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                {compartmentList.map(({ name, color }) => {
+                  const isSelected = selectedCompartments.has(name);
+                  return (
+                    <button
+                      key={name}
+                      onClick={() => toggleCompartment(name)}
+                      className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all flex items-center gap-2 ${
+                        isSelected
+                          ? "text-white shadow-md"
+                          : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                      }`}
+                      style={
+                        isSelected ? { backgroundColor: color } : undefined
+                      }
+                    >
+                      <div
+                        className="w-3 h-3 rounded-full border border-white/50"
+                        style={{ backgroundColor: color }}
+                      />
+                      {name}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Sector filters */}
+            <div>
+              <h3 className="text-sm font-medium text-gray-700 mb-2">
+                Secteur d&apos;activité
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                {sectorList.map(({ name, color }) => {
+                  const isSelected = selectedSectors.has(name);
+                  return (
+                    <button
+                      key={name}
+                      onClick={() => toggleSector(name)}
+                      className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all flex items-center gap-2 ${
+                        isSelected
+                          ? "text-white shadow-md"
+                          : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                      }`}
+                      style={
+                        isSelected ? { backgroundColor: color } : undefined
+                      }
+                    >
+                      <div
+                        className="w-3 h-3 rounded-full border border-white/50"
+                        style={{ backgroundColor: color }}
+                      />
+                      {name}
+                    </button>
+                  );
+                })}
+              </div>
             </div>
           </div>
 
           {/* Diffuse Pollution Section */}
-          {diffuseSites.length > 0 && (
-            <div className="mt-6">
+          {filteredDiffuseSites.length > 0 && (
+            <div className="mt-8">
               <h2 className="text-2xl font-bold text-blue-iec mb-4">
                 Pollution Diffuse
               </h2>
@@ -141,7 +287,7 @@ export default function CarteClient({ sites, diffuseSites }: CarteClientProps) {
                 Sources de pollution sans localisation géographique précise.
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {diffuseSites.map((site) => (
+                {filteredDiffuseSites.map((site) => (
                   <div
                     key={`diffuse-${site.id}-${site.name}`}
                     className="bg-white rounded-lg shadow-md p-4 cursor-pointer hover:shadow-lg transition-shadow"

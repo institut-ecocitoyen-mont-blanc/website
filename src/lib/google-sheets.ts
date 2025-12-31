@@ -273,6 +273,15 @@ export const compartmentColors: Record<string, string> = {
   "Nappe phréatique": "#4169E1", // Royal blue
 };
 
+// Ordered list for compartment filter display
+export const compartmentList = [
+  { name: "Air", color: "#87CEEB" },
+  { name: "Eau", color: "#1E90FF" },
+  { name: "Sol", color: "#8B4513" },
+  { name: "Sous-sol", color: "#654321" },
+  { name: "Nappe phréatique", color: "#4169E1" },
+];
+
 export function getCompartmentColor(compartment: string): string {
   // Try exact match first
   if (compartmentColors[compartment]) {
