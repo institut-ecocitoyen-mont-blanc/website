@@ -14,5 +14,13 @@
     "path": "outstatic/content/_singletons/mentions-legales.md",
     "publishedAt": "2026-01-29T09:12:07.121Z",
     "status": "published"
+  },
+  {
+    "title": "Page d'Accueil",
+    "slug": "page-d-accueil",
+    "directory": "outstatic/content/_singletons",
+    "path": "outstatic/content/_singletons/page-d-accueil.md",
+    "publishedAt": "2026-01-29T09:12:56.473Z",
+    "status": "published"
   }
 ]

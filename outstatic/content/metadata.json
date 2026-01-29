@@ -1,6 +1,6 @@
 {
-  "commit": "1e8da1b57b5f8571db9a67ee99f2a76b523d1c3f",
-  "generated": "2026-01-29T09:06:33.578Z",
+  "commit": "f1debb4a0b6a27a3305a9d77fe98f4759c864dda",
+  "generated": "2026-01-29T09:07:16.349Z",
   "metadata": [
     {
       "__outstatic": {
@@ -677,6 +677,22 @@
       "slug": "mentions-legales",
       "status": "published",
       "title": "Mentions Légales"
+    },
+    {
+      "__outstatic": {
+        "commit": "f1debb4a0b6a27a3305a9d77fe98f4759c864dda",
+        "hash": "1882636873",
+        "path": "outstatic/content/_singletons/page-d-accueil.md"
+      },
+      "author": {
+        "name": "Mathieu Dutour",
+        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
+      },
+      "collection": "_singletons",
+      "publishedAt": "2026-01-29T09:12:56.473Z",
+      "slug": "page-d-accueil",
+      "status": "published",
+      "title": "Page d'Accueil"
     }
   ]
 }
