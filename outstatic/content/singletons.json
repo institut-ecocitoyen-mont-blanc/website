@@ -22,5 +22,13 @@
     "path": "outstatic/content/_singletons/page-d-accueil.md",
     "publishedAt": "2026-01-29T09:12:56.473Z",
     "status": "published"
+  },
+  {
+    "title": "Politique de Confidentialité",
+    "slug": "politique-de-confidentialite",
+    "directory": "outstatic/content/_singletons",
+    "path": "outstatic/content/_singletons/politique-de-confidentialite.md",
+    "publishedAt": "2026-01-29T09:14:31.566Z",
+    "status": "published"
   }
 ]

@@ -1,6 +1,6 @@
 {
-  "commit": "f1debb4a0b6a27a3305a9d77fe98f4759c864dda",
-  "generated": "2026-01-29T09:07:16.349Z",
+  "commit": "244f3289778bced3c7460501424c24a841056410",
+  "generated": "2026-01-29T09:09:28.384Z",
   "metadata": [
     {
       "__outstatic": {
@@ -693,6 +693,22 @@
       "slug": "page-d-accueil",
       "status": "published",
       "title": "Page d'Accueil"
+    },
+    {
+      "__outstatic": {
+        "commit": "244f3289778bced3c7460501424c24a841056410",
+        "hash": "931053632",
+        "path": "outstatic/content/_singletons/politique-de-confidentialite.md"
+      },
+      "author": {
+        "name": "Mathieu Dutour",
+        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
+      },
+      "collection": "_singletons",
+      "publishedAt": "2026-01-29T09:14:31.566Z",
+      "slug": "politique-de-confidentialite",
+      "status": "published",
+      "title": "Politique de Confidentialité"
     }
   ]
 }
