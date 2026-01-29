@@ -18,30 +18,18 @@ export default async function ProjectsPage() {
 }
 
 async function getData() {
-  const projects = (
-    getDocuments("projets", [
-      "title",
-      "description",
-      "etat",
-      "image",
-      "slug",
-      "categories",
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    ]) as any
-  )
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    .map((x: any) => ({
-      ...x,
-      etat: x.etat[0].value,
-      categories: x.categories?.map((y: { value: string }) => y.value) ?? [],
-    })) as {
-    title: string;
-    description: string;
-    etat: string;
-    image: string;
-    slug: string;
-    categories: ProjectCategory[];
-  }[];
+  const projects = getDocuments("projets", [
+    "title",
+    "description",
+    "etat",
+    "image",
+    "slug",
+    "categories",
+  ]).map((x) => ({
+    ...x,
+    etat: x.etat[0].value,
+    categories: (x.categories?.map((y) => y.value) as ProjectCategory[]) ?? [],
+  }));
 
   return { projects };
 }

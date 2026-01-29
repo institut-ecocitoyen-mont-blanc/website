@@ -45,7 +45,7 @@ export default async function ActualitePage({
               dangerouslySetInnerHTML={{ __html: newsItem.content }}
             />
             <div className="border-t border-gray-200 pt-4 mt-8">
-              <p className="text-gray-600">Auteur: {newsItem.author.name}</p>
+              <p className="text-gray-600">Auteur: {newsItem.author?.name}</p>
             </div>
           </div>
           <div className="sticky top-24">
@@ -68,7 +68,7 @@ export default async function ActualitePage({
                       className={cn(
                         "transition-colors",
                         styles?.lightBg,
-                        styles?.lightText
+                        styles?.lightText,
                       )}
                     >
                       {categoryFilters.find((f) => f.id === category)?.icon}
@@ -129,21 +129,8 @@ async function getData(params: { slug: string }) {
       ? new Date(projet.dateEvenement as string)
       : null,
     categories:
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      (projet.categories as any)?.map((y: { value: string }) => y.value) ?? [],
+      (projet.categories?.map((y) => y.value) as ActualiteCategory[]) ?? [],
     content: content.value,
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  } as any as {
-    title: string;
-    description: string;
-    image: string;
-    slug: string;
-    content: string;
-    author: { name: string };
-    publishedAt: Date;
-    dateEvenement: Date | null;
-    categories: ActualiteCategory[];
-    slugProjet?: string;
   };
 }
 

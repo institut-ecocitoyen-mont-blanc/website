@@ -51,11 +51,13 @@ export default async function Home() {
                 <CardContent className="p-6">
                   <div className="flex items-start">
                     <div className="shrink-0 mr-4">
-                      <div
-                        className="p-3 rounded-full bg-gray-100"
-                        style={{ color: objectif.color }}
-                        dangerouslySetInnerHTML={{ __html: objectif.icon }}
-                      />
+                      {objectif.icon ? (
+                        <div
+                          className="p-3 rounded-full bg-gray-100"
+                          style={{ color: objectif.color }}
+                          dangerouslySetInnerHTML={{ __html: objectif.icon }}
+                        />
+                      ) : undefined}
                     </div>
                     <div>
                       <h3 className="text-xl font-semibold mb-2">
@@ -145,20 +147,11 @@ async function getData() {
       .sort({ publishedAt: -1 })
       .limit(4)
       .toArray()
-  )
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    .map((x: any) => ({
-      ...x,
-      etat: x.etat[0].value,
-      categories: x.categories?.map((y: { value: string }) => y.value) ?? [],
-    })) as {
-    title: string;
-    description: string;
-    etat: string;
-    image: string;
-    slug: string;
-    categories: ProjectCategory[];
-  }[];
+  ).map((x) => ({
+    ...x,
+    etat: x.etat[0].value,
+    categories: (x.categories?.map((y) => y.value) as ProjectCategory[]) ?? [],
+  }));
 
   const news = (
     await db
@@ -174,21 +167,13 @@ async function getData() {
       .sort({ publishedAt: -1 })
       .limit(3)
       .toArray()
-  ) // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    .map((x: any) => ({
-      ...x,
-      publishedAt: new Date(x.publishedAt),
-      dateEvenement: x.dateEvenement ? new Date(x.dateEvenement) : null,
-      categories: x.categories?.map((y: { value: string }) => y.value) ?? [],
-    })) as unknown as {
-    title: string;
-    description: string;
-    image: string;
-    slug: string;
-    publishedAt: Date;
-    dateEvenement: Date | null;
-    categories: ActualiteCategory[];
-  }[];
+  ).map((x) => ({
+    ...x,
+    publishedAt: new Date(x.publishedAt),
+    dateEvenement: x.dateEvenement ? new Date(x.dateEvenement) : null,
+    categories:
+      (x.categories?.map((y) => y.value) as ActualiteCategory[]) ?? [],
+  }));
 
   const objectifs = getDocuments("objectifs", [
     "title",
@@ -196,17 +181,11 @@ async function getData() {
     "icon",
     "color",
     "content",
-  ]).reverse() as unknown as {
-    title: string;
-    description: string;
-    icon: string;
-    color: string;
-    content: string;
-  }[];
+  ]).reverse();
 
   const page = getDocumentBySlug("static-pages", "page-d-accueil", [
     "content",
-  ]) as { content: string };
+  ])!;
 
   const pollutionSites = await fetchPollutionSites();
 

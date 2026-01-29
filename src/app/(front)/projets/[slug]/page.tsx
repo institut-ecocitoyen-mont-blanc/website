@@ -119,7 +119,7 @@ export default async function ProjectPage({
                       className={cn(
                         "transition-colors",
                         styles.lightBg,
-                        styles.lightText
+                        styles.lightText,
                       )}
                     >
                       {categoryFilters.find((f) => f.id === category)?.icon}
@@ -183,22 +183,10 @@ async function getData(params: { slug: string }) {
 
   const projet = {
     ...result,
-    // @ts-expect-error bla bla bla
     etat: result.etat[0].value,
     content: content.value,
     categories:
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      (result.categories as any)?.map((y: { value: string }) => y.value) ?? [],
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  } as any as {
-    title: string;
-    description: string;
-    etat: string;
-    image: string;
-    slug: string;
-    content: string;
-    categories: ProjectCategory[];
-    lienScienceParticipative?: string;
+      (result.categories?.map((y) => y.value) as ProjectCategory[]) ?? [],
   };
 
   const relatedNews = getDocuments("actualites", [
@@ -210,23 +198,15 @@ async function getData(params: { slug: string }) {
     "categories",
     "dateEvenement",
     "slugProjet",
-  ]) // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    .map((x: any) => ({
+  ])
+    .map((x) => ({
       ...x,
       publishedAt: new Date(x.publishedAt),
       dateEvenement: x.dateEvenement ? new Date(x.dateEvenement) : null,
-      categories: x.categories?.map((y: { value: string }) => y.value) ?? [],
+      categories:
+        (x.categories?.map((y) => y.value) as ActualiteCategory[]) ?? [],
     }))
-    .filter((x) => x.slugProjet === params.slug) as unknown as {
-    title: string;
-    description: string;
-    image: string;
-    slug: string;
-    publishedAt: Date;
-    dateEvenement: Date | null;
-    categories: ActualiteCategory[];
-    slugProjet?: string;
-  }[];
+    .filter((x) => x.slugProjet === params.slug);
 
   return { projet, relatedNews };
 }

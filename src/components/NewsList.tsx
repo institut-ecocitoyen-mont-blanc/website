@@ -19,8 +19,8 @@ export function NewsList({
 }: {
   items: {
     title: string;
-    description: string;
-    image: string;
+    description?: string;
+    image?: string;
     slug: string;
     publishedAt: Date;
     dateEvenement: Date | null;
@@ -36,10 +36,10 @@ export function NewsList({
       return categoriesParam
         ? (categoriesParam.split(",") as ActualiteCategory[])
         : [];
-    }
+    },
   );
   const [searchQuery, setSearchQuery] = useState(
-    () => searchParams.get("q") || ""
+    () => searchParams.get("q") || "",
   );
 
   // Update URL when filters or search query changes
@@ -62,7 +62,7 @@ export function NewsList({
     setActiveFilters((current) =>
       current.includes(filter)
         ? current.filter((f) => f !== filter)
-        : [...current, filter]
+        : [...current, filter],
     );
   };
 
@@ -83,7 +83,7 @@ export function NewsList({
       const matchesSearch =
         searchTerm === "" ||
         item.title.toLowerCase().includes(searchTerm) ||
-        item.description.toLowerCase().includes(searchTerm);
+        item.description?.toLowerCase().includes(searchTerm);
 
       return matchesCategory && matchesSearch;
     });
@@ -142,7 +142,7 @@ export function NewsList({
                   "gap-2 transition-colors",
                   isActive
                     ? `${styles.background} ${styles.hover} border-transparent`
-                    : `border-2 ${styles.border} ${styles.text} hover:${styles.lightBg}`
+                    : `border-2 ${styles.border} ${styles.text} hover:${styles.lightBg}`,
                 )}
               >
                 {filter.icon}
@@ -152,12 +152,12 @@ export function NewsList({
                     variant="secondary"
                     className={cn(
                       "ml-2 bg-white/20 text-white",
-                      "dark:bg-white/20 dark:text-white"
+                      "dark:bg-white/20 dark:text-white",
                     )}
                   >
                     {
                       filteredNews.filter((p) =>
-                        p.categories.includes(filter.id)
+                        p.categories.includes(filter.id),
                       ).length
                     }
                   </Badge>

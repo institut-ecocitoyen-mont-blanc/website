@@ -36,9 +36,8 @@ async function getData() {
   const page = getDocumentBySlug(
     "static-pages",
     "politique-de-confidentialite",
-    ["content", "publishedAt"]
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  ) as any as { content: string; publishedAt: string };
+    ["content", "publishedAt"],
+  )!;
 
   const content = await processor.process(page.content || "");
 

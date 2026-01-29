@@ -88,9 +88,9 @@ export function NewsCard({
 }: {
   item: {
     slug: string;
-    image: string;
+    image?: string;
     title: string;
-    description: string;
+    description?: string;
     publishedAt: Date;
     dateEvenement: Date | null;
     categories: ActualiteCategory[];
@@ -103,7 +103,7 @@ export function NewsCard({
       <div
         className={cn(
           "relative h-48 overflow-hidden rounded-t-lg",
-          isEvent && "border-l-4 border-r-4 border-purple-500"
+          isEvent && "border-l-4 border-r-4 border-purple-500",
         )}
       >
         <Image
@@ -141,7 +141,7 @@ export function NewsCard({
                   className={cn(
                     "transition-colors",
                     styles?.lightBg,
-                    styles?.lightText
+                    styles?.lightText,
                   )}
                 >
                   {categoryFilters.find((f) => f.id === category)?.icon}

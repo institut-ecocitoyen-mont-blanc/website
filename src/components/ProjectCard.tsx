@@ -89,9 +89,9 @@ export function ProjectCard({
 }: {
   project: {
     title: string;
-    description: string;
+    description?: string;
     etat: string;
-    image: string;
+    image?: string;
     slug: string;
     categories: ProjectCategory[];
   };
@@ -129,7 +129,7 @@ export function ProjectCard({
                 className={cn(
                   "transition-colors",
                   styles.lightBg,
-                  styles.lightText
+                  styles.lightText,
                 )}
               >
                 {categoryFilters.find((f) => f.id === category)?.icon}

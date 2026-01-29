@@ -36,8 +36,7 @@ async function getData() {
   const page = getDocumentBySlug("static-pages", "mentions-legales", [
     "content",
     "publishedAt",
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  ]) as any as { content: string; publishedAt: string };
+  ])!;
 
   const content = await processor.process(page.content || "");
 

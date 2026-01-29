@@ -19,9 +19,9 @@ export function ProjectList({
 }: {
   projects: {
     title: string;
-    description: string;
+    description?: string;
     etat: string;
-    image: string;
+    image?: string;
     slug: string;
     categories: ProjectCategory[];
   }[];
@@ -36,7 +36,7 @@ export function ProjectList({
       : [];
   });
   const [searchQuery, setSearchQuery] = useState(
-    () => searchParams.get("q") || ""
+    () => searchParams.get("q") || "",
   );
 
   // Update URL when filters or search query changes
@@ -59,7 +59,7 @@ export function ProjectList({
     setActiveFilters((current) =>
       current.includes(filter)
         ? current.filter((f) => f !== filter)
-        : [...current, filter]
+        : [...current, filter],
     );
   };
 
@@ -80,7 +80,7 @@ export function ProjectList({
       const matchesSearch =
         searchTerm === "" ||
         project.title.toLowerCase().includes(searchTerm) ||
-        project.description.toLowerCase().includes(searchTerm);
+        project.description?.toLowerCase().includes(searchTerm);
 
       return matchesCategory && matchesSearch;
     });
@@ -128,7 +128,7 @@ export function ProjectList({
                   "gap-2 transition-colors",
                   isActive
                     ? `${styles.background} ${styles.hover} border-transparent`
-                    : `border-2 ${styles.border} ${styles.text} hover:${styles.lightBg}`
+                    : `border-2 ${styles.border} ${styles.text} hover:${styles.lightBg}`,
                 )}
               >
                 {filter.icon}
@@ -138,12 +138,12 @@ export function ProjectList({
                     variant="secondary"
                     className={cn(
                       "ml-2 bg-white/20 text-white",
-                      "dark:bg-white/20 dark:text-white"
+                      "dark:bg-white/20 dark:text-white",
                     )}
                   >
                     {
                       filteredProjects.filter((p) =>
-                        p.categories.includes(filter.id)
+                        p.categories.includes(filter.id),
                       ).length
                     }
                   </Badge>

@@ -245,20 +245,13 @@ async function getData() {
   const page = getDocumentBySlug("static-pages", "a-propos", [
     "content",
     "image",
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  ]) as any as { content: string; image: string };
+  ])!;
 
   const db = await load();
-  const partenaires = (await db
+  const partenaires = await db
     .find({ collection: "partenaires" }, ["title", "content", "image", "lien"])
     .sort({ publishedAt: 1 })
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    .toArray()) as any[] as {
-    title: string;
-    content: string;
-    image: string;
-    lien: string;
-  }[];
+    .toArray();
 
   return { page, partenaires };
 }
