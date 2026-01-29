@@ -1,6 +1,6 @@
 {
-  "commit": "a0d35fbc1271df07dc94c6a1ad444b967a561443",
-  "generated": "2026-01-29T09:12:13.831Z",
+  "commit": "5b2fe9ca62dfcefb0cf8dc8f398e885b93442350",
+  "generated": "2026-01-29T09:13:23.102Z",
   "metadata": [
     {
       "__outstatic": {
@@ -580,26 +580,6 @@
     },
     {
       "__outstatic": {
-        "commit": "fea46a2796ef8f54ec015bd9d803a2076f61da84",
-        "hash": "1105755912",
-        "path": "outstatic/content/actualites/conference-pollution-de-l-eau-18-06-2025.mdx"
-      },
-      "author": {
-        "name": "Marine",
-        "picture": "https://avatars.githubusercontent.com/u/207458905?v=4"
-      },
-      "categories": [
-      ],
-      "collection": "actualites",
-      "description": "",
-      "image": "/images/affiche-conf-rence-18-juin--2--M3Mz.png",
-      "publishedAt": "2025-06-03T09:48:10.052Z",
-      "slug": "conference-pollution-de-l-eau-18-06-2025",
-      "status": "published",
-      "title": "Report de la conférence \"La pollution de l'eau aux microplastiques dans les lacs périalpins\""
-    },
-    {
-      "__outstatic": {
         "commit": "27336eae19b0fb6d99a5131e0067e0c28db9e2c7",
         "hash": "2812135473",
         "path": "outstatic/content/projets/livre-blanc-etudes-documents.mdx"
@@ -738,6 +718,26 @@
       "slug": "webinaire-industrie-pollution-et-sante-le-cas-des-boues-rouges-de-gardanne",
       "status": "published",
       "title": "Webinaire – Industrie, pollution et santé : le cas des boues rouges de Gardanne"
+    },
+    {
+      "__outstatic": {
+        "commit": "5b2fe9ca62dfcefb0cf8dc8f398e885b93442350",
+        "hash": "983930784",
+        "path": "outstatic/content/actualites/conference-pollution-de-l-eau-18-06-2025.mdx"
+      },
+      "author": {
+        "name": "Marine",
+        "picture": "https://avatars.githubusercontent.com/u/207458905?v=4"
+      },
+      "categories": [
+      ],
+      "collection": "actualites",
+      "description": "",
+      "image": "/images/affiche-conf-rence-18-juin--2--M3Mz.png",
+      "publishedAt": "2025-06-03T09:48:10.052Z",
+      "slug": "conference-pollution-de-l-eau-18-06-2025",
+      "status": "draft",
+      "title": "Report de la conférence \"La pollution de l'eau aux microplastiques dans les lacs périalpins\""
     }
   ]
 }
