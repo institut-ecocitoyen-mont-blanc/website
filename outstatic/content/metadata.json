@@ -1,6 +1,6 @@
 {
-  "commit": "244f3289778bced3c7460501424c24a841056410",
-  "generated": "2026-01-29T09:09:28.384Z",
+  "commit": "a0d35fbc1271df07dc94c6a1ad444b967a561443",
+  "generated": "2026-01-29T09:12:13.831Z",
   "metadata": [
     {
       "__outstatic": {
@@ -709,6 +709,35 @@
       "slug": "politique-de-confidentialite",
       "status": "published",
       "title": "Politique de Confidentialité"
+    },
+    {
+      "__outstatic": {
+        "commit": "a0d35fbc1271df07dc94c6a1ad444b967a561443",
+        "hash": "1581134116",
+        "path": "outstatic/content/actualites/webinaire-industrie-pollution-et-sante-le-cas-des-boues-rouges-de-gardanne.mdx"
+      },
+      "author": {
+        "name": "Mathieu Dutour",
+        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
+      },
+      "categories": [
+        {
+          "label": "Eau",
+          "value": "Eau"
+        },
+        {
+          "label": "Sol",
+          "value": "Sol"
+        }
+      ],
+      "collection": "actualites",
+      "dateEvenement": "2026-01-29T17:30:00.388Z",
+      "description": "Les boues rouges de Gardanne sont devenues un symbole des tensions entre industrie, pollution environnementale, santé publique et justice sociale en Méditerranée. Poussières rouges, pollution marine, controverses sanitaires : ce conflit soulève des questions essentielles sur la manière dont la pollution est produite, mesurée et débattue.",
+      "image": "/images/1769095789384-E3MT.jpg",
+      "publishedAt": "2026-01-29T09:15:39.032Z",
+      "slug": "webinaire-industrie-pollution-et-sante-le-cas-des-boues-rouges-de-gardanne",
+      "status": "published",
+      "title": "Webinaire – Industrie, pollution et santé : le cas des boues rouges de Gardanne"
     }
   ]
 }
