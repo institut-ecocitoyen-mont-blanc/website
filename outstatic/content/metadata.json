@@ -1,6 +1,6 @@
 {
-  "commit": "18448ca98b5059ffae3052ccf6885bd2077305f4",
-  "generated": "2026-01-29T09:20:36.478Z",
+  "commit": "dc620dc3e8e4796869d57fc0b006302d2a32fcbe",
+  "generated": "2026-01-29T09:23:42.858Z",
   "metadata": [
     {
       "__outstatic": {
@@ -549,35 +549,6 @@
     },
     {
       "__outstatic": {
-        "commit": "a0d35fbc1271df07dc94c6a1ad444b967a561443",
-        "hash": "1581134116",
-        "path": "outstatic/content/actualites/webinaire-industrie-pollution-et-sante-le-cas-des-boues-rouges-de-gardanne.mdx"
-      },
-      "author": {
-        "name": "Mathieu Dutour",
-        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
-      },
-      "categories": [
-        {
-          "label": "Eau",
-          "value": "Eau"
-        },
-        {
-          "label": "Sol",
-          "value": "Sol"
-        }
-      ],
-      "collection": "actualites",
-      "dateEvenement": "2026-01-29T17:30:00.388Z",
-      "description": "Les boues rouges de Gardanne sont devenues un symbole des tensions entre industrie, pollution environnementale, santé publique et justice sociale en Méditerranée. Poussières rouges, pollution marine, controverses sanitaires : ce conflit soulève des questions essentielles sur la manière dont la pollution est produite, mesurée et débattue.",
-      "image": "/images/1769095789384-E3MT.jpg",
-      "publishedAt": "2026-01-29T09:15:39.032Z",
-      "slug": "webinaire-industrie-pollution-et-sante-le-cas-des-boues-rouges-de-gardanne",
-      "status": "published",
-      "title": "Webinaire – Industrie, pollution et santé : le cas des boues rouges de Gardanne"
-    },
-    {
-      "__outstatic": {
         "commit": "9ed7ca67f6df40b6bdfe23f4cf85959336d42b36",
         "hash": "1335162971",
         "path": "outstatic/content/actualites/conference-sur-les-effets-des-microplastiques.mdx"
@@ -603,6 +574,38 @@
       "slug": "conference-sur-les-effets-des-microplastiques",
       "status": "published",
       "title": "Conférence le 18 juin en présence de la chercheuse Julia Dusaucy, sur les effets des microplastiques dans les lacs de montagne "
+    },
+    {
+      "__outstatic": {
+        "commit": "dc620dc3e8e4796869d57fc0b006302d2a32fcbe",
+        "hash": "3171793178",
+        "path": "outstatic/content/actualites/webinaire-industrie-pollution-et-sante-le-cas-des-boues-rouges-de-gardanne.mdx"
+      },
+      "author": {
+        "name": "Mathieu Dutour",
+        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
+      },
+      "categories": [
+        {
+          "label": "Eau",
+          "value": "Eau"
+        },
+        {
+          "label": "Sol",
+          "value": "Sol"
+        },
+        {
+          "label": "Événement",
+          "value": "Événement"
+        }
+      ],
+      "collection": "actualites",
+      "description": "Les boues rouges de Gardanne sont devenues un symbole des tensions entre industrie, pollution environnementale, santé publique et justice sociale en Méditerranée. Poussières rouges, pollution marine, controverses sanitaires : ce conflit soulève des questions essentielles sur la manière dont la pollution est produite, mesurée et débattue.",
+      "image": "/images/1769095789384-E3MT.jpg",
+      "publishedAt": "2026-01-29T09:15:39.032Z",
+      "slug": "webinaire-industrie-pollution-et-sante-le-cas-des-boues-rouges-de-gardanne",
+      "status": "published",
+      "title": "Webinaire – Industrie, pollution et santé : le cas des boues rouges de Gardanne"
     }
   ]
 }
