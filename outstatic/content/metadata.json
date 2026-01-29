@@ -1,6 +1,6 @@
 {
-  "commit": "614ef4bebb337ad741d0c87c5cf9361b8348c20f",
-  "generated": "2026-01-29T09:14:19.404Z",
+  "commit": "9ed7ca67f6df40b6bdfe23f4cf85959336d42b36",
+  "generated": "2026-01-29T09:14:30.779Z",
   "metadata": [
     {
       "__outstatic": {
@@ -450,34 +450,6 @@
     },
     {
       "__outstatic": {
-        "commit": "a108f9a467db997e5c1f4b50df99f3a996c8bad5",
-        "hash": "2661163104",
-        "path": "outstatic/content/actualites/conference-sur-les-effets-des-microplastiques.mdx"
-      },
-      "author": {
-        "name": "Marine",
-        "picture": "https://avatars.githubusercontent.com/u/207458905?v=4"
-      },
-      "categories": [
-        {
-          "label": "Événement",
-          "value": "Événement"
-        },
-        {
-          "label": "Santé",
-          "value": "Santé"
-        }
-      ],
-      "collection": "actualites",
-      "description": "Rejoignez-nous pour une conférence passionnante sur l'impact des microplastiques sur notre santé et l'environnement, animée par des experts reconnus.",
-      "image": "/images/antoine-giret-7_TSzqJms4w-unsplash.jpg",
-      "publishedAt": "2025-02-18T09:38:57.243Z",
-      "slug": "conference-sur-les-effets-des-microplastiques",
-      "status": "draft",
-      "title": "Conférence le 18 juin en présence de la chercheuse Julia Dusaucy, sur les effets des microplastiques dans les lacs de montagne "
-    },
-    {
-      "__outstatic": {
         "commit": "f8f4fbac70b25f35ce84b58b019fb702fa3b5650",
         "hash": "2423062596",
         "path": "outstatic/content/actualites/journees-etudes-epidemiologiques.mdx"
@@ -718,6 +690,34 @@
       "slug": "webinaire-industrie-pollution-et-sante-le-cas-des-boues-rouges-de-gardanne",
       "status": "published",
       "title": "Webinaire – Industrie, pollution et santé : le cas des boues rouges de Gardanne"
+    },
+    {
+      "__outstatic": {
+        "commit": "9ed7ca67f6df40b6bdfe23f4cf85959336d42b36",
+        "hash": "1335162971",
+        "path": "outstatic/content/actualites/conference-sur-les-effets-des-microplastiques.mdx"
+      },
+      "author": {
+        "name": "Marine",
+        "picture": "https://avatars.githubusercontent.com/u/207458905?v=4"
+      },
+      "categories": [
+        {
+          "label": "Événement",
+          "value": "Événement"
+        },
+        {
+          "label": "Santé",
+          "value": "Santé"
+        }
+      ],
+      "collection": "actualites",
+      "description": "Rejoignez-nous pour une conférence passionnante sur l'impact des microplastiques sur notre santé et l'environnement, animée par des experts reconnus.",
+      "image": "/images/antoine-giret-7_TSzqJms4w-unsplash.jpg",
+      "publishedAt": "2025-02-18T09:38:57.243Z",
+      "slug": "conference-sur-les-effets-des-microplastiques",
+      "status": "published",
+      "title": "Conférence le 18 juin en présence de la chercheuse Julia Dusaucy, sur les effets des microplastiques dans les lacs de montagne "
     }
   ]
 }
