@@ -1,6 +1,6 @@
 {
-  "commit": "9ed7ca67f6df40b6bdfe23f4cf85959336d42b36",
-  "generated": "2026-01-29T09:14:30.779Z",
+  "commit": "b393bdd8c16e3c62faba0c000f5e54d10d60627f",
+  "generated": "2026-01-29T09:14:58.009Z",
   "metadata": [
     {
       "__outstatic": {
@@ -109,30 +109,6 @@
       "slug": "sciences-participatives",
       "status": "published",
       "title": "Sciences Participatives"
-    },
-    {
-      "__outstatic": {
-        "commit": "49f5f6b51192a2493cf2aeaead4e212010a8ff48",
-        "hash": "3363282504",
-        "path": "outstatic/content/actualites/nouvelle-etude-sur-la-qualite-de-l-air-urbain.mdx"
-      },
-      "author": {
-        "name": "Mathieu Dutour",
-        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
-      },
-      "categories": [
-        {
-          "label": "Air",
-          "value": "Air"
-        }
-      ],
-      "collection": "actualites",
-      "description": "Notre dernière étude révèle des niveaux préoccupants de particules fines dans les grandes villes françaises. Découvrez les résultats et nos recommandations.",
-      "image": "/images/kristen-morith-IWpd8KixceA-unsplash.jpg",
-      "publishedAt": "2025-02-18T09:39:21.933Z",
-      "slug": "nouvelle-etude-sur-la-qualite-de-l-air-urbain",
-      "status": "draft",
-      "title": "Nouvelle étude sur la qualité de l'air urbain"
     },
     {
       "__outstatic": {
