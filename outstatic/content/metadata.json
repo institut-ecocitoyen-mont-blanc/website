@@ -1,6 +1,6 @@
 {
-  "commit": "b393bdd8c16e3c62faba0c000f5e54d10d60627f",
-  "generated": "2026-01-29T09:14:58.009Z",
+  "commit": "6d682f4df14282f5ba365f5624d52b1c0d4b70d1",
+  "generated": "2026-01-29T09:15:06.741Z",
   "metadata": [
     {
       "__outstatic": {
@@ -109,30 +109,6 @@
       "slug": "sciences-participatives",
       "status": "published",
       "title": "Sciences Participatives"
-    },
-    {
-      "__outstatic": {
-        "commit": "4b1c1029b4ce60814a407015b0af401022ba4390",
-        "hash": "1946809253",
-        "path": "outstatic/content/actualites/resultats-de-l-etude-sur-la-pollution-sonore.mdx"
-      },
-      "author": {
-        "name": "Mathieu Dutour",
-        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
-      },
-      "categories": [
-        {
-          "label": "Santé",
-          "value": "Santé"
-        }
-      ],
-      "collection": "actualites",
-      "description": "Notre étude sur la pollution sonore dans les zones urbaines est terminée. Les résultats montrent un impact significatif sur la santé des résidents.",
-      "image": "/images/elyas-pasban-uAm_c9heHxo-unsplash.jpg",
-      "publishedAt": "2025-02-18T09:37:55.499Z",
-      "slug": "resultats-de-l-etude-sur-la-pollution-sonore",
-      "status": "draft",
-      "title": "Résultats de l'étude sur la pollution sonore"
     },
     {
       "__outstatic": {
