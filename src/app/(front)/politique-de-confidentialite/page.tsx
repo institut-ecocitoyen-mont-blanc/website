@@ -1,4 +1,4 @@
-import { getDocumentBySlug } from "outstatic/server";
+import { getSingletonBySlug } from "outstatic/server";
 import rehypeStringify from "rehype-stringify";
 import remarkGfm from "remark-gfm";
 import remarkParse from "remark-parse";
@@ -33,11 +33,10 @@ const processor = unified()
   .use(rehypeStringify);
 
 async function getData() {
-  const page = getDocumentBySlug(
-    "static-pages",
-    "politique-de-confidentialite",
-    ["content", "publishedAt"],
-  )!;
+  const page = getSingletonBySlug("politique-de-confidentialite", [
+    "content",
+    "publishedAt",
+  ])!;
 
   const content = await processor.process(page.content || "");
 

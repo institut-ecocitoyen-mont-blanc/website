@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
-import { getDocumentBySlug, getDocuments, load } from "outstatic/server";
+import { getSingletonBySlug, getDocuments, load } from "outstatic/server";
 import Link from "next/link";
 import { ProjectCard } from "@/components/ProjectCard";
 import { NewsCard } from "@/components/NewsCard";
@@ -183,9 +183,7 @@ async function getData() {
     "content",
   ]).reverse();
 
-  const page = getDocumentBySlug("static-pages", "page-d-accueil", [
-    "content",
-  ])!;
+  const page = getSingletonBySlug("page-d-accueil", ["content"])!;
 
   const pollutionSites = await fetchPollutionSites();
 

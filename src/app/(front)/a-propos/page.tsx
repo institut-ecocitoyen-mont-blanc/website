@@ -13,7 +13,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { getDocumentBySlug, load } from "outstatic/server";
+import { getSingletonBySlug, load } from "outstatic/server";
 import { unified } from "unified";
 import rehypeStringify from "rehype-stringify";
 import remarkGfm from "remark-gfm";
@@ -242,10 +242,7 @@ export default async function AboutPage() {
 }
 
 async function getData() {
-  const page = getDocumentBySlug("static-pages", "a-propos", [
-    "content",
-    "image",
-  ])!;
+  const page = getSingletonBySlug("a-propos", ["content", "image"])!;
 
   const db = await load();
   const partenaires = await db
