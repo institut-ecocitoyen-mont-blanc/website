@@ -1,1 +1,10 @@
-[]
+[
+  {
+    "title": "À Propos",
+    "slug": "a-propos",
+    "directory": "outstatic/content/_singletons",
+    "path": "outstatic/content/_singletons/a-propos.md",
+    "publishedAt": "2026-01-29T09:10:20.803Z",
+    "status": "published"
+  }
+]

@@ -1,6 +1,6 @@
 {
-  "commit": "27336eae19b0fb6d99a5131e0067e0c28db9e2c7",
-  "generated": "2025-11-25T07:51:00.664Z",
+  "commit": "92def622af317d9e8d63d533ea1a0b87d78040cd",
+  "generated": "2026-01-29T09:05:01.322Z",
   "metadata": [
     {
       "__outstatic": {
@@ -644,6 +644,22 @@
       "slug": "livre-blanc-etudes-documents",
       "status": "published",
       "title": "Livre blanc : État des lieux et des connaissances existantes sur les pollutions "
+    },
+    {
+      "__outstatic": {
+        "commit": "92def622af317d9e8d63d533ea1a0b87d78040cd",
+        "hash": "562725364",
+        "path": "outstatic/content/_singletons/a-propos.md"
+      },
+      "author": {
+        "name": "Mathieu Dutour",
+        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
+      },
+      "collection": "_singletons",
+      "publishedAt": "2026-01-29T09:10:20.803Z",
+      "slug": "a-propos",
+      "status": "published",
+      "title": "À Propos"
     }
   ]
 }
