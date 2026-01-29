@@ -1,6 +1,6 @@
 {
-  "commit": "5b2fe9ca62dfcefb0cf8dc8f398e885b93442350",
-  "generated": "2026-01-29T09:13:23.102Z",
+  "commit": "614ef4bebb337ad741d0c87c5cf9361b8348c20f",
+  "generated": "2026-01-29T09:14:19.404Z",
   "metadata": [
     {
       "__outstatic": {
@@ -718,26 +718,6 @@
       "slug": "webinaire-industrie-pollution-et-sante-le-cas-des-boues-rouges-de-gardanne",
       "status": "published",
       "title": "Webinaire – Industrie, pollution et santé : le cas des boues rouges de Gardanne"
-    },
-    {
-      "__outstatic": {
-        "commit": "5b2fe9ca62dfcefb0cf8dc8f398e885b93442350",
-        "hash": "983930784",
-        "path": "outstatic/content/actualites/conference-pollution-de-l-eau-18-06-2025.mdx"
-      },
-      "author": {
-        "name": "Marine",
-        "picture": "https://avatars.githubusercontent.com/u/207458905?v=4"
-      },
-      "categories": [
-      ],
-      "collection": "actualites",
-      "description": "",
-      "image": "/images/affiche-conf-rence-18-juin--2--M3Mz.png",
-      "publishedAt": "2025-06-03T09:48:10.052Z",
-      "slug": "conference-pollution-de-l-eau-18-06-2025",
-      "status": "draft",
-      "title": "Report de la conférence \"La pollution de l'eau aux microplastiques dans les lacs périalpins\""
     }
   ]
 }
