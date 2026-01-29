@@ -44,9 +44,6 @@ export default async function ActualitePage({
               className="prose max-w-none mb-8 markdown"
               dangerouslySetInnerHTML={{ __html: newsItem.content }}
             />
-            <div className="border-t border-gray-200 pt-4 mt-8">
-              <p className="text-gray-600">Auteur: {newsItem.author?.name}</p>
-            </div>
           </div>
           <div className="sticky top-24">
             <Image
@@ -109,7 +106,6 @@ async function getData(params: { slug: string }) {
     "image",
     "slug",
     "content",
-    "author",
     "publishedAt",
     "categories",
     "dateEvenement",
