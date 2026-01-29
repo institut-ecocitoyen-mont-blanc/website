@@ -1,6 +1,6 @@
 {
-  "commit": "c3a147bb3455b865ccbdc0d51aa8acab3f10e286",
-  "generated": "2026-01-29T09:05:53.485Z",
+  "commit": "1e8da1b57b5f8571db9a67ee99f2a76b523d1c3f",
+  "generated": "2026-01-29T09:06:33.578Z",
   "metadata": [
     {
       "__outstatic": {
@@ -661,6 +661,22 @@
       "slug": "a-propos",
       "status": "published",
       "title": "À Propos"
+    },
+    {
+      "__outstatic": {
+        "commit": "1e8da1b57b5f8571db9a67ee99f2a76b523d1c3f",
+        "hash": "3832729409",
+        "path": "outstatic/content/_singletons/mentions-legales.md"
+      },
+      "author": {
+        "name": "Mathieu Dutour",
+        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
+      },
+      "collection": "_singletons",
+      "publishedAt": "2026-01-29T09:12:07.121Z",
+      "slug": "mentions-legales",
+      "status": "published",
+      "title": "Mentions Légales"
     }
   ]
 }
