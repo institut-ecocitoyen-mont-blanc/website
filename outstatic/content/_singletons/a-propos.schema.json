@@ -1,5 +1,11 @@
 {
-  "title": "À Propos",
+  "title": "a-propos",
   "type": "object",
-  "properties": {}
+  "properties": {
+    "image": {
+      "fieldType": "Image",
+      "dataType": "image",
+      "title": "image"
+    }
+  }
 }
