@@ -6,6 +6,7 @@ author:
   name: "Mathieu Dutour"
   picture: "https://avatars.githubusercontent.com/u/3254314?v=4"
 slug: "a-propos"
+image: "/images/logo---rvb-U5OD.jpg"
 ---
 
 À Propos de l'Institut

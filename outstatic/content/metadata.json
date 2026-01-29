@@ -1,6 +1,6 @@
 {
-  "commit": "92def622af317d9e8d63d533ea1a0b87d78040cd",
-  "generated": "2026-01-29T09:05:01.322Z",
+  "commit": "c3a147bb3455b865ccbdc0d51aa8acab3f10e286",
+  "generated": "2026-01-29T09:05:53.485Z",
   "metadata": [
     {
       "__outstatic": {
@@ -647,8 +647,8 @@
     },
     {
       "__outstatic": {
-        "commit": "92def622af317d9e8d63d533ea1a0b87d78040cd",
-        "hash": "562725364",
+        "commit": "c3a147bb3455b865ccbdc0d51aa8acab3f10e286",
+        "hash": "762286600",
         "path": "outstatic/content/_singletons/a-propos.md"
       },
       "author": {
@@ -656,6 +656,7 @@
         "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
       },
       "collection": "_singletons",
+      "image": "/images/logo---rvb-U5OD.jpg",
       "publishedAt": "2026-01-29T09:10:20.803Z",
       "slug": "a-propos",
       "status": "published",
