@@ -35,13 +35,13 @@ export default function CarteClient({ sites, diffuseSites }: CarteClientProps) {
   const searchParams = useSearchParams();
   const router = useRouter();
   const [selectedSite, setSelectedSite] = useState<PollutionSiteBase | null>(
-    null
+    null,
   );
   const [selectedSectors, setSelectedSectors] = useState<Set<string>>(
-    new Set()
+    new Set(),
   );
   const [selectedCompartments, setSelectedCompartments] = useState<Set<string>>(
-    new Set()
+    new Set(),
   );
 
   // Dynamically extract unique compartments from all sites
@@ -69,7 +69,7 @@ export default function CarteClient({ sites, diffuseSites }: CarteClientProps) {
       // Filter by compartment (site must have at least one pollution with matching compartment)
       if (selectedCompartments.size > 0) {
         const hasMatchingCompartment = site.pollutions.some((p) =>
-          selectedCompartments.has(p.environmentalCompartment)
+          selectedCompartments.has(p.environmentalCompartment),
         );
         if (!hasMatchingCompartment) {
           return false;
@@ -86,7 +86,7 @@ export default function CarteClient({ sites, diffuseSites }: CarteClientProps) {
       }
       if (selectedCompartments.size > 0) {
         const hasMatchingCompartment = site.pollutions.some((p) =>
-          selectedCompartments.has(p.environmentalCompartment)
+          selectedCompartments.has(p.environmentalCompartment),
         );
         if (!hasMatchingCompartment) {
           return false;
@@ -346,7 +346,6 @@ export default function CarteClient({ sites, diffuseSites }: CarteClientProps) {
                 <h3 className="text-xl font-bold text-white">
                   {selectedSite.name}
                 </h3>
-                <p className="text-white/80 text-sm">{selectedSite.location}</p>
               </div>
               <button
                 onClick={() => handleSelectSite(null)}
@@ -378,8 +377,8 @@ export default function CarteClient({ sites, diffuseSites }: CarteClientProps) {
                 <div>
                   <h4 className="font-semibold text-gray-700 text-sm uppercase tracking-wide mb-3">
                     {selectedSite.pollutions.length > 1
-                      ? `Pollutions (${selectedSite.pollutions.length})`
-                      : "Pollution"}
+                      ? `Polluants Potentiels (${selectedSite.pollutions.length})`
+                      : "Polluant Potentiel"}
                   </h4>
                   <div className="space-y-3">
                     {selectedSite.pollutions.map((pollution, index) => (
@@ -394,7 +393,7 @@ export default function CarteClient({ sites, diffuseSites }: CarteClientProps) {
                           selectedSite.pollutions.length > 1
                             ? {
                                 borderLeftColor: getCompartmentColor(
-                                  pollution.environmentalCompartment
+                                  pollution.environmentalCompartment,
                                 ),
                               }
                             : undefined
