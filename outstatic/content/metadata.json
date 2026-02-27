@@ -1,6 +1,6 @@
 {
-  "commit": "dc620dc3e8e4796869d57fc0b006302d2a32fcbe",
-  "generated": "2026-01-29T09:23:42.858Z",
+  "commit": "48c217a5753be38ddc9acc281c0729eb8fd09e43",
+  "generated": "2026-02-27T17:03:23.114Z",
   "metadata": [
     {
       "__outstatic": {
@@ -606,6 +606,31 @@
       "slug": "webinaire-industrie-pollution-et-sante-le-cas-des-boues-rouges-de-gardanne",
       "status": "published",
       "title": "Webinaire – Industrie, pollution et santé : le cas des boues rouges de Gardanne"
+    },
+    {
+      "__outstatic": {
+        "commit": "48c217a5753be38ddc9acc281c0729eb8fd09e43",
+        "hash": "3430570970",
+        "path": "outstatic/content/actualites/journee-recherche.mdx"
+      },
+      "author": {
+        "name": "Mathieu Dutour",
+        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
+      },
+      "categories": [
+        {
+          "label": "Événement",
+          "value": "Événement"
+        }
+      ],
+      "collection": "actualites",
+      "dateEvenement": "2026-02-18T09:00:00.000Z",
+      "description": "Et si la recherche scientifique sur les pollutions au Pays du Mont-Blanc partait des préoccupations des habitants et structures du territoire ?",
+      "image": "/images/journee-recherche-Y3Nz.png",
+      "publishedAt": "2026-02-27T17:03:39.798Z",
+      "slug": "journee-recherche",
+      "status": "published",
+      "title": "Journée Recherche"
     }
   ]
 }
