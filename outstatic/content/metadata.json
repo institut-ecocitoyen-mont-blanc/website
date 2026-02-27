@@ -1,6 +1,6 @@
 {
-  "commit": "48c217a5753be38ddc9acc281c0729eb8fd09e43",
-  "generated": "2026-02-27T17:03:23.114Z",
+  "commit": "8081c57a2dfbb99e72fca3c7214e201baee783cb",
+  "generated": "2026-02-27T17:42:33.068Z",
   "metadata": [
     {
       "__outstatic": {
@@ -631,6 +631,26 @@
       "slug": "journee-recherche",
       "status": "published",
       "title": "Journée Recherche"
+    },
+    {
+      "__outstatic": {
+        "commit": "8081c57a2dfbb99e72fca3c7214e201baee783cb",
+        "hash": "2230014221",
+        "path": "outstatic/content/actualites/rapport-d-activite-2025.mdx"
+      },
+      "author": {
+        "name": "Mathieu Dutour",
+        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
+      },
+      "categories": [
+      ],
+      "collection": "actualites",
+      "description": "Découvrez tout ce que l'institut a réalisé en 2025",
+      "image": "/images/rapport-activite-e-gwNz.png",
+      "publishedAt": "2025-12-31T23:00:00.000Z",
+      "slug": "rapport-d-activite-2025",
+      "status": "published",
+      "title": "RAPPORT\nD'ACTIVITÉ\n2025"
     }
   ]
 }
