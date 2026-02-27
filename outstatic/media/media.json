@@ -1,6 +1,6 @@
 {
-  "commit": "1cd6b5b9e2b50cc2d018077148d529985db4351f",
-  "generated": "2026-02-27T17:03:04.183Z",
+  "commit": "52d77f46369214c23eb67f50ca44d2bdf75ee6eb",
+  "generated": "2026-02-27T17:42:19.675Z",
   "media": [
     {
       "__outstatic": {
@@ -220,6 +220,17 @@
       "alt": "",
       "filename": "puf_conf-gwMT.png",
       "publishedAt": "2025-03-28T15:11:08.303Z",
+      "type": "image"
+    },
+    {
+      "__outstatic": {
+        "commit": "52d77f46369214c23eb67f50ca44d2bdf75ee6eb",
+        "hash": "1083596298",
+        "path": "public/images/rapport-activite-e-gwNz.png"
+      },
+      "alt": "",
+      "filename": "rapport-activite-e-gwNz.png",
+      "publishedAt": "2026-02-27T17:42:19.675Z",
       "type": "image"
     },
     {
