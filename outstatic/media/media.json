@@ -1,6 +1,6 @@
 {
-  "commit": "f91593c952ae336c59c4ae8b7768c5d3ac2fee0a",
-  "generated": "2026-01-29T09:11:00.682Z",
+  "commit": "1cd6b5b9e2b50cc2d018077148d529985db4351f",
+  "generated": "2026-02-27T17:03:04.183Z",
   "media": [
     {
       "__outstatic": {
@@ -110,6 +110,17 @@
       "alt": "",
       "filename": "implantation_balises-Y2Mz.png",
       "publishedAt": "2025-03-28T15:05:34.762Z",
+      "type": "image"
+    },
+    {
+      "__outstatic": {
+        "commit": "1cd6b5b9e2b50cc2d018077148d529985db4351f",
+        "hash": "2446580469",
+        "path": "public/images/journee-recherche-Y3Nz.png"
+      },
+      "alt": "",
+      "filename": "journee-recherche-Y3Nz.png",
+      "publishedAt": "2026-02-27T17:03:04.183Z",
       "type": "image"
     },
     {
