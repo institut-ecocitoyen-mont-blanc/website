@@ -1,6 +1,6 @@
 {
-  "commit": "8ef6c8fbbb6a6e5bb442275234c04eea86081e5b",
-  "generated": "2026-02-27T17:45:50.404Z",
+  "commit": "27ee3109e8db63cf728acd58373f958fb64a6200",
+  "generated": "2026-03-16T09:17:08.465Z",
   "metadata": [
     {
       "__outstatic": {
@@ -264,40 +264,6 @@
       "slug": "assemblee-generale",
       "status": "published",
       "title": "Assemblée Générale"
-    },
-    {
-      "__outstatic": {
-        "commit": "6295e87dfe09ddfd644aece18476c2eb95b418d4",
-        "hash": "1555310675",
-        "path": "outstatic/content/projets/etude-epidemiologique.mdx"
-      },
-      "author": {
-        "name": "JPP",
-        "picture": "https://avatars.githubusercontent.com/u/204351074?v=4"
-      },
-      "categories": [
-        {
-          "label": "Santé",
-          "value": "Santé"
-        },
-        {
-          "label": "Science Participative",
-          "value": "Science Participative"
-        }
-      ],
-      "collection": "projets",
-      "description": "Sur le modèle des études épidémiologiques réalisées par l’Institut Ecocitoyen de Fos sur Mer, le collège des praticiens de santé mène une démarche en quatre volets permettant d’établir les liens entre les pollutions et l’impact sur la santé humaine.\nCette étude nécessite la participation des habitants du Pays du Mont-Blanc.\n",
-      "etat": [
-        {
-          "label": "En cours",
-          "value": "En cours"
-        }
-      ],
-      "image": "/images/epidemiologie-Y3Mz.png",
-      "publishedAt": "2025-03-28T15:39:07.887Z",
-      "slug": "etude-epidemiologique",
-      "status": "published",
-      "title": "Projet d'étude sanitaire sur l'impact des pollutions ultra fines"
     },
     {
       "__outstatic": {
