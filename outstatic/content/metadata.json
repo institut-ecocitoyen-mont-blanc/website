@@ -1,6 +1,6 @@
 {
-  "commit": "27ee3109e8db63cf728acd58373f958fb64a6200",
-  "generated": "2026-03-16T09:17:08.465Z",
+  "commit": "32e4020aa3fb04f9358d785776a192ce3e23afbf",
+  "generated": "2026-03-16T09:20:13.113Z",
   "metadata": [
     {
       "__outstatic": {
@@ -575,31 +575,6 @@
     },
     {
       "__outstatic": {
-        "commit": "49edca61f90b0e7af9f40e70ccb331f3bee2d318",
-        "hash": "503707501",
-        "path": "outstatic/content/actualites/journee-recherche.mdx"
-      },
-      "author": {
-        "name": "Mathieu Dutour",
-        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
-      },
-      "categories": [
-        {
-          "label": "Événement",
-          "value": "Événement"
-        }
-      ],
-      "collection": "actualites",
-      "dateEvenement": "2026-02-18T09:00:00.000Z",
-      "description": "Et si la recherche scientifique sur les pollutions au Pays du Mont-Blanc partait des préoccupations des habitants et structures du territoire ?",
-      "image": "/images/journee-recherche-Y3Nz.png",
-      "publishedAt": "2026-02-27T17:03:39.798Z",
-      "slug": "journee-recherche",
-      "status": "published",
-      "title": "Journée Recherche"
-    },
-    {
-      "__outstatic": {
         "commit": "8ef6c8fbbb6a6e5bb442275234c04eea86081e5b",
         "hash": "4055680097",
         "path": "outstatic/content/actualites/rapport-d-activite-2025.mdx"
@@ -617,6 +592,31 @@
       "slug": "rapport-d-activite-2025",
       "status": "published",
       "title": "RAPPORT\nD'ACTIVITÉ\n2025"
+    },
+    {
+      "__outstatic": {
+        "commit": "32e4020aa3fb04f9358d785776a192ce3e23afbf",
+        "hash": "2301443547",
+        "path": "outstatic/content/actualites/journee-recherche.mdx"
+      },
+      "author": {
+        "name": "Mathieu Dutour",
+        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
+      },
+      "categories": [
+        {
+          "label": "Événement",
+          "value": "Événement"
+        }
+      ],
+      "collection": "actualites",
+      "dateEvenement": "2026-02-18T09:00:03.000Z",
+      "description": "Et si la recherche scientifique sur les pollutions au Pays du Mont-Blanc partait des préoccupations des habitants et structures du territoire ?",
+      "image": "/images/journee-recherche-Y3Nz.png",
+      "publishedAt": "2026-02-27T17:03:39.798Z",
+      "slug": "journee-recherche",
+      "status": "published",
+      "title": "Journée Recherche"
     }
   ]
 }
