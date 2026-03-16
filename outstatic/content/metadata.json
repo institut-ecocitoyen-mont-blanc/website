@@ -1,6 +1,6 @@
 {
-  "commit": "32e4020aa3fb04f9358d785776a192ce3e23afbf",
-  "generated": "2026-03-16T09:20:13.113Z",
+  "commit": "edf1cc3da76f4e186a53940b50e15b1616b25e95",
+  "generated": "2026-03-16T09:20:26.268Z",
   "metadata": [
     {
       "__outstatic": {
@@ -595,8 +595,8 @@
     },
     {
       "__outstatic": {
-        "commit": "32e4020aa3fb04f9358d785776a192ce3e23afbf",
-        "hash": "2301443547",
+        "commit": "edf1cc3da76f4e186a53940b50e15b1616b25e95",
+        "hash": "503707501",
         "path": "outstatic/content/actualites/journee-recherche.mdx"
       },
       "author": {
@@ -610,7 +610,7 @@
         }
       ],
       "collection": "actualites",
-      "dateEvenement": "2026-02-18T09:00:03.000Z",
+      "dateEvenement": "2026-02-18T09:00:00.000Z",
       "description": "Et si la recherche scientifique sur les pollutions au Pays du Mont-Blanc partait des préoccupations des habitants et structures du territoire ?",
       "image": "/images/journee-recherche-Y3Nz.png",
       "publishedAt": "2026-02-27T17:03:39.798Z",
