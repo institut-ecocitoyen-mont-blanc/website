@@ -1,6 +1,6 @@
 {
-  "commit": "52d77f46369214c23eb67f50ca44d2bdf75ee6eb",
-  "generated": "2026-02-27T17:42:19.675Z",
+  "commit": "cbb8d4beb420b2fec5bd719742772fcd795def24",
+  "generated": "2026-03-24T16:44:51.928Z",
   "media": [
     {
       "__outstatic": {
@@ -110,6 +110,17 @@
       "alt": "",
       "filename": "implantation_balises-Y2Mz.png",
       "publishedAt": "2025-03-28T15:05:34.762Z",
+      "type": "image"
+    },
+    {
+      "__outstatic": {
+        "commit": "cbb8d4beb420b2fec5bd719742772fcd795def24",
+        "hash": "1278288192",
+        "path": "public/images/institut_logo-gyMz.png"
+      },
+      "alt": "",
+      "filename": "institut_logo-gyMz.png",
+      "publishedAt": "2026-03-24T16:44:51.928Z",
       "type": "image"
     },
     {
