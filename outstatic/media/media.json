@@ -1,7 +1,18 @@
 {
-  "commit": "4ac8a0450c5ac1416fa5fe07f5c9789344806e0f",
-  "generated": "2026-03-25T10:18:38.790Z",
+  "commit": "6c3128e0065839a5196041072875058947995672",
+  "generated": "2026-03-25T10:22:31.008Z",
   "media": [
+    {
+      "__outstatic": {
+        "commit": "6c3128e0065839a5196041072875058947995672",
+        "hash": "156391188",
+        "path": "public/images/-crea-k5Nz.png"
+      },
+      "alt": "",
+      "filename": "-crea-k5Nz.png",
+      "publishedAt": "2026-03-25T10:22:31.008Z",
+      "type": "image"
+    },
     {
       "__outstatic": {
         "commit": "f91593c952ae336c59c4ae8b7768c5d3ac2fee0a",
