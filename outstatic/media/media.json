@@ -1,6 +1,6 @@
 {
-  "commit": "cbb8d4beb420b2fec5bd719742772fcd795def24",
-  "generated": "2026-03-24T16:44:51.928Z",
+  "commit": "4ac8a0450c5ac1416fa5fe07f5c9789344806e0f",
+  "generated": "2026-03-25T10:18:38.790Z",
   "media": [
     {
       "__outstatic": {
@@ -77,6 +77,17 @@
       "alt": "",
       "filename": "capture-d--cran-du-2025-03-24-17-03-17-E5OT.png",
       "publishedAt": "2025-03-24T16:04:56.414Z",
+      "type": "image"
+    },
+    {
+      "__outstatic": {
+        "commit": "4ac8a0450c5ac1416fa5fe07f5c9789344806e0f",
+        "hash": "410085134",
+        "path": "public/images/cnm-gxOD.png"
+      },
+      "alt": "",
+      "filename": "cnm-gxOD.png",
+      "publishedAt": "2026-03-25T10:18:38.790Z",
       "type": "image"
     },
     {
