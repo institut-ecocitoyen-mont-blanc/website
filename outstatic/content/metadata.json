@@ -1,6 +1,6 @@
 {
-  "commit": "c2f568041108a7dc3ea7352cbc715fef87995aa3",
-  "generated": "2026-03-24T16:45:19.271Z",
+  "commit": "cbe4c9d721f79723adb6d4a7d4b3f7c612b8aeba",
+  "generated": "2026-03-25T10:19:13.390Z",
   "metadata": [
     {
       "__outstatic": {
@@ -635,6 +635,24 @@
       "slug": "institut-ecocitoyen-de-fos-sur-mer",
       "status": "published",
       "title": "Institut Écocitoyen de Fos sur mer"
+    },
+    {
+      "__outstatic": {
+        "commit": "cbe4c9d721f79723adb6d4a7d4b3f7c612b8aeba",
+        "hash": "2718762533",
+        "path": "outstatic/content/partenaires/centre-de-la-nature-montagnarde.mdx"
+      },
+      "author": {
+        "name": "DESMEDT Aurore",
+        "picture": "https://avatars.githubusercontent.com/u/222664085?v=4"
+      },
+      "collection": "partenaires",
+      "image": "/images/cnm-gxOD.png",
+      "lien": "https://www.centrenaturemontagnarde.org",
+      "publishedAt": "2026-03-25T10:24:15.962Z",
+      "slug": "centre-de-la-nature-montagnarde",
+      "status": "published",
+      "title": "Centre de la Nature Montagnarde"
     }
   ]
 }
