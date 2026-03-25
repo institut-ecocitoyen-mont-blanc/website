@@ -1,6 +1,6 @@
 {
-  "commit": "cbe4c9d721f79723adb6d4a7d4b3f7c612b8aeba",
-  "generated": "2026-03-25T10:19:13.390Z",
+  "commit": "1f77d86aa722f7ffe18a14eeb7c1ae25435ad20c",
+  "generated": "2026-03-25T10:22:48.828Z",
   "metadata": [
     {
       "__outstatic": {
@@ -653,6 +653,24 @@
       "slug": "centre-de-la-nature-montagnarde",
       "status": "published",
       "title": "Centre de la Nature Montagnarde"
+    },
+    {
+      "__outstatic": {
+        "commit": "1f77d86aa722f7ffe18a14eeb7c1ae25435ad20c",
+        "hash": "1781213509",
+        "path": "outstatic/content/partenaires/crea-mont-blanc.mdx"
+      },
+      "author": {
+        "name": "DESMEDT Aurore",
+        "picture": "https://avatars.githubusercontent.com/u/222664085?v=4"
+      },
+      "collection": "partenaires",
+      "image": "/images/-crea-k5Nz.png",
+      "lien": "https://creamontblanc.org/fr/",
+      "publishedAt": "2026-03-25T10:28:13.421Z",
+      "slug": "crea-mont-blanc",
+      "status": "published",
+      "title": "CREA Mont Blanc"
     }
   ]
 }
