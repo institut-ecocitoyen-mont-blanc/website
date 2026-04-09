@@ -1,6 +1,6 @@
 {
-  "commit": "6c3128e0065839a5196041072875058947995672",
-  "generated": "2026-03-25T10:22:31.008Z",
+  "commit": "9e2e63d2d8e249062b69c3d4c2f77c017e7827dd",
+  "generated": "2026-04-09T13:40:52.323Z",
   "media": [
     {
       "__outstatic": {
@@ -66,6 +66,17 @@
       "alt": "",
       "filename": "antoine-giret-7_TSzqJms4w-unsplash.jpg",
       "publishedAt": "2025-02-18T09:13:41.885Z",
+      "type": "image"
+    },
+    {
+      "__outstatic": {
+        "commit": "9e2e63d2d8e249062b69c3d4c2f77c017e7827dd",
+        "hash": "3632270104",
+        "path": "public/images/azeta_web-kxMT.jpg"
+      },
+      "alt": "",
+      "filename": "azeta_web-kxMT.jpg",
+      "publishedAt": "2026-04-09T13:40:52.323Z",
       "type": "image"
     },
     {
