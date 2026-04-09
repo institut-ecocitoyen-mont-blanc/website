@@ -1,6 +1,6 @@
 {
-  "commit": "7b55af6e0d744684d6c216fabd5a727478b57753",
-  "generated": "2026-03-26T07:29:10.930Z",
+  "commit": "2a6b78d3070f57212551870a26b50957c2c137ba",
+  "generated": "2026-04-09T13:41:11.994Z",
   "metadata": [
     {
       "__outstatic": {
@@ -671,6 +671,25 @@
       "slug": "webinaire-industrie-pollution-et-sante-le-cas-des-boues-rouges-de-gardanne",
       "status": "draft",
       "title": "Webinaire – Industrie, pollution et santé : le cas des boues rouges de Gardanne"
+    },
+    {
+      "__outstatic": {
+        "commit": "2a6b78d3070f57212551870a26b50957c2c137ba",
+        "hash": "3378165435",
+        "path": "outstatic/content/actualites/nouvelle-permanence-a-l-institut-eco-citoyen-du-pays-du-mont-blanc.mdx"
+      },
+      "author": {
+        "name": "DESMEDT Aurore",
+        "picture": "https://avatars.githubusercontent.com/u/222664085?v=4"
+      },
+      "categories": [
+      ],
+      "collection": "actualites",
+      "image": "/images/azeta_web-kxMT.jpg",
+      "publishedAt": "2026-04-09T13:13:34.424Z",
+      "slug": "nouvelle-permanence-a-l-institut-eco-citoyen-du-pays-du-mont-blanc",
+      "status": "published",
+      "title": "Nouvelle permanence à l’Institut Éco-citoyen du Pays du Mont Blanc"
     }
   ]
 }
