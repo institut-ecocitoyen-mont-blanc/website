@@ -1,6 +1,6 @@
 {
-  "commit": "2a6b78d3070f57212551870a26b50957c2c137ba",
-  "generated": "2026-04-09T13:41:11.994Z",
+  "commit": "b9c4c8739c8306c9869dd4dcffe65f8f211126b7",
+  "generated": "2026-04-09T14:12:17.037Z",
   "metadata": [
     {
       "__outstatic": {
@@ -330,49 +330,6 @@
     },
     {
       "__outstatic": {
-        "commit": "5537bcfa3f52e5b8acee01a051634eee98ce9bb1",
-        "hash": "2419077826",
-        "path": "outstatic/content/projets/livre-blanc-pollutions-polluants.mdx"
-      },
-      "author": {
-        "name": "Marine",
-        "picture": "https://avatars.githubusercontent.com/u/204351074?v=4"
-      },
-      "categories": [
-        {
-          "label": "Eau",
-          "value": "Eau"
-        },
-        {
-          "label": "Air",
-          "value": "Air"
-        },
-        {
-          "label": "Sol",
-          "value": "Sol"
-        },
-        {
-          "label": "Science Participative",
-          "value": "Science Participative"
-        }
-      ],
-      "collection": "projets",
-      "description": "Réalisation d’une cartographie des sources de pollutions et des polluants de l’air, de l’eau et du sol sur le territoire. \nLes habitants sont acteurs de la collecte et de la remontée des données. Des ateliers de sciences participatives ont pour objectif de porter à la connaissance des habitants les méthodes et protocoles scientifiques déployés.",
-      "etat": [
-        {
-          "label": "En cours",
-          "value": "En cours"
-        }
-      ],
-      "image": "",
-      "lienScienceParticipative": "",
-      "publishedAt": "2025-03-28T15:22:28.896Z",
-      "slug": "livre-blanc-pollutions-polluants",
-      "status": "published",
-      "title": "Inventaire participatif des sources de pollutions dans la Vallée de l'Arve"
-    },
-    {
-      "__outstatic": {
         "commit": "c9d14dfa8469b825986510c3d46504c7ac43515d",
         "hash": "3293976779",
         "path": "outstatic/content/actualites/journees-etude-lichens.mdx"
@@ -690,6 +647,49 @@
       "slug": "nouvelle-permanence-a-l-institut-eco-citoyen-du-pays-du-mont-blanc",
       "status": "published",
       "title": "Nouvelle permanence à l’Institut Éco-citoyen du Pays du Mont Blanc"
+    },
+    {
+      "__outstatic": {
+        "commit": "b9c4c8739c8306c9869dd4dcffe65f8f211126b7",
+        "hash": "3527930693",
+        "path": "outstatic/content/projets/livre-blanc-pollutions-polluants.mdx"
+      },
+      "author": {
+        "name": "Marine",
+        "picture": "https://avatars.githubusercontent.com/u/204351074?v=4"
+      },
+      "categories": [
+        {
+          "label": "Eau",
+          "value": "Eau"
+        },
+        {
+          "label": "Air",
+          "value": "Air"
+        },
+        {
+          "label": "Sol",
+          "value": "Sol"
+        },
+        {
+          "label": "Science Participative",
+          "value": "Science Participative"
+        }
+      ],
+      "collection": "projets",
+      "description": "Réalisation d’une cartographie des sources de pollutions et des polluants de l’air, de l’eau et du sol sur le territoire. \nLes habitants sont acteurs de la collecte et de la remontée des données. Des ateliers de sciences participatives ont pour objectif de porter à la connaissance des habitants les méthodes et protocoles scientifiques déployés.",
+      "etat": [
+        {
+          "label": "En cours",
+          "value": "En cours"
+        }
+      ],
+      "image": "",
+      "lienScienceParticipative": "",
+      "publishedAt": "2025-03-28T15:22:28.896Z",
+      "slug": "livre-blanc-pollutions-polluants",
+      "status": "published",
+      "title": "Inventaire participatif des sources de pollutions dans la Vallée de l'Arve"
     }
   ]
 }
