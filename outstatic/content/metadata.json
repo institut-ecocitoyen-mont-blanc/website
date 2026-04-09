@@ -1,6 +1,6 @@
 {
-  "commit": "b9c4c8739c8306c9869dd4dcffe65f8f211126b7",
-  "generated": "2026-04-09T14:12:17.037Z",
+  "commit": "1128417997662d2e43bd8c5377364cb4bdc92abd",
+  "generated": "2026-04-09T14:17:11.590Z",
   "metadata": [
     {
       "__outstatic": {
@@ -650,8 +650,8 @@
     },
     {
       "__outstatic": {
-        "commit": "b9c4c8739c8306c9869dd4dcffe65f8f211126b7",
-        "hash": "3527930693",
+        "commit": "1128417997662d2e43bd8c5377364cb4bdc92abd",
+        "hash": "340378248",
         "path": "outstatic/content/projets/livre-blanc-pollutions-polluants.mdx"
       },
       "author": {
@@ -684,7 +684,7 @@
           "value": "En cours"
         }
       ],
-      "image": "",
+      "image": "/images/capture-d-e-cran-2026-04-09-a--16.16.47-c3ND.png",
       "lienScienceParticipative": "",
       "publishedAt": "2025-03-28T15:22:28.896Z",
       "slug": "livre-blanc-pollutions-polluants",
