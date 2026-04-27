@@ -1,6 +1,6 @@
 {
-  "commit": "b5db1efca60a7dcbbc0016dc37ef2118d7a1ab50",
-  "generated": "2026-04-27T12:08:08.951Z",
+  "commit": "569c0345277addbac24d79f38de75464dfe4c669",
+  "generated": "2026-04-27T12:10:57.696Z",
   "media": [
     {
       "__outstatic": {
@@ -147,6 +147,17 @@
     },
     {
       "__outstatic": {
+        "commit": "569c0345277addbac24d79f38de75464dfe4c669",
+        "hash": "3637517025",
+        "path": "public/images/couverture-1-M0OT.png"
+      },
+      "alt": "",
+      "filename": "couverture-1-M0OT.png",
+      "publishedAt": "2026-04-27T12:10:57.640Z",
+      "type": "image"
+    },
+    {
+      "__outstatic": {
         "commit": "",
         "hash": "0",
         "path": "public/images/elyas-pasban-uAm_c9heHxo-unsplash.jpg"
@@ -209,6 +220,17 @@
       "alt": "",
       "filename": "kristen-morith-IWpd8KixceA-unsplash.jpg",
       "publishedAt": "2025-02-18T09:13:41.885Z",
+      "type": "image"
+    },
+    {
+      "__outstatic": {
+        "commit": "569c0345277addbac24d79f38de75464dfe4c669",
+        "hash": "2196721982",
+        "path": "public/images/la-science-1-gxMD.png"
+      },
+      "alt": "",
+      "filename": "la-science-1-gxMD.png",
+      "publishedAt": "2026-04-27T12:10:57.658Z",
       "type": "image"
     },
     {
@@ -297,6 +319,28 @@
       "alt": "",
       "filename": "pollutions-U1Mj.png",
       "publishedAt": "2025-03-28T15:11:52.223Z",
+      "type": "image"
+    },
+    {
+      "__outstatic": {
+        "commit": "569c0345277addbac24d79f38de75464dfe4c669",
+        "hash": "983472022",
+        "path": "public/images/pre-occupations-1-png-A1OD.png"
+      },
+      "alt": "",
+      "filename": "pre-occupations-1-png-A1OD.png",
+      "publishedAt": "2026-04-27T12:10:57.680Z",
+      "type": "image"
+    },
+    {
+      "__outstatic": {
+        "commit": "569c0345277addbac24d79f38de75464dfe4c669",
+        "hash": "3949209864",
+        "path": "public/images/pre-occupations-2-png-E3OD.png"
+      },
+      "alt": "",
+      "filename": "pre-occupations-2-png-E3OD.png",
+      "publishedAt": "2026-04-27T12:10:57.696Z",
       "type": "image"
     },
     {
