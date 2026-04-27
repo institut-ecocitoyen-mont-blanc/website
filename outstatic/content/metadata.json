@@ -1,6 +1,6 @@
 {
-  "commit": "61a63a989cf728fec250adbdd2a3d8d3efcb9da6",
-  "generated": "2026-04-27T12:12:27.338Z",
+  "commit": "77dc8d97ed7a25fd1d17bd68ad527c4b7aae0178",
+  "generated": "2026-04-27T12:26:13.895Z",
   "metadata": [
     {
       "__outstatic": {
@@ -473,31 +473,6 @@
     },
     {
       "__outstatic": {
-        "commit": "70affaf60f18ead950111225334f275e7a857f17",
-        "hash": "1718224277",
-        "path": "outstatic/content/actualites/journee-recherche.mdx"
-      },
-      "author": {
-        "name": "Mathieu Dutour",
-        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
-      },
-      "categories": [
-        {
-          "label": "Événement",
-          "value": "Événement"
-        }
-      ],
-      "collection": "actualites",
-      "dateEvenement": "2026-04-18T08:00:00.000Z",
-      "description": "Et si la recherche scientifique sur les pollutions au Pays du Mont-Blanc partait des préoccupations des habitants et structures du territoire ?",
-      "image": "/images/journee-recherche-Y3Nz.png",
-      "publishedAt": "2026-02-27T17:03:39.798Z",
-      "slug": "journee-recherche",
-      "status": "published",
-      "title": "Journée Recherche"
-    },
-    {
-      "__outstatic": {
         "commit": "c2f568041108a7dc3ea7352cbc715fef87995aa3",
         "hash": "3178996412",
         "path": "outstatic/content/partenaires/institut-ecocitoyen-de-fos-sur-mer.mdx"
@@ -709,6 +684,31 @@
       "slug": "journee-d-etude-participative-en-vallee-de-l-arve-quand-science-et-citoyennete-dialoguent-autour-des-pollutions",
       "status": "published",
       "title": "Journée d’étude participative en vallée de l’Arve : quand science et citoyenneté dialoguent autour des pollutions"
+    },
+    {
+      "__outstatic": {
+        "commit": "77dc8d97ed7a25fd1d17bd68ad527c4b7aae0178",
+        "hash": "4259290104",
+        "path": "outstatic/content/actualites/journee-recherche.mdx"
+      },
+      "author": {
+        "name": "Mathieu Dutour",
+        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
+      },
+      "categories": [
+        {
+          "label": "Événement",
+          "value": "Événement"
+        }
+      ],
+      "collection": "actualites",
+      "dateEvenement": "2026-05-11T22:00:00.000Z",
+      "description": "Et si la recherche scientifique sur les pollutions au Pays du Mont-Blanc partait des préoccupations des habitants et structures du territoire ?",
+      "image": "/images/journee-recherche-Y3Nz.png",
+      "publishedAt": "2026-02-27T17:03:39.798Z",
+      "slug": "journee-recherche",
+      "status": "published",
+      "title": "Journée Recherche"
     }
   ]
 }
