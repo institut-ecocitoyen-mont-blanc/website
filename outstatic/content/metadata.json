@@ -1,6 +1,6 @@
 {
-  "commit": "26a823e98447da4505d16e460265555690409175",
-  "generated": "2026-04-09T14:22:13.815Z",
+  "commit": "61a63a989cf728fec250adbdd2a3d8d3efcb9da6",
+  "generated": "2026-04-27T12:12:27.338Z",
   "metadata": [
     {
       "__outstatic": {
@@ -690,6 +690,25 @@
       "slug": "livre-blanc-etudes-documents",
       "status": "published",
       "title": "Livre blanc : État des lieux et des connaissances existantes sur les pollutions "
+    },
+    {
+      "__outstatic": {
+        "commit": "61a63a989cf728fec250adbdd2a3d8d3efcb9da6",
+        "hash": "84138993",
+        "path": "outstatic/content/actualites/journee-d-etude-participative-en-vallee-de-l-arve-quand-science-et-citoyennete-dialoguent-autour-des-pollutions.mdx"
+      },
+      "author": {
+        "name": "DESMEDT Aurore",
+        "picture": "https://avatars.githubusercontent.com/u/222664085?v=4"
+      },
+      "categories": [
+      ],
+      "collection": "actualites",
+      "image": "/images/panneau-journee-18-avril-kxNz.png",
+      "publishedAt": "2026-04-27T12:17:48.736Z",
+      "slug": "journee-d-etude-participative-en-vallee-de-l-arve-quand-science-et-citoyennete-dialoguent-autour-des-pollutions",
+      "status": "published",
+      "title": "Journée d’étude participative en vallée de l’Arve : quand science et citoyenneté dialoguent autour des pollutions"
     }
   ]
 }
