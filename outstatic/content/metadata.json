@@ -1,6 +1,6 @@
 {
-  "commit": "77dc8d97ed7a25fd1d17bd68ad527c4b7aae0178",
-  "generated": "2026-04-27T12:26:13.895Z",
+  "commit": "7e6dd19ae240ca905134686d33d8fb1300b46aa3",
+  "generated": "2026-04-27T12:27:15.069Z",
   "metadata": [
     {
       "__outstatic": {
@@ -687,13 +687,13 @@
     },
     {
       "__outstatic": {
-        "commit": "77dc8d97ed7a25fd1d17bd68ad527c4b7aae0178",
-        "hash": "4259290104",
+        "commit": "7e6dd19ae240ca905134686d33d8fb1300b46aa3",
+        "hash": "1125461158",
         "path": "outstatic/content/actualites/journee-recherche.mdx"
       },
       "author": {
-        "name": "Mathieu Dutour",
-        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
+        "name": "DESMEDT Aurore",
+        "picture": ""
       },
       "categories": [
         {
