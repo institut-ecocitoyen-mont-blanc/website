@@ -107,20 +107,11 @@ export default function Header() {
                 </li>
                 <li>
                   <Link
-                    href="/carte"
-                    className="block hover:underline"
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    Carte
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/comment-aider"
+                    href="/etre-acteur"
                     className={`block px-4 py-4 rounded-md font-semibold transition duration-300 bg-blue-iec text-white hover:bg-blue-700 w-full text-center`}
                     onClick={() => setIsMenuOpen(false)}
                   >
-                    Nous Aider
+                    Être Acteur
                   </Link>
                 </li>
               </ul>
