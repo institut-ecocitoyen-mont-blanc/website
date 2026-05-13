@@ -17,7 +17,7 @@ L'Institut Écocitoyen de Recherche et d'Action Environnementale du Pays du Mont
 
 Cet institut a trois objectifs principaux : développer une connaissance scientifique indépendante sur les pollutions et leurs impacts sur la santé, partager cette connaissance de manière transparente et pédagogique, et proposer des solutions concrètes pour améliorer l'état sanitaire et environnemental du territoire.
 
-L'Institut repose sur une gouvernance horizontale composée de huit collèges : Associations, Chercheurs, Élus, Entreprises, Experts, Habitants, Jeunes et Praticiens de santé. Son fonctionnement est assuré par un Conseil d'Administration, un Conseil Scientifique, et une communauté d'habitants impliquée dans la science participative.
+L'Institut repose sur une gouvernance horizontale composée de collèges représentant les habitants, les scientifiques, les jeunes, les praticiens de santé, les experts, les entreprises et les associations. Son fonctionnement est assuré par un Conseil d'Administration, un Conseil Scientifique, et une communauté d'habitants impliquée dans la science participative.
 
 ---
 

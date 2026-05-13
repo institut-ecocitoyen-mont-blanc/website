@@ -74,6 +74,19 @@ export default async function Footer() {
                   Politique de confidentialité
                 </Link>
               </li>
+              <li>
+                <Link
+                  href="/Reglement_Interieur.pdf"
+                  className="hover:underline"
+                >
+                  Règlement Intérieur
+                </Link>
+              </li>
+              <li>
+                <Link href="/Charte.pdf" className="hover:underline">
+                  Charte
+                </Link>
+              </li>
             </ul>
           </nav>
         </div>
