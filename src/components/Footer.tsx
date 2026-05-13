@@ -11,9 +11,11 @@ export default async function Footer() {
       <div className="container mx-auto px-4">
         <div className="flex flex-col md:flex-row justify-between items-center mb-8">
           <div className="mb-4 md:mb-0">
-            <h3 className="text-xl font-semibold mb-2">
-              Institut Ecocitoyen du Pays du Mont Blanc
-            </h3>
+            <Link href="/a-propos">
+              <h3 className="text-xl font-semibold mb-2">
+                Institut Ecocitoyen du Pays du Mont Blanc
+              </h3>
+            </Link>
             <p>Avec les citoyens pour leur santé</p>
             <div className="flex space-x-4  pt-4">
               <Link
@@ -54,24 +56,11 @@ export default async function Footer() {
               </Link>
             </div>
           </div>
-          <nav>
-            <ul className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-4">
+          <nav className="flex flex-col gap-2 text-center md:text-right">
+            <ul className="flex flex-wrap justify-center gap-x-6 gap-y-2 md:justify-end">
               <li>
                 <Link href="/a-propos" className="hover:underline">
                   À propos
-                </Link>
-              </li>
-              <li>
-                <Link href="/mentions-legales" className="hover:underline">
-                  Mentions légales
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/politique-de-confidentialite"
-                  className="hover:underline"
-                >
-                  Politique de confidentialité
                 </Link>
               </li>
               <li>
@@ -85,6 +74,21 @@ export default async function Footer() {
               <li>
                 <Link href="/Charte.pdf" className="hover:underline">
                   Charte
+                </Link>
+              </li>
+            </ul>
+            <ul className="flex flex-wrap justify-center gap-x-6 gap-y-2 md:justify-end">
+              <li>
+                <Link href="/mentions-legales" className="hover:underline">
+                  Mentions légales
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/politique-de-confidentialite"
+                  className="hover:underline"
+                >
+                  Politique de confidentialité
                 </Link>
               </li>
             </ul>
