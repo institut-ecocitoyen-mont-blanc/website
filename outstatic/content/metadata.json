@@ -1,6 +1,6 @@
 {
-  "commit": "e161a0e79719cabea6da036822d8716b1b95f89d",
-  "generated": "2026-05-28T07:53:59.318Z",
+  "commit": "5ba92bd461351ac00465d9dc6ddf8458294b8938",
+  "generated": "2026-05-28T07:54:08.985Z",
   "metadata": [
     {
       "__outstatic": {
@@ -169,35 +169,6 @@
       "slug": "recherche-terrains",
       "status": "published",
       "title": "Recherche de terrains"
-    },
-    {
-      "__outstatic": {
-        "commit": "4653317a0be735caa170adb29770fd7a173e0f88",
-        "hash": "3572727212",
-        "path": "outstatic/content/actualites/conference-particules-ultrafines.mdx"
-      },
-      "author": {
-        "name": "JPP",
-        "picture": "https://avatars.githubusercontent.com/u/204351074?v=4"
-      },
-      "categories": [
-        {
-          "label": "Air",
-          "value": "Air"
-        },
-        {
-          "label": "Événement",
-          "value": "Événement"
-        }
-      ],
-      "collection": "actualites",
-      "dateEvenement": "2025-01-27T23:00:00.000Z",
-      "description": "Le 28 janvier Jean-Luc Jaffrezo (IGE), Gaëlle Uzu (IGE) et Guillaume Brulfert (ATMO) sont intervenus au cours d’une conférence : qualité de l’air dans la vallée de l’Arve : quel impact des particules ultrafines ?",
-      "image": "/images/puf_conf-gwMT.png",
-      "publishedAt": "2025-01-14T23:00:00.000Z",
-      "slug": "conference-particules-ultrafines",
-      "status": "published",
-      "title": "Conférence sur les particules ultrafines"
     },
     {
       "__outstatic": {
@@ -690,30 +661,6 @@
       "slug": "conference-sur-les-effets-des-microplastiques-dans-les-lacs-de-montagne",
       "status": "published",
       "title": "Conférence sur les effets des microplastiques dans les lacs de montagne "
-    },
-    {
-      "__outstatic": {
-        "commit": "dcbd31e9553461d4aaf20f5eecf94d63b560a1cd",
-        "hash": "3501572595",
-        "path": "outstatic/content/evenements/conference-particules-ultrafines.mdx"
-      },
-      "author": {
-        "name": "Mathieu Dutour",
-        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
-      },
-      "categories": [
-        {
-          "label": "Air",
-          "value": "air"
-        }
-      ],
-      "collection": "evenements",
-      "description": "Le 28 janvier Jean-Luc Jaffrezo (IGE), Gaëlle Uzu (IGE) et Guillaume Brulfert (ATMO) sont intervenus au cours d’une conférence : qualité de l’air dans la vallée de l’Arve : quel impact des particules ultrafines ?",
-      "image": "/images/puf_conf-gwMT.png",
-      "publishedAt": "2025-01-27T23:00:00.000Z",
-      "slug": "conference-particules-ultrafines",
-      "status": "published",
-      "title": "Conférence sur les particules ultrafines"
     },
     {
       "__outstatic": {
