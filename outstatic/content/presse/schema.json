@@ -22,13 +22,6 @@
       "required": false,
       "fieldType": "Image",
       "dataType": "image"
-    },
-    "slugProject": {
-      "title": "Slug Project",
-      "description": "",
-      "required": false,
-      "fieldType": "String",
-      "dataType": "string"
     }
   }
 }
