@@ -1,6 +1,6 @@
 {
-  "commit": "008e2ebc456b4c44ee00a535ecaef8d1db2b7753",
-  "generated": "2026-05-28T07:22:14.135Z",
+  "commit": "70488145f6ceb94b7023b3f99a58db79526aaea5",
+  "generated": "2026-05-28T07:24:18.329Z",
   "metadata": [
     {
       "__outstatic": {
@@ -748,6 +748,31 @@
       "slug": "journee-recherche",
       "status": "published",
       "title": "Journée Recherche"
+    },
+    {
+      "__outstatic": {
+        "commit": "70488145f6ceb94b7023b3f99a58db79526aaea5",
+        "hash": "4094031552",
+        "path": "outstatic/content/evenements/journees-etude-lichens.mdx"
+      },
+      "author": {
+        "name": "Mathieu Dutour",
+        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
+      },
+      "categories": [
+        {
+          "label": "Air",
+          "value": "air"
+        }
+      ],
+      "collection": "evenements",
+      "description": "Du 20 au 22 mai, journées d’étude sur les lichens, en partenariat avec L’institut Ecocitoyen de Fos sur Mer, ouvertes aux partenaires associatifs du territoire du Mont-Blanc.",
+      "image": "/images/capture-d--cran-du-2025-03-24-17-03-17-E5OT.png",
+      "publishedAt": "2025-05-20T22:00:00.000Z",
+      "slug": "journees-etude-lichens",
+      "slugProjet": "lichens",
+      "status": "published",
+      "title": "A la découverte des lichens !"
     }
   ]
 }
