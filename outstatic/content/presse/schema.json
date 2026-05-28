@@ -29,6 +29,31 @@
       "required": false,
       "fieldType": "String",
       "dataType": "string"
+    },
+    "categories": {
+      "title": "Categories",
+      "description": "",
+      "required": false,
+      "fieldType": "Tags",
+      "dataType": "array",
+      "values": [
+        {
+          "label": "Eau",
+          "value": "eau"
+        },
+        {
+          "label": "Air",
+          "value": "air"
+        },
+        {
+          "label": "Sol",
+          "value": "sol"
+        },
+        {
+          "label": "Santé",
+          "value": "santé"
+        }
+      ]
     }
   }
 }
