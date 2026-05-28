@@ -1,6 +1,6 @@
 {
-  "commit": "2f02e014a26b18e4433aad0f7e8f8dd720101c05",
-  "generated": "2026-05-28T07:25:52.152Z",
+  "commit": "47657f090943b7de66a0df4480f8c8f20e7bf1f7",
+  "generated": "2026-05-28T07:28:42.259Z",
   "metadata": [
     {
       "__outstatic": {
@@ -793,6 +793,31 @@
       "slug": "assemblee-generale",
       "status": "draft",
       "title": "Assemblée Générale 2025"
+    },
+    {
+      "__outstatic": {
+        "commit": "47657f090943b7de66a0df4480f8c8f20e7bf1f7",
+        "hash": "1967154179",
+        "path": "outstatic/content/evenements/journees-etudes-epidemiologiques.mdx"
+      },
+      "author": {
+        "name": "Mathieu Dutour",
+        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
+      },
+      "categories": [
+        {
+          "label": "Santé",
+          "value": "santé"
+        }
+      ],
+      "collection": "evenements",
+      "description": "Les 10 et 11 mars, une présentation de l’étude épidémiologique menée par L’Institut de Fos sur Mer est faite aux praticiens de santé. L’objectif est la construction commune des Instituts de Fos/Mer, de l’Aude et du Pays du Mont-Blanc d’un programme d’identification de l’état de santé des habitants à l’échelle du territoire du Pays du Mont-Blanc.",
+      "image": "/images/epidemiologie-Y3Mz.png",
+      "publishedAt": "2025-03-09T23:00:00.000Z",
+      "slug": "journees-etudes-epidemiologiques",
+      "slugProjet": "etude-epidemiologique",
+      "status": "published",
+      "title": "Webinaire en santé environnementale"
     }
   ]
 }
