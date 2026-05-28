@@ -1,6 +1,6 @@
 {
-  "commit": "7e6dd19ae240ca905134686d33d8fb1300b46aa3",
-  "generated": "2026-04-27T12:27:15.069Z",
+  "commit": "806cf9c39832978c26bb6e04b826dbc8d09200ec",
+  "generated": "2026-05-28T06:54:04.050Z",
   "metadata": [
     {
       "__outstatic": {
@@ -709,6 +709,25 @@
       "slug": "journee-recherche",
       "status": "published",
       "title": "Journée Recherche"
+    },
+    {
+      "__outstatic": {
+        "commit": "806cf9c39832978c26bb6e04b826dbc8d09200ec",
+        "hash": "254080381",
+        "path": "outstatic/content/presse/leur-connaissance-du-terrain-est-excellente-dans-la-vallee-de-l-arve-ces-habitants-aident-la-recherche-face-aux-pollutions.mdx"
+      },
+      "author": {
+        "name": "Mathieu Dutour",
+        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
+      },
+      "collection": "presse",
+      "description": "Sous la houlette de l’Institut écocitoyen du Mont-Blanc, des habitant·es travaillent main dans la main avec les associations, entreprises et scientifiques du territoire pour choisir les sujets de recherche en santé environnementale.",
+      "image": "/images/8ogl8arxlsq-c2Nj.png",
+      "lien": "https://vert.eco/sante-environnement/leur-connaissance-du-terrain-est-excellente-dans-la-vallee-de-larve-ces-habitants-aident-la-recherche-face-aux-pollutions/",
+      "publishedAt": "2026-05-28T07:03:34.404Z",
+      "slug": "leur-connaissance-du-terrain-est-excellente-dans-la-vallee-de-l-arve-ces-habitants-aident-la-recherche-face-aux-pollutions",
+      "status": "published",
+      "title": "«Leur connaissance du terrain est excellente» : dans la vallée de l’Arve, ces habitants aident la recherche face aux pollutions"
     }
   ]
 }
