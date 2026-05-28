@@ -1,6 +1,13 @@
 {
-  "title": "Presse",
-  "slug": "presse",
+  "title": "presse",
   "type": "object",
-  "properties": {}
+  "properties": {
+    "lien": {
+      "title": "Lien",
+      "description": "Lien vers l'article de presse",
+      "required": true,
+      "fieldType": "Text",
+      "dataType": "string"
+    }
+  }
 }
