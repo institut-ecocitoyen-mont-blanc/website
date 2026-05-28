@@ -1,6 +1,6 @@
 {
-  "commit": "70488145f6ceb94b7023b3f99a58db79526aaea5",
-  "generated": "2026-05-28T07:24:18.329Z",
+  "commit": "2f02e014a26b18e4433aad0f7e8f8dd720101c05",
+  "generated": "2026-05-28T07:25:52.152Z",
   "metadata": [
     {
       "__outstatic": {
@@ -773,6 +773,26 @@
       "slugProjet": "lichens",
       "status": "published",
       "title": "A la découverte des lichens !"
+    },
+    {
+      "__outstatic": {
+        "commit": "2f02e014a26b18e4433aad0f7e8f8dd720101c05",
+        "hash": "1424411466",
+        "path": "outstatic/content/evenements/assemblee-generale.mdx"
+      },
+      "author": {
+        "name": "Mathieu Dutour",
+        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
+      },
+      "categories": [
+      ],
+      "collection": "evenements",
+      "description": "Assemblée Générale de L'institut Ecocitoyen du Pays du Mont-Blanc.\nEn matinée, tenue de l’AG. Petite restauration proposée pour le déjeuner. L’après-midi, animations sur la pollutions et la santé environnementale, temps d’échange et moment de convivialité.",
+      "image": "/images/ag-I4Nz.png",
+      "publishedAt": "2025-04-04T22:00:00.000Z",
+      "slug": "assemblee-generale",
+      "status": "draft",
+      "title": "Assemblée Générale 2025"
     }
   ]
 }
