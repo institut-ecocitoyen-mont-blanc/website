@@ -1,6 +1,6 @@
 {
-  "commit": "47657f090943b7de66a0df4480f8c8f20e7bf1f7",
-  "generated": "2026-05-28T07:28:42.259Z",
+  "commit": "fe5da20b84e6ccd78e1eb31c451e7f91c4e69758",
+  "generated": "2026-05-28T07:30:43.179Z",
   "metadata": [
     {
       "__outstatic": {
@@ -818,6 +818,26 @@
       "slugProjet": "etude-epidemiologique",
       "status": "published",
       "title": "Webinaire en santé environnementale"
+    },
+    {
+      "__outstatic": {
+        "commit": "fe5da20b84e6ccd78e1eb31c451e7f91c4e69758",
+        "hash": "4178811200",
+        "path": "outstatic/content/evenements/conference-sur-les-effets-des-microplastiques-dans-les-lacs-de-montagne.mdx"
+      },
+      "author": {
+        "name": "Mathieu Dutour",
+        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
+      },
+      "categories": [
+      ],
+      "collection": "evenements",
+      "description": "Rejoignez-nous pour une conférence passionnante en présence de la chercheuse Julia Dusaucy sur l'impact des microplastiques sur notre santé et l'environnement, animée par des experts reconnus.",
+      "image": "/images/antoine-giret-7_TSzqJms4w-unsplash.jpg",
+      "publishedAt": "2025-06-17T22:00:00.000Z",
+      "slug": "conference-sur-les-effets-des-microplastiques-dans-les-lacs-de-montagne",
+      "status": "published",
+      "title": "Conférence sur les effets des microplastiques dans les lacs de montagne "
     }
   ]
 }
