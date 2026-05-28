@@ -1,6 +1,6 @@
 {
-  "commit": "5ba92bd461351ac00465d9dc6ddf8458294b8938",
-  "generated": "2026-05-28T07:54:08.985Z",
+  "commit": "22baa5a6e1f71bbd3f5792cd85a87a6ee38cef99",
+  "generated": "2026-05-28T07:54:20.714Z",
   "metadata": [
     {
       "__outstatic": {
@@ -269,35 +269,6 @@
       "slug": "lichens",
       "status": "published",
       "title": "Etudes participatives des lichens "
-    },
-    {
-      "__outstatic": {
-        "commit": "f8f4fbac70b25f35ce84b58b019fb702fa3b5650",
-        "hash": "2423062596",
-        "path": "outstatic/content/actualites/journees-etudes-epidemiologiques.mdx"
-      },
-      "author": {
-        "name": "",
-        "picture": ""
-      },
-      "categories": [
-        {
-          "label": "Santé",
-          "value": "Santé"
-        },
-        {
-          "label": "Événement",
-          "value": "Événement"
-        }
-      ],
-      "collection": "actualites",
-      "description": "Les 10 et 11 mars, une présentation de l’étude épidémiologique menée par L’Institut de Fos sur Mer est faite aux praticiens de santé. L’objectif est la construction commune des Instituts de Fos/Mer, de l’Aude et du Pays du Mont-Blanc d’un programme d’identification de l’état de santé des habitants à l’échelle du territoire du Pays du Mont-Blanc.",
-      "image": "",
-      "publishedAt": "2025-03-03T23:00:00.000Z",
-      "slug": "journees-etudes-epidemiologiques",
-      "slugProjet": "etude-epidemiologique",
-      "status": "published",
-      "title": "Webinaire en santé environnementale - 10 mars 2025"
     },
     {
       "__outstatic": {
@@ -616,31 +587,6 @@
       "slug": "leur-connaissance-du-terrain-est-excellente-dans-la-vallee-de-l-arve-ces-habitants-aident-la-recherche-face-aux-pollutions",
       "status": "published",
       "title": "«Leur connaissance du terrain est excellente» : dans la vallée de l’Arve, ces habitants aident la recherche face aux pollutions"
-    },
-    {
-      "__outstatic": {
-        "commit": "47657f090943b7de66a0df4480f8c8f20e7bf1f7",
-        "hash": "1967154179",
-        "path": "outstatic/content/evenements/journees-etudes-epidemiologiques.mdx"
-      },
-      "author": {
-        "name": "Mathieu Dutour",
-        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
-      },
-      "categories": [
-        {
-          "label": "Santé",
-          "value": "santé"
-        }
-      ],
-      "collection": "evenements",
-      "description": "Les 10 et 11 mars, une présentation de l’étude épidémiologique menée par L’Institut de Fos sur Mer est faite aux praticiens de santé. L’objectif est la construction commune des Instituts de Fos/Mer, de l’Aude et du Pays du Mont-Blanc d’un programme d’identification de l’état de santé des habitants à l’échelle du territoire du Pays du Mont-Blanc.",
-      "image": "/images/epidemiologie-Y3Mz.png",
-      "publishedAt": "2025-03-09T23:00:00.000Z",
-      "slug": "journees-etudes-epidemiologiques",
-      "slugProjet": "etude-epidemiologique",
-      "status": "published",
-      "title": "Webinaire en santé environnementale"
     },
     {
       "__outstatic": {
