@@ -1,6 +1,6 @@
 {
-  "commit": "829b3015d53282131ec982ff5edf8bd93c46af93",
-  "generated": "2026-05-28T07:34:07.472Z",
+  "commit": "0e45d66255f89d4747447366e97fe1f33bac5810",
+  "generated": "2026-05-28T07:53:34.175Z",
   "metadata": [
     {
       "__outstatic": {
@@ -687,31 +687,6 @@
     },
     {
       "__outstatic": {
-        "commit": "7e6dd19ae240ca905134686d33d8fb1300b46aa3",
-        "hash": "1125461158",
-        "path": "outstatic/content/actualites/journee-recherche.mdx"
-      },
-      "author": {
-        "name": "DESMEDT Aurore",
-        "picture": ""
-      },
-      "categories": [
-        {
-          "label": "Événement",
-          "value": "Événement"
-        }
-      ],
-      "collection": "actualites",
-      "dateEvenement": "2026-05-11T22:00:00.000Z",
-      "description": "Et si la recherche scientifique sur les pollutions au Pays du Mont-Blanc partait des préoccupations des habitants et structures du territoire ?",
-      "image": "/images/journee-recherche-Y3Nz.png",
-      "publishedAt": "2026-02-27T17:03:39.798Z",
-      "slug": "journee-recherche",
-      "status": "published",
-      "title": "Journée Recherche"
-    },
-    {
-      "__outstatic": {
         "commit": "806cf9c39832978c26bb6e04b826dbc8d09200ec",
         "hash": "254080381",
         "path": "outstatic/content/presse/leur-connaissance-du-terrain-est-excellente-dans-la-vallee-de-l-arve-ces-habitants-aident-la-recherche-face-aux-pollutions.mdx"
@@ -728,26 +703,6 @@
       "slug": "leur-connaissance-du-terrain-est-excellente-dans-la-vallee-de-l-arve-ces-habitants-aident-la-recherche-face-aux-pollutions",
       "status": "published",
       "title": "«Leur connaissance du terrain est excellente» : dans la vallée de l’Arve, ces habitants aident la recherche face aux pollutions"
-    },
-    {
-      "__outstatic": {
-        "commit": "008e2ebc456b4c44ee00a535ecaef8d1db2b7753",
-        "hash": "1877121263",
-        "path": "outstatic/content/evenements/journee-recherche.mdx"
-      },
-      "author": {
-        "name": "Mathieu Dutour",
-        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
-      },
-      "categories": [
-      ],
-      "collection": "evenements",
-      "description": "Et si la recherche scientifique sur les pollutions au Pays du Mont-Blanc partait des préoccupations des habitants et structures du territoire ?",
-      "image": "/images/journee-recherche-Y3Nz.png",
-      "publishedAt": "2026-05-11T22:00:00.000Z",
-      "slug": "journee-recherche",
-      "status": "published",
-      "title": "Journée Recherche"
     },
     {
       "__outstatic": {
