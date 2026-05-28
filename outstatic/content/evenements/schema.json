@@ -8,6 +8,13 @@
       "required": true,
       "fieldType": "Image",
       "dataType": "image"
+    },
+    "description": {
+      "title": "Description",
+      "description": "",
+      "required": true,
+      "fieldType": "Text",
+      "dataType": "string"
     }
   }
 }
