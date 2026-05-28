@@ -3,10 +3,11 @@
   "type": "object",
   "properties": {
     "image": {
-      "required": false,
+      "title": "image",
+      "description": "",
+      "required": true,
       "fieldType": "Image",
-      "dataType": "image",
-      "title": "image"
+      "dataType": "image"
     },
     "description": {
       "title": "description",
