@@ -1,6 +1,13 @@
 {
-  "title": "Évènements",
-  "slug": "evenements",
+  "title": "evenements",
   "type": "object",
-  "properties": {}
+  "properties": {
+    "image": {
+      "title": "Image",
+      "description": "",
+      "required": true,
+      "fieldType": "Image",
+      "dataType": "image"
+    }
+  }
 }
