@@ -9,10 +9,11 @@
       "title": "image"
     },
     "description": {
-      "required": false,
+      "title": "description",
+      "description": "",
+      "required": true,
       "fieldType": "Text",
-      "dataType": "string",
-      "title": "description"
+      "dataType": "string"
     },
     "categories": {
       "title": "categories",
