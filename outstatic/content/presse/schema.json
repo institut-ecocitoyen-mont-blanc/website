@@ -19,7 +19,7 @@
     "image": {
       "title": "Image",
       "description": "",
-      "required": false,
+      "required": true,
       "fieldType": "Image",
       "dataType": "image"
     },
