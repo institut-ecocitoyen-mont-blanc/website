@@ -1,6 +1,6 @@
 {
-  "commit": "806cf9c39832978c26bb6e04b826dbc8d09200ec",
-  "generated": "2026-05-28T06:54:04.050Z",
+  "commit": "008e2ebc456b4c44ee00a535ecaef8d1db2b7753",
+  "generated": "2026-05-28T07:22:14.135Z",
   "metadata": [
     {
       "__outstatic": {
@@ -728,6 +728,26 @@
       "slug": "leur-connaissance-du-terrain-est-excellente-dans-la-vallee-de-l-arve-ces-habitants-aident-la-recherche-face-aux-pollutions",
       "status": "published",
       "title": "«Leur connaissance du terrain est excellente» : dans la vallée de l’Arve, ces habitants aident la recherche face aux pollutions"
+    },
+    {
+      "__outstatic": {
+        "commit": "008e2ebc456b4c44ee00a535ecaef8d1db2b7753",
+        "hash": "1877121263",
+        "path": "outstatic/content/evenements/journee-recherche.mdx"
+      },
+      "author": {
+        "name": "Mathieu Dutour",
+        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
+      },
+      "categories": [
+      ],
+      "collection": "evenements",
+      "description": "Et si la recherche scientifique sur les pollutions au Pays du Mont-Blanc partait des préoccupations des habitants et structures du territoire ?",
+      "image": "/images/journee-recherche-Y3Nz.png",
+      "publishedAt": "2026-05-11T22:00:00.000Z",
+      "slug": "journee-recherche",
+      "status": "published",
+      "title": "Journée Recherche"
     }
   ]
 }
