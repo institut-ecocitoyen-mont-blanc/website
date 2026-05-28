@@ -15,6 +15,13 @@
       "required": true,
       "fieldType": "Text",
       "dataType": "string"
+    },
+    "slugProjet": {
+      "title": "Slug Projet",
+      "description": "Si l'actualité est liée à un projet, le slug du projet",
+      "required": false,
+      "fieldType": "String",
+      "dataType": "string"
     }
   }
 }
