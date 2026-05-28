@@ -15,9 +15,11 @@
       "title": "description"
     },
     "categories": {
+      "title": "categories",
+      "description": "",
+      "required": false,
       "fieldType": "Tags",
       "dataType": "array",
-      "title": "categories",
       "values": [
         {
           "label": "Eau",
@@ -38,6 +40,10 @@
         {
           "label": "Événement",
           "value": "Événement"
+        },
+        {
+          "label": "Presse",
+          "value": "presse"
         }
       ]
     },
