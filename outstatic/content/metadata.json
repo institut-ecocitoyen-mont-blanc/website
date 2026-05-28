@@ -1,6 +1,6 @@
 {
-  "commit": "c223e9a56f735a2b13b1d70c477a56728c092e56",
-  "generated": "2026-05-28T07:53:51.528Z",
+  "commit": "e161a0e79719cabea6da036822d8716b1b95f89d",
+  "generated": "2026-05-28T07:53:59.318Z",
   "metadata": [
     {
       "__outstatic": {
@@ -330,36 +330,6 @@
     },
     {
       "__outstatic": {
-        "commit": "c9d14dfa8469b825986510c3d46504c7ac43515d",
-        "hash": "3293976779",
-        "path": "outstatic/content/actualites/journees-etude-lichens.mdx"
-      },
-      "author": {
-        "name": "JPP",
-        "picture": "https://avatars.githubusercontent.com/u/204351074?v=4"
-      },
-      "categories": [
-        {
-          "label": "Air",
-          "value": "Air"
-        },
-        {
-          "label": "Événement",
-          "value": "Événement"
-        }
-      ],
-      "collection": "actualites",
-      "dateEvenement": "2025-05-20T22:00:00.000Z",
-      "description": "Du 20 au 22 mai, journées d’étude sur les lichens, en partenariat avec L’institut Ecocitoyen de Fos sur Mer, ouvertes aux partenaires associatifs du territoire du Mont-Blanc.",
-      "image": "",
-      "publishedAt": "2025-03-28T15:54:17.537Z",
-      "slug": "journees-etude-lichens",
-      "slugProjet": "lichens",
-      "status": "published",
-      "title": "A la découverte des lichens !"
-    },
-    {
-      "__outstatic": {
         "commit": "c3a147bb3455b865ccbdc0d51aa8acab3f10e286",
         "hash": "762286600",
         "path": "outstatic/content/_singletons/a-propos.md"
@@ -675,31 +645,6 @@
       "slug": "leur-connaissance-du-terrain-est-excellente-dans-la-vallee-de-l-arve-ces-habitants-aident-la-recherche-face-aux-pollutions",
       "status": "published",
       "title": "«Leur connaissance du terrain est excellente» : dans la vallée de l’Arve, ces habitants aident la recherche face aux pollutions"
-    },
-    {
-      "__outstatic": {
-        "commit": "70488145f6ceb94b7023b3f99a58db79526aaea5",
-        "hash": "4094031552",
-        "path": "outstatic/content/evenements/journees-etude-lichens.mdx"
-      },
-      "author": {
-        "name": "Mathieu Dutour",
-        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
-      },
-      "categories": [
-        {
-          "label": "Air",
-          "value": "air"
-        }
-      ],
-      "collection": "evenements",
-      "description": "Du 20 au 22 mai, journées d’étude sur les lichens, en partenariat avec L’institut Ecocitoyen de Fos sur Mer, ouvertes aux partenaires associatifs du territoire du Mont-Blanc.",
-      "image": "/images/capture-d--cran-du-2025-03-24-17-03-17-E5OT.png",
-      "publishedAt": "2025-05-20T22:00:00.000Z",
-      "slug": "journees-etude-lichens",
-      "slugProjet": "lichens",
-      "status": "published",
-      "title": "A la découverte des lichens !"
     },
     {
       "__outstatic": {
