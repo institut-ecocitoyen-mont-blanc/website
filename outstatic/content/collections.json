@@ -28,5 +28,11 @@
     "slug": "presse",
     "path": "outstatic/content/presse",
     "children": []
+  },
+  {
+    "title": "Évènements",
+    "slug": "evenements",
+    "path": "outstatic/content/evenements",
+    "children": []
   }
 ]
