@@ -22,5 +22,11 @@
     "slug": "partenaires",
     "path": "outstatic/content/partenaires",
     "children": []
+  },
+  {
+    "title": "Presse",
+    "slug": "presse",
+    "path": "outstatic/content/presse",
+    "children": []
   }
 ]
