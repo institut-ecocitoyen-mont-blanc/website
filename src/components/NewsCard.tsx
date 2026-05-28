@@ -4,13 +4,15 @@ import {
   Calendar,
   CalendarDays,
   Droplet,
+  ExternalLink,
   Heart,
   Mountain,
+  Newspaper,
   Wind,
 } from "lucide-react";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import Link from "next/link";
-import { ActualiteCategory } from "@/lib/types";
+import { ActualiteCategory, NewsItem } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { Badge } from "./ui/badge";
 
@@ -58,12 +60,12 @@ export const categoryStyles: Record<
     lightText: "text-red-900",
   },
   Événement: {
-    background: "bg-purple-600",
-    hover: "hover:bg-purple-700",
-    border: "border-purple-600",
-    text: "text-purple-600",
-    lightBg: "bg-purple-50",
-    lightText: "text-purple-900",
+    background: "bg-[#7e22ce]",
+    hover: "hover:bg-[#6b21a8]",
+    border: "border-[#7e22ce]",
+    text: "text-[#7e22ce]",
+    lightBg: "bg-[#faf5ff]",
+    lightText: "text-[#581c87]",
   },
 };
 
@@ -86,50 +88,67 @@ export const categoryFilters: {
 export function NewsCard({
   item,
 }: {
-  item: {
-    slug: string;
-    image?: string;
-    title: string;
-    description?: string;
-    publishedAt: Date;
-    dateEvenement: Date | null;
-    categories: ActualiteCategory[];
-  };
+  item: NewsItem;
 }) {
   const isEvent = item.categories.includes("Événement");
+  const isPresse = item.kind === "presse";
 
   return (
-    <Card key={item.slug} className="group bg-white/80">
+    <Card
+      key={item.slug}
+      className={cn(
+        "group bg-white/80",
+        isEvent && "border-[#c084fc] bg-[#faf5ff]",
+        isPresse && "border-[#a6dca6] bg-[#f1faf1]",
+      )}
+    >
       <div
         className={cn(
           "relative h-48 overflow-hidden rounded-t-lg",
-          isEvent && "border-l-4 border-r-4 border-purple-500",
+          isEvent && "border-l-4 border-r-4 border-[#a855f7]",
+          isPresse && "border-l-4 border-r-4 border-[#3aab3b]",
         )}
       >
         <Image
           src={item.image || "/logo.png"}
           alt={item.title}
           fill
+          sizes="(min-width: 768px) 33vw, 100vw"
           className="object-cover transition-transform duration-300 group-hover:scale-105"
         />
         {isEvent && (
-          <div className="absolute top-0 left-0 w-full bg-purple-500 text-white py-2 px-4 text-center font-semibold z-10">
-            <CalendarDays className="w-4 h-4 inline-block mr-2 -mt-1.5" />
+          <div className="absolute top-0 left-0 z-10 flex items-center gap-2 bg-[#7e22ce] px-4 py-2 text-sm font-semibold text-white">
+            <CalendarDays className="h-4 w-4" />
             Événement
           </div>
         )}
-        {isEvent && (
-          <div className="absolute bottom-0 left-0 w-full bg-black/50 backdrop-blur-sm text-white p-3">
-            <div className="text-center">
-              <span className="block text-xl font-bold">
-                {(item.dateEvenement || item.publishedAt).toDateString()}
-              </span>
-            </div>
+        {isPresse && (
+          <div className="absolute top-0 left-0 z-10 flex items-center gap-2 bg-[#3aab3b] px-4 py-2 text-sm font-semibold text-white">
+            <Newspaper className="h-4 w-4" />
+            Presse
           </div>
         )}
       </div>
       <CardContent>
         <div className="flex flex-wrap gap-2 mb-3">
+          {isEvent && (
+            <Badge
+              variant="secondary"
+              className="bg-[#f3e8ff] text-[#581c87]"
+            >
+              <CalendarDays className="h-3 w-3" />
+              Événement
+            </Badge>
+          )}
+          {isPresse && (
+            <Badge
+              variant="secondary"
+              className="bg-[#e8f6e8] text-[#2f8a30]"
+            >
+              <Newspaper className="h-3 w-3" />
+              Presse
+            </Badge>
+          )}
           {item.categories
             .filter((x) => x !== "Événement")
             .map((category) => {
@@ -153,22 +172,46 @@ export function NewsCard({
             })}
         </div>
         <h3 className="text-xl font-semibold mb-2 text-black">{item.title}</h3>
-        {!isEvent && (
-          <div className="flex items-center text-gray-600 mb-2">
+        <div
+          className={cn(
+            "flex items-center mb-2",
+            isEvent ? "text-[#6b21a8]" : "text-gray-600",
+          )}
+        >
+          {isEvent ? (
+            <CalendarDays className="w-4 h-4 mr-2" />
+          ) : (
             <Calendar className="w-4 h-4 mr-2" />
-            <span>{item.publishedAt.toDateString()}</span>
-          </div>
-        )}
+          )}
+          <span>
+            {(isEvent
+              ? item.dateEvenement || item.publishedAt
+              : item.publishedAt
+            ).toDateString()}
+          </span>
+        </div>
         <p className="text-black/70 mb-4">{item.description}</p>
       </CardContent>
       <CardFooter className="p-6 pt-0">
-        <Link
-          href={`/actualites/${item.slug}`}
-          className="inline-flex items-center text-sm text-black/80 hover:text-black transition-colors"
-        >
-          En savoir plus
-          <ArrowRight className="w-4 h-4 ml-2" />
-        </Link>
+        {isPresse && item.lien ? (
+          <a
+            href={item.lien}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center text-sm font-medium text-[#2f8a30] hover:text-[#276f28] transition-colors"
+          >
+            Lire l&apos;article
+            <ExternalLink className="w-4 h-4 ml-2" />
+          </a>
+        ) : (
+          <Link
+            href={`/actualites/${item.slug}`}
+            className="inline-flex items-center text-sm text-black/80 hover:text-black transition-colors"
+          >
+            En savoir plus
+            <ArrowRight className="w-4 h-4 ml-2" />
+          </Link>
+        )}
       </CardFooter>
     </Card>
   );

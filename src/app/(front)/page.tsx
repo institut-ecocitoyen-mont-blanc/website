@@ -5,9 +5,10 @@ import { getSingletonBySlug, getDocuments, load } from "outstatic/server";
 import Link from "next/link";
 import { ProjectCard } from "@/components/ProjectCard";
 import { NewsCard } from "@/components/NewsCard";
-import { ActualiteCategory, ProjectCategory } from "@/lib/types";
+import { ProjectCategory } from "@/lib/types";
 import { fetchPollutionSites } from "@/lib/google-sheets";
 import HomeMapSection from "@/components/HomeMapSection";
+import { getNewsItems } from "@/lib/news";
 
 export default async function Home() {
   const { projects, news, objectifs, page, pollutionSites } = await getData();
@@ -153,27 +154,7 @@ async function getData() {
     categories: (x.categories?.map((y) => y.value) as ProjectCategory[]) ?? [],
   }));
 
-  const news = (
-    await db
-      .find({ collection: "actualites" }, [
-        "title",
-        "description",
-        "publishedAt",
-        "image",
-        "slug",
-        "categories",
-        "dateEvenement",
-      ])
-      .sort({ publishedAt: -1 })
-      .limit(3)
-      .toArray()
-  ).map((x) => ({
-    ...x,
-    publishedAt: new Date(x.publishedAt),
-    dateEvenement: x.dateEvenement ? new Date(x.dateEvenement) : null,
-    categories:
-      (x.categories?.map((y) => y.value) as ActualiteCategory[]) ?? [],
-  }));
+  const news = getNewsItems(3);
 
   const objectifs = getDocuments("objectifs", [
     "title",

@@ -4,7 +4,6 @@ import { ArrowLeft, Clock, CheckCircle2 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import {
   getDocumentBySlug,
-  getDocuments,
   getDocumentSlugs,
 } from "outstatic/server";
 import rehypeStringify from "rehype-stringify";
@@ -12,10 +11,11 @@ import remarkParse from "remark-parse";
 import remarkGfm from "remark-gfm";
 import remarkRehype from "remark-rehype";
 import { unified } from "unified";
-import { ActualiteCategory, ProjectCategory } from "@/lib/types";
+import { ProjectCategory } from "@/lib/types";
 import { categoryStyles, categoryFilters } from "@/components/ProjectCard";
 import { cn } from "@/lib/utils";
 import { NewsCard } from "@/components/NewsCard";
+import { getNewsItems } from "@/lib/news";
 
 export default async function ProjectPage({
   params,
@@ -189,24 +189,7 @@ async function getData(params: { slug: string }) {
       (result.categories?.map((y) => y.value) as ProjectCategory[]) ?? [],
   };
 
-  const relatedNews = getDocuments("actualites", [
-    "title",
-    "description",
-    "image",
-    "slug",
-    "publishedAt",
-    "categories",
-    "dateEvenement",
-    "slugProjet",
-  ])
-    .map((x) => ({
-      ...x,
-      publishedAt: new Date(x.publishedAt),
-      dateEvenement: x.dateEvenement ? new Date(x.dateEvenement) : null,
-      categories:
-        (x.categories?.map((y) => y.value) as ActualiteCategory[]) ?? [],
-    }))
-    .filter((x) => x.slugProjet === params.slug);
+  const relatedNews = getNewsItems().filter((x) => x.slugProjet === params.slug);
 
   return { projet, relatedNews };
 }

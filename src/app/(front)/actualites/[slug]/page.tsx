@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, Calendar } from "lucide-react";
+import { ArrowLeft, Calendar, CalendarDays } from "lucide-react";
 import { getDocumentBySlug, getDocumentSlugs } from "outstatic/server";
 import { unified } from "unified";
 import remarkParse from "remark-parse";
@@ -11,6 +11,7 @@ import { ActualiteCategory } from "@/lib/types";
 import { categoryFilters, categoryStyles } from "@/components/NewsCard";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
+import { normalizeCategories } from "@/lib/news";
 
 export default async function ActualitePage({
   params,
@@ -22,6 +23,8 @@ export default async function ActualitePage({
   if (!newsItem) {
     return <div>Article non trouvé</div>;
   }
+
+  const isEvent = newsItem.categories.includes("Événement");
 
   return (
     <main className="grow py-16 pt-32">
@@ -37,8 +40,17 @@ export default async function ActualitePage({
           <div className="md:col-span-2">
             <h1 className="text-3xl font-bold mb-4">{newsItem.title}</h1>
             <div className="flex items-center text-gray-600 mb-6">
-              <Calendar className="w-4 h-4 mr-2" />
-              <span>{newsItem.publishedAt.toDateString()}</span>
+              {isEvent ? (
+                <CalendarDays className="w-4 h-4 mr-2" />
+              ) : (
+                <Calendar className="w-4 h-4 mr-2" />
+              )}
+              <span>
+                {(isEvent
+                  ? newsItem.dateEvenement || newsItem.publishedAt
+                  : newsItem.publishedAt
+                ).toDateString()}
+              </span>
             </div>
             <div
               className="prose max-w-none mb-8 markdown"
@@ -99,8 +111,20 @@ const processor = unified()
   .use(remarkRehype, { allowDangerousHtml: true })
   .use(rehypeStringify);
 
+type DetailDocument = {
+  title: string;
+  description?: string;
+  image?: string;
+  slug: string;
+  content?: string;
+  publishedAt: string;
+  categories?: { value: string }[];
+  dateEvenement?: string;
+  slugProjet?: string;
+};
+
 async function getData(params: { slug: string }) {
-  const projet = getDocumentBySlug("actualites", params.slug, [
+  const fields = [
     "title",
     "description",
     "image",
@@ -110,27 +134,49 @@ async function getData(params: { slug: string }) {
     "categories",
     "dateEvenement",
     "slugProjet",
-  ]);
+  ];
 
-  if (!projet) {
+  const evenement = getDocumentBySlug(
+    "evenements",
+    params.slug,
+    fields,
+  ) as DetailDocument | null;
+  const actualite = getDocumentBySlug(
+    "actualites",
+    params.slug,
+    fields,
+  ) as DetailDocument | null;
+  const newsItem = evenement || actualite;
+
+  if (!newsItem) {
     return null;
   }
 
-  const content = await processor.process(projet.content || "");
+  const content = await processor.process(newsItem.content || "");
+  const categories = normalizeCategories(newsItem.categories);
+  const isEvent = Boolean(evenement) || categories.includes("Événement");
 
   return {
-    ...projet,
-    publishedAt: new Date(projet.publishedAt),
-    dateEvenement: projet.dateEvenement
-      ? new Date(projet.dateEvenement as string)
-      : null,
-    categories:
-      (projet.categories?.map((y) => y.value) as ActualiteCategory[]) ?? [],
-    content: content.value,
+    ...newsItem,
+    publishedAt: new Date(newsItem.publishedAt),
+    dateEvenement: newsItem.dateEvenement
+      ? new Date(newsItem.dateEvenement as string)
+      : isEvent
+        ? new Date(newsItem.publishedAt)
+        : null,
+    categories: isEvent
+      ? Array.from(new Set<ActualiteCategory>(["Événement", ...categories]))
+      : categories,
+    content: String(content.value),
   };
 }
 
 export async function generateStaticParams() {
-  const posts = getDocumentSlugs("actualites");
+  const posts = Array.from(
+    new Set([
+      ...getDocumentSlugs("actualites"),
+      ...getDocumentSlugs("evenements"),
+    ]),
+  );
   return posts.map((slug) => ({ slug }));
 }

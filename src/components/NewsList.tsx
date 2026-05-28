@@ -5,39 +5,61 @@ import {
   categoryStyles,
   NewsCard,
 } from "@/components/NewsCard";
-import { Search, X } from "lucide-react";
+import { Newspaper, Search, X } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { ActualiteCategory } from "@/lib/types";
+import { ActualiteCategory, NewsItem } from "@/lib/types";
 import { useRouter, useSearchParams } from "next/navigation";
+
+type NewsFilter = ActualiteCategory | "Presse";
+type FilterStyle = (typeof categoryStyles)[ActualiteCategory];
+
+const filterStyles: Record<NewsFilter, FilterStyle> = {
+  ...categoryStyles,
+  Presse: {
+    background: "bg-[#3aab3b]",
+    hover: "hover:bg-[#2f8a30]",
+    border: "border-[#3aab3b]",
+    text: "text-[#2f8a30]",
+    lightBg: "bg-[#f1faf1]",
+    lightText: "text-[#2f8a30]",
+  },
+};
+
+const newsFilters: {
+  id: NewsFilter;
+  label: string;
+  icon: React.ReactNode;
+}[] = [
+  ...categoryFilters,
+  {
+    id: "Presse",
+    label: "Presse",
+    icon: <Newspaper className="w-4 h-4" />,
+  },
+];
+
+function isNewsFilter(filter: string): filter is NewsFilter {
+  return filter === "Presse" || categoryFilters.some((x) => x.id === filter);
+}
 
 export function NewsList({
   items,
 }: {
-  items: {
-    title: string;
-    description?: string;
-    image?: string;
-    slug: string;
-    publishedAt: Date;
-    dateEvenement: Date | null;
-    categories: ActualiteCategory[];
-  }[];
+  items: NewsItem[];
 }) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const [activeFilters, setActiveFilters] = useState<ActualiteCategory[]>(
-    () => {
-      const categoriesParam = searchParams.get("categories");
-      return categoriesParam
-        ? (categoriesParam.split(",") as ActualiteCategory[])
-        : [];
-    },
-  );
+  const [activeFilters, setActiveFilters] = useState<NewsFilter[]>(() => {
+    const categoriesParam = searchParams.get("categories");
+    return categoriesParam
+      ? categoriesParam.split(",").filter(isNewsFilter)
+      : [];
+  });
   const [searchQuery, setSearchQuery] = useState(
     () => searchParams.get("q") || "",
   );
@@ -58,7 +80,7 @@ export function NewsList({
     router.push(`/actualites${newUrl}`, { scroll: false });
   }, [activeFilters, searchQuery, router]);
 
-  const toggleFilter = (filter: ActualiteCategory) => {
+  const toggleFilter = (filter: NewsFilter) => {
     setActiveFilters((current) =>
       current.includes(filter)
         ? current.filter((f) => f !== filter)
@@ -76,7 +98,11 @@ export function NewsList({
       // Category filter
       const matchesCategory =
         activeFilters.length === 0 ||
-        activeFilters.some((filter) => item.categories.includes(filter));
+        activeFilters.some((filter) =>
+          filter === "Presse"
+            ? item.kind === "presse"
+            : item.categories.includes(filter),
+        );
 
       // Search filter
       const searchTerm = searchQuery.toLowerCase();
@@ -129,9 +155,9 @@ export function NewsList({
       {/* Filters */}
       <div className="mb-8">
         <div className="flex flex-wrap justify-center gap-4">
-          {categoryFilters.map((filter) => {
+          {newsFilters.map((filter) => {
             const isActive = activeFilters.includes(filter.id);
-            const styles = categoryStyles[filter.id];
+            const styles = filterStyles[filter.id];
 
             return (
               <Button
@@ -157,7 +183,9 @@ export function NewsList({
                   >
                     {
                       filteredNews.filter((p) =>
-                        p.categories.includes(filter.id),
+                        filter.id === "Presse"
+                          ? p.kind === "presse"
+                          : p.categories.includes(filter.id),
                       ).length
                     }
                   </Badge>
