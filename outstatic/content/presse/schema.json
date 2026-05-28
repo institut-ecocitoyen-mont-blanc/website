@@ -15,6 +15,13 @@
       "required": true,
       "fieldType": "String",
       "dataType": "string"
+    },
+    "image": {
+      "title": "Image",
+      "description": "",
+      "required": false,
+      "fieldType": "Image",
+      "dataType": "image"
     }
   }
 }
