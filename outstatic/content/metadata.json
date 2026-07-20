@@ -1,6 +1,6 @@
 {
-  "commit": "829b3015d53282131ec982ff5edf8bd93c46af93",
-  "generated": "2026-05-28T07:34:07.472Z",
+  "commit": "d829db56692dde3a75c345f941d42dafd373605f",
+  "generated": "2026-05-28T07:54:36.797Z",
   "metadata": [
     {
       "__outstatic": {
@@ -172,35 +172,6 @@
     },
     {
       "__outstatic": {
-        "commit": "4653317a0be735caa170adb29770fd7a173e0f88",
-        "hash": "3572727212",
-        "path": "outstatic/content/actualites/conference-particules-ultrafines.mdx"
-      },
-      "author": {
-        "name": "JPP",
-        "picture": "https://avatars.githubusercontent.com/u/204351074?v=4"
-      },
-      "categories": [
-        {
-          "label": "Air",
-          "value": "Air"
-        },
-        {
-          "label": "Événement",
-          "value": "Événement"
-        }
-      ],
-      "collection": "actualites",
-      "dateEvenement": "2025-01-27T23:00:00.000Z",
-      "description": "Le 28 janvier Jean-Luc Jaffrezo (IGE), Gaëlle Uzu (IGE) et Guillaume Brulfert (ATMO) sont intervenus au cours d’une conférence : qualité de l’air dans la vallée de l’Arve : quel impact des particules ultrafines ?",
-      "image": "/images/puf_conf-gwMT.png",
-      "publishedAt": "2025-01-14T23:00:00.000Z",
-      "slug": "conference-particules-ultrafines",
-      "status": "published",
-      "title": "Conférence sur les particules ultrafines"
-    },
-    {
-      "__outstatic": {
         "commit": "d5902744f117cde93b807e87978616e24b419e7c",
         "hash": "2518983759",
         "path": "outstatic/content/actualites/nouveaux-locaux-institut.mdx"
@@ -242,31 +213,6 @@
     },
     {
       "__outstatic": {
-        "commit": "3b0fbd42a80de78c39f55ea135446a08353f3015",
-        "hash": "2375523651",
-        "path": "outstatic/content/actualites/assemblee-generale.mdx"
-      },
-      "author": {
-        "name": "JPP",
-        "picture": "https://avatars.githubusercontent.com/u/204351074?v=4"
-      },
-      "categories": [
-        {
-          "label": "Événement",
-          "value": "Événement"
-        }
-      ],
-      "collection": "actualites",
-      "dateEvenement": "2025-04-04T22:00:00.000Z",
-      "description": "Assemblée Générale de L'institut Ecocitoyen du Pays du Mont-Blanc.\nEn matinée, tenue de l’AG. Petite restauration proposée pour le déjeuner. L’après-midi, animations sur la pollutions et la santé environnementale, temps d’échange et moment de convivialité.",
-      "image": "/images/ag-I4Nz.png",
-      "publishedAt": "2025-03-28T15:51:20.497Z",
-      "slug": "assemblee-generale",
-      "status": "published",
-      "title": "Assemblée Générale"
-    },
-    {
-      "__outstatic": {
         "commit": "252f720ef37f13003a7c0cade7566071ae8c34ca",
         "hash": "561280444",
         "path": "outstatic/content/projets/lichens.mdx"
@@ -298,65 +244,6 @@
       "slug": "lichens",
       "status": "published",
       "title": "Etudes participatives des lichens "
-    },
-    {
-      "__outstatic": {
-        "commit": "f8f4fbac70b25f35ce84b58b019fb702fa3b5650",
-        "hash": "2423062596",
-        "path": "outstatic/content/actualites/journees-etudes-epidemiologiques.mdx"
-      },
-      "author": {
-        "name": "",
-        "picture": ""
-      },
-      "categories": [
-        {
-          "label": "Santé",
-          "value": "Santé"
-        },
-        {
-          "label": "Événement",
-          "value": "Événement"
-        }
-      ],
-      "collection": "actualites",
-      "description": "Les 10 et 11 mars, une présentation de l’étude épidémiologique menée par L’Institut de Fos sur Mer est faite aux praticiens de santé. L’objectif est la construction commune des Instituts de Fos/Mer, de l’Aude et du Pays du Mont-Blanc d’un programme d’identification de l’état de santé des habitants à l’échelle du territoire du Pays du Mont-Blanc.",
-      "image": "",
-      "publishedAt": "2025-03-03T23:00:00.000Z",
-      "slug": "journees-etudes-epidemiologiques",
-      "slugProjet": "etude-epidemiologique",
-      "status": "published",
-      "title": "Webinaire en santé environnementale - 10 mars 2025"
-    },
-    {
-      "__outstatic": {
-        "commit": "c9d14dfa8469b825986510c3d46504c7ac43515d",
-        "hash": "3293976779",
-        "path": "outstatic/content/actualites/journees-etude-lichens.mdx"
-      },
-      "author": {
-        "name": "JPP",
-        "picture": "https://avatars.githubusercontent.com/u/204351074?v=4"
-      },
-      "categories": [
-        {
-          "label": "Air",
-          "value": "Air"
-        },
-        {
-          "label": "Événement",
-          "value": "Événement"
-        }
-      ],
-      "collection": "actualites",
-      "dateEvenement": "2025-05-20T22:00:00.000Z",
-      "description": "Du 20 au 22 mai, journées d’étude sur les lichens, en partenariat avec L’institut Ecocitoyen de Fos sur Mer, ouvertes aux partenaires associatifs du territoire du Mont-Blanc.",
-      "image": "",
-      "publishedAt": "2025-03-28T15:54:17.537Z",
-      "slug": "journees-etude-lichens",
-      "slugProjet": "lichens",
-      "status": "published",
-      "title": "A la découverte des lichens !"
     },
     {
       "__outstatic": {
@@ -422,34 +309,6 @@
       "slug": "politique-de-confidentialite",
       "status": "published",
       "title": "Politique de Confidentialité"
-    },
-    {
-      "__outstatic": {
-        "commit": "9ed7ca67f6df40b6bdfe23f4cf85959336d42b36",
-        "hash": "1335162971",
-        "path": "outstatic/content/actualites/conference-sur-les-effets-des-microplastiques.mdx"
-      },
-      "author": {
-        "name": "Marine",
-        "picture": "https://avatars.githubusercontent.com/u/207458905?v=4"
-      },
-      "categories": [
-        {
-          "label": "Événement",
-          "value": "Événement"
-        },
-        {
-          "label": "Santé",
-          "value": "Santé"
-        }
-      ],
-      "collection": "actualites",
-      "description": "Rejoignez-nous pour une conférence passionnante sur l'impact des microplastiques sur notre santé et l'environnement, animée par des experts reconnus.",
-      "image": "/images/antoine-giret-7_TSzqJms4w-unsplash.jpg",
-      "publishedAt": "2025-02-18T09:38:57.243Z",
-      "slug": "conference-sur-les-effets-des-microplastiques",
-      "status": "published",
-      "title": "Conférence le 18 juin en présence de la chercheuse Julia Dusaucy, sur les effets des microplastiques dans les lacs de montagne "
     },
     {
       "__outstatic": {
@@ -524,38 +383,6 @@
       "slug": "crea-mont-blanc",
       "status": "published",
       "title": "CREA Mont Blanc"
-    },
-    {
-      "__outstatic": {
-        "commit": "7b55af6e0d744684d6c216fabd5a727478b57753",
-        "hash": "4209566698",
-        "path": "outstatic/content/actualites/webinaire-industrie-pollution-et-sante-le-cas-des-boues-rouges-de-gardanne.mdx"
-      },
-      "author": {
-        "name": "Mathieu Dutour",
-        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
-      },
-      "categories": [
-        {
-          "label": "Eau",
-          "value": "Eau"
-        },
-        {
-          "label": "Sol",
-          "value": "Sol"
-        },
-        {
-          "label": "Événement",
-          "value": "Événement"
-        }
-      ],
-      "collection": "actualites",
-      "description": "Les boues rouges de Gardanne sont devenues un symbole des tensions entre industrie, pollution environnementale, santé publique et justice sociale en Méditerranée. Poussières rouges, pollution marine, controverses sanitaires : ce conflit soulève des questions essentielles sur la manière dont la pollution est produite, mesurée et débattue.",
-      "image": "/images/1769095789384-E3MT.jpg",
-      "publishedAt": "2026-01-29T09:15:39.032Z",
-      "slug": "webinaire-industrie-pollution-et-sante-le-cas-des-boues-rouges-de-gardanne",
-      "status": "draft",
-      "title": "Webinaire – Industrie, pollution et santé : le cas des boues rouges de Gardanne"
     },
     {
       "__outstatic": {
@@ -687,31 +514,6 @@
     },
     {
       "__outstatic": {
-        "commit": "7e6dd19ae240ca905134686d33d8fb1300b46aa3",
-        "hash": "1125461158",
-        "path": "outstatic/content/actualites/journee-recherche.mdx"
-      },
-      "author": {
-        "name": "DESMEDT Aurore",
-        "picture": ""
-      },
-      "categories": [
-        {
-          "label": "Événement",
-          "value": "Événement"
-        }
-      ],
-      "collection": "actualites",
-      "dateEvenement": "2026-05-11T22:00:00.000Z",
-      "description": "Et si la recherche scientifique sur les pollutions au Pays du Mont-Blanc partait des préoccupations des habitants et structures du territoire ?",
-      "image": "/images/journee-recherche-Y3Nz.png",
-      "publishedAt": "2026-02-27T17:03:39.798Z",
-      "slug": "journee-recherche",
-      "status": "published",
-      "title": "Journée Recherche"
-    },
-    {
-      "__outstatic": {
         "commit": "806cf9c39832978c26bb6e04b826dbc8d09200ec",
         "hash": "254080381",
         "path": "outstatic/content/presse/leur-connaissance-du-terrain-est-excellente-dans-la-vallee-de-l-arve-ces-habitants-aident-la-recherche-face-aux-pollutions.mdx"
@@ -728,76 +530,6 @@
       "slug": "leur-connaissance-du-terrain-est-excellente-dans-la-vallee-de-l-arve-ces-habitants-aident-la-recherche-face-aux-pollutions",
       "status": "published",
       "title": "«Leur connaissance du terrain est excellente» : dans la vallée de l’Arve, ces habitants aident la recherche face aux pollutions"
-    },
-    {
-      "__outstatic": {
-        "commit": "008e2ebc456b4c44ee00a535ecaef8d1db2b7753",
-        "hash": "1877121263",
-        "path": "outstatic/content/evenements/journee-recherche.mdx"
-      },
-      "author": {
-        "name": "Mathieu Dutour",
-        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
-      },
-      "categories": [
-      ],
-      "collection": "evenements",
-      "description": "Et si la recherche scientifique sur les pollutions au Pays du Mont-Blanc partait des préoccupations des habitants et structures du territoire ?",
-      "image": "/images/journee-recherche-Y3Nz.png",
-      "publishedAt": "2026-05-11T22:00:00.000Z",
-      "slug": "journee-recherche",
-      "status": "published",
-      "title": "Journée Recherche"
-    },
-    {
-      "__outstatic": {
-        "commit": "70488145f6ceb94b7023b3f99a58db79526aaea5",
-        "hash": "4094031552",
-        "path": "outstatic/content/evenements/journees-etude-lichens.mdx"
-      },
-      "author": {
-        "name": "Mathieu Dutour",
-        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
-      },
-      "categories": [
-        {
-          "label": "Air",
-          "value": "air"
-        }
-      ],
-      "collection": "evenements",
-      "description": "Du 20 au 22 mai, journées d’étude sur les lichens, en partenariat avec L’institut Ecocitoyen de Fos sur Mer, ouvertes aux partenaires associatifs du territoire du Mont-Blanc.",
-      "image": "/images/capture-d--cran-du-2025-03-24-17-03-17-E5OT.png",
-      "publishedAt": "2025-05-20T22:00:00.000Z",
-      "slug": "journees-etude-lichens",
-      "slugProjet": "lichens",
-      "status": "published",
-      "title": "A la découverte des lichens !"
-    },
-    {
-      "__outstatic": {
-        "commit": "47657f090943b7de66a0df4480f8c8f20e7bf1f7",
-        "hash": "1967154179",
-        "path": "outstatic/content/evenements/journees-etudes-epidemiologiques.mdx"
-      },
-      "author": {
-        "name": "Mathieu Dutour",
-        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
-      },
-      "categories": [
-        {
-          "label": "Santé",
-          "value": "santé"
-        }
-      ],
-      "collection": "evenements",
-      "description": "Les 10 et 11 mars, une présentation de l’étude épidémiologique menée par L’Institut de Fos sur Mer est faite aux praticiens de santé. L’objectif est la construction commune des Instituts de Fos/Mer, de l’Aude et du Pays du Mont-Blanc d’un programme d’identification de l’état de santé des habitants à l’échelle du territoire du Pays du Mont-Blanc.",
-      "image": "/images/epidemiologie-Y3Mz.png",
-      "publishedAt": "2025-03-09T23:00:00.000Z",
-      "slug": "journees-etudes-epidemiologiques",
-      "slugProjet": "etude-epidemiologique",
-      "status": "published",
-      "title": "Webinaire en santé environnementale"
     },
     {
       "__outstatic": {
@@ -818,50 +550,6 @@
       "slug": "conference-sur-les-effets-des-microplastiques-dans-les-lacs-de-montagne",
       "status": "published",
       "title": "Conférence sur les effets des microplastiques dans les lacs de montagne "
-    },
-    {
-      "__outstatic": {
-        "commit": "dcbd31e9553461d4aaf20f5eecf94d63b560a1cd",
-        "hash": "3501572595",
-        "path": "outstatic/content/evenements/conference-particules-ultrafines.mdx"
-      },
-      "author": {
-        "name": "Mathieu Dutour",
-        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
-      },
-      "categories": [
-        {
-          "label": "Air",
-          "value": "air"
-        }
-      ],
-      "collection": "evenements",
-      "description": "Le 28 janvier Jean-Luc Jaffrezo (IGE), Gaëlle Uzu (IGE) et Guillaume Brulfert (ATMO) sont intervenus au cours d’une conférence : qualité de l’air dans la vallée de l’Arve : quel impact des particules ultrafines ?",
-      "image": "/images/puf_conf-gwMT.png",
-      "publishedAt": "2025-01-27T23:00:00.000Z",
-      "slug": "conference-particules-ultrafines",
-      "status": "published",
-      "title": "Conférence sur les particules ultrafines"
-    },
-    {
-      "__outstatic": {
-        "commit": "829b3015d53282131ec982ff5edf8bd93c46af93",
-        "hash": "387094915",
-        "path": "outstatic/content/evenements/assemblee-generale.mdx"
-      },
-      "author": {
-        "name": "Mathieu Dutour",
-        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
-      },
-      "categories": [
-      ],
-      "collection": "evenements",
-      "description": "Assemblée Générale de L'institut Ecocitoyen du Pays du Mont-Blanc.\nEn matinée, tenue de l’AG. Petite restauration proposée pour le déjeuner. L’après-midi, animations sur la pollutions et la santé environnementale, temps d’échange et moment de convivialité.",
-      "image": "/images/ag-I4Nz.png",
-      "publishedAt": "2025-04-04T22:00:00.000Z",
-      "slug": "assemblee-generale",
-      "status": "published",
-      "title": "Assemblée Générale 2025"
     }
   ]
 }
