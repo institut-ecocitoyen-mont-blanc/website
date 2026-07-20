@@ -94,7 +94,7 @@ export default function Map({ sites, onSelectSite }: MapProps) {
               <Popup>
                 <div className="site-popup">
                   <h3>{site.name}</h3>
-                  <p>{site.location}</p>
+                  <p>{site.commune}</p>
                   <p style={{ color }}>{site.sector}</p>
                   <button onClick={() => onSelectSite(site)}>
                     Voir les détails

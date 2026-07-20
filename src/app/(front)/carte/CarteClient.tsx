@@ -1,19 +1,24 @@
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
-import { useSearchParams, useRouter } from "next/navigation";
+import {
+  type Dispatch,
+  type SetStateAction,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import dynamic from "next/dynamic";
-import { MapPin, ExternalLink, X, Filter, XCircle } from "lucide-react";
+import { ExternalLink, X, XCircle } from "lucide-react";
 import {
   type PollutionSite,
-  type DiffusePollutionSite,
   type PollutionSiteBase,
-  getSectorColor,
+  type UnmappedPollutionSite,
   getCompartmentColor,
-  sectorList,
+  getSectorColor,
 } from "@/lib/google-sheets";
 
-// Dynamically import the map component to avoid SSR issues with Leaflet
 const MapComponent = dynamic(() => import("@/components/Map"), {
   ssr: false,
   loading: () => (
@@ -28,141 +33,259 @@ const MapComponent = dynamic(() => import("@/components/Map"), {
 
 interface CarteClientProps {
   sites: PollutionSite[];
-  diffuseSites: DiffusePollutionSite[];
+  unmappedSites: UnmappedPollutionSite[];
 }
 
-export default function CarteClient({ sites, diffuseSites }: CarteClientProps) {
+interface FilterOption {
+  value: string;
+  color?: string;
+}
+
+interface FilterGroupProps {
+  title: string;
+  options: FilterOption[];
+  selectedValues: Set<string>;
+  onToggle: (value: string) => void;
+}
+
+function FilterGroup({
+  title,
+  options,
+  selectedValues,
+  onToggle,
+}: FilterGroupProps) {
+  if (options.length === 0) return null;
+
+  return (
+    <div>
+      <h3 className="text-sm font-medium text-gray-700 mb-2">{title}</h3>
+      <div className="flex flex-wrap gap-2">
+        {options.map(({ value, color }) => {
+          const isSelected = selectedValues.has(value);
+          const buttonClassName =
+            "px-3 py-1.5 rounded-full text-sm font-medium transition-all flex items-center gap-2 " +
+            (isSelected
+              ? "text-white shadow-md"
+              : "bg-gray-100 text-gray-700 hover:bg-gray-200");
+
+          return (
+            <button
+              key={value}
+              type="button"
+              aria-pressed={isSelected}
+              onClick={() => onToggle(value)}
+              className={buttonClassName}
+              style={
+                isSelected
+                  ? { backgroundColor: color ?? "#1d6ab2" }
+                  : undefined
+              }
+            >
+              {color && (
+                <span
+                  className="w-3 h-3 rounded-full border border-white/50"
+                  style={{ backgroundColor: color }}
+                />
+              )}
+              {value}
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+function getUniqueValues(
+  sites: PollutionSiteBase[],
+  getValue: (site: PollutionSiteBase) => string,
+): string[] {
+  return Array.from(
+    new Set(sites.map(getValue).map((value) => value.trim()).filter(Boolean)),
+  ).sort((a, b) => a.localeCompare(b, "fr", { sensitivity: "base" }));
+}
+
+function toggleSetValue(
+  setValues: Dispatch<SetStateAction<Set<string>>>,
+  value: string,
+) {
+  setValues((previousValues) => {
+    const nextValues = new Set(previousValues);
+
+    if (nextValues.has(value)) {
+      nextValues.delete(value);
+    } else {
+      nextValues.add(value);
+    }
+
+    return nextValues;
+  });
+}
+
+function isWebLink(value: string): boolean {
+  try {
+    const url = new URL(value);
+    return url.protocol === "http:" || url.protocol === "https:";
+  } catch {
+    return false;
+  }
+}
+
+export default function CarteClient({
+  sites,
+  unmappedSites,
+}: CarteClientProps) {
   const searchParams = useSearchParams();
   const router = useRouter();
   const [selectedSite, setSelectedSite] = useState<PollutionSiteBase | null>(
     null,
   );
+  const [selectedCommunes, setSelectedCommunes] = useState<Set<string>>(
+    new Set(),
+  );
   const [selectedSectors, setSelectedSectors] = useState<Set<string>>(
     new Set(),
   );
-  const [selectedCompartments, setSelectedCompartments] = useState<Set<string>>(
+  const [selectedStatuses, setSelectedStatuses] = useState<Set<string>>(
     new Set(),
   );
+  const [selectedLocalizationTypes, setSelectedLocalizationTypes] = useState<
+    Set<string>
+  >(new Set());
 
-  // Dynamically extract unique compartments from all sites
-  const compartmentList = useMemo(() => {
-    const allCompartments = new Set<string>();
-    [...sites, ...diffuseSites].forEach((site) => {
-      site.pollutions.forEach((p) => {
-        if (p.environmentalCompartment) {
-          allCompartments.add(p.environmentalCompartment);
-        }
-      });
-    });
-    return Array.from(allCompartments)
-      .sort()
-      .map((name) => ({ name, color: getCompartmentColor(name) }));
-  }, [sites, diffuseSites]);
+  const allSites = useMemo<PollutionSiteBase[]>(
+    () => [...sites, ...unmappedSites],
+    [sites, unmappedSites],
+  );
 
-  // Filter sites based on selected sectors and compartments
-  const filteredSites = useMemo(() => {
-    return sites.filter((site) => {
-      // Filter by sector
-      if (selectedSectors.size > 0 && !selectedSectors.has(site.sector)) {
-        return false;
-      }
-      // Filter by compartment (site must have at least one pollution with matching compartment)
-      if (selectedCompartments.size > 0) {
-        const hasMatchingCompartment = site.pollutions.some((p) =>
-          selectedCompartments.has(p.environmentalCompartment),
-        );
-        if (!hasMatchingCompartment) {
-          return false;
-        }
-      }
-      return true;
-    });
-  }, [sites, selectedSectors, selectedCompartments]);
+  const communeOptions = useMemo(
+    () =>
+      getUniqueValues(allSites, (site) => site.commune).map((value) => ({
+        value,
+      })),
+    [allSites],
+  );
+  const sectorOptions = useMemo(
+    () =>
+      getUniqueValues(allSites, (site) => site.sector).map((value) => ({
+        value,
+        color: getSectorColor(value),
+      })),
+    [allSites],
+  );
+  const statusOptions = useMemo(() => {
+    const values = getUniqueValues(allSites, (site) => site.activityStatus);
+    const order = ["Actuelle", "Passée"];
 
-  const filteredDiffuseSites = useMemo(() => {
-    return diffuseSites.filter((site) => {
-      if (selectedSectors.size > 0 && !selectedSectors.has(site.sector)) {
-        return false;
-      }
-      if (selectedCompartments.size > 0) {
-        const hasMatchingCompartment = site.pollutions.some((p) =>
-          selectedCompartments.has(p.environmentalCompartment),
-        );
-        if (!hasMatchingCompartment) {
-          return false;
-        }
-      }
-      return true;
-    });
-  }, [diffuseSites, selectedSectors, selectedCompartments]);
+    return values
+      .sort((a, b) => {
+        const aIndex = order.indexOf(a);
+        const bIndex = order.indexOf(b);
+        if (aIndex === -1 && bIndex === -1) return a.localeCompare(b, "fr");
+        if (aIndex === -1) return 1;
+        if (bIndex === -1) return -1;
+        return aIndex - bIndex;
+      })
+      .map((value) => ({ value }));
+  }, [allSites]);
+  const localizationOptions = useMemo(() => {
+    const values = getUniqueValues(allSites, (site) => site.localizationType);
+    const order = ["Localisée", "Diffuse"];
 
+    return values
+      .sort((a, b) => {
+        const aIndex = order.indexOf(a);
+        const bIndex = order.indexOf(b);
+        if (aIndex === -1 && bIndex === -1) return a.localeCompare(b, "fr");
+        if (aIndex === -1) return 1;
+        if (bIndex === -1) return -1;
+        return aIndex - bIndex;
+      })
+      .map((value) => ({ value }));
+  }, [allSites]);
+
+  const matchesFilters = (site: PollutionSiteBase) => {
+    if (
+      selectedCommunes.size > 0 &&
+      !selectedCommunes.has(site.commune)
+    ) {
+      return false;
+    }
+    if (selectedSectors.size > 0 && !selectedSectors.has(site.sector)) {
+      return false;
+    }
+    if (
+      selectedStatuses.size > 0 &&
+      !selectedStatuses.has(site.activityStatus)
+    ) {
+      return false;
+    }
+    if (
+      selectedLocalizationTypes.size > 0 &&
+      !selectedLocalizationTypes.has(site.localizationType)
+    ) {
+      return false;
+    }
+
+    return true;
+  };
+
+  const filteredSites = sites.filter(matchesFilters);
+  const filteredUnmappedSites = unmappedSites.filter(matchesFilters);
+  const filteredCount = filteredSites.length + filteredUnmappedSites.length;
   const hasActiveFilters =
-    selectedSectors.size > 0 || selectedCompartments.size > 0;
-
-  const toggleSector = (sector: string) => {
-    setSelectedSectors((prev) => {
-      const newSet = new Set(prev);
-      if (newSet.has(sector)) {
-        newSet.delete(sector);
-      } else {
-        newSet.add(sector);
-      }
-      return newSet;
-    });
-  };
-
-  const toggleCompartment = (compartment: string) => {
-    setSelectedCompartments((prev) => {
-      const newSet = new Set(prev);
-      if (newSet.has(compartment)) {
-        newSet.delete(compartment);
-      } else {
-        newSet.add(compartment);
-      }
-      return newSet;
-    });
-  };
+    selectedCommunes.size > 0 ||
+    selectedSectors.size > 0 ||
+    selectedStatuses.size > 0 ||
+    selectedLocalizationTypes.size > 0;
 
   const clearFilters = () => {
+    setSelectedCommunes(new Set());
     setSelectedSectors(new Set());
-    setSelectedCompartments(new Set());
+    setSelectedStatuses(new Set());
+    setSelectedLocalizationTypes(new Set());
   };
 
-  // Open site from URL search param on initial load
   useEffect(() => {
     const siteId = searchParams.get("site");
-    if (siteId) {
-      const parsedId = parseInt(siteId, 10);
-      const site =
-        sites.find((s) => s.id === parsedId) ||
-        diffuseSites.find((s) => s.id === parsedId);
+    if (!siteId) return;
+
+    const site = allSites.find((candidate) => candidate.id === siteId);
+    if (site) setSelectedSite(site);
+  }, [searchParams, allSites]);
+
+  const handleSelectSite = useCallback(
+    (site: PollutionSiteBase | null) => {
+      setSelectedSite(site);
+
       if (site) {
-        setSelectedSite(site);
+        router.replace("/carte?site=" + encodeURIComponent(site.id), {
+          scroll: false,
+        });
+      } else {
+        router.replace("/carte", { scroll: false });
       }
-    }
-  }, [searchParams, sites, diffuseSites]);
+    },
+    [router],
+  );
 
-  // Update URL when selecting/deselecting a site
-  const handleSelectSite = (site: PollutionSiteBase | null) => {
-    setSelectedSite(site);
-    if (site) {
-      router.replace(`/carte?site=${site.id}`, { scroll: false });
-    } else {
-      router.replace("/carte", { scroll: false });
-    }
-  };
-
-  // Prevent background scrolling when modal is open
   useEffect(() => {
-    if (selectedSite) {
-      document.body.style.overflow = "hidden";
-    } else {
+    if (!selectedSite) {
       document.body.style.overflow = "";
+      return;
     }
+
+    document.body.style.overflow = "hidden";
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") handleSelectSite(null);
+    };
+    window.addEventListener("keydown", closeOnEscape);
+
     return () => {
       document.body.style.overflow = "";
+      window.removeEventListener("keydown", closeOnEscape);
     };
-  }, [selectedSite]);
+  }, [selectedSite, handleSelectSite]);
 
   return (
     <main className="grow min-h-screen bg-gray-100">
@@ -178,7 +301,6 @@ export default function CarteClient({ sites, diffuseSites }: CarteClientProps) {
             </p>
           </div>
 
-          {/* Note about collaborative inventory */}
           <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 mb-6">
             <p className="text-amber-800 text-sm">
               Cet inventaire est en cours de construction. Nous nous appuyons
@@ -197,7 +319,6 @@ export default function CarteClient({ sites, diffuseSites }: CarteClientProps) {
             </p>
           </div>
 
-          {/* Map container */}
           <div className="relative bg-white rounded-lg shadow-lg overflow-hidden">
             <MapComponent
               sites={filteredSites}
@@ -205,18 +326,19 @@ export default function CarteClient({ sites, diffuseSites }: CarteClientProps) {
             />
           </div>
 
-          {/* Filters */}
-          <div className="bg-white rounded-lg shadow-md p-4 mb-6">
-            <div className="flex items-center justify-between mb-4">
-              {/* Results count */}
+          <div className="bg-white rounded-lg shadow-md p-4 mt-6 mb-6">
+            <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
               <span className="text-gray-500 text-sm">
-                {filteredSites.length} site
-                {filteredSites.length !== 1 ? "s" : ""} de pollution affiché
-                {filteredSites.length !== 1 ? "s" : ""}
-                {hasActiveFilters && ` (sur ${sites.length} au total)`}
+                {filteredCount} source{filteredCount !== 1 ? "s" : ""} de
+                pollution affichée{filteredCount !== 1 ? "s" : ""}, dont{" "}
+                {filteredSites.length} sur la carte
+                {hasActiveFilters
+                  ? " (sur " + allSites.length + " au total)"
+                  : ""}
               </span>
               {hasActiveFilters && (
                 <button
+                  type="button"
                   onClick={clearFilters}
                   className="text-sm text-gray-500 hover:text-gray-700 flex items-center gap-1"
                 >
@@ -226,73 +348,41 @@ export default function CarteClient({ sites, diffuseSites }: CarteClientProps) {
               )}
             </div>
 
-            {/* Compartment filters */}
-            <div className="mb-4">
-              <h3 className="text-sm font-medium text-gray-700 mb-2">
-                Compartiment environnemental
-              </h3>
-              <div className="flex flex-wrap gap-2">
-                {compartmentList.map(({ name, color }) => {
-                  const isSelected = selectedCompartments.has(name);
-                  return (
-                    <button
-                      key={name}
-                      onClick={() => toggleCompartment(name)}
-                      className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all flex items-center gap-2 ${
-                        isSelected
-                          ? "text-white shadow-md"
-                          : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                      }`}
-                      style={
-                        isSelected ? { backgroundColor: color } : undefined
-                      }
-                    >
-                      <div
-                        className="w-3 h-3 rounded-full border border-white/50"
-                        style={{ backgroundColor: color }}
-                      />
-                      {name}
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-
-            {/* Sector filters */}
-            <div>
-              <h3 className="text-sm font-medium text-gray-700 mb-2">
-                Secteur d&apos;activité
-              </h3>
-              <div className="flex flex-wrap gap-2">
-                {sectorList.map(({ name, color }) => {
-                  const isSelected = selectedSectors.has(name);
-                  return (
-                    <button
-                      key={name}
-                      onClick={() => toggleSector(name)}
-                      className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all flex items-center gap-2 ${
-                        isSelected
-                          ? "text-white shadow-md"
-                          : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                      }`}
-                      style={
-                        isSelected ? { backgroundColor: color } : undefined
-                      }
-                    >
-                      <div
-                        className="w-3 h-3 rounded-full border border-white/50"
-                        style={{ backgroundColor: color }}
-                      />
-                      {name}
-                    </button>
-                  );
-                })}
-              </div>
+            <div className="space-y-5">
+              <FilterGroup
+                title="Commune"
+                options={communeOptions}
+                selectedValues={selectedCommunes}
+                onToggle={(value) =>
+                  toggleSetValue(setSelectedCommunes, value)
+                }
+              />
+              <FilterGroup
+                title="Secteur d’activité"
+                options={sectorOptions}
+                selectedValues={selectedSectors}
+                onToggle={(value) => toggleSetValue(setSelectedSectors, value)}
+              />
+              <FilterGroup
+                title="Activité actuelle ou passée"
+                options={statusOptions}
+                selectedValues={selectedStatuses}
+                onToggle={(value) =>
+                  toggleSetValue(setSelectedStatuses, value)
+                }
+              />
+              <FilterGroup
+                title="Source localisée ou diffuse"
+                options={localizationOptions}
+                selectedValues={selectedLocalizationTypes}
+                onToggle={(value) =>
+                  toggleSetValue(setSelectedLocalizationTypes, value)
+                }
+              />
             </div>
           </div>
 
-          {/* Diffuse Pollution Section */}
-          {filteredDiffuseSites.length > 0 && (
+          {filteredUnmappedSites.length > 0 && (
             <div className="mt-8">
               <h2 className="text-2xl font-bold text-blue-iec mb-4">
                 Pollution Diffuse
@@ -301,24 +391,29 @@ export default function CarteClient({ sites, diffuseSites }: CarteClientProps) {
                 Sources de pollution sans localisation géographique précise.
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {filteredDiffuseSites.map((site) => (
-                  <div
-                    key={`diffuse-${site.id}-${site.name}`}
-                    className="bg-white rounded-lg shadow-md p-4 cursor-pointer hover:shadow-lg transition-shadow"
+                {filteredUnmappedSites.map((site) => (
+                  <button
+                    type="button"
+                    key={"unmapped-" + site.id}
+                    className="text-left bg-white rounded-lg shadow-md p-4 cursor-pointer hover:shadow-lg transition-shadow"
                     onClick={() => handleSelectSite(site)}
                   >
-                    <div
-                      className="w-full h-2 rounded-full mb-3"
+                    <span
+                      className="block w-full h-2 rounded-full mb-3"
                       style={{ backgroundColor: getSectorColor(site.sector) }}
                     />
-                    <h3 className="font-semibold text-gray-900 mb-1">
+                    <span className="block font-semibold text-gray-900 mb-1">
                       {site.name}
-                    </h3>
-                    <p className="text-sm text-gray-500 mb-2">{site.sector}</p>
-                    {site.location && (
-                      <p className="text-sm text-gray-600">{site.location}</p>
+                    </span>
+                    <span className="block text-sm text-gray-500 mb-2">
+                      {site.sector}
+                    </span>
+                    {site.commune && (
+                      <span className="block text-sm text-gray-600">
+                        {site.commune}
+                      </span>
                     )}
-                  </div>
+                  </button>
                 ))}
               </div>
             </div>
@@ -326,28 +421,36 @@ export default function CarteClient({ sites, diffuseSites }: CarteClientProps) {
         </div>
       </section>
 
-      {/* Site details modal */}
       {selectedSite && (
         <div
           className="fixed inset-0 bg-black/50 flex items-center justify-center z-[1000] p-4"
           onClick={() => handleSelectSite(null)}
         >
           <div
-            className="bg-white rounded-lg shadow-xl max-w-lg w-full max-h-[80vh] overflow-y-auto"
-            onClick={(e) => e.stopPropagation()}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="pollution-source-title"
+            className="bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-[80vh] overflow-y-auto"
+            onClick={(event) => event.stopPropagation()}
           >
             <div
               className="p-4 border-b flex justify-between items-start"
-              style={{
-                backgroundColor: getSectorColor(selectedSite.sector),
-              }}
+              style={{ backgroundColor: getSectorColor(selectedSite.sector) }}
             >
               <div>
-                <h3 className="text-xl font-bold text-white">
+                <p className="text-sm font-medium text-white/80 mb-1">
+                  {selectedSite.id}
+                </p>
+                <h3
+                  id="pollution-source-title"
+                  className="text-xl font-bold text-white"
+                >
                   {selectedSite.name}
                 </h3>
               </div>
               <button
+                type="button"
+                aria-label="Fermer la fiche"
                 onClick={() => handleSelectSite(null)}
                 className="text-white/80 hover:text-white p-1"
               >
@@ -356,56 +459,110 @@ export default function CarteClient({ sites, diffuseSites }: CarteClientProps) {
             </div>
 
             <div className="p-4 space-y-4">
-              <div>
-                <h4 className="font-semibold text-gray-700 text-sm uppercase tracking-wide">
-                  Secteur d&apos;activité
-                </h4>
-                <p className="text-gray-900">{selectedSite.sector}</p>
-              </div>
-
-              {selectedSite.pollutionType && (
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {selectedSite.commune && (
+                  <div>
+                    <h4 className="font-semibold text-gray-700 text-sm uppercase tracking-wide">
+                      Commune
+                    </h4>
+                    <p className="text-gray-900">{selectedSite.commune}</p>
+                  </div>
+                )}
                 <div>
                   <h4 className="font-semibold text-gray-700 text-sm uppercase tracking-wide">
-                    Type de pollution
+                    Secteur d’activité
                   </h4>
-                  <p className="text-gray-900">{selectedSite.pollutionType}</p>
+                  <p className="text-gray-900">{selectedSite.sector}</p>
+                </div>
+                <div>
+                  <h4 className="font-semibold text-gray-700 text-sm uppercase tracking-wide">
+                    Activité actuelle / passée
+                  </h4>
+                  <p className="text-gray-900">
+                    {selectedSite.activityPeriod || selectedSite.activityStatus}
+                  </p>
+                </div>
+                <div>
+                  <h4 className="font-semibold text-gray-700 text-sm uppercase tracking-wide">
+                    Localisation de la source
+                  </h4>
+                  <p className="text-gray-900">
+                    {selectedSite.localizationDetail ||
+                      selectedSite.localizationType}
+                  </p>
+                </div>
+              </div>
+
+              {selectedSite.activity && (
+                <div>
+                  <h4 className="font-semibold text-gray-700 text-sm uppercase tracking-wide">
+                    Activité
+                  </h4>
+                  <p className="text-gray-900 whitespace-pre-line">
+                    {selectedSite.activity}
+                  </p>
                 </div>
               )}
 
-              {/* Pollutions list */}
+              {selectedSite.emissionTiming && (
+                <div>
+                  <h4 className="font-semibold text-gray-700 text-sm uppercase tracking-wide">
+                    Temporalité de l’émission
+                  </h4>
+                  <p className="text-gray-900">
+                    {selectedSite.emissionTiming}
+                  </p>
+                </div>
+              )}
+
+              {selectedSite.knowledgeLevel && (
+                <div>
+                  <h4 className="font-semibold text-gray-700 text-sm uppercase tracking-wide">
+                    Niveau de connaissance
+                  </h4>
+                  <p className="text-gray-900">
+                    {selectedSite.knowledgeLevel}
+                  </p>
+                </div>
+              )}
+
               {selectedSite.pollutions.length > 0 && (
                 <div>
                   <h4 className="font-semibold text-gray-700 text-sm uppercase tracking-wide mb-3">
                     {selectedSite.pollutions.length > 1
-                      ? `Polluants Potentiels (${selectedSite.pollutions.length})`
-                      : "Polluant Potentiel"}
+                      ? "Émissions et polluants potentiels (" +
+                        selectedSite.pollutions.length +
+                        ")"
+                      : "Émission et polluant potentiel"}
                   </h4>
                   <div className="space-y-3">
                     {selectedSite.pollutions.map((pollution, index) => (
                       <div
                         key={index}
-                        className={`${
-                          selectedSite.pollutions.length > 1
-                            ? "bg-gray-50 rounded-lg p-3 border-l-4"
-                            : ""
-                        }`}
-                        style={
-                          selectedSite.pollutions.length > 1
-                            ? {
-                                borderLeftColor: getCompartmentColor(
-                                  pollution.environmentalCompartment,
-                                ),
-                              }
-                            : undefined
-                        }
+                        className="bg-gray-50 rounded-lg p-3 border-l-4"
+                        style={{
+                          borderLeftColor: getCompartmentColor(
+                            pollution.environmentalCompartment,
+                          ),
+                        }}
                       >
-                        {pollution.environmentalCompartment && (
+                        {pollution.process && (
                           <div className="mb-2">
                             <span className="text-xs text-gray-500 uppercase">
-                              Compartiment
+                              Processus d’émission
                             </span>
-                            <p className="text-gray-900 text-sm">
-                              {pollution.environmentalCompartment}
+                            <p className="text-gray-900 text-sm whitespace-pre-line">
+                              {pollution.process}
+                            </p>
+                          </div>
+                        )}
+                        {pollution.chemicalFamilies && (
+                          <div className="mb-2">
+                            <span className="text-xs text-gray-500 uppercase">
+                              Familles chimiques
+                            </span>
+                            <p className="text-gray-900 text-sm whitespace-pre-line">
+                              {pollution.chemicalFamilies}
                             </p>
                           </div>
                         )}
@@ -419,33 +576,33 @@ export default function CarteClient({ sites, diffuseSites }: CarteClientProps) {
                             </p>
                           </div>
                         )}
-                        {pollution.chemicalFamilies && (
+                        {pollution.environmentalCompartment && (
                           <div className="mb-2">
                             <span className="text-xs text-gray-500 uppercase">
-                              Familles chimiques
+                              Compartiment ou nuisance
                             </span>
                             <p className="text-gray-900 text-sm">
-                              {pollution.chemicalFamilies}
+                              {pollution.environmentalCompartment}
                             </p>
                           </div>
                         )}
-                        {pollution.frequency && (
+                        {pollution.transferPathway && (
                           <div className="mb-2">
                             <span className="text-xs text-gray-500 uppercase">
-                              Fréquence
+                              Voie de transfert
                             </span>
                             <p className="text-gray-900 text-sm">
-                              {pollution.frequency}
+                              {pollution.transferPathway}
                             </p>
                           </div>
                         )}
-                        {pollution.healthImpact && (
+                        {pollution.receivingEnvironments && (
                           <div>
                             <span className="text-xs text-gray-500 uppercase">
-                              Impact sanitaire
+                              Milieux récepteurs
                             </span>
                             <p className="text-gray-900 text-sm">
-                              {pollution.healthImpact}
+                              {pollution.receivingEnvironments}
                             </p>
                           </div>
                         )}
@@ -455,26 +612,35 @@ export default function CarteClient({ sites, diffuseSites }: CarteClientProps) {
                 </div>
               )}
 
-              {selectedSite.accidents && (
+              {selectedSite.risk && (
                 <div>
                   <h4 className="font-semibold text-gray-700 text-sm uppercase tracking-wide">
-                    Accidents recensés
+                    Risque associé
                   </h4>
-                  <p className="text-gray-900">{selectedSite.accidents}</p>
+                  <p className="text-gray-900 whitespace-pre-line">
+                    {selectedSite.risk}
+                  </p>
                 </div>
               )}
 
               {selectedSite.link && (
                 <div className="pt-4 border-t">
-                  <a
-                    href={selectedSite.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-blue-iec hover:underline"
-                  >
-                    <ExternalLink className="w-4 h-4" />
-                    Plus d&apos;informations
-                  </a>
+                  <h4 className="font-semibold text-gray-700 text-sm uppercase tracking-wide mb-1">
+                    Lien ou référence
+                  </h4>
+                  {isWebLink(selectedSite.link) ? (
+                    <a
+                      href={selectedSite.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 text-blue-iec hover:underline"
+                    >
+                      <ExternalLink className="w-4 h-4 shrink-0" />
+                      Plus d’informations
+                    </a>
+                  ) : (
+                    <p className="text-gray-900">{selectedSite.link}</p>
+                  )}
                 </div>
               )}
             </div>

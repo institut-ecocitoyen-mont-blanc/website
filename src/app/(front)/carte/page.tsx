@@ -5,11 +5,11 @@ import CarteClient from "./CarteClient";
 export const revalidate = 3600; // Revalidate every hour
 
 export default async function CartePage() {
-  const { sites, diffuseSites } = await fetchAllPollutionSites();
+  const { sites, unmappedSites } = await fetchAllPollutionSites();
 
   return (
     <Suspense>
-      <CarteClient sites={sites} diffuseSites={diffuseSites} />
+      <CarteClient sites={sites} unmappedSites={unmappedSites} />
     </Suspense>
   );
 }

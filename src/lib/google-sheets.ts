@@ -1,6 +1,6 @@
-// Fetch and parse pollution site data from Google Sheets
+// Fetch and parse pollution source data from the validated Google Sheet.
 
-const SPREADSHEET_ID = "18z15WmDqTfmiZggT-zCTraNS5ze-6nqgN3EgfgnCG4s";
+const SPREADSHEET_ID = "1diIR2EXPf2QfkxUw-T0r3CRjinhcJVnnNH5azd0QxZg";
 
 interface GoogleSheetsCell {
   v?: string | number | null;
@@ -13,27 +13,33 @@ interface GoogleSheetsRow {
 
 interface GoogleSheetsResponse {
   table: {
-    cols: { label: string }[];
     rows: GoogleSheetsRow[];
   };
 }
 
 export interface PollutionEntry {
-  environmentalCompartment: string;
-  chemicalForm: string;
+  process: string;
   chemicalFamilies: string;
-  frequency: string;
-  healthImpact: string;
+  chemicalForm: string;
+  environmentalCompartment: string;
+  transferPathway: string;
+  receivingEnvironments: string;
 }
 
 export interface PollutionSiteBase {
-  id: number;
+  id: string;
   name: string;
-  location: string;
+  commune: string;
+  activity: string;
   sector: string;
-  pollutionType: string;
+  activityStatus: string;
+  activityPeriod: string;
+  emissionTiming: string;
+  localizationType: string;
+  localizationDetail: string;
+  knowledgeLevel: string;
   pollutions: PollutionEntry[];
-  accidents: string;
+  risk: string;
   link: string;
 }
 
@@ -41,27 +47,160 @@ export interface PollutionSite extends PollutionSiteBase {
   coordinates: { lat: number; lng: number };
 }
 
-export interface DiffusePollutionSite extends PollutionSiteBase {
+export interface UnmappedPollutionSite extends PollutionSiteBase {
   coordinates: null;
 }
 
-function getCellValue(row: GoogleSheetsRow, index: number): string {
-  const cell = row.c[index];
-  if (!cell) return "";
-  // Use formatted value (f) if available, otherwise use raw value (v)
-  return (cell.f || cell.v?.toString() || "").trim();
-}
-
-function getCellNumber(row: GoogleSheetsRow, index: number): number | null {
-  const cell = row.c[index];
-  if (!cell || cell.v === null || cell.v === undefined) return null;
-  const num = typeof cell.v === "number" ? cell.v : parseFloat(cell.v.toString());
-  return isNaN(num) ? null : num;
+interface SheetColumns {
+  source: number;
+  identification: number;
+  commune: number;
+  latitude: number;
+  longitude: number;
+  activity: number;
+  sector: number;
+  activityPeriod: number;
+  emissionTiming: number;
+  localization: number;
+  knowledgeLevel: number;
+  process: number;
+  chemicalFamilies: number;
+  chemicalForm: number;
+  environmentalCompartment: number;
+  transferPathway: number;
+  receivingEnvironments: number;
+  risk: number;
+  link: number;
 }
 
 export interface PollutionSitesResult {
   sites: PollutionSite[];
-  diffuseSites: DiffusePollutionSite[];
+  unmappedSites: UnmappedPollutionSite[];
+}
+
+function getCellValue(row: GoogleSheetsRow, index: number): string {
+  if (index < 0) return "";
+
+  const cell = row.c?.[index];
+  if (!cell) return "";
+
+  return String(cell.f ?? cell.v ?? "").trim();
+}
+
+function getMeaningfulCellValue(row: GoogleSheetsRow, index: number): string {
+  const value = getCellValue(row, index);
+  return value === "/" ? "" : value;
+}
+
+function getCellNumber(row: GoogleSheetsRow, index: number): number | null {
+  const value = getMeaningfulCellValue(row, index).replace(",", ".");
+  if (!value) return null;
+
+  const number = Number(value);
+  return Number.isFinite(number) ? number : null;
+}
+
+function normalizeHeader(value: string): string {
+  return value
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[’']/g, " ")
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim();
+}
+
+function findColumn(headers: string[], expectedHeader: string): number {
+  const normalizedExpectedHeader = normalizeHeader(expectedHeader);
+  const index = headers.findIndex(
+    (header) => normalizeHeader(header) === normalizedExpectedHeader,
+  );
+
+  if (index === -1) {
+    throw new Error(`Missing Google Sheets column: ${expectedHeader}`);
+  }
+
+  return index;
+}
+
+function getColumns(headerRow: GoogleSheetsRow): SheetColumns {
+  const headers = headerRow.c.map((_, index) => getCellValue(headerRow, index));
+
+  return {
+    source: findColumn(headers, "Source"),
+    identification: findColumn(headers, "Identification"),
+    commune: findColumn(headers, "Commune"),
+    latitude: findColumn(headers, "Latitude"),
+    longitude: findColumn(headers, "Longitude"),
+    activity: findColumn(headers, "Activité"),
+    sector: findColumn(headers, "Secteur d'activité"),
+    activityPeriod: findColumn(headers, "Activité actuelle/passée"),
+    emissionTiming: findColumn(headers, "Temporalité de l'émission"),
+    localization: findColumn(headers, "Source localisée ou diffuse"),
+    knowledgeLevel: findColumn(headers, "Niveau de connaissance"),
+    process: findColumn(headers, "Processus d'émission"),
+    chemicalFamilies: findColumn(
+      headers,
+      "Famille(s) chimique(s) de/des polluant(s) identifié(s)",
+    ),
+    chemicalForm: findColumn(headers, "Forme physico-chimique"),
+    environmentalCompartment: findColumn(
+      headers,
+      "Compartiment environnemental d'émission (eau,air,sol) et nuisance",
+    ),
+    transferPathway: findColumn(headers, "Voie de transfert"),
+    receivingEnvironments: findColumn(headers, "Milieu(x) récepteur(s)"),
+    risk: findColumn(headers, "Risque associé"),
+    link: findColumn(headers, "Lien du site ou référence de l'ouvrage"),
+  };
+}
+
+function normalizeActivityStatus(activityPeriod: string): string {
+  const normalizedValue = normalizeHeader(activityPeriod);
+
+  if (normalizedValue.startsWith("actuelle")) return "Actuelle";
+  if (normalizedValue.startsWith("passee")) return "Passée";
+
+  return activityPeriod || "Non renseignée";
+}
+
+function normalizeLocalizationType(
+  localizationDetail: string,
+  hasCoordinates: boolean,
+): string {
+  const normalizedValue = normalizeHeader(localizationDetail);
+
+  if (normalizedValue.includes("diffuse")) return "Diffuse";
+  if (normalizedValue.includes("localisee")) return "Localisée";
+
+  // Some validated rows currently contain “Ponctuelle” in this spatial column.
+  // Their coordinates make them localizable on the map, so they belong with
+  // localized sources for filtering purposes.
+  if (hasCoordinates) return "Localisée";
+
+  return localizationDetail || "Non renseignée";
+}
+
+function getPollutionEntry(
+  row: GoogleSheetsRow,
+  columns: SheetColumns,
+): PollutionEntry | null {
+  const entry: PollutionEntry = {
+    process: getMeaningfulCellValue(row, columns.process),
+    chemicalFamilies: getMeaningfulCellValue(row, columns.chemicalFamilies),
+    chemicalForm: getMeaningfulCellValue(row, columns.chemicalForm),
+    environmentalCompartment: getMeaningfulCellValue(
+      row,
+      columns.environmentalCompartment,
+    ),
+    transferPathway: getMeaningfulCellValue(row, columns.transferPathway),
+    receivingEnvironments: getMeaningfulCellValue(
+      row,
+      columns.receivingEnvironments,
+    ),
+  };
+
+  return Object.values(entry).some(Boolean) ? entry : null;
 }
 
 export async function fetchPollutionSites(): Promise<PollutionSite[]> {
@@ -73,7 +212,7 @@ export async function fetchAllPollutionSites(): Promise<PollutionSitesResult> {
   const url = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json`;
 
   const response = await fetch(url, {
-    next: { revalidate: 3600 }, // Cache for 1 hour
+    next: { revalidate: 3600 },
   });
 
   if (!response.ok) {
@@ -81,99 +220,39 @@ export async function fetchAllPollutionSites(): Promise<PollutionSitesResult> {
   }
 
   const text = await response.text();
+  const jsonMatch = text.match(
+    /google\.visualization\.Query\.setResponse\(([\s\S]*)\);?$/,
+  );
 
-  // Google Visualization API wraps JSON in a function call, we need to extract it
-  // Format: google.visualization.Query.setResponse({...})
-  const jsonMatch = text.match(/google\.visualization\.Query\.setResponse\(([\s\S]*)\);?$/);
   if (!jsonMatch) {
     throw new Error("Failed to parse Google Sheets response");
   }
 
   const data: GoogleSheetsResponse = JSON.parse(jsonMatch[1]);
   const rows = data.table.rows;
+  const headerRowIndex = rows.findIndex((row) => {
+    const values = row.c.map((_, index) =>
+      normalizeHeader(getCellValue(row, index)),
+    );
+    return values.includes("source") && values.includes("identification");
+  });
 
+  if (headerRowIndex === -1) {
+    throw new Error("Failed to locate the Google Sheets header row");
+  }
+
+  const columns = getColumns(rows[headerRowIndex]);
   const sites: PollutionSite[] = [];
-  const diffuseSites: DiffusePollutionSite[] = [];
-  const seenSites = new Map<string, PollutionSite>();
-  const seenDiffuseSites = new Map<string, DiffusePollutionSite>();
+  const unmappedSites: UnmappedPollutionSite[] = [];
+  let currentSite: PollutionSiteBase | null = null;
 
-  // Track current site for sub-entries (rows without ID)
-  let currentSiteKey: string | null = null;
-  let currentSiteHasCoordinates = false;
+  for (const row of rows.slice(headerRowIndex + 1)) {
+    const sourceId = getMeaningfulCellValue(row, columns.source);
+    const pollutionEntry = getPollutionEntry(row, columns);
 
-  // Track previous row values for fields that should carry over when empty
-  let prevCompartment = "";
-  let prevChemicalForm = "";
-  let prevChemicalFamilies = "";
-
-  // Column mapping based on current spreadsheet structure:
-  // 0: N° (ID)
-  // 1: Identification (name)
-  // 2: Secteur d'activité (detailed description)
-  // 3: Secteur d'activité (category for legend/colors)
-  // 4: Pollution actuelle/passée
-  // 5: Localisation du site émetteur
-  // 6: Latitude
-  // 7: Longitude
-  // 8: Compartiment environnemental de rejet
-  // 9: Forme physico-chimique
-  // 10: Famille(s) chimique(s) de polluant(s)
-  // 11: Ponctuelle/continue
-  // 12: Impact sanitaire ou environnemental
-  // 13: ACCIDENTS RECENSÉS
-  // 14: Lien du site ou référence
-
-  for (const row of rows) {
-    if (!row.c || row.c.length === 0) continue;
-
-    const idValue = row.c[0]?.v;
-    const isMainEntry = typeof idValue === "number" && !isNaN(idValue);
-
-    // Extract pollution entry data (common to both main and sub-entries)
-    // Use previous row value if current cell is empty
-    const rawCompartment = getCellValue(row, 8);
-    const rawChemicalForm = getCellValue(row, 9);
-    const rawChemicalFamilies = getCellValue(row, 10);
-
-    const environmentalCompartment = rawCompartment || prevCompartment;
-    const chemicalForm = rawChemicalForm || prevChemicalForm;
-    const chemicalFamilies = rawChemicalFamilies || prevChemicalFamilies;
-
-    // Update previous values for next iteration
-    if (rawCompartment) prevCompartment = rawCompartment;
-    if (rawChemicalForm) prevChemicalForm = rawChemicalForm;
-    if (rawChemicalFamilies) prevChemicalFamilies = rawChemicalFamilies;
-
-    const frequency = getCellValue(row, 11);
-    const healthImpact = getCellValue(row, 12);
-
-    const pollutionEntry: PollutionEntry = {
-      environmentalCompartment,
-      chemicalForm,
-      chemicalFamilies,
-      frequency,
-      healthImpact,
-    };
-
-    // Check if this pollution entry has any meaningful data
-    const hasPollutionData =
-      environmentalCompartment || chemicalForm || chemicalFamilies || frequency || healthImpact;
-
-    if (isMainEntry) {
-      // This is a main site entry
-      const id = idValue;
-      const name = getCellValue(row, 1);
-      const sector = getCellValue(row, 3); // Column D - sector category for colors
-      const pollutionType = getCellValue(row, 4);
-      const location = getCellValue(row, 5);
-      const latitude = getCellNumber(row, 6);
-      const longitude = getCellNumber(row, 7);
-      const accidents = getCellValue(row, 13);
-      const link = getCellValue(row, 14);
-
-      const siteKey = `${id}-${name}`;
-      currentSiteKey = siteKey;
-
+    if (sourceId) {
+      const latitude = getCellNumber(row, columns.latitude);
+      const longitude = getCellNumber(row, columns.longitude);
       const hasValidCoordinates =
         latitude !== null &&
         longitude !== null &&
@@ -181,136 +260,106 @@ export async function fetchAllPollutionSites(): Promise<PollutionSitesResult> {
         latitude <= 90 &&
         longitude >= -180 &&
         longitude <= 180;
+      const activityPeriod = getMeaningfulCellValue(
+        row,
+        columns.activityPeriod,
+      );
+      const localizationDetail = getMeaningfulCellValue(
+        row,
+        columns.localization,
+      );
 
-      currentSiteHasCoordinates = hasValidCoordinates;
+      currentSite = {
+        id: sourceId,
+        name:
+          getMeaningfulCellValue(row, columns.identification) ||
+          "Source inconnue",
+        commune: getMeaningfulCellValue(row, columns.commune),
+        activity: getMeaningfulCellValue(row, columns.activity),
+        sector:
+          getMeaningfulCellValue(row, columns.sector) || "Non spécifié",
+        activityStatus: normalizeActivityStatus(activityPeriod),
+        activityPeriod,
+        emissionTiming: getMeaningfulCellValue(row, columns.emissionTiming),
+        localizationType: normalizeLocalizationType(
+          localizationDetail,
+          hasValidCoordinates,
+        ),
+        localizationDetail,
+        knowledgeLevel: getMeaningfulCellValue(row, columns.knowledgeLevel),
+        pollutions: pollutionEntry ? [pollutionEntry] : [],
+        risk: getMeaningfulCellValue(row, columns.risk),
+        link: getMeaningfulCellValue(row, columns.link),
+      };
 
       if (hasValidCoordinates) {
-        if (!seenSites.has(siteKey)) {
-          const site: PollutionSite = {
-            id,
-            name: name || "Site inconnu",
-            location: location || "",
-            sector: sector || "Non spécifié",
-            pollutionType: pollutionType || "",
-            pollutions: hasPollutionData ? [pollutionEntry] : [],
-            accidents: accidents || "",
-            link: link || "",
-            coordinates: { lat: latitude!, lng: longitude! },
-          };
-
-          seenSites.set(siteKey, site);
-          sites.push(site);
-        }
+        sites.push({
+          ...currentSite,
+          coordinates: { lat: latitude, lng: longitude },
+        });
       } else {
-        if (!seenDiffuseSites.has(siteKey)) {
-          const diffuseSite: DiffusePollutionSite = {
-            id,
-            name: name || "Site inconnu",
-            location: location || "",
-            sector: sector || "Non spécifié",
-            pollutionType: pollutionType || "",
-            pollutions: hasPollutionData ? [pollutionEntry] : [],
-            accidents: accidents || "",
-            link: link || "",
-            coordinates: null,
-          };
-
-          seenDiffuseSites.set(siteKey, diffuseSite);
-          diffuseSites.push(diffuseSite);
-        }
+        unmappedSites.push({ ...currentSite, coordinates: null });
       }
-    } else if (currentSiteKey && hasPollutionData) {
-      // This is a sub-entry for the current site - add pollution data
-      if (currentSiteHasCoordinates) {
-        const existing = seenSites.get(currentSiteKey);
-        if (existing) {
-          existing.pollutions.push(pollutionEntry);
-        }
-      } else {
-        const existing = seenDiffuseSites.get(currentSiteKey);
-        if (existing) {
-          existing.pollutions.push(pollutionEntry);
-        }
-      }
+    } else if (currentSite && pollutionEntry) {
+      currentSite.pollutions.push(pollutionEntry);
     }
   }
 
-  return { sites, diffuseSites };
+  return { sites, unmappedSites };
 }
 
-// Sector color mapping for markers (based on column D categories)
+// Sector color mapping for markers and filter chips.
 export const sectorColors: Record<string, string> = {
-  "Gestion des déchets et effluents": "#8B4513", // Brown - waste
-  "Carrière et extraction": "#708090", // Slate gray - quarries
-  "Service secteur routier": "#FF6B35", // Orange - road services/gas stations
-  "Traffic routier (tunnel, autoroute..)": "#2F4F4F", // Dark slate - road traffic
-  "Secteur du décolletage": "#4169E1", // Royal blue - metal turning
-  "Industrie": "#9932CC", // Dark orchid - industry
-  "Production de chaleur": "#DC143C", // Crimson - heat production
-  "Production d'énergie électrique": "#FFD700", // Gold - electricity
-  "Non spécifié": "#999999", // Gray - unspecified
+  "Gestion des déchets et effluents": "#8B4513",
+  "Carrière et extraction": "#708090",
+  "Service secteur routier": "#FF6B35",
+  "Traffic routier (tunnel, autoroute..)": "#2F4F4F",
+  "Traffic routier": "#2F4F4F",
+  "Secteur du décolletage": "#4169E1",
+  Industrie: "#9932CC",
+  "Production de chaleur": "#DC143C",
+  "Production d'énergie électrique": "#C59A00",
+  "Tourisme / Activité de loisir": "#2E8B57",
+  "Non spécifié": "#999999",
 };
-
-// Ordered list for legend display
-export const sectorList = [
-  { name: "Gestion des déchets et effluents", color: "#8B4513" },
-  { name: "Carrière et extraction", color: "#708090" },
-  { name: "Service secteur routier", color: "#FF6B35" },
-  { name: "Traffic routier (tunnel, autoroute..)", color: "#2F4F4F" },
-  { name: "Secteur du décolletage", color: "#4169E1" },
-  { name: "Industrie", color: "#9932CC" },
-  { name: "Production de chaleur", color: "#DC143C" },
-  { name: "Production d'énergie électrique", color: "#FFD700" },
-];
 
 export function getSectorColor(sector: string): string {
-  // Try exact match first
-  if (sectorColors[sector]) {
-    return sectorColors[sector];
-  }
+  if (sectorColors[sector]) return sectorColors[sector];
 
-  // Try partial match
   const sectorLower = sector.toLowerCase();
   for (const [key, color] of Object.entries(sectorColors)) {
-    if (sectorLower.includes(key.toLowerCase()) || key.toLowerCase().includes(sectorLower)) {
+    if (
+      sectorLower.includes(key.toLowerCase()) ||
+      key.toLowerCase().includes(sectorLower)
+    ) {
       return color;
     }
   }
 
-  return "#1d6ab2"; // Default blue
+  return "#1d6ab2";
 }
 
-// Environmental compartment color mapping
 export const compartmentColors: Record<string, string> = {
-  "Air": "#87CEEB", // Sky blue
-  "Eau": "#1E90FF", // Dodger blue
-  "Sol": "#8B4513", // Saddle brown
-  "Sous-sol": "#654321", // Dark brown
-  "Nappe phréatique": "#4169E1", // Royal blue
+  Air: "#87CEEB",
+  Eau: "#1E90FF",
+  Sol: "#8B4513",
+  Sols: "#8B4513",
+  "Sous-sol": "#654321",
+  "Nappe phréatique": "#4169E1",
 };
 
-// Ordered list for compartment filter display
-export const compartmentList = [
-  { name: "Air", color: "#87CEEB" },
-  { name: "Eau", color: "#1E90FF" },
-  { name: "Sol", color: "#8B4513" },
-  { name: "Sous-sol", color: "#654321" },
-  { name: "Nappe phréatique", color: "#4169E1" },
-];
-
 export function getCompartmentColor(compartment: string): string {
-  // Try exact match first
-  if (compartmentColors[compartment]) {
-    return compartmentColors[compartment];
-  }
+  if (compartmentColors[compartment]) return compartmentColors[compartment];
 
-  // Try partial match
   const compartmentLower = compartment.toLowerCase();
   for (const [key, color] of Object.entries(compartmentColors)) {
-    if (compartmentLower.includes(key.toLowerCase()) || key.toLowerCase().includes(compartmentLower)) {
+    if (
+      compartmentLower.includes(key.toLowerCase()) ||
+      key.toLowerCase().includes(compartmentLower)
+    ) {
       return color;
     }
   }
 
-  return "#999999"; // Default gray
+  return "#999999";
 }

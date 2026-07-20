@@ -46,8 +46,8 @@ export default function HomeMap({ sites }: HomeMapProps) {
   // Center on the Mont Blanc region
   const center: [number, number] = [45.9, 6.7];
 
-  const handleMarkerClick = (siteId: number) => {
-    router.push(`/carte?site=${siteId}`);
+  const handleMarkerClick = (siteId: string) => {
+    router.push(`/carte?site=${encodeURIComponent(siteId)}`);
   };
 
   return (
