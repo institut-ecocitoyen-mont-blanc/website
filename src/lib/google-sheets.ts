@@ -76,6 +76,7 @@ interface SheetColumns {
 export interface PollutionSitesResult {
   sites: PollutionSite[];
   unmappedSites: UnmappedPollutionSite[];
+  lastUpdated: string;
 }
 
 function getCellValue(row: GoogleSheetsRow, index: number): string {
@@ -219,6 +220,12 @@ export async function fetchAllPollutionSites(): Promise<PollutionSitesResult> {
     throw new Error(`Failed to fetch spreadsheet: ${response.status}`);
   }
 
+  const responseDate = response.headers.get("date");
+  const parsedResponseDate = responseDate ? new Date(responseDate) : null;
+  const responseTimestamp =
+    parsedResponseDate && !Number.isNaN(parsedResponseDate.getTime())
+      ? parsedResponseDate.toISOString()
+      : new Date().toISOString();
   const text = await response.text();
   const jsonMatch = text.match(
     /google\.visualization\.Query\.setResponse\(([\s\S]*)\);?$/,
@@ -305,7 +312,7 @@ export async function fetchAllPollutionSites(): Promise<PollutionSitesResult> {
     }
   }
 
-  return { sites, unmappedSites };
+  return { sites, unmappedSites, lastUpdated: responseTimestamp };
 }
 
 // Sector color mapping for markers and filter chips.

@@ -1,6 +1,13 @@
 "use client";
 
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import { useEffect } from "react";
+import {
+  MapContainer,
+  TileLayer,
+  Marker,
+  Popup,
+  useMap,
+} from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { type PollutionSite, getSectorColor } from "@/lib/google-sheets";
@@ -27,6 +34,36 @@ const createCustomIcon = (color: string) => {
     popupAnchor: [0, -32],
   });
 };
+
+function FitMapToSites({ sites }: { sites: PollutionSite[] }) {
+  const map = useMap();
+
+  useEffect(() => {
+    if (sites.length === 0) return;
+
+    if (sites.length === 1) {
+      const site = sites[0];
+      map.setView([site.coordinates.lat, site.coordinates.lng], 14, {
+        animate: true,
+      });
+      return;
+    }
+
+    const bounds = L.latLngBounds(
+      sites.map((site) => [
+        site.coordinates.lat,
+        site.coordinates.lng,
+      ]),
+    );
+    map.fitBounds(bounds, {
+      animate: true,
+      maxZoom: 14,
+      padding: [40, 40],
+    });
+  }, [map, sites]);
+
+  return null;
+}
 
 export default function Map({ sites, onSelectSite }: MapProps) {
   // Center on the Mont Blanc region
@@ -82,6 +119,7 @@ export default function Map({ sites, onSelectSite }: MapProps) {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
+        <FitMapToSites sites={sites} />
         {sites.map((site) => {
           const color = getSectorColor(site.sector);
 
