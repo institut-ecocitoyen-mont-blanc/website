@@ -59,7 +59,7 @@ export default function Header() {
             </li>
             <li>
               <Link href="/actualites" className="hover:underline">
-                Actualités
+                jtezjtgsqejgf
               </Link>
             </li>
             <li>
