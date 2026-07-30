@@ -1,6 +1,6 @@
 import {
   VoteIcon as Volunteer,
-  DollarSign,
+  Euro,
   Megaphone,
   Users,
   Facebook,
@@ -36,7 +36,7 @@ const helpOptions = [
     action: (
       <Link
         className="bg-blue-iec text-white px-4 py-2 rounded-md hover:bg-blue-700 transition duration-300"
-        href="mailto:contact@institut-pmb.fr?subjet=Devenir%20Bénévole&body=Bonjour,%0A%0AJe%20souhaite%20devenir%20bénévole%20auprès%20de%20l'Institut%20Ecocitoyen.%0A%0ACordialement,%0A[Votre%20Nom]"
+        href="mailto:contact@institut-pmb.fr?subject=Devenir%20Bénévole&body=Bonjour,%0A%0AJe%20souhaite%20devenir%20bénévole%20auprès%20de%20l'Institut%20Ecocitoyen.%0A%0ACordialement,%0A[Votre%20Nom]"
       >
         Nous Contacter
       </Link>
@@ -60,7 +60,7 @@ const helpOptions = [
     title: "Faire un Don",
     description:
       "Votre soutien financier nous aide à mener des études indépendantes et à sensibiliser le public.",
-    icon: <DollarSign className="w-12 h-12 text-yellow-500" />,
+    icon: <Euro className="w-12 h-12 text-yellow-500" />,
     action: (
       <Link
         className="bg-blue-iec text-white px-4 py-2 rounded-md hover:bg-blue-700 transition duration-300"
@@ -124,7 +124,7 @@ const helpOptions = [
     action: (
       <Link
         className="bg-blue-iec text-white px-4 py-2 rounded-md hover:bg-blue-700 transition duration-300"
-        href="mailto:contact@institut-pmb.fr?subjet=Inscription%20à%20la%20newsletter&body=Bonjour,%0A%0AJe%20souhaite%20m'inscrire%20à%20la%20newsletter%20de%20l'Institut%20Ecocitoyen.%0A%0ACordialement,%0A[Votre%20Nom]"
+        href="mailto:contact@institut-pmb.fr?subject=Inscription%20à%20la%20newsletter&body=Bonjour,%0A%0AJe%20souhaite%20m'inscrire%20à%20la%20newsletter%20de%20l'Institut%20Ecocitoyen.%0A%0ACordialement,%0A[Votre%20Nom]"
       >
         S&apos;Abonner
       </Link>

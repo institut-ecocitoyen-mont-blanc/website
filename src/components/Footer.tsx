@@ -104,7 +104,7 @@ export default async function Footer() {
             {partenaires.map((partner, index) => (
               <div
                 key={index}
-                className="bg-white/50 p-3 rounded-lg hover:bg-white/65 transition-colors"
+                className="rounded-lg bg-white p-3"
               >
                 <Link
                   href={partner.lien}
