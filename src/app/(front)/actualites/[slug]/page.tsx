@@ -12,6 +12,7 @@ import { categoryFilters, categoryStyles } from "@/components/NewsCard";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { normalizeCategories } from "@/lib/news";
+import { formatFrenchDate } from "@/lib/date";
 
 export default async function ActualitePage({
   params,
@@ -25,6 +26,9 @@ export default async function ActualitePage({
   }
 
   const isEvent = newsItem.categories.includes("Événement");
+  const displayDate = isEvent
+    ? newsItem.dateEvenement || newsItem.publishedAt
+    : newsItem.publishedAt;
 
   return (
     <main className="grow py-16 pt-32">
@@ -45,12 +49,9 @@ export default async function ActualitePage({
               ) : (
                 <Calendar className="w-4 h-4 mr-2" />
               )}
-              <span>
-                {(isEvent
-                  ? newsItem.dateEvenement || newsItem.publishedAt
-                  : newsItem.publishedAt
-                ).toDateString()}
-              </span>
+              <time dateTime={displayDate.toISOString()}>
+                {formatFrenchDate(displayDate)}
+              </time>
             </div>
             <div
               className="prose max-w-none mb-8 markdown"

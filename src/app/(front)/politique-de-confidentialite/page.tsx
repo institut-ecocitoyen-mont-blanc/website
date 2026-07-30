@@ -4,6 +4,7 @@ import remarkGfm from "remark-gfm";
 import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
 import { unified } from "unified";
+import { formatFrenchDate } from "@/lib/date";
 
 export default async function MentionsLegalesPage() {
   const { content, publishedAt } = await getData();
@@ -18,7 +19,12 @@ export default async function MentionsLegalesPage() {
           />
 
           <div className="max-w-3xl mx-auto mt-8 text-center text-gray-600 text-sm">
-            <p>Dernière mise à jour : {publishedAt.toDateString()}</p>
+            <p>
+              Dernière mise à jour :{" "}
+              <time dateTime={publishedAt.toISOString()}>
+                {formatFrenchDate(publishedAt)}
+              </time>
+            </p>
           </div>
         </div>
       </section>

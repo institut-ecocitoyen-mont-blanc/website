@@ -14,6 +14,7 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import Link from "next/link";
 import { ActualiteCategory, NewsItem } from "@/lib/types";
 import { cn } from "@/lib/utils";
+import { formatFrenchDate } from "@/lib/date";
 import { Badge } from "./ui/badge";
 
 export const categoryStyles: Record<
@@ -92,6 +93,9 @@ export function NewsCard({
 }) {
   const isEvent = item.categories.includes("Événement");
   const isPresse = item.kind === "presse";
+  const displayDate = isEvent
+    ? item.dateEvenement || item.publishedAt
+    : item.publishedAt;
 
   return (
     <Card
@@ -183,12 +187,9 @@ export function NewsCard({
           ) : (
             <Calendar className="w-4 h-4 mr-2" />
           )}
-          <span>
-            {(isEvent
-              ? item.dateEvenement || item.publishedAt
-              : item.publishedAt
-            ).toDateString()}
-          </span>
+          <time dateTime={displayDate.toISOString()}>
+            {formatFrenchDate(displayDate)}
+          </time>
         </div>
         <p className="text-black/70 mb-4">{item.description}</p>
       </CardContent>
