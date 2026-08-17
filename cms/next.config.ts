@@ -2,9 +2,8 @@ import type { NextConfig } from "next";
 import { withOutstatic } from "outstatic/next-plugin";
 
 const nextConfig: NextConfig = {
-  output: "export",
-  images: {
-    unoptimized: true,
+  turbopack: {
+    root: process.cwd(),
   },
 };
 

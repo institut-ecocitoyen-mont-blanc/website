@@ -1,0 +1,2 @@
+/outstatic https://cms.institut-ecocitoyen-pmb.fr/outstatic 302
+/outstatic/* https://cms.institut-ecocitoyen-pmb.fr/outstatic/:splat 302

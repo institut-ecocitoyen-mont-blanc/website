@@ -5,19 +5,8 @@ import nextTs from "eslint-config-next/typescript";
 const eslintConfig = defineConfig([
   ...nextVitals,
   ...nextTs,
-  {
-    // Existing URL/cache synchronization effects intentionally derive local
-    // UI state from browser APIs and server props.
-    rules: {
-      "react-hooks/set-state-in-effect": "off",
-    },
-  },
   globalIgnores([
     ".next/**",
-    ".outstatic/**",
-    "cms/**",
-    "integrations/**",
-    "out/**",
     "build/**",
     "next-env.d.ts",
   ]),

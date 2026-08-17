@@ -6,12 +6,10 @@ import Link from "next/link";
 import { ProjectCard } from "@/components/ProjectCard";
 import { NewsCard } from "@/components/NewsCard";
 import { ProjectCategory } from "@/lib/types";
-import { fetchPollutionSites } from "@/lib/google-sheets";
-import HomeMapSection from "@/components/HomeMapSection";
 import { getNewsItems } from "@/lib/news";
 
 export default async function Home() {
-  const { projects, news, objectifs, page, pollutionSites } = await getData();
+  const { projects, news, objectifs, page } = await getData();
   const content = page.content
     .split("---")
     .map((x) => x.trim())
@@ -74,7 +72,6 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* <HomeMapSection sites={pollutionSites} /> */}
 
       <section className="py-24 bg-blue-iec/10">
         <div className="container mx-auto px-4">
@@ -166,7 +163,5 @@ async function getData() {
 
   const page = getSingletonBySlug("page-d-accueil", ["content"])!;
 
-  const pollutionSites = await fetchPollutionSites();
-
-  return { projects, news, objectifs, page, pollutionSites };
+  return { projects, news, objectifs, page };
 }
