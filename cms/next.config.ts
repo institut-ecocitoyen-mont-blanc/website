@@ -1,10 +1,6 @@
 import type { NextConfig } from "next";
 import { withOutstatic } from "outstatic/next-plugin";
 
-const nextConfig: NextConfig = {
-  turbopack: {
-    root: process.cwd(),
-  },
-};
+const nextConfig: NextConfig = {};
 
 export default withOutstatic(nextConfig);
