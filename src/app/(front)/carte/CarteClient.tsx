@@ -324,6 +324,10 @@ export default function CarteClient({
     () => new Set(searchParams.getAll("localization")),
     [searchParams],
   );
+  const selectedCompartments = useMemo(
+    () => new Set(searchParams.getAll("compartment")),
+    [searchParams],
+  );
 
   const allSites = useMemo<PollutionSiteBase[]>(
     () => [...inventory.sites, ...inventory.unmappedSites],
@@ -374,6 +378,24 @@ export default function CarteClient({
         return aIndex - bIndex;
       })
       .map((value) => ({ value }));
+  }, [allSites]);
+  const compartmentOptions = useMemo(() => {
+    const values = new Set<string>();
+
+    allSites.forEach((site) => {
+      site.pollutions.forEach((pollution) => {
+        if (pollution.environmentalCompartment) {
+          values.add(pollution.environmentalCompartment);
+        }
+      });
+    });
+
+    return Array.from(values)
+      .sort((a, b) => a.localeCompare(b, "fr", { sensitivity: "base" }))
+      .map((value) => ({
+        value,
+        color: getCompartmentColor(value),
+      }));
   }, [allSites]);
 
   const replaceSearchParams = useCallback(
@@ -498,6 +520,14 @@ export default function CarteClient({
       ) {
         return false;
       }
+      if (
+        selectedCompartments.size > 0 &&
+        !site.pollutions.some((pollution) =>
+          selectedCompartments.has(pollution.environmentalCompartment),
+        )
+      ) {
+        return false;
+      }
 
       return true;
     },
@@ -507,6 +537,7 @@ export default function CarteClient({
       selectedSectors,
       selectedStatuses,
       selectedLocalizationTypes,
+      selectedCompartments,
     ],
   );
 
@@ -524,19 +555,21 @@ export default function CarteClient({
     selectedCommunes.size > 0 ||
     selectedSectors.size > 0 ||
     selectedStatuses.size > 0 ||
-    selectedLocalizationTypes.size > 0;
+    selectedLocalizationTypes.size > 0 ||
+    selectedCompartments.size > 0;
 
   const selectedFilterCount =
     selectedCommunes.size +
     selectedSectors.size +
     selectedStatuses.size +
-    selectedLocalizationTypes.size;
+    selectedLocalizationTypes.size +
+    selectedCompartments.size;
   const formattedLastUpdated = formatLastUpdated(inventory.lastUpdated);
 
   const clearSelectedFilters = () => {
     const params = getCurrentSearchParams();
-    ["commune", "sector", "status", "localization"].forEach((key) =>
-      params.delete(key),
+    ["commune", "sector", "status", "localization", "compartment"].forEach(
+      (key) => params.delete(key),
     );
     replaceSearchParams(params);
   };
@@ -773,6 +806,16 @@ export default function CarteClient({
                       selectedValues={selectedSectors}
                       onToggle={(value) =>
                         toggleFilterValue("sector", value)
+                      }
+                    />
+                  </div>
+                  <div className="md:col-span-2 pt-5 border-t">
+                    <MultiSelectFilterGroup
+                      title="Compartiments"
+                      options={compartmentOptions}
+                      selectedValues={selectedCompartments}
+                      onToggle={(value) =>
+                        toggleFilterValue("compartment", value)
                       }
                     />
                   </div>
