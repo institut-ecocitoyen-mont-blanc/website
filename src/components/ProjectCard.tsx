@@ -103,6 +103,7 @@ export function ProjectCard({
           src={project.image || "/logo.png"}
           alt={project.title}
           fill
+          sizes="(min-width: 768px) 50vw, 100vw"
           className="object-cover transition-transform duration-300 group-hover:scale-105"
         />
         <Badge

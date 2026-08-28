@@ -22,10 +22,12 @@ export default async function Home() {
           src="/images/Varan.jpg"
           alt="Environmental research"
           fill
+          preload
+          sizes="100vw"
           className="object-cover absolute z-0"
         />
         <div className="relative z-10 text-center text-white">
-          <h2 className="text-4xl font-bold mb-4">{content[0]}</h2>
+          <h1 className="text-4xl font-bold mb-4">{content[0]}</h1>
           <p className="text-xl mb-8 max-w-2xl mx-auto">{content[1]}</p>
           <a
             href="/etre-acteur"

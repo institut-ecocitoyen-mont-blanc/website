@@ -21,16 +21,16 @@ export default function Header() {
             className="h-auto"
             sizes="(max-width: 768px) 80px, 140px"
           />
-          <h1 className="text-2xl font-bold hidden md:block">
+          <span className="text-2xl font-bold hidden md:block">
             <span className="text-blue-iec">Institut Ecocitoyen</span>
             <br />
             <span className="text-green-iec text-xl font-serif relative -top-2">
               Pays du Mont Blanc
             </span>
-          </h1>
-          <h1 className="text-l font-bold md:hidden">
+          </span>
+          <span className="text-l font-bold md:hidden">
             Institut Ecocitoyen du Pays du Mont Blanc
-          </h1>
+          </span>
         </Link>
 
         {/* Mobile menu button */}

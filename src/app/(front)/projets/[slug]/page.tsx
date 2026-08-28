@@ -21,6 +21,8 @@ import {
   createPageMetadata,
   normalizeDescription,
 } from "@/lib/seo";
+import { JsonLd } from "@/components/JsonLd";
+import { createBreadcrumbStructuredData } from "@/lib/structured-data";
 
 type ProjectPageProps = {
   params: Promise<{ slug: string }>;
@@ -56,8 +58,17 @@ export default async function ProjectPage({
     return <div>Projet non trouvé</div>;
   }
 
+  const title = projet.title.trim();
+  const path = `/projets/${projet.slug}`;
+  const breadcrumbStructuredData = createBreadcrumbStructuredData([
+    { name: "Accueil", path: "/" },
+    { name: "Projets", path: "/projets" },
+    { name: title, path },
+  ]);
+
   return (
     <main className="grow py-16 pt-32">
+      <JsonLd data={breadcrumbStructuredData} />
       <div className="container min-h-screen mx-auto px-4">
         <Link
           href="/projets"
