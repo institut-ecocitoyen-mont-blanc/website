@@ -5,6 +5,14 @@ import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
 import { unified } from "unified";
 import { formatFrenchDate } from "@/lib/date";
+import { createPageMetadata } from "@/lib/seo";
+
+export const metadata = createPageMetadata({
+  title: "Politique de confidentialité",
+  description:
+    "Politique de confidentialité et traitement des données personnelles sur le site de l’Institut Ecocitoyen.",
+  path: "/politique-de-confidentialite",
+});
 
 export default async function MentionsLegalesPage() {
   const { content, publishedAt } = await getData();

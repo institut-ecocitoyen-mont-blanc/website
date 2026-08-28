@@ -12,7 +12,6 @@ import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { ActualiteCategory, NewsItem } from "@/lib/types";
-import { useRouter, useSearchParams } from "next/navigation";
 
 type NewsFilter = ActualiteCategory | "Presse";
 type FilterStyle = (typeof categoryStyles)[ActualiteCategory];
@@ -51,21 +50,36 @@ export function NewsList({
 }: {
   items: NewsItem[];
 }) {
-  const router = useRouter();
-  const searchParams = useSearchParams();
+  const [activeFilters, setActiveFilters] = useState<NewsFilter[]>([]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [isUrlStateReady, setIsUrlStateReady] = useState(false);
 
-  const [activeFilters, setActiveFilters] = useState<NewsFilter[]>(() => {
-    const categoriesParam = searchParams.get("categories");
-    return categoriesParam
-      ? categoriesParam.split(",").filter(isNewsFilter)
-      : [];
-  });
-  const [searchQuery, setSearchQuery] = useState(
-    () => searchParams.get("q") || "",
-  );
+  // Keep the server-rendered default state deterministic so the complete list
+  // is present in the exported HTML, then restore optional URL filters after
+  // hydration.
+  useEffect(() => {
+    const restoreUrlState = () => {
+      const searchParams = new URLSearchParams(window.location.search);
+      const categoriesParam = searchParams.get("categories");
+
+      setActiveFilters(
+        categoriesParam
+          ? categoriesParam.split(",").filter(isNewsFilter)
+          : [],
+      );
+      setSearchQuery(searchParams.get("q") || "");
+      setIsUrlStateReady(true);
+    };
+
+    restoreUrlState();
+    window.addEventListener("popstate", restoreUrlState);
+    return () => window.removeEventListener("popstate", restoreUrlState);
+  }, []);
 
   // Update URL when filters or search query changes
   useEffect(() => {
+    if (!isUrlStateReady) return;
+
     const params = new URLSearchParams();
 
     if (activeFilters.length > 0) {
@@ -77,8 +91,13 @@ export function NewsList({
     }
 
     const newUrl = params.toString() ? `?${params.toString()}` : "";
-    router.push(`/actualites${newUrl}`, { scroll: false });
-  }, [activeFilters, searchQuery, router]);
+    const targetUrl = `/actualites${newUrl}`;
+    const currentUrl = `${window.location.pathname}${window.location.search}`;
+
+    if (currentUrl !== targetUrl) {
+      window.history.pushState(window.history.state, "", targetUrl);
+    }
+  }, [activeFilters, searchQuery, isUrlStateReady]);
 
   const toggleFilter = (filter: NewsFilter) => {
     setActiveFilters((current) =>

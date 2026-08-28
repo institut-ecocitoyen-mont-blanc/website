@@ -2,6 +2,14 @@ import { getDocuments } from "outstatic/server";
 import { ProjectCategory } from "@/lib/types";
 import { ProjectList } from "@/components/ProjectList";
 import { Suspense } from "react";
+import { createPageMetadata } from "@/lib/seo";
+
+export const metadata = createPageMetadata({
+  title: "Projets de recherche et sciences participatives",
+  description:
+    "Découvrez les projets de recherche indépendante et de sciences participatives sur les pollutions au Pays du Mont-Blanc.",
+  path: "/projets",
+});
 
 export default async function ProjectsPage() {
   const { projects } = await getData();

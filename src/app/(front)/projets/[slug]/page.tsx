@@ -16,12 +16,40 @@ import { categoryStyles, categoryFilters } from "@/components/ProjectCard";
 import { cn } from "@/lib/utils";
 import { NewsCard } from "@/components/NewsCard";
 import { getNewsItems } from "@/lib/news";
+import {
+  createNotFoundMetadata,
+  createPageMetadata,
+  normalizeDescription,
+} from "@/lib/seo";
+
+type ProjectPageProps = {
+  params: Promise<{ slug: string }>;
+};
+
+export async function generateMetadata({ params }: ProjectPageProps) {
+  const data = await getData(await params);
+
+  if (!data) {
+    return createNotFoundMetadata("Projet introuvable");
+  }
+
+  const title = data.projet.title.trim();
+  const description = normalizeDescription(
+    data.projet.description,
+    `Projet de recherche de l’Institut Ecocitoyen du Pays du Mont-Blanc : ${title}.`,
+  );
+
+  return createPageMetadata({
+    title,
+    description,
+    path: `/projets/${data.projet.slug}`,
+    image: data.projet.image,
+  });
+}
 
 export default async function ProjectPage({
   params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
+}: ProjectPageProps) {
   const { projet, relatedNews } = (await getData(await params)) || {};
 
   if (!projet || !relatedNews) {

@@ -5,6 +5,14 @@ import {
   type UnmappedPollutionSite,
 } from "@/lib/google-sheets";
 import CarteClient from "./CarteClient";
+import { createPageMetadata } from "@/lib/seo";
+
+export const metadata = createPageMetadata({
+  title: "Carte participative des sources de pollution",
+  description:
+    "Consultez la carte participative des sources potentielles de pollution recensées dans la vallée de l’Arve.",
+  path: "/carte",
+});
 
 export const revalidate = 3600; // Revalidate every hour
 

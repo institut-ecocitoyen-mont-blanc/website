@@ -25,6 +25,14 @@ import rehypeStringify from "rehype-stringify";
 import remarkGfm from "remark-gfm";
 import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
+import { createPageMetadata } from "@/lib/seo";
+
+export const metadata = createPageMetadata({
+  title: "À propos de l’Institut",
+  description:
+    "Découvrez la mission, la gouvernance et les partenaires de l’Institut Ecocitoyen du Pays du Mont-Blanc.",
+  path: "/a-propos",
+});
 
 const processor = unified()
   .use(remarkParse)

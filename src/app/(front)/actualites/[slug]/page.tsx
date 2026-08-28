@@ -13,12 +13,42 @@ import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { normalizeCategories } from "@/lib/news";
 import { formatFrenchDate } from "@/lib/date";
+import {
+  createNotFoundMetadata,
+  createPageMetadata,
+  normalizeDescription,
+} from "@/lib/seo";
+
+type ActualitePageProps = {
+  params: Promise<{ slug: string }>;
+};
+
+export async function generateMetadata({ params }: ActualitePageProps) {
+  const newsItem = await getData(await params);
+
+  if (!newsItem) {
+    return createNotFoundMetadata("Article introuvable");
+  }
+
+  const title = newsItem.title.trim();
+  const description = normalizeDescription(
+    newsItem.description,
+    `Actualité de l’Institut Ecocitoyen du Pays du Mont-Blanc : ${title}.`,
+  );
+
+  return createPageMetadata({
+    title,
+    description,
+    path: `/actualites/${newsItem.slug}`,
+    image: newsItem.image,
+    type: "article",
+    publishedTime: newsItem.publishedAt.toISOString(),
+  });
+}
 
 export default async function ActualitePage({
   params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
+}: ActualitePageProps) {
   const newsItem = await getData(await params);
 
   if (!newsItem) {

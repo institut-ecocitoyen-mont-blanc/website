@@ -5,6 +5,14 @@ import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
 import { unified } from "unified";
 import { formatFrenchDate } from "@/lib/date";
+import { createPageMetadata } from "@/lib/seo";
+
+export const metadata = createPageMetadata({
+  title: "Mentions légales",
+  description:
+    "Mentions légales du site de l’Institut Ecocitoyen du Pays du Mont-Blanc.",
+  path: "/mentions-legales",
+});
 
 export default async function MentionsLegalesPage() {
   const { content, publishedAt } = await getData();

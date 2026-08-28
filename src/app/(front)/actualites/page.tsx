@@ -1,6 +1,14 @@
 import { NewsList } from "@/components/NewsList";
 import { Suspense } from "react";
 import { getNewsItems } from "@/lib/news";
+import { createPageMetadata } from "@/lib/seo";
+
+export const metadata = createPageMetadata({
+  title: "Actualités et événements",
+  description:
+    "Suivez les actualités, événements et publications de l’Institut Ecocitoyen du Pays du Mont-Blanc.",
+  path: "/actualites",
+});
 
 export default async function NewsPage() {
   const { news } = await getData();

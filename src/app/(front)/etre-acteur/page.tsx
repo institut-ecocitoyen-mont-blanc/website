@@ -12,6 +12,14 @@ import {
   Microscope,
 } from "lucide-react";
 import Link from "next/link";
+import { createPageMetadata } from "@/lib/seo";
+
+export const metadata = createPageMetadata({
+  title: "Participer et agir",
+  description:
+    "Participez aux sciences citoyennes, devenez bénévole, adhérez ou soutenez les actions de l’Institut Ecocitoyen.",
+  path: "/etre-acteur",
+});
 
 const helpOptions = [
   {
