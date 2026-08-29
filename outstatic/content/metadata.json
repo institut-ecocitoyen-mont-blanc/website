@@ -1,6 +1,6 @@
 {
-  "commit": "6e97b0eaf5b15393dc07d37d2eea91e79d6ca382",
-  "generated": "2026-08-29T11:43:22.622Z",
+  "commit": "98acc88f888229272af8d0c0755f822cf76ec54b",
+  "generated": "2026-08-29T11:43:52.432Z",
   "metadata": [
     {
       "__outstatic": {
@@ -165,40 +165,6 @@
       "slug": "nouveaux-locaux-institut",
       "status": "published",
       "title": "Nouveaux locaux pour l'Institut"
-    },
-    {
-      "__outstatic": {
-        "commit": "252f720ef37f13003a7c0cade7566071ae8c34ca",
-        "hash": "561280444",
-        "path": "outstatic/content/projets/lichens.mdx"
-      },
-      "author": {
-        "name": "Marine",
-        "picture": "https://avatars.githubusercontent.com/u/204351074?v=4"
-      },
-      "categories": [
-        {
-          "label": "Air",
-          "value": "Air"
-        },
-        {
-          "label": "Science Participative",
-          "value": "Science Participative"
-        }
-      ],
-      "collection": "projets",
-      "description": "Les lichens permettent une évaluation de la qualité de l’air – bio-indication –\t\net une caractérisation physico-chimique des polluants – bio-accumulation.\t\n\t\nLa réalisation des relevés in situ pour la bio-indication et les prélèvements \t\n\tpour la bio-accumulation sont réalisés par des bénévoles dans le cadre\n\td’un protocole établi par un référent scientifique\n",
-      "etat": [
-        {
-          "label": "En cours",
-          "value": "En cours"
-        }
-      ],
-      "image": "/images/capture-d--cran-du-2025-03-24-17-03-17-E5OT.png",
-      "publishedAt": "2025-03-24T16:03:04.927Z",
-      "slug": "lichens",
-      "status": "published",
-      "title": "Etudes participatives des lichens "
     },
     {
       "__outstatic": {
@@ -671,6 +637,40 @@
       "slugProjet": "etude-epidemiologique",
       "status": "published",
       "title": "Webinaire en santé environnementale"
+    },
+    {
+      "__outstatic": {
+        "commit": "98acc88f888229272af8d0c0755f822cf76ec54b",
+        "hash": "3299358351",
+        "path": "outstatic/content/projets/lichens.mdx"
+      },
+      "author": {
+        "name": "Marine",
+        "picture": "https://avatars.githubusercontent.com/u/204351074?v=4"
+      },
+      "categories": [
+        {
+          "label": "Air",
+          "value": "Air"
+        },
+        {
+          "label": "Science Participative",
+          "value": "Science Participative"
+        }
+      ],
+      "collection": "projets",
+      "description": "Des bénévoles étudient les lichens selon un protocole scientifique afin d’évaluer la qualité de l’air et de caractériser les polluants accumulés.",
+      "etat": [
+        {
+          "label": "En cours",
+          "value": "En cours"
+        }
+      ],
+      "image": "/images/capture-d--cran-du-2025-03-24-17-03-17-E5OT.png",
+      "publishedAt": "2025-03-24T16:03:04.927Z",
+      "slug": "lichens",
+      "status": "published",
+      "title": "Etudes participatives des lichens "
     }
   ]
 }
