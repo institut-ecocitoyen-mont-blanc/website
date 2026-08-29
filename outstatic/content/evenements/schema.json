@@ -47,6 +47,13 @@
           "value": "santé"
         }
       ]
+    },
+    "lieu": {
+      "title": "lieu",
+      "description": "Nom du lieu de l'événement",
+      "required": false,
+      "fieldType": "String",
+      "dataType": "string"
     }
   }
 }
