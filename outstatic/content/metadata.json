@@ -1,6 +1,6 @@
 {
-  "commit": "046aa1f823a0f4f9904553df0b56b8c11b67c020",
-  "generated": "2026-08-29T11:35:37.154Z",
+  "commit": "1590b355ad53bfed6b06cf342320a16baf8f16f8",
+  "generated": "2026-08-29T11:36:17.288Z",
   "metadata": [
     {
       "__outstatic": {
@@ -552,6 +552,26 @@
       "slug": "recherche-terrains",
       "status": "published",
       "title": "Recherche de terrains"
+    },
+    {
+      "__outstatic": {
+        "commit": "1590b355ad53bfed6b06cf342320a16baf8f16f8",
+        "hash": "2710140860",
+        "path": "outstatic/content/evenements/assemblee-generale.mdx"
+      },
+      "author": {
+        "name": "Mathieu Dutour",
+        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
+      },
+      "categories": [
+      ],
+      "collection": "evenements",
+      "description": "L’assemblée générale 2025 présente les activités et les comptes de l’Institut, puis propose des animations sur les pollutions et la santé environnementale.",
+      "image": "/images/ag-I4Nz.png",
+      "publishedAt": "2025-04-04T22:00:00.000Z",
+      "slug": "assemblee-generale",
+      "status": "published",
+      "title": "Assemblée Générale 2025"
     }
   ]
 }
