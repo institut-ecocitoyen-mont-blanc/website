@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build && npm run optimize:export && npm run check:seo",
+    "build": "next build && npm run optimize:export && npm run check:images && npm run check:seo",
+    "check:images": "node scripts/check-exported-images.mjs",
     "check:seo": "node scripts/check-exported-seo.mjs",
     "optimize:export": "node scripts/optimize-exported-images.mjs",
     "start": "next start",

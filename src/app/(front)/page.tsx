@@ -23,6 +23,7 @@ export default async function Home() {
           alt="Environmental research"
           fill
           preload
+          fetchPriority="high"
           sizes="100vw"
           className="object-cover absolute z-0"
         />

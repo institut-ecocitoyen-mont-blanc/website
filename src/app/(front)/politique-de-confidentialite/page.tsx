@@ -1,11 +1,7 @@
 import { getSingletonBySlug } from "outstatic/server";
-import rehypeStringify from "rehype-stringify";
-import remarkGfm from "remark-gfm";
-import remarkParse from "remark-parse";
-import remarkRehype from "remark-rehype";
-import { unified } from "unified";
 import { formatFrenchDate } from "@/lib/date";
 import { createPageMetadata } from "@/lib/seo";
+import { markdownToHtml } from "@/lib/markdown";
 
 export const metadata = createPageMetadata({
   title: "Politique de confidentialité",
@@ -23,7 +19,7 @@ export default async function MentionsLegalesPage() {
         <div className="container mx-auto px-4">
           <div
             className="markdown"
-            dangerouslySetInnerHTML={{ __html: content.value }}
+            dangerouslySetInnerHTML={{ __html: content }}
           />
 
           <div className="max-w-3xl mx-auto mt-8 text-center text-gray-600 text-sm">
@@ -40,19 +36,13 @@ export default async function MentionsLegalesPage() {
   );
 }
 
-const processor = unified()
-  .use(remarkParse)
-  .use(remarkGfm)
-  .use(remarkRehype, { allowDangerousHtml: true })
-  .use(rehypeStringify);
-
 async function getData() {
   const page = getSingletonBySlug("politique-de-confidentialite", [
     "content",
     "publishedAt",
   ])!;
 
-  const content = await processor.process(page.content || "");
+  const content = await markdownToHtml(page.content || "");
 
   return {
     content,

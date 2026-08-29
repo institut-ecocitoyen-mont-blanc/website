@@ -20,12 +20,8 @@ import {
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { getSingletonBySlug, load } from "outstatic/server";
-import { unified } from "unified";
-import rehypeStringify from "rehype-stringify";
-import remarkGfm from "remark-gfm";
-import remarkParse from "remark-parse";
-import remarkRehype from "remark-rehype";
 import { createPageMetadata } from "@/lib/seo";
+import { markdownToHtml } from "@/lib/markdown";
 
 export const metadata = createPageMetadata({
   title: "À propos de l’Institut",
@@ -33,12 +29,6 @@ export const metadata = createPageMetadata({
     "Découvrez la mission, la gouvernance et les partenaires de l’Institut Ecocitoyen du Pays du Mont-Blanc.",
   path: "/a-propos",
 });
-
-const processor = unified()
-  .use(remarkParse)
-  .use(remarkGfm)
-  .use(remarkRehype, { allowDangerousHtml: true })
-  .use(rehypeStringify);
 
 const colleges = [
   {
@@ -132,6 +122,7 @@ export default async function AboutPage() {
     .split("---")
     .map((x) => x.trim())
     .filter(Boolean);
+  const history = await markdownToHtml(content[1] ?? "");
 
   return (
     <main className="grow">
@@ -148,15 +139,14 @@ export default async function AboutPage() {
             <div className="grid md:grid-cols-2 gap-8 items-center">
               <div
                 className="text-gray-600 mb markdown"
-                dangerouslySetInnerHTML={{
-                  __html: processor.processSync(content[1]).value,
-                }}
+                dangerouslySetInnerHTML={{ __html: history }}
               ></div>
               <Image
                 src={page.image || "/logo.png"}
                 alt="Histoire de l'institut"
                 width={500}
                 height={300}
+                sizes="(min-width: 768px) 50vw, 100vw"
                 className="rounded-lg shadow-lg"
               />
             </div>

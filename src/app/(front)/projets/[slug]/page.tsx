@@ -6,11 +6,6 @@ import {
   getDocumentBySlug,
   getDocumentSlugs,
 } from "outstatic/server";
-import rehypeStringify from "rehype-stringify";
-import remarkParse from "remark-parse";
-import remarkGfm from "remark-gfm";
-import remarkRehype from "remark-rehype";
-import { unified } from "unified";
 import { ProjectCategory } from "@/lib/types";
 import { categoryStyles, categoryFilters } from "@/components/ProjectCard";
 import { cn } from "@/lib/utils";
@@ -23,6 +18,7 @@ import {
 } from "@/lib/seo";
 import { JsonLd } from "@/components/JsonLd";
 import { createBreadcrumbStructuredData } from "@/lib/structured-data";
+import { markdownToHtml } from "@/lib/markdown";
 
 type ProjectPageProps = {
   params: Promise<{ slug: string }>;
@@ -146,6 +142,7 @@ export default async function ProjectPage({
                 alt={projet.title}
                 width={600}
                 height={400}
+                sizes="(min-width: 768px) 33vw, 100vw"
                 className="rounded-lg shadow-md mb-6"
               />
               <div className="absolute top-4 left-4 flex flex-wrap gap-2 max-w-[calc(100%-120px)]">
@@ -196,12 +193,6 @@ export default async function ProjectPage({
   );
 }
 
-const processor = unified()
-  .use(remarkParse)
-  .use(remarkGfm)
-  .use(remarkRehype, { allowDangerousHtml: true })
-  .use(rehypeStringify);
-
 async function getData(params: { slug: string }) {
   const result = getDocumentBySlug("projets", params.slug, [
     "title",
@@ -218,12 +209,12 @@ async function getData(params: { slug: string }) {
     return null;
   }
 
-  const content = await processor.process(result.content || "");
+  const content = await markdownToHtml(result.content || "");
 
   const projet = {
     ...result,
     etat: result.etat[0].value,
-    content: content.value,
+    content,
     categories:
       (result.categories?.map((y) => y.value) as ProjectCategory[]) ?? [],
   };

@@ -2,11 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, Calendar, CalendarDays } from "lucide-react";
 import { getDocumentBySlug, getDocumentSlugs } from "outstatic/server";
-import { unified } from "unified";
-import remarkParse from "remark-parse";
-import remarkGfm from "remark-gfm";
-import remarkRehype from "remark-rehype";
-import rehypeStringify from "rehype-stringify";
 import { ActualiteCategory } from "@/lib/types";
 import { categoryFilters, categoryStyles } from "@/components/NewsCard";
 import { Badge } from "@/components/ui/badge";
@@ -24,6 +19,7 @@ import {
   createEventStructuredData,
   createNewsArticleStructuredData,
 } from "@/lib/structured-data";
+import { markdownToHtml } from "@/lib/markdown";
 
 type ActualitePageProps = {
   params: Promise<{ slug: string }>;
@@ -132,6 +128,7 @@ export default async function ActualitePage({
               alt={newsItem.title}
               width={600}
               height={400}
+              sizes="(min-width: 768px) 33vw, 100vw"
               className="rounded-lg shadow-md mb-6"
             />
             <div className="flex flex-wrap gap-2 mb-3">
@@ -173,12 +170,6 @@ export default async function ActualitePage({
     </main>
   );
 }
-
-const processor = unified()
-  .use(remarkParse)
-  .use(remarkGfm)
-  .use(remarkRehype, { allowDangerousHtml: true })
-  .use(rehypeStringify);
 
 type DetailDocument = {
   title: string;
@@ -227,7 +218,7 @@ async function getData(params: { slug: string }) {
     return null;
   }
 
-  const content = await processor.process(newsItem.content || "");
+  const content = await markdownToHtml(newsItem.content || "");
   const categories = normalizeCategories(newsItem.categories);
   const isEvent = Boolean(evenement) || categories.includes("Événement");
 
@@ -242,7 +233,7 @@ async function getData(params: { slug: string }) {
     categories: isEvent
       ? Array.from(new Set<ActualiteCategory>(["Événement", ...categories]))
       : categories,
-    content: String(content.value),
+    content,
   };
 }
 
