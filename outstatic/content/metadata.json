@@ -1,6 +1,6 @@
 {
-  "commit": "1590b355ad53bfed6b06cf342320a16baf8f16f8",
-  "generated": "2026-08-29T11:36:17.288Z",
+  "commit": "a1e9806437ecfd04073a0d4b2f73bb1d5bfff16b",
+  "generated": "2026-08-29T11:36:43.361Z",
   "metadata": [
     {
       "__outstatic": {
@@ -572,6 +572,30 @@
       "slug": "assemblee-generale",
       "status": "published",
       "title": "Assemblée Générale 2025"
+    },
+    {
+      "__outstatic": {
+        "commit": "a1e9806437ecfd04073a0d4b2f73bb1d5bfff16b",
+        "hash": "845010136",
+        "path": "outstatic/content/evenements/conference-particules-ultrafines.mdx"
+      },
+      "author": {
+        "name": "Mathieu Dutour",
+        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
+      },
+      "categories": [
+        {
+          "label": "Air",
+          "value": "air"
+        }
+      ],
+      "collection": "evenements",
+      "description": "Jean-Luc Jaffrezo, Gaëlle Uzu et Guillaume Brulfert présentent les effets des particules ultrafines sur la qualité de l’air dans la vallée de l’Arve.",
+      "image": "/images/puf_conf-gwMT.png",
+      "publishedAt": "2025-01-27T23:00:00.000Z",
+      "slug": "conference-particules-ultrafines",
+      "status": "published",
+      "title": "Conférence sur les particules ultrafines"
     }
   ]
 }
