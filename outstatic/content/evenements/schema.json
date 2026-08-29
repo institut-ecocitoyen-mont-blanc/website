@@ -54,6 +54,13 @@
       "required": false,
       "fieldType": "String",
       "dataType": "string"
+    },
+    "adresse": {
+      "title": "adresse",
+      "description": "Adresse postale complète du lieu de l'événement",
+      "required": false,
+      "fieldType": "String",
+      "dataType": "string"
     }
   }
 }
