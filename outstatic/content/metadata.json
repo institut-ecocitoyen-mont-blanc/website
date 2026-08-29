@@ -1,6 +1,6 @@
 {
-  "commit": "35988a24adc3dc09b360c28813e1abf056cdf750",
-  "generated": "2026-08-29T11:34:05.467Z",
+  "commit": "09cbeff0787c8d4670387359bf335e694bc13d35",
+  "generated": "2026-08-29T11:35:15.199Z",
   "metadata": [
     {
       "__outstatic": {
@@ -333,25 +333,6 @@
     },
     {
       "__outstatic": {
-        "commit": "2a6b78d3070f57212551870a26b50957c2c137ba",
-        "hash": "3378165435",
-        "path": "outstatic/content/actualites/nouvelle-permanence-a-l-institut-eco-citoyen-du-pays-du-mont-blanc.mdx"
-      },
-      "author": {
-        "name": "DESMEDT Aurore",
-        "picture": "https://avatars.githubusercontent.com/u/222664085?v=4"
-      },
-      "categories": [
-      ],
-      "collection": "actualites",
-      "image": "/images/azeta_web-kxMT.jpg",
-      "publishedAt": "2026-04-09T13:13:34.424Z",
-      "slug": "nouvelle-permanence-a-l-institut-eco-citoyen-du-pays-du-mont-blanc",
-      "status": "published",
-      "title": "Nouvelle permanence à l’Institut Éco-citoyen du Pays du Mont Blanc"
-    },
-    {
-      "__outstatic": {
         "commit": "3c307563114f2bc75c9692134c471cbd0442f614",
         "hash": "722470312",
         "path": "outstatic/content/projets/livre-blanc-pollutions-polluants.mdx"
@@ -551,6 +532,26 @@
       "slug": "lettre-information",
       "status": "published",
       "title": "Lettre d'information #2"
+    },
+    {
+      "__outstatic": {
+        "commit": "09cbeff0787c8d4670387359bf335e694bc13d35",
+        "hash": "490372393",
+        "path": "outstatic/content/actualites/nouvelle-permanence-a-l-institut-eco-citoyen-du-pays-du-mont-blanc.mdx"
+      },
+      "author": {
+        "name": "DESMEDT Aurore",
+        "picture": "https://avatars.githubusercontent.com/u/222664085?v=4"
+      },
+      "categories": [
+      ],
+      "collection": "actualites",
+      "description": "Une permanence accueille désormais le public chaque mercredi au local Pep’s de Passy pour échanger sur les projets de l’Institut et prendre rendez-vous.",
+      "image": "/images/azeta_web-kxMT.jpg",
+      "publishedAt": "2026-04-09T13:13:34.424Z",
+      "slug": "nouvelle-permanence-a-l-institut-eco-citoyen-du-pays-du-mont-blanc",
+      "status": "published",
+      "title": "Nouvelle permanence à l’Institut Écocitoyen du Pays du Mont Blanc"
     }
   ]
 }
