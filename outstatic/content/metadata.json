@@ -1,6 +1,6 @@
 {
-  "commit": "27c18e7211b9622ab5762d63091979046c5bec81",
-  "generated": "2026-08-29T11:41:48.515Z",
+  "commit": "389b44169987a223e20da48335b7af64acfebaef",
+  "generated": "2026-08-29T11:43:00.709Z",
   "metadata": [
     {
       "__outstatic": {
@@ -620,6 +620,32 @@
       "slug": "journee-recherche",
       "status": "published",
       "title": "Journée Recherche"
+    },
+    {
+      "__outstatic": {
+        "commit": "389b44169987a223e20da48335b7af64acfebaef",
+        "hash": "2900664874",
+        "path": "outstatic/content/evenements/journees-etude-lichens.mdx"
+      },
+      "author": {
+        "name": "Mathieu Dutour",
+        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
+      },
+      "categories": [
+        {
+          "label": "Air",
+          "value": "air"
+        }
+      ],
+      "collection": "evenements",
+      "description": "Les 21 et 22 mai, deux journées ouvertes au public proposent de découvrir les lichens et leur utilisation comme bio-indicateurs de la qualité de l’air.",
+      "image": "/images/capture-d--cran-du-2025-03-24-17-03-17-E5OT.png",
+      "lieu": "Office de tourisme de Combloux",
+      "publishedAt": "2025-05-20T22:00:00.000Z",
+      "slug": "journees-etude-lichens",
+      "slugProjet": "lichens",
+      "status": "published",
+      "title": "À la découverte des lichens !"
     }
   ]
 }
