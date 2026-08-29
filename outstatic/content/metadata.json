@@ -1,6 +1,6 @@
 {
-  "commit": "4b69cb39582496f67bde66ba6ca1f2cc6bff7c29",
-  "generated": "2026-08-29T11:39:47.378Z",
+  "commit": "6b639d4e6f4cd921396f34201150916ddc5f80e4",
+  "generated": "2026-08-29T11:41:02.129Z",
   "metadata": [
     {
       "__outstatic": {
@@ -579,10 +579,11 @@
     },
     {
       "__outstatic": {
-        "commit": "4b69cb39582496f67bde66ba6ca1f2cc6bff7c29",
-        "hash": "681548693",
+        "commit": "6b639d4e6f4cd921396f34201150916ddc5f80e4",
+        "hash": "1984188951",
         "path": "outstatic/content/evenements/conference-sur-les-effets-des-microplastiques-dans-les-lacs-de-montagne.mdx"
       },
+      "adresse": "150 avenue de Genève, 74170 Saint-Gervais-les-Bains",
       "author": {
         "name": "Mathieu Dutour",
         "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
@@ -592,6 +593,7 @@
       "collection": "evenements",
       "description": "La chercheuse Julia Dusaucy présente ses travaux sur la contamination des lacs alpins par les microplastiques et leurs effets sur l’environnement.",
       "image": "/images/antoine-giret-7_TSzqJms4w-unsplash.jpg",
+      "lieu": "Plan B",
       "publishedAt": "2025-06-17T22:00:00.000Z",
       "slug": "conference-sur-les-effets-des-microplastiques-dans-les-lacs-de-montagne",
       "status": "published",
