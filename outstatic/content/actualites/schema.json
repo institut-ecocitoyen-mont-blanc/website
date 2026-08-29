@@ -41,13 +41,6 @@
         }
       ]
     },
-    "dateEvenement": {
-      "description": "Si c'est un événement, sa date",
-      "required": false,
-      "fieldType": "Date",
-      "dataType": "date",
-      "title": "Date evenement"
-    },
     "slugProjet": {
       "description": "Si l'actualité est liée à un projet, le slug du projet",
       "required": false,
