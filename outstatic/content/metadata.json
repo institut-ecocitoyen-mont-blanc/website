@@ -1,6 +1,6 @@
 {
-  "commit": "ec2d7be5e74eafd85ec031fd21082687a15b4ebf",
-  "generated": "2026-08-29T11:41:09.809Z",
+  "commit": "27c18e7211b9622ab5762d63091979046c5bec81",
+  "generated": "2026-08-29T11:41:48.515Z",
   "metadata": [
     {
       "__outstatic": {
@@ -598,6 +598,28 @@
       "slug": "conference-sur-les-effets-des-microplastiques-dans-les-lacs-de-montagne",
       "status": "published",
       "title": "Conférence sur les effets des microplastiques dans les lacs de montagne "
+    },
+    {
+      "__outstatic": {
+        "commit": "27c18e7211b9622ab5762d63091979046c5bec81",
+        "hash": "95824320",
+        "path": "outstatic/content/evenements/journee-recherche.mdx"
+      },
+      "adresse": "54 route des Vorziers, 74700 Sallanches",
+      "author": {
+        "name": "Mathieu Dutour",
+        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
+      },
+      "categories": [
+      ],
+      "collection": "evenements",
+      "description": "Et si la recherche scientifique sur les pollutions au Pays du Mont-Blanc partait des préoccupations des habitants et structures du territoire ?",
+      "image": "/images/journee-recherche-Y3Nz.png",
+      "lieu": "Espace Mont-Blanc Coworking",
+      "publishedAt": "2026-05-11T22:00:00.000Z",
+      "slug": "journee-recherche",
+      "status": "published",
+      "title": "Journée Recherche"
     }
   ]
 }
