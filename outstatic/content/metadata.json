@@ -1,6 +1,6 @@
 {
-  "commit": "4584ec5d626f9bbc9a36e56428fc54cfe8a2972e",
-  "generated": "2026-08-29T11:31:51.320Z",
+  "commit": "98cc74b2bea6ff55942c00cc9c89880b2e306d13",
+  "generated": "2026-08-29T11:33:03.149Z",
   "metadata": [
     {
       "__outstatic": {
@@ -463,25 +463,6 @@
     },
     {
       "__outstatic": {
-        "commit": "61a63a989cf728fec250adbdd2a3d8d3efcb9da6",
-        "hash": "84138993",
-        "path": "outstatic/content/actualites/journee-d-etude-participative-en-vallee-de-l-arve-quand-science-et-citoyennete-dialoguent-autour-des-pollutions.mdx"
-      },
-      "author": {
-        "name": "DESMEDT Aurore",
-        "picture": "https://avatars.githubusercontent.com/u/222664085?v=4"
-      },
-      "categories": [
-      ],
-      "collection": "actualites",
-      "image": "/images/panneau-journee-18-avril-kxNz.png",
-      "publishedAt": "2026-04-27T12:17:48.736Z",
-      "slug": "journee-d-etude-participative-en-vallee-de-l-arve-quand-science-et-citoyennete-dialoguent-autour-des-pollutions",
-      "status": "published",
-      "title": "Journée d’étude participative en vallée de l’Arve : quand science et citoyenneté dialoguent autour des pollutions"
-    },
-    {
-      "__outstatic": {
         "commit": "806cf9c39832978c26bb6e04b826dbc8d09200ec",
         "hash": "254080381",
         "path": "outstatic/content/presse/leur-connaissance-du-terrain-est-excellente-dans-la-vallee-de-l-arve-ces-habitants-aident-la-recherche-face-aux-pollutions.mdx"
@@ -550,6 +531,26 @@
       "slug": "politique-de-confidentialite",
       "status": "published",
       "title": "Politique de Confidentialité"
+    },
+    {
+      "__outstatic": {
+        "commit": "98cc74b2bea6ff55942c00cc9c89880b2e306d13",
+        "hash": "4009147182",
+        "path": "outstatic/content/actualites/journee-d-etude-participative-en-vallee-de-l-arve-quand-science-et-citoyennete-dialoguent-autour-des-pollutions.mdx"
+      },
+      "author": {
+        "name": "DESMEDT Aurore",
+        "picture": "https://avatars.githubusercontent.com/u/222664085?v=4"
+      },
+      "categories": [
+      ],
+      "collection": "actualites",
+      "description": "Retour sur la journée du 18 avril 2026, durant laquelle habitants et scientifiques ont défini ensemble des priorités de recherche sur les pollutions dans la vallée de l’Arve.",
+      "image": "/images/panneau-journee-18-avril-kxNz.png",
+      "publishedAt": "2026-04-27T12:17:48.736Z",
+      "slug": "journee-d-etude-participative-en-vallee-de-l-arve-quand-science-et-citoyennete-dialoguent-autour-des-pollutions",
+      "status": "published",
+      "title": "Journée d’étude participative en vallée de l’Arve : quand science et citoyenneté dialoguent autour des pollutions"
     }
   ]
 }
