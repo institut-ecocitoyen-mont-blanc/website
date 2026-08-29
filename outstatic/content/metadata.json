@@ -1,6 +1,6 @@
 {
-  "commit": "09cbeff0787c8d4670387359bf335e694bc13d35",
-  "generated": "2026-08-29T11:35:15.199Z",
+  "commit": "046aa1f823a0f4f9904553df0b56b8c11b67c020",
+  "generated": "2026-08-29T11:35:37.154Z",
   "metadata": [
     {
       "__outstatic": {
@@ -145,30 +145,6 @@
       "slug": "ccpmb",
       "status": "published",
       "title": "Communauté de Communes du Pays du Mont Blanc"
-    },
-    {
-      "__outstatic": {
-        "commit": "20f78291e72674a925c323c6ee222cbe46da7f77",
-        "hash": "4188643678",
-        "path": "outstatic/content/actualites/recherche-terrains.mdx"
-      },
-      "author": {
-        "name": "JPP",
-        "picture": "https://avatars.githubusercontent.com/u/204351074?v=4"
-      },
-      "categories": [
-        {
-          "label": "Air",
-          "value": "Air"
-        }
-      ],
-      "collection": "actualites",
-      "description": "Pierre Couëtoux, doctorant, étudie le déplacement des polluants sur les pentes de la vallée. Il recherche des terrains pour mettre en œuvre des mini-stations afin de récolter des données sur les particules fines à différentes altitudes.\nSi vous souhaitez participer à cette étude, vous pouvez contacter Pierre Couëtoux – pierre-couetoutx@univ-grenoble-alpes.fr",
-      "image": "/images/implantation_balises-Y2Mz.png",
-      "publishedAt": "2025-01-28T23:00:00.000Z",
-      "slug": "recherche-terrains",
-      "status": "published",
-      "title": "Recherche de terrains"
     },
     {
       "__outstatic": {
@@ -552,6 +528,30 @@
       "slug": "nouvelle-permanence-a-l-institut-eco-citoyen-du-pays-du-mont-blanc",
       "status": "published",
       "title": "Nouvelle permanence à l’Institut Écocitoyen du Pays du Mont Blanc"
+    },
+    {
+      "__outstatic": {
+        "commit": "046aa1f823a0f4f9904553df0b56b8c11b67c020",
+        "hash": "2974176947",
+        "path": "outstatic/content/actualites/recherche-terrains.mdx"
+      },
+      "author": {
+        "name": "JPP",
+        "picture": "https://avatars.githubusercontent.com/u/204351074?v=4"
+      },
+      "categories": [
+        {
+          "label": "Air",
+          "value": "Air"
+        }
+      ],
+      "collection": "actualites",
+      "description": "Un doctorant recherche des terrains à différentes altitudes pour installer des mini-stations et étudier le déplacement des particules fines dans la vallée.",
+      "image": "/images/implantation_balises-Y2Mz.png",
+      "publishedAt": "2025-01-28T23:00:00.000Z",
+      "slug": "recherche-terrains",
+      "status": "published",
+      "title": "Recherche de terrains"
     }
   ]
 }
