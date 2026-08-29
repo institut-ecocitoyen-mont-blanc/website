@@ -5,7 +5,6 @@ import {
   rename,
   rm,
   stat,
-  writeFile,
 } from "node:fs/promises";
 import path from "node:path";
 import sharp from "sharp";
@@ -29,6 +28,80 @@ const TEXT_EXTENSIONS = new Set([
   ".xml",
 ]);
 const RASTER_EXTENSIONS = new Set([".avif", ".jpeg", ".jpg", ".png", ".webp"]);
+
+function imagePipeline(input, extension, maxDimension, usePalette = false) {
+  const pipeline = sharp(input).rotate().resize({
+    width: maxDimension,
+    height: maxDimension,
+    fit: "inside",
+    withoutEnlargement: true,
+  });
+
+  switch (extension) {
+    case ".avif":
+      return pipeline.avif({ quality: 55, effort: 5 });
+    case ".jpeg":
+    case ".jpg":
+      return pipeline.jpeg({ quality: 85, mozjpeg: true });
+    case ".png":
+      return pipeline.png({
+        compressionLevel: 9,
+        adaptiveFiltering: true,
+        palette: usePalette,
+        quality: 90,
+        effort: 10,
+      });
+    case ".webp":
+      return pipeline.webp({ quality: 85, smartSubsample: true });
+    default:
+      throw new Error(`Unsupported image extension: ${extension}`);
+  }
+}
+
+async function optimizeInPlace(input) {
+  const extension = path.extname(input).toLowerCase();
+  const inputStats = await stat(input);
+  const inputMetadata = await sharp(input).metadata();
+  const temporaryOutput = `${input}.optimized${extension}`;
+  let maxDimension = MAX_DIMENSION;
+  let usePalette = false;
+
+  for (let attempt = 0; attempt < 8; attempt += 1) {
+    await imagePipeline(input, extension, maxDimension, usePalette).toFile(
+      temporaryOutput,
+    );
+
+    const outputStats = await stat(temporaryOutput);
+    if (outputStats.size <= MAX_BYTES) break;
+
+    if (extension === ".png" && !usePalette) {
+      usePalette = true;
+      continue;
+    }
+
+    const scale = Math.min(
+      0.9,
+      Math.max(0.5, Math.sqrt(MAX_BYTES / outputStats.size) * 0.95),
+    );
+    const nextMaxDimension = Math.max(320, Math.floor(maxDimension * scale));
+    if (nextMaxDimension === maxDimension) break;
+    maxDimension = nextMaxDimension;
+  }
+
+  const outputStats = await stat(temporaryOutput);
+  const mustReplace =
+    inputStats.size > MAX_BYTES ||
+    (inputMetadata.width ?? 0) > MAX_DIMENSION ||
+    (inputMetadata.height ?? 0) > MAX_DIMENSION;
+
+  if (mustReplace || outputStats.size < inputStats.size) {
+    await rename(temporaryOutput, input);
+    return { before: inputStats.size, after: outputStats.size, replaced: true };
+  }
+
+  await rm(temporaryOutput);
+  return { before: inputStats.size, after: inputStats.size, replaced: false };
+}
 
 async function collectFiles(directory) {
   const entries = await readdir(directory, { withFileTypes: true });
@@ -116,106 +189,26 @@ for (const input of imageFiles) {
   }
 }
 
-const rewrites = new Map();
 let originalBytes = 0;
 let optimizedBytes = 0;
+let optimizedImages = 0;
 
 for (const input of imageFiles) {
-  const extension = path.extname(input).toLowerCase();
-  const inputStats = await stat(input);
-  const relativeInput = path.relative(EXPORT_ROOT, input);
-  const temporaryOutput = `${input}.optimized.webp`;
-
-  originalBytes += inputStats.size;
-
-  await sharp(input)
-    .rotate()
-    .resize({
-      width: MAX_DIMENSION,
-      height: MAX_DIMENSION,
-      fit: "inside",
-      withoutEnlargement: true,
-    })
-    .webp({ quality: 85, smartSubsample: true })
-    .toFile(temporaryOutput);
-
-  const outputStats = await stat(temporaryOutput);
-
-  if (extension === ".webp") {
-    if (outputStats.size < inputStats.size) {
-      await rename(temporaryOutput, input);
-      optimizedBytes += outputStats.size;
-    } else {
-      await rm(temporaryOutput);
-      optimizedBytes += inputStats.size;
-    }
-    continue;
-  }
-
-  const output = `${input.slice(0, -extension.length)}.webp`;
-  if (outputStats.size >= inputStats.size) {
-    await rm(temporaryOutput);
-    optimizedBytes += inputStats.size;
-    continue;
-  }
-
-  try {
-    await stat(output);
-    throw new Error(`Image optimization collision: ${output}`);
-  } catch (error) {
-    if (
-      !(
-        error &&
-        typeof error === "object" &&
-        "code" in error &&
-        error.code === "ENOENT"
-      )
-    ) {
-      throw error;
-    }
-  }
-
-  await rename(temporaryOutput, output);
-  optimizedBytes += outputStats.size;
-  rewrites.set(relativeInput, path.relative(EXPORT_ROOT, output));
-}
-
-for (const file of textFiles) {
-  const original = await readFile(file, "utf8");
-  let rewritten = original;
-
-  for (const [from, to] of rewrites) {
-    rewritten = rewritten.split(from).join(to);
-    rewritten = rewritten
-      .split(from.replaceAll("/", "\\/"))
-      .join(to.replaceAll("/", "\\/"));
-  }
-
-  if (rewritten !== original) {
-    await writeFile(file, rewritten);
-  }
-}
-
-for (const [relativeInput] of rewrites) {
-  const input = path.join(EXPORT_ROOT, relativeInput);
-  const plainReference = relativeInput;
-  const escapedReference = relativeInput.replaceAll("/", "\\/");
-
-  for (const file of textFiles) {
-    const contents = await readFile(file, "utf8");
-    if (
-      contents.includes(plainReference) ||
-      contents.includes(escapedReference)
-    ) {
-      throw new Error(`Unrewritten image reference ${relativeInput} in ${file}`);
-    }
-  }
-
-  await rm(input);
+  const result = await optimizeInPlace(input);
+  originalBytes += result.before;
+  optimizedBytes += result.after;
+  if (result.replaced) optimizedImages += 1;
 }
 
 for (const output of responsiveOutputs) {
   await stat(output);
+}
+
+for (const [index, file] of textFiles.entries()) {
+  const finalContents = await readFile(file, "utf8");
+  if (finalContents !== textContents[index]) {
+    throw new Error(`Image optimization unexpectedly changed text asset: ${file}`);
+  }
 }
 
 const finalImageFiles = (await collectFiles(EXPORT_ROOT)).filter(
@@ -260,5 +253,5 @@ const reduction =
     ? 0
     : Math.round((1 - optimizedBytes / originalBytes) * 100);
 console.log(
-  `Optimized ${imageFiles.length} exported images (${rewrites.size} converted to WebP, ${reduction}% smaller) and generated ${responsiveOutputs.length} referenced responsive variants (${(responsiveBytes / 1_000_000).toFixed(2)} MB).`,
+  `Optimized ${optimizedImages} of ${imageFiles.length} exported source images in place (${reduction}% smaller) and generated ${responsiveOutputs.length} referenced WebP variants (${(responsiveBytes / 1_000_000).toFixed(2)} MB).`,
 );
