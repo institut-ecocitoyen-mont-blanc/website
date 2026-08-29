@@ -1,6 +1,6 @@
 {
-  "commit": "389b44169987a223e20da48335b7af64acfebaef",
-  "generated": "2026-08-29T11:43:00.709Z",
+  "commit": "6e97b0eaf5b15393dc07d37d2eea91e79d6ca382",
+  "generated": "2026-08-29T11:43:22.622Z",
   "metadata": [
     {
       "__outstatic": {
@@ -646,6 +646,31 @@
       "slugProjet": "lichens",
       "status": "published",
       "title": "À la découverte des lichens !"
+    },
+    {
+      "__outstatic": {
+        "commit": "6e97b0eaf5b15393dc07d37d2eea91e79d6ca382",
+        "hash": "4055043193",
+        "path": "outstatic/content/evenements/journees-etudes-epidemiologiques.mdx"
+      },
+      "author": {
+        "name": "Mathieu Dutour",
+        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
+      },
+      "categories": [
+        {
+          "label": "Santé",
+          "value": "santé"
+        }
+      ],
+      "collection": "evenements",
+      "description": "Un webinaire réunit trois Instituts Écocitoyens autour de l’épidémiologie participative et de la santé environnementale au Pays du Mont-Blanc.",
+      "image": "/images/epidemiologie-Y3Mz.png",
+      "publishedAt": "2025-03-09T23:00:00.000Z",
+      "slug": "journees-etudes-epidemiologiques",
+      "slugProjet": "etude-epidemiologique",
+      "status": "published",
+      "title": "Webinaire en santé environnementale"
     }
   ]
 }
