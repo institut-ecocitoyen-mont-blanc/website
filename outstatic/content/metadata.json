@@ -1,6 +1,6 @@
 {
-  "commit": "d829db56692dde3a75c345f941d42dafd373605f",
-  "generated": "2026-05-28T07:54:36.797Z",
+  "commit": "7a01fd04a9f39ba1d6c31a69aeaa1263b748604f",
+  "generated": "2026-08-29T11:28:48.231Z",
   "metadata": [
     {
       "__outstatic": {
@@ -261,22 +261,6 @@
       "slug": "a-propos",
       "status": "published",
       "title": "À Propos"
-    },
-    {
-      "__outstatic": {
-        "commit": "1e8da1b57b5f8571db9a67ee99f2a76b523d1c3f",
-        "hash": "3832729409",
-        "path": "outstatic/content/_singletons/mentions-legales.md"
-      },
-      "author": {
-        "name": "Mathieu Dutour",
-        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
-      },
-      "collection": "_singletons",
-      "publishedAt": "2026-01-29T09:12:07.121Z",
-      "slug": "mentions-legales",
-      "status": "published",
-      "title": "Mentions Légales"
     },
     {
       "__outstatic": {
@@ -550,6 +534,22 @@
       "slug": "conference-sur-les-effets-des-microplastiques-dans-les-lacs-de-montagne",
       "status": "published",
       "title": "Conférence sur les effets des microplastiques dans les lacs de montagne "
+    },
+    {
+      "__outstatic": {
+        "commit": "7a01fd04a9f39ba1d6c31a69aeaa1263b748604f",
+        "hash": "3207853864",
+        "path": "outstatic/content/_singletons/mentions-legales.md"
+      },
+      "author": {
+        "name": "Mathieu Dutour",
+        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
+      },
+      "collection": "_singletons",
+      "publishedAt": "2026-01-29T09:12:07.121Z",
+      "slug": "mentions-legales",
+      "status": "published",
+      "title": "Mentions Légales"
     }
   ]
 }
