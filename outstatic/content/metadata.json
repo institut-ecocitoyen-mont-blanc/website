@@ -1,6 +1,6 @@
 {
-  "commit": "98cc74b2bea6ff55942c00cc9c89880b2e306d13",
-  "generated": "2026-08-29T11:33:03.149Z",
+  "commit": "35988a24adc3dc09b360c28813e1abf056cdf750",
+  "generated": "2026-08-29T11:34:05.467Z",
   "metadata": [
     {
       "__outstatic": {
@@ -189,27 +189,6 @@
       "slug": "nouveaux-locaux-institut",
       "status": "published",
       "title": "Nouveaux locaux pour l'Institut"
-    },
-    {
-      "__outstatic": {
-        "commit": "4570e97497a3450671a444b877099c055f76cc07",
-        "hash": "1521118184",
-        "path": "outstatic/content/actualites/lettre-information.mdx"
-      },
-      "author": {
-        "name": "JPP",
-        "picture": "https://avatars.githubusercontent.com/u/204351074?v=4"
-      },
-      "categories": [
-      ],
-      "collection": "actualites",
-      "dateEvenement": "2025-04-04T22:00:00.000Z",
-      "description": "Le numéro 2 de la lettre d'information est paru en Janvier 2025",
-      "image": "/images/logo---rvb-U5OD.jpg",
-      "publishedAt": "2025-01-26T23:00:00.000Z",
-      "slug": "lettre-information",
-      "status": "published",
-      "title": "Lettre d'information #2"
     },
     {
       "__outstatic": {
@@ -551,6 +530,27 @@
       "slug": "journee-d-etude-participative-en-vallee-de-l-arve-quand-science-et-citoyennete-dialoguent-autour-des-pollutions",
       "status": "published",
       "title": "Journée d’étude participative en vallée de l’Arve : quand science et citoyenneté dialoguent autour des pollutions"
+    },
+    {
+      "__outstatic": {
+        "commit": "35988a24adc3dc09b360c28813e1abf056cdf750",
+        "hash": "81347439",
+        "path": "outstatic/content/actualites/lettre-information.mdx"
+      },
+      "author": {
+        "name": "JPP",
+        "picture": "https://avatars.githubusercontent.com/u/204351074?v=4"
+      },
+      "categories": [
+      ],
+      "collection": "actualites",
+      "dateEvenement": "2025-04-04T22:00:00.000Z",
+      "description": "Le numéro 2 de la lettre d’information, paru en janvier 2025, revient sur les actions de 2024 et présente les rendez-vous de l’Institut pour 2025.",
+      "image": "/images/logo---rvb-U5OD.jpg",
+      "publishedAt": "2025-01-26T23:00:00.000Z",
+      "slug": "lettre-information",
+      "status": "published",
+      "title": "Lettre d'information #2"
     }
   ]
 }
