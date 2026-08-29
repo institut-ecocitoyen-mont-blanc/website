@@ -1,6 +1,6 @@
 {
-  "commit": "5f13db7680ce07b8efd0d23e0aa248f7293215a3",
-  "generated": "2026-08-29T11:46:01.692Z",
+  "commit": "07d4b36d3c5e32c5a363bed2f527b82f2bc9b11d",
+  "generated": "2026-08-29T11:46:18.835Z",
   "metadata": [
     {
       "__outstatic": {
@@ -272,53 +272,6 @@
       "slug": "crea-mont-blanc",
       "status": "published",
       "title": "CREA Mont Blanc"
-    },
-    {
-      "__outstatic": {
-        "commit": "26a823e98447da4505d16e460265555690409175",
-        "hash": "1124042618",
-        "path": "outstatic/content/projets/livre-blanc-etudes-documents.mdx"
-      },
-      "author": {
-        "name": "JPP",
-        "picture": "https://avatars.githubusercontent.com/u/204351074?v=4"
-      },
-      "categories": [
-        {
-          "label": "Eau",
-          "value": "Eau"
-        },
-        {
-          "label": "Air",
-          "value": "Air"
-        },
-        {
-          "label": "Sol",
-          "value": "Sol"
-        },
-        {
-          "label": "Santé",
-          "value": "Santé"
-        },
-        {
-          "label": "Science Participative",
-          "value": "Science Participative"
-        }
-      ],
-      "collection": "projets",
-      "description": "Etat des lieux documentaire des connaissances sur les pollutions, les polluants et leurs impacts sur la santé et l’environnement.\nAteliers de sciences participatives citoyennes afin de collecter les données.\n",
-      "etat": [
-        {
-          "label": "Terminé",
-          "value": "Terminé"
-        }
-      ],
-      "image": "/images/journee-recherche-Y3Nz.png",
-      "lienScienceParticipative": "https://docs.google.com/forms/d/1qTt_72Y2AS3Q7Y5ZhVfZUtLsoCetEqLddHt8Jt5kda4/edit?usp=sharing_eil&ts=67f8ede6",
-      "publishedAt": "2025-03-28T15:27:14.211Z",
-      "slug": "livre-blanc-etudes-documents",
-      "status": "published",
-      "title": "Livre blanc : État des lieux et des connaissances existantes sur les pollutions "
     },
     {
       "__outstatic": {
@@ -671,6 +624,53 @@
       "slug": "livre-blanc-pollutions-polluants",
       "status": "published",
       "title": "Inventaire participatif des sources de pollutions dans la Vallée de l'Arve"
+    },
+    {
+      "__outstatic": {
+        "commit": "07d4b36d3c5e32c5a363bed2f527b82f2bc9b11d",
+        "hash": "1841827392",
+        "path": "outstatic/content/projets/livre-blanc-etudes-documents.mdx"
+      },
+      "author": {
+        "name": "JPP",
+        "picture": "https://avatars.githubusercontent.com/u/204351074?v=4"
+      },
+      "categories": [
+        {
+          "label": "Eau",
+          "value": "Eau"
+        },
+        {
+          "label": "Air",
+          "value": "Air"
+        },
+        {
+          "label": "Sol",
+          "value": "Sol"
+        },
+        {
+          "label": "Santé",
+          "value": "Santé"
+        },
+        {
+          "label": "Science Participative",
+          "value": "Science Participative"
+        }
+      ],
+      "collection": "projets",
+      "description": "Etat des lieux documentaire des connaissances sur les pollutions, les polluants et leurs impacts sur la santé et l’environnement.\nAteliers de sciences participatives citoyennes afin de collecter les données.\n",
+      "etat": [
+        {
+          "label": "Terminé",
+          "value": "Terminé"
+        }
+      ],
+      "image": "/images/journee-recherche-Y3Nz.png",
+      "lienScienceParticipative": "https://docs.google.com/forms/d/1qTt_72Y2AS3Q7Y5ZhVfZUtLsoCetEqLddHt8Jt5kda4/edit?usp=sharing_eil&ts=67f8ede6",
+      "publishedAt": "2025-03-28T15:27:14.211Z",
+      "slug": "livre-blanc-etudes-documents",
+      "status": "published",
+      "title": "Livre blanc : État des lieux et des connaissances existantes sur les pollutions "
     }
   ]
 }
