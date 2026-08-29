@@ -1,6 +1,6 @@
 {
-  "commit": "a1e9806437ecfd04073a0d4b2f73bb1d5bfff16b",
-  "generated": "2026-08-29T11:36:43.361Z",
+  "commit": "4b69cb39582496f67bde66ba6ca1f2cc6bff7c29",
+  "generated": "2026-08-29T11:39:47.378Z",
   "metadata": [
     {
       "__outstatic": {
@@ -418,26 +418,6 @@
     },
     {
       "__outstatic": {
-        "commit": "fe5da20b84e6ccd78e1eb31c451e7f91c4e69758",
-        "hash": "4178811200",
-        "path": "outstatic/content/evenements/conference-sur-les-effets-des-microplastiques-dans-les-lacs-de-montagne.mdx"
-      },
-      "author": {
-        "name": "Mathieu Dutour",
-        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
-      },
-      "categories": [
-      ],
-      "collection": "evenements",
-      "description": "Rejoignez-nous pour une conférence passionnante en présence de la chercheuse Julia Dusaucy sur l'impact des microplastiques sur notre santé et l'environnement, animée par des experts reconnus.",
-      "image": "/images/antoine-giret-7_TSzqJms4w-unsplash.jpg",
-      "publishedAt": "2025-06-17T22:00:00.000Z",
-      "slug": "conference-sur-les-effets-des-microplastiques-dans-les-lacs-de-montagne",
-      "status": "published",
-      "title": "Conférence sur les effets des microplastiques dans les lacs de montagne "
-    },
-    {
-      "__outstatic": {
         "commit": "7a01fd04a9f39ba1d6c31a69aeaa1263b748604f",
         "hash": "3207853864",
         "path": "outstatic/content/_singletons/mentions-legales.md"
@@ -596,6 +576,26 @@
       "slug": "conference-particules-ultrafines",
       "status": "published",
       "title": "Conférence sur les particules ultrafines"
+    },
+    {
+      "__outstatic": {
+        "commit": "4b69cb39582496f67bde66ba6ca1f2cc6bff7c29",
+        "hash": "681548693",
+        "path": "outstatic/content/evenements/conference-sur-les-effets-des-microplastiques-dans-les-lacs-de-montagne.mdx"
+      },
+      "author": {
+        "name": "Mathieu Dutour",
+        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
+      },
+      "categories": [
+      ],
+      "collection": "evenements",
+      "description": "La chercheuse Julia Dusaucy présente ses travaux sur la contamination des lacs alpins par les microplastiques et leurs effets sur l’environnement.",
+      "image": "/images/antoine-giret-7_TSzqJms4w-unsplash.jpg",
+      "publishedAt": "2025-06-17T22:00:00.000Z",
+      "slug": "conference-sur-les-effets-des-microplastiques-dans-les-lacs-de-montagne",
+      "status": "published",
+      "title": "Conférence sur les effets des microplastiques dans les lacs de montagne "
     }
   ]
 }
