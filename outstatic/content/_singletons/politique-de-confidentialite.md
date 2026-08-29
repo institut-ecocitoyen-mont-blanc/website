@@ -1,49 +1,49 @@
 ---
-publishedAt: "2026-01-29T09:14:31.566Z"
-title: "Politique de Confidentialité"
-status: "published"
+publishedAt: 2026-01-29T09:14:31.566Z
+title: Politique de Confidentialité
+status: published
 author:
-  name: "Mathieu Dutour"
-  picture: "https://avatars.githubusercontent.com/u/3254314?v=4"
-slug: "politique-de-confidentialite"
+  name: Mathieu Dutour
+  picture: https://avatars.githubusercontent.com/u/3254314?v=4
+slug: politique-de-confidentialite
 ---
 
-# **Politique de Confidentialité**
+# **Politique de confidentialité**
 
 ## **Introduction**
 
-L'Institut Ecocitoyen du Pays du Mont Blanc s'engage à protéger la vie privée des utilisateurs de son site internet. Cette politique de confidentialité explique comment nous collectons, utilisons et protégeons vos données personnelles lorsque vous visitez notre site ou utilisez nos services.
-
-En utilisant notre site, vous consentez à la collecte et à l'utilisation de vos informations conformément à cette politique.
+L'Institut Écocitoyen du Pays du Mont-Blanc s'engage à protéger la vie privée des utilisateurs de son site internet. Cette politique explique quelles données peuvent être traitées lorsque vous consultez le site ou contactez l'Institut.
 
 ## **Données collectées**
 
-Nous pouvons collecter les types d'informations suivants :
+Le site public ne comporte ni compte utilisateur ni formulaire transmettant directement des données personnelles à l'Institut.
 
-- **Informations d'identification personnelle** : nom, prénom, adresse e-mail, numéro de téléphone, lorsque vous nous contactez via notre formulaire de contact ou lorsque vous vous inscrivez à notre newsletter.
-- **Informations de navigation** : adresse IP, type de navigateur, pages visitées, temps passé sur le site, via des cookies et technologies similaires.
+Lorsque vous nous contactez par e-mail ou demandez votre inscription à la newsletter, nous recevons les informations que vous choisissez de communiquer, notamment votre adresse e-mail et le contenu de votre message.
+
+Les prestataires techniques qui assurent l'hébergement et la sécurité du site peuvent traiter des données de connexion, telles que l'adresse IP, le type de navigateur, la date et l'heure de la requête, dans leurs journaux techniques.
 
 ## **Utilisation des données**
 
 Nous utilisons vos données personnelles pour :
 
 - Répondre à vos demandes et questions
-- Vous envoyer notre newsletter si vous vous y êtes inscrit
-- Améliorer notre site web et nos services
-- Analyser l'utilisation de notre site
+- Gérer votre inscription à la newsletter lorsque vous la demandez
+- Assurer le fonctionnement et la sécurité du site
 - Respecter nos obligations légales
 
 ## **Partage des données**
 
-Nous ne vendons, n'échangeons ni ne transférons vos informations personnelles à des tiers, sauf dans les cas suivants :
+Nous ne vendons ni ne louons vos données personnelles. Elles peuvent être traitées par les prestataires techniques nécessaires au fonctionnement du site et de la messagerie, ou communiquées lorsque la loi l'exige.
 
-- Avec des prestataires de services qui nous aident à gérer notre site et nos services
-- Si la loi nous y oblige
-- Pour protéger nos droits, notre propriété ou notre sécurité, ou ceux de nos utilisateurs ou d'autres personnes
+Le site public est hébergé par Cloudflare et l'interface d'administration par Vercel. Ces prestataires peuvent traiter des données techniques conformément à leurs propres engagements contractuels et règles de confidentialité.
 
 ## **Sécurité des données**
 
-Nous mettons en œuvre des mesures de sécurité appropriées pour protéger vos données personnelles contre tout accès, modification, divulgation ou destruction non autorisés.
+Nous mettons en œuvre des mesures raisonnables pour protéger les données personnelles contre tout accès, modification, divulgation ou destruction non autorisés.
+
+## **Durée de conservation**
+
+Les données reçues par e-mail sont conservées pendant la durée nécessaire au traitement de votre demande, à la gestion de la relation avec l'Institut et au respect de ses obligations légales. Vous pouvez demander à tout moment votre désinscription de la newsletter.
 
 ## **Vos droits**
 
@@ -58,11 +58,13 @@ Conformément au RGPD, vous disposez des droits suivants concernant vos données
 
 Pour exercer ces droits, veuillez nous contacter à l'adresse :
 
-[contact@institut-pmb.fr](mailto:contact@institut-ecocitoyen.fr)
+[contact@institut-pmb.fr](mailto:contact@institut-pmb.fr)
 
 ## **Cookies**
 
-Notre site n'utilise pas de cookies.
+Le site public ne dépose pas de cookies de mesure d'audience, de publicité ou de suivi.
+
+La carte peut utiliser le stockage local du navigateur pour conserver temporairement des données nécessaires à son fonctionnement. Ces informations restent sur votre appareil et ne sont pas utilisées pour vous identifier ou suivre votre navigation.
 
 ## **Modifications de la politique de confidentialité**
 
@@ -70,4 +72,4 @@ Nous nous réservons le droit de modifier cette politique de confidentialité à
 
 ## **Contact**
 
-Si vous avez des questions concernant cette politique de confidentialité, vous pouvez nous contacter à l'adresse suivante : [contact@institut-pmb.fr](mailto:contact@institut-ecocitoyen.fr)
+Si vous avez des questions concernant cette politique de confidentialité, vous pouvez nous contacter à l'adresse suivante : [contact@institut-pmb.fr](mailto:contact@institut-pmb.fr)

@@ -1,6 +1,6 @@
 {
-  "commit": "7a01fd04a9f39ba1d6c31a69aeaa1263b748604f",
-  "generated": "2026-08-29T11:28:48.231Z",
+  "commit": "4584ec5d626f9bbc9a36e56428fc54cfe8a2972e",
+  "generated": "2026-08-29T11:31:51.320Z",
   "metadata": [
     {
       "__outstatic": {
@@ -280,22 +280,6 @@
     },
     {
       "__outstatic": {
-        "commit": "244f3289778bced3c7460501424c24a841056410",
-        "hash": "931053632",
-        "path": "outstatic/content/_singletons/politique-de-confidentialite.md"
-      },
-      "author": {
-        "name": "Mathieu Dutour",
-        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
-      },
-      "collection": "_singletons",
-      "publishedAt": "2026-01-29T09:14:31.566Z",
-      "slug": "politique-de-confidentialite",
-      "status": "published",
-      "title": "Politique de Confidentialité"
-    },
-    {
-      "__outstatic": {
         "commit": "8ef6c8fbbb6a6e5bb442275234c04eea86081e5b",
         "hash": "4055680097",
         "path": "outstatic/content/actualites/rapport-d-activite-2025.mdx"
@@ -550,6 +534,22 @@
       "slug": "mentions-legales",
       "status": "published",
       "title": "Mentions Légales"
+    },
+    {
+      "__outstatic": {
+        "commit": "4584ec5d626f9bbc9a36e56428fc54cfe8a2972e",
+        "hash": "2292344226",
+        "path": "outstatic/content/_singletons/politique-de-confidentialite.md"
+      },
+      "author": {
+        "name": "Mathieu Dutour",
+        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
+      },
+      "collection": "_singletons",
+      "publishedAt": "2026-01-29T09:14:31.566Z",
+      "slug": "politique-de-confidentialite",
+      "status": "published",
+      "title": "Politique de Confidentialité"
     }
   ]
 }
