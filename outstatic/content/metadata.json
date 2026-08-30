@@ -1,6 +1,6 @@
 {
-  "commit": "07d4b36d3c5e32c5a363bed2f527b82f2bc9b11d",
-  "generated": "2026-08-29T11:46:18.835Z",
+  "commit": "7b7b714079eddf795a65e4bc30b682f6bb283ab4",
+  "generated": "2026-08-30T07:02:25.989Z",
   "metadata": [
     {
       "__outstatic": {
@@ -525,31 +525,6 @@
     },
     {
       "__outstatic": {
-        "commit": "6e97b0eaf5b15393dc07d37d2eea91e79d6ca382",
-        "hash": "4055043193",
-        "path": "outstatic/content/evenements/journees-etudes-epidemiologiques.mdx"
-      },
-      "author": {
-        "name": "Mathieu Dutour",
-        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
-      },
-      "categories": [
-        {
-          "label": "Santé",
-          "value": "santé"
-        }
-      ],
-      "collection": "evenements",
-      "description": "Un webinaire réunit trois Instituts Écocitoyens autour de l’épidémiologie participative et de la santé environnementale au Pays du Mont-Blanc.",
-      "image": "/images/epidemiologie-Y3Mz.png",
-      "publishedAt": "2025-03-09T23:00:00.000Z",
-      "slug": "journees-etudes-epidemiologiques",
-      "slugProjet": "etude-epidemiologique",
-      "status": "published",
-      "title": "Webinaire en santé environnementale"
-    },
-    {
-      "__outstatic": {
         "commit": "98acc88f888229272af8d0c0755f822cf76ec54b",
         "hash": "3299358351",
         "path": "outstatic/content/projets/lichens.mdx"
@@ -671,6 +646,31 @@
       "slug": "livre-blanc-etudes-documents",
       "status": "published",
       "title": "Livre blanc : État des lieux et des connaissances existantes sur les pollutions "
+    },
+    {
+      "__outstatic": {
+        "commit": "7b7b714079eddf795a65e4bc30b682f6bb283ab4",
+        "hash": "291549890",
+        "path": "outstatic/content/evenements/journees-etudes-epidemiologiques.mdx"
+      },
+      "author": {
+        "name": "Mathieu Dutour",
+        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
+      },
+      "categories": [
+        {
+          "label": "Santé",
+          "value": "santé"
+        }
+      ],
+      "collection": "evenements",
+      "description": "Un webinaire réunit trois Instituts Écocitoyens autour de l’épidémiologie participative et de la santé environnementale au Pays du Mont-Blanc.",
+      "image": "/images/epidemiologie-Y3Mz.png",
+      "publishedAt": "2025-03-09T23:00:00.000Z",
+      "slug": "journees-etudes-epidemiologiques",
+      "slugProjet": "",
+      "status": "published",
+      "title": "Webinaire en santé environnementale"
     }
   ]
 }
