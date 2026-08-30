@@ -91,7 +91,7 @@ export default async function ProjectPage({
               )}
               {projet.etat}
             </Badge>
-            <p
+            <div
               className="text-gray-600 mb-6 markdown"
               dangerouslySetInnerHTML={{ __html: projet.content }}
             />

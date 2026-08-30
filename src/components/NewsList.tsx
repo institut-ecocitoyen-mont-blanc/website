@@ -216,8 +216,12 @@ export function NewsList({
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-        {filteredNews.map((item) => (
-          <NewsCard key={item.slug} item={item} />
+        {filteredNews.map((item, index) => (
+          <NewsCard
+            key={item.slug}
+            item={item}
+            preloadImage={index === 0}
+          />
         ))}
       </div>
 

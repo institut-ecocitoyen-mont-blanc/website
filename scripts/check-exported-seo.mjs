@@ -38,6 +38,14 @@ for (const file of htmlFiles) {
     ...html.matchAll(/<link rel="canonical" href="([^"]+)"\/>/g),
   ];
 
+  if (
+    /<p\b[^>]*class="[^"]*\bmarkdown\b[^"]*"[^>]*>\s*<(?:p|h[1-6]|ul|ol|div)\b/i.test(
+      html,
+    )
+  ) {
+    errors.push(`${file}: block-level Markdown content is nested inside a p`);
+  }
+
   if (titles.length !== 1) {
     errors.push(`${file}: expected one title, found ${titles.length}`);
   }

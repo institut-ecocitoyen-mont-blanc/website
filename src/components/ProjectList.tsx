@@ -178,8 +178,12 @@ export function ProjectList({
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {filteredProjects.map((project) => (
-          <ProjectCard key={project.slug} project={project} />
+        {filteredProjects.map((project, index) => (
+          <ProjectCard
+            key={project.slug}
+            project={project}
+            preloadImage={index === 0}
+          />
         ))}
       </div>
 

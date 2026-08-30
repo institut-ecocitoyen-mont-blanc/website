@@ -88,8 +88,10 @@ export const categoryFilters: {
 
 export function NewsCard({
   item,
+  preloadImage = false,
 }: {
   item: NewsItem;
+  preloadImage?: boolean;
 }) {
   const isEvent = item.categories.includes("Événement");
   const isPresse = item.kind === "presse";
@@ -118,6 +120,7 @@ export function NewsCard({
           alt={item.title}
           fill
           sizes="(min-width: 768px) 33vw, 100vw"
+          preload={preloadImage}
           className="object-cover transition-transform duration-300 group-hover:scale-105"
         />
         {isEvent && (

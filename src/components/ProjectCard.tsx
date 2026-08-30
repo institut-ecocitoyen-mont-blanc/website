@@ -86,6 +86,7 @@ export const categoryFilters: {
 
 export function ProjectCard({
   project,
+  preloadImage = false,
 }: {
   project: {
     title: string;
@@ -95,6 +96,7 @@ export function ProjectCard({
     slug: string;
     categories: ProjectCategory[];
   };
+  preloadImage?: boolean;
 }) {
   return (
     <Card key={project.slug} className="group bg-white/80">
@@ -104,6 +106,7 @@ export function ProjectCard({
           alt={project.title}
           fill
           sizes="(min-width: 768px) 50vw, 100vw"
+          preload={preloadImage}
           className="object-cover transition-transform duration-300 group-hover:scale-105"
         />
         <Badge
