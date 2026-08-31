@@ -85,6 +85,28 @@ for (const [file, expectedCanonical] of expectedListingCanonicals) {
   }
 }
 
+// Check actual markup, not matching copy inside serialized React payloads.
+const mapHtml = (await readFile(path.join(EXPORT_ROOT, "carte.html"), "utf8"))
+  .replace(/<(script|style|template)\b[^>]*>[\s\S]*?<\/\1>/gi, "");
+const mapMain = mapHtml.match(/<main\b[^>]*>([\s\S]*?)<\/main>/i)?.[1] ?? "";
+const mapHeadings = [...mapMain.matchAll(/<h1\b[^>]*>([\s\S]*?)<\/h1>/gi)];
+if (mapHeadings.length !== 1 || !mapHeadings[0][1].trim()) {
+  errors.push("carte.html: expected one server-rendered map heading");
+}
+
+const mapText = mapMain.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ");
+for (const content of [
+  "Visualisez les sites de pollution recensés dans le Pays du Mont Blanc.",
+  "Cet inventaire est en cours de construction.",
+]) {
+  if (!mapText.includes(content)) {
+    errors.push(`carte.html: missing server-rendered content: ${content}`);
+  }
+}
+if (!mapMain.includes('href="https://forms.gle/oUp7WnxcNppePk5PA"')) {
+  errors.push("carte.html: missing server-rendered contribution form link");
+}
+
 const robots = await readFile(path.join(EXPORT_ROOT, "robots.txt"), "utf8");
 if (!robots.includes("Disallow: /outstatic/")) {
   errors.push("robots.txt: public CMS redirect is not disallowed");

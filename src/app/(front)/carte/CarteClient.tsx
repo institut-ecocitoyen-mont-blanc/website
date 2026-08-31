@@ -621,286 +621,253 @@ export default function CarteClient({
   }, [selectedSite, handleSelectSite]);
 
   return (
-    <main className="grow min-h-screen bg-gray-100">
-      <section className="py-16 pt-32 min-h-screen">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-8">
-            <h1 className="text-4xl font-bold text-blue-iec mb-4">
-              Carte des Sites de Pollution
-            </h1>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              Visualisez les sites de pollution recensés dans le Pays du Mont
-              Blanc.
+    <>
+      {dataError && (
+        <div
+          role="alert"
+          className={
+            "border rounded-lg p-4 mb-6 flex items-start gap-3 " +
+            (inventory.fromLocalCache
+              ? "bg-amber-50 border-amber-200 text-amber-900"
+              : "bg-red-50 border-red-200 text-red-900")
+          }
+        >
+          <AlertTriangle className="w-5 h-5 shrink-0 mt-0.5" />
+          <div>
+            <p className="font-semibold">
+              Le fichier d’inventaire est temporairement indisponible.
             </p>
-          </div>
-
-          <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 mb-6">
-            <p className="text-amber-800 text-sm">
-              Cet inventaire est en cours de construction. Nous nous appuyons
-              également sur la mémoire et la connaissance collective. Si vous
-              connaissez une source de pollution qui ne figure pas sur cette
-              carte,{" "}
-              <a
-                href="https://forms.gle/oUp7WnxcNppePk5PA"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-semibold underline hover:text-amber-900"
-              >
-                merci de remplir ce formulaire
-              </a>
-              .
+            <p className="text-sm mt-1">
+              {inventory.fromLocalCache
+                ? "La dernière version enregistrée sur cet appareil reste affichée."
+                : "Aucune version enregistrée n’est disponible sur cet appareil. Veuillez réessayer plus tard."}
             </p>
-          </div>
-
-          {dataError && (
-            <div
-              role="alert"
-              className={
-                "border rounded-lg p-4 mb-6 flex items-start gap-3 " +
-                (inventory.fromLocalCache
-                  ? "bg-amber-50 border-amber-200 text-amber-900"
-                  : "bg-red-50 border-red-200 text-red-900")
-              }
-            >
-              <AlertTriangle className="w-5 h-5 shrink-0 mt-0.5" />
-              <div>
-                <p className="font-semibold">
-                  Le fichier d’inventaire est temporairement indisponible.
-                </p>
-                <p className="text-sm mt-1">
-                  {inventory.fromLocalCache
-                    ? "La dernière version enregistrée sur cet appareil reste affichée."
-                    : "Aucune version enregistrée n’est disponible sur cet appareil. Veuillez réessayer plus tard."}
-                </p>
-              </div>
-            </div>
-          )}
-
-          <div
-            ref={filterMenuRef}
-            className="relative z-10 w-full mb-6"
-          >
-            <div className="grid w-full grid-cols-[minmax(0,1fr)_auto] items-stretch gap-2">
-              <div className="relative w-full min-w-0">
-                <label htmlFor="inventory-search" className="sr-only">
-                  Rechercher dans l’inventaire
-                </label>
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
-                <input
-                  id="inventory-search"
-                  type="search"
-                  value={searchQuery}
-                  onChange={(event) => setSearchQuery(event.target.value)}
-                  placeholder="Rechercher une source, une activité, une commune…"
-                  className="h-12 w-full rounded-lg border border-gray-300 bg-white pl-10 pr-10 text-sm text-gray-900 shadow-sm outline-none transition focus:border-blue-iec focus:ring-2 focus:ring-blue-iec/20"
-                />
-                {searchQuery && (
-                  <button
-                    type="button"
-                    aria-label="Effacer la recherche"
-                    onClick={() => setSearchQuery("")}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-700"
-                  >
-                    <X className="w-4 h-4" />
-                  </button>
-                )}
-              </div>
-
-              <button
-                type="button"
-                aria-label={
-                  selectedFilterCount > 0
-                    ? "Filtres (" +
-                      selectedFilterCount +
-                      " sélectionné" +
-                      (selectedFilterCount > 1 ? "s" : "") +
-                      ")"
-                    : "Filtres"
-                }
-                aria-expanded={filterMenuOpen}
-                aria-controls="map-filter-menu"
-                onClick={() => setFilterMenuOpen((open) => !open)}
-                className="h-12 shrink-0 rounded-lg border border-gray-300 bg-white px-3 sm:px-4 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 flex items-center gap-2"
-              >
-                <SlidersHorizontal className="w-4 h-4" />
-                <span>Filtres</span>
-                {selectedFilterCount > 0 && (
-                  <span className="inline-flex items-center justify-center rounded-full bg-blue-iec text-white text-xs min-w-5 h-5 px-1">
-                    {selectedFilterCount}
-                  </span>
-                )}
-                <ChevronDown
-                  className={
-                    "w-4 h-4 transition-transform " +
-                    (filterMenuOpen ? "rotate-180" : "")
-                  }
-                />
-              </button>
-            </div>
-
-            {filterMenuOpen &&
-              filterMenuPosition &&
-              createPortal(
-                <div
-                  ref={filterMenuPanelRef}
-                  id="map-filter-menu"
-                  style={{
-                    position: "fixed",
-                    top: filterMenuPosition.top,
-                    left: filterMenuPosition.left,
-                    width: filterMenuPosition.width,
-                    maxHeight: filterMenuPosition.maxHeight,
-                  }}
-                  className="z-[3000] overflow-y-auto rounded-xl border border-gray-200 bg-white p-4 sm:p-5 shadow-xl"
-                >
-                  <div className="flex items-center justify-between gap-3 mb-5">
-                    <div>
-                      <h2 className="font-semibold text-gray-900">
-                        Filtrer la carte
-                      </h2>
-                      <p className="text-xs text-gray-500 mt-0.5">
-                        Plusieurs choix sont possibles dans chaque catégorie.
-                      </p>
-                    </div>
-                    <button
-                      type="button"
-                      aria-label="Fermer les filtres"
-                      onClick={() => setFilterMenuOpen(false)}
-                      className="p-1.5 text-gray-400 hover:text-gray-700"
-                    >
-                      <X className="w-5 h-5" />
-                    </button>
-                  </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <MultiSelectFilterGroup
-                    title="Commune"
-                    options={communeOptions}
-                    selectedValues={selectedCommunes}
-                    onToggle={(value) =>
-                      toggleFilterValue("commune", value)
-                    }
-                  />
-                  <div className="space-y-6">
-                    <MultiSelectFilterGroup
-                      title="Activité actuelle ou passée"
-                      options={statusOptions}
-                      selectedValues={selectedStatuses}
-                      onToggle={(value) =>
-                        toggleFilterValue("status", value)
-                      }
-                    />
-                    <MultiSelectFilterGroup
-                      title="Source localisée ou diffuse"
-                      options={localizationOptions}
-                      selectedValues={selectedLocalizationTypes}
-                      onToggle={(value) =>
-                        toggleFilterValue("localization", value)
-                      }
-                    />
-                  </div>
-                  <div className="md:col-span-2 pt-5 border-t">
-                    <MultiSelectFilterGroup
-                      title="Secteur d’activité"
-                      options={sectorOptions}
-                      selectedValues={selectedSectors}
-                      onToggle={(value) =>
-                        toggleFilterValue("sector", value)
-                      }
-                    />
-                  </div>
-                  <div className="md:col-span-2 pt-5 border-t">
-                    <MultiSelectFilterGroup
-                      title="Compartiments"
-                      options={compartmentOptions}
-                      selectedValues={selectedCompartments}
-                      onToggle={(value) =>
-                        toggleFilterValue("compartment", value)
-                      }
-                    />
-                  </div>
-                </div>
-
-                {selectedFilterCount > 0 && (
-                  <div className="mt-5 pt-4 border-t flex justify-end">
-                    <button
-                      type="button"
-                      onClick={clearSelectedFilters}
-                      className="text-sm font-medium text-blue-iec hover:underline"
-                    >
-                      Effacer tous les filtres
-                    </button>
-                  </div>
-                )}
-                </div>,
-                document.body,
-              )}
-          </div>
-
-          <div className="relative z-0 bg-white rounded-lg shadow-lg overflow-hidden">
-            <MapComponent
-              sites={filteredSites}
-              onSelectSite={handleSelectSite}
-            />
-          </div>
-
-          {filteredUnmappedSites.length > 0 && (
-            <div className="mt-8">
-              <h2 className="text-2xl font-bold text-blue-iec mb-4">
-                Pollution Diffuse
-              </h2>
-              <p className="text-gray-600 mb-6">
-                Sources de pollution sans localisation géographique précise.
-              </p>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {filteredUnmappedSites.map((site) => (
-                  <button
-                    type="button"
-                    key={"unmapped-" + site.id}
-                    className="text-left bg-white rounded-lg shadow-md p-4 cursor-pointer hover:shadow-lg transition-shadow"
-                    onClick={() => handleSelectSite(site)}
-                  >
-                    <span
-                      className="block w-full h-2 rounded-full mb-3"
-                      style={{ backgroundColor: getSectorColor(site.sector) }}
-                    />
-                    <span className="block font-semibold text-gray-900 mb-1">
-                      {site.name}
-                    </span>
-                    <span className="block text-sm text-gray-500 mb-2">
-                      {site.sector}
-                    </span>
-                    {site.commune && (
-                      <span className="block text-sm text-gray-600">
-                        {site.commune}
-                      </span>
-                    )}
-                  </button>
-                ))}
-              </div>
-            </div>
-          )}
-
-          <div className="mt-8 text-center">
-            <p className="text-gray-600 text-sm">
-              {filteredCount} source{filteredCount !== 1 ? "s" : ""} de
-              pollution affichée{filteredCount !== 1 ? "s" : ""}, dont{" "}
-              {filteredSites.length} sur la carte
-              {hasActiveFilters
-                ? " (sur " + allSites.length + " au total)"
-                : ""}
-            </p>
-            {formattedLastUpdated && (
-              <p className="text-gray-500 text-xs mt-1 flex items-center justify-center gap-1.5">
-                <Clock3 className="w-3.5 h-3.5" />
-                Dernière mise à jour : {formattedLastUpdated}
-                {inventory.fromLocalCache && " (version enregistrée)"}
-              </p>
-            )}
           </div>
         </div>
-      </section>
+      )}
 
+      <div
+        ref={filterMenuRef}
+        className="relative z-10 w-full mb-6"
+      >
+        <div className="grid w-full grid-cols-[minmax(0,1fr)_auto] items-stretch gap-2">
+          <div className="relative w-full min-w-0">
+            <label htmlFor="inventory-search" className="sr-only">
+              Rechercher dans l’inventaire
+            </label>
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
+            <input
+              id="inventory-search"
+              type="search"
+              value={searchQuery}
+              onChange={(event) => setSearchQuery(event.target.value)}
+              placeholder="Rechercher une source, une activité, une commune…"
+              className="h-12 w-full rounded-lg border border-gray-300 bg-white pl-10 pr-10 text-sm text-gray-900 shadow-sm outline-none transition focus:border-blue-iec focus:ring-2 focus:ring-blue-iec/20"
+            />
+            {searchQuery && (
+              <button
+                type="button"
+                aria-label="Effacer la recherche"
+                onClick={() => setSearchQuery("")}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-700"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            )}
+          </div>
+
+          <button
+            type="button"
+            aria-label={
+              selectedFilterCount > 0
+                ? "Filtres (" +
+                  selectedFilterCount +
+                  " sélectionné" +
+                  (selectedFilterCount > 1 ? "s" : "") +
+                  ")"
+                : "Filtres"
+            }
+            aria-expanded={filterMenuOpen}
+            aria-controls="map-filter-menu"
+            onClick={() => setFilterMenuOpen((open) => !open)}
+            className="h-12 shrink-0 rounded-lg border border-gray-300 bg-white px-3 sm:px-4 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 flex items-center gap-2"
+          >
+            <SlidersHorizontal className="w-4 h-4" />
+            <span>Filtres</span>
+            {selectedFilterCount > 0 && (
+              <span className="inline-flex items-center justify-center rounded-full bg-blue-iec text-white text-xs min-w-5 h-5 px-1">
+                {selectedFilterCount}
+              </span>
+            )}
+            <ChevronDown
+              className={
+                "w-4 h-4 transition-transform " +
+                (filterMenuOpen ? "rotate-180" : "")
+              }
+            />
+          </button>
+        </div>
+
+        {filterMenuOpen &&
+          filterMenuPosition &&
+          createPortal(
+            <div
+              ref={filterMenuPanelRef}
+              id="map-filter-menu"
+              style={{
+                position: "fixed",
+                top: filterMenuPosition.top,
+                left: filterMenuPosition.left,
+                width: filterMenuPosition.width,
+                maxHeight: filterMenuPosition.maxHeight,
+              }}
+              className="z-[3000] overflow-y-auto rounded-xl border border-gray-200 bg-white p-4 sm:p-5 shadow-xl"
+            >
+              <div className="flex items-center justify-between gap-3 mb-5">
+                <div>
+                  <h2 className="font-semibold text-gray-900">
+                    Filtrer la carte
+                  </h2>
+                  <p className="text-xs text-gray-500 mt-0.5">
+                    Plusieurs choix sont possibles dans chaque catégorie.
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  aria-label="Fermer les filtres"
+                  onClick={() => setFilterMenuOpen(false)}
+                  className="p-1.5 text-gray-400 hover:text-gray-700"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <MultiSelectFilterGroup
+                title="Commune"
+                options={communeOptions}
+                selectedValues={selectedCommunes}
+                onToggle={(value) =>
+                  toggleFilterValue("commune", value)
+                }
+              />
+              <div className="space-y-6">
+                <MultiSelectFilterGroup
+                  title="Activité actuelle ou passée"
+                  options={statusOptions}
+                  selectedValues={selectedStatuses}
+                  onToggle={(value) =>
+                    toggleFilterValue("status", value)
+                  }
+                />
+                <MultiSelectFilterGroup
+                  title="Source localisée ou diffuse"
+                  options={localizationOptions}
+                  selectedValues={selectedLocalizationTypes}
+                  onToggle={(value) =>
+                    toggleFilterValue("localization", value)
+                  }
+                />
+              </div>
+              <div className="md:col-span-2 pt-5 border-t">
+                <MultiSelectFilterGroup
+                  title="Secteur d’activité"
+                  options={sectorOptions}
+                  selectedValues={selectedSectors}
+                  onToggle={(value) =>
+                    toggleFilterValue("sector", value)
+                  }
+                />
+              </div>
+              <div className="md:col-span-2 pt-5 border-t">
+                <MultiSelectFilterGroup
+                  title="Compartiments"
+                  options={compartmentOptions}
+                  selectedValues={selectedCompartments}
+                  onToggle={(value) =>
+                    toggleFilterValue("compartment", value)
+                  }
+                />
+              </div>
+            </div>
+
+            {selectedFilterCount > 0 && (
+              <div className="mt-5 pt-4 border-t flex justify-end">
+                <button
+                  type="button"
+                  onClick={clearSelectedFilters}
+                  className="text-sm font-medium text-blue-iec hover:underline"
+                >
+                  Effacer tous les filtres
+                </button>
+              </div>
+            )}
+            </div>,
+            document.body,
+          )}
+      </div>
+
+      <div className="relative z-0 bg-white rounded-lg shadow-lg overflow-hidden">
+        <MapComponent
+          sites={filteredSites}
+          onSelectSite={handleSelectSite}
+        />
+      </div>
+
+      {filteredUnmappedSites.length > 0 && (
+        <div className="mt-8">
+          <h2 className="text-2xl font-bold text-blue-iec mb-4">
+            Pollution Diffuse
+          </h2>
+          <p className="text-gray-600 mb-6">
+            Sources de pollution sans localisation géographique précise.
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {filteredUnmappedSites.map((site) => (
+              <button
+                type="button"
+                key={"unmapped-" + site.id}
+                className="text-left bg-white rounded-lg shadow-md p-4 cursor-pointer hover:shadow-lg transition-shadow"
+                onClick={() => handleSelectSite(site)}
+              >
+                <span
+                  className="block w-full h-2 rounded-full mb-3"
+                  style={{ backgroundColor: getSectorColor(site.sector) }}
+                />
+                <span className="block font-semibold text-gray-900 mb-1">
+                  {site.name}
+                </span>
+                <span className="block text-sm text-gray-500 mb-2">
+                  {site.sector}
+                </span>
+                {site.commune && (
+                  <span className="block text-sm text-gray-600">
+                    {site.commune}
+                  </span>
+                )}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
+      <div className="mt-8 text-center">
+        <p className="text-gray-600 text-sm">
+          {filteredCount} source{filteredCount !== 1 ? "s" : ""} de
+          pollution affichée{filteredCount !== 1 ? "s" : ""}, dont{" "}
+          {filteredSites.length} sur la carte
+          {hasActiveFilters
+            ? " (sur " + allSites.length + " au total)"
+            : ""}
+        </p>
+        {formattedLastUpdated && (
+          <p className="text-gray-500 text-xs mt-1 flex items-center justify-center gap-1.5">
+            <Clock3 className="w-3.5 h-3.5" />
+            Dernière mise à jour : {formattedLastUpdated}
+            {inventory.fromLocalCache && " (version enregistrée)"}
+          </p>
+        )}
+      </div>
       {selectedSite && (
         <div
           className="fixed inset-0 bg-black/50 flex items-center justify-center z-[4000] p-4"
@@ -1127,6 +1094,6 @@ export default function CarteClient({
           </div>
         </div>
       )}
-    </main>
+    </>
   );
 }
