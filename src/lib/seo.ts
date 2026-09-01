@@ -75,6 +75,11 @@ export function createPageMetadata({
 export function createNotFoundMetadata(title: string): Metadata {
   return {
     title,
+    description:
+      "La page demandée est introuvable. Retrouvez les actualités et les projets de l’Institut Ecocitoyen du Pays du Mont-Blanc.",
+    alternates: null,
+    openGraph: null,
+    twitter: null,
     robots: { index: false, follow: false },
   };
 }

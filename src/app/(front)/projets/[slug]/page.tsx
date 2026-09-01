@@ -19,6 +19,7 @@ import {
 import { JsonLd } from "@/components/JsonLd";
 import { createBreadcrumbStructuredData } from "@/lib/structured-data";
 import { markdownToHtml } from "@/lib/markdown";
+import { notFound } from "next/navigation";
 
 type ProjectPageProps = {
   params: Promise<{ slug: string }>;
@@ -51,7 +52,7 @@ export default async function ProjectPage({
   const { projet, relatedNews } = (await getData(await params)) || {};
 
   if (!projet || !relatedNews) {
-    return <div>Projet non trouvé</div>;
+    notFound();
   }
 
   const title = projet.title.trim();

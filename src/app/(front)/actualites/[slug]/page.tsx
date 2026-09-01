@@ -20,6 +20,7 @@ import {
   createNewsArticleStructuredData,
 } from "@/lib/structured-data";
 import { markdownToHtml } from "@/lib/markdown";
+import { notFound } from "next/navigation";
 
 type ActualitePageProps = {
   params: Promise<{ slug: string }>;
@@ -54,7 +55,7 @@ export default async function ActualitePage({
   const newsItem = await getData(await params);
 
   if (!newsItem) {
-    return <div>Article non trouvé</div>;
+    notFound();
   }
 
   const isEvent = newsItem.categories.includes("Événement");

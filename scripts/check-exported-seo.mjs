@@ -85,6 +85,32 @@ for (const [file, expectedCanonical] of expectedListingCanonicals) {
   }
 }
 
+const notFoundHtml = await readFile(
+  path.join(EXPORT_ROOT, "404.html"),
+  "utf8",
+);
+const notFoundHead = notFoundHtml.match(/<head>([\s\S]*?)<\/head>/i)?.[1] ?? "";
+const notFoundMain =
+  notFoundHtml.match(/<main\b[^>]*>([\s\S]*?)<\/main>/i)?.[1] ?? "";
+const notFoundText = notFoundMain
+  .replace(/<[^>]+>/g, " ")
+  .replace(/\s+/g, " ");
+
+if (!/<meta name="robots" content="[^"]*noindex[^"]*"\/>/i.test(notFoundHead)) {
+  errors.push("404.html: missing noindex robots directive");
+}
+if (/<link rel="canonical"/i.test(notFoundHead)) {
+  errors.push("404.html: should not declare a canonical URL");
+}
+if (!notFoundText.includes("Page introuvable")) {
+  errors.push("404.html: missing branded not-found heading");
+}
+for (const recoveryPath of ["/", "/actualites", "/projets"]) {
+  if (!notFoundMain.includes(`href="${recoveryPath}"`)) {
+    errors.push(`404.html: missing recovery link to ${recoveryPath}`);
+  }
+}
+
 // Check actual markup, not matching copy inside serialized React payloads.
 const mapHtml = (await readFile(path.join(EXPORT_ROOT, "carte.html"), "utf8"))
   .replace(/<(script|style|template)\b[^>]*>[\s\S]*?<\/\1>/gi, "");
