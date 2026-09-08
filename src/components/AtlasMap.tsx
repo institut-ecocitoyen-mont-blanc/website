@@ -8,6 +8,8 @@ import "leaflet/dist/leaflet.css";
 import { createCustomIcon } from "@/components/Map";
 import AtlasDetailDialog from "@/components/AtlasDetailDialog";
 import AtlasWaterDetails from "@/components/AtlasWaterDetails";
+import AtlasBathingDetails from "@/components/AtlasBathingDetails";
+import { bathingQuality, bathingSamples, type BathingData, type BathingPoint } from "@/lib/bathing-water";
 import AtlasInventoryDetails from "@/components/AtlasInventoryDetails";
 import { environmentalPin, QualityLegend } from "@/components/EnvironmentalPin";
 import { useDrinkingQuality } from "@/components/WaterQuality";
@@ -19,10 +21,10 @@ import { WOOD_HEATMAP_GRADIENT } from "@/lib/wood-heatmap";
 import { getSectorColor, type PollutionSite, type PollutionSitesResult } from "@/lib/google-sheets";
 import { AREA, LAYERS, loadLayer, type LayerId, type LayerPoint } from "@/lib/environmental-layers";
 
-type RemoteId = Exclude<LayerId, "inventory" | "wood">;
+type RemoteId = Exclude<LayerId, "inventory" | "wood" | "bathing">;
 interface RemoteState { points: LayerPoint[]; status: "idle" | "loading" | "ready" | "error"; error?: string; fetchedAt?: string }
 const EMPTY: RemoteState = { points: [], status: "idle" };
-type Selection = { kind: "atmo"; id: string; name: string } | { kind: "rivers"; point: LayerPoint } | { kind: "drinking"; point: LayerPoint } | { kind: "inventory"; site: PollutionSite };
+type Selection = { kind: "atmo"; id: string; name: string } | { kind: "rivers"; point: LayerPoint } | { kind: "drinking"; point: LayerPoint } | { kind: "bathing"; point: BathingPoint } | { kind: "inventory"; site: PollutionSite };
 const dateLabel = (value: string) => {
   const date = new Date(value);
   return Number.isNaN(date.getTime()) ? value : date.toLocaleDateString("fr-FR", { timeZone: "Europe/Paris" });
@@ -51,9 +53,9 @@ function Recenter() {
   return <button type="button" onClick={() => map.fitBounds([[AREA.south, AREA.west], [AREA.north, AREA.east]])} className="absolute right-3 top-3 z-[800] flex items-center gap-2 bg-white rounded-lg border shadow px-3 py-2 text-sm text-slate-700" aria-label="Recentrer sur le Pays du Mont-Blanc"><LocateFixed size={16} />Recentrer</button>;
 }
 
-export default function AtlasMap({ inventory }: { inventory: PollutionSitesResult | null }) {
-  const [enabled, setEnabled] = useState<Record<LayerId, boolean>>({ inventory: true, wood: false, atmo: false, rivers: false, drinking: false });
-  const [opacity, setOpacity] = useState<Record<LayerId, number>>({ inventory: 1, wood: 0.65, atmo: 0.8, rivers: 0.9, drinking: 0.9 });
+export default function AtlasMap({ inventory, bathing }: { inventory: PollutionSitesResult | null; bathing: BathingData }) {
+  const [enabled, setEnabled] = useState<Record<LayerId, boolean>>({ inventory: true, wood: false, atmo: false, rivers: false, drinking: false, bathing: false });
+  const [opacity, setOpacity] = useState<Record<LayerId, number>>({ inventory: 1, wood: 0.65, atmo: 0.8, rivers: 0.9, drinking: 0.9, bathing: 0.9 });
   const [revision, setRevision] = useState<Record<RemoteId, number>>({ atmo: 0, rivers: 0, drinking: 0 });
   const [selection, setSelection] = useState<Selection | null>(null);
   const atmo = useAtmoStations(enabled.atmo, revision.atmo);
@@ -69,7 +71,7 @@ export default function AtlasMap({ inventory }: { inventory: PollutionSitesResul
       <p className="text-xs text-slate-500 mb-5">Superposez les données et réglez leur transparence.</p>
       <div className="space-y-4">
         {LAYERS.map((layer) => {
-          const state = layer.id === "inventory" || layer.id === "wood" || layer.id === "atmo" ? null : remote[layer.id];
+          const state = layer.id === "inventory" || layer.id === "wood" || layer.id === "atmo" || layer.id === "bathing" ? null : remote[layer.id];
           return <section key={layer.id} className={`rounded-xl border p-3 ${enabled[layer.id] ? "border-blue-200 bg-blue-50/40" : "border-slate-200"}`}>
             <label className="flex gap-3 items-start cursor-pointer">
               <input type="checkbox" className="mt-1 h-4 w-4 accent-blue-iec" checked={enabled[layer.id]} onChange={(event) => setEnabled((prev) => ({ ...prev, [layer.id]: event.target.checked }))} />
@@ -84,6 +86,12 @@ export default function AtlasMap({ inventory }: { inventory: PollutionSitesResul
                 {state?.status === "ready" && <p className="text-slate-500">{state.points.length} {layer.id === "rivers" ? "stations" : "communes"} · {state.points.length ? "Catalogue chargé" : "Aucune donnée dans ce périmètre"}{state.fetchedAt && ` le ${dateLabel(state.fetchedAt)}`}.</p>}
               </div>}
               {layer.id === "atmo" && <AtmoControls state={atmo} onRetry={() => setRevision((prev) => ({ ...prev, atmo: prev.atmo + 1 }))} />}
+              {layer.id === "bathing" && <div className="space-y-2 text-xs text-slate-600">
+                <p>{bathing.points.length} sites · {bathing.points.reduce((count, point) => count + bathingSamples(point).length, 0)} prélèvements récupérés.</p>
+                <p>Icône nageur · vert : bon, orange : moyen, rouge : mauvais. Appréciation du dernier prélèvement disponible, pas de la situation actuelle.</p>
+                <p>Actualisation à la reconstruction du site. Dates de récupération dans chaque fiche.</p>
+                {bathing.points.some((point) => point.seasons.some((season) => season.error)) && <p role="alert" className="text-amber-800">Certaines saisons n’ont pas pu être récupérées. Les fiches donnent accès aux sources officielles.</p>}
+              </div>}
               {layer.id === "rivers" && <p className="text-xs text-slate-600">{DEMO_PIN_PREVIEW ? "Icône vagues · cliquez sur une station pour consulter les analyses par paramètre." : "Icône vagues · bleu : le flux d’analyses ne fournit pas de classe globale de qualité."}</p>}
               {layer.id === "drinking" && <p className="text-xs text-slate-600">{DEMO_PIN_PREVIEW ? "Icône verre · consultez les résultats et les conclusions officielles de chaque prélèvement dans la fiche." : "Icône verre · couleur de la conclusion officielle du dernier prélèvement retourné, pas de toute la commune. Orange : dérogation ou référence non respectée. Bleu : conclusion incomplète ou prélèvement de plus de 90 jours (repère d’affichage, pas une durée de validité sanitaire). Les contrôles ne sont pas des mesures en temps réel."}</p>}
               {layer.id === "wood" && <div className="text-xs space-y-2">
@@ -105,6 +113,13 @@ export default function AtlasMap({ inventory }: { inventory: PollutionSitesResul
         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>' />
         <Recenter /><ScaleControl position="bottomleft" />
         {enabled.wood && <WoodHeatingLayer opacity={opacity.wood} />}
+        {enabled.bathing && bathing.points.map((point) => {
+          const quality = bathingQuality(point), latest = bathingSamples(point)[0];
+          const level = DEMO_PIN_PREVIEW ? demoPinLevel(quality.level, point.id) : quality.level;
+          return <Marker key={`bathing-${point.id}`} position={[point.lat, point.lng]} icon={environmentalPin("bathing", level)} opacity={opacity.bathing} title={`Baignade · ${point.name}`} attribution="Ministère de la Santé / ARS · sites de baignade" onSelect={() => setSelection({ kind: "bathing", point })}>
+            <Tooltip>{point.name} · {quality.label}{latest ? ` · ${dateLabel(latest.date)}` : ""}</Tooltip>
+          </Marker>;
+        })}
         {enabled.atmo && <AtmoMarkers state={atmo} opacity={opacity.atmo} onSelect={(id) => {
           const group = combineAirStations(atmo).find(({ station }) => station.id === id);
           if (group) setSelection({ kind: "atmo", id, name: group.station.name });
@@ -127,9 +142,9 @@ export default function AtlasMap({ inventory }: { inventory: PollutionSitesResul
     key={selection.kind + (selection.kind === "atmo" ? selection.id : selection.kind === "inventory" ? selection.site.id : selection.point.id)}
     kind={selection.kind}
     title={selection.kind === "atmo" ? selection.name : selection.kind === "inventory" ? selection.site.name : selection.point.name}
-    subtitle={selection.kind === "atmo" ? "Atmo Auvergne-Rhône-Alpes · Mesures aux stations" : selection.kind === "rivers" ? "Hub’Eau · Naïades · Suivi physico-chimique" : selection.kind === "drinking" ? "Ministère de la Santé · Hub’Eau · Contrôle sanitaire" : `${selection.site.commune} · Source ${selection.site.id}`}
+    subtitle={selection.kind === "atmo" ? "Atmo Auvergne-Rhône-Alpes · Mesures aux stations" : selection.kind === "rivers" ? "Hub’Eau · Naïades · Suivi physico-chimique" : selection.kind === "drinking" ? "Ministère de la Santé · Hub’Eau · Contrôle sanitaire" : selection.kind === "bathing" ? "Ministère de la Santé · ARS · Contrôle des eaux de baignade" : `${selection.site.commune} · Source ${selection.site.id}`}
     onClose={() => setSelection(null)}>
-    {selection.kind === "atmo" ? <AtmoDetails state={atmo} stationId={selection.id} /> : selection.kind === "inventory" ? <AtlasInventoryDetails site={selection.site} /> : <AtlasWaterDetails
+    {selection.kind === "atmo" ? <AtmoDetails state={atmo} stationId={selection.id} /> : selection.kind === "inventory" ? <AtlasInventoryDetails site={selection.site} /> : selection.kind === "bathing" ? <AtlasBathingDetails point={selection.point} /> : <AtlasWaterDetails
       kind={selection.kind} point={selection.point}
       quality={selection.kind === "rivers" ? RIVER_QUALITY : drinkingSummaries[selection.point.id]?.quality ?? unknownQuality("Chargement de la conclusion sanitaire…")}
       sample={selection.kind === "drinking" ? drinkingSummaries[selection.point.id]?.sample : undefined} />}

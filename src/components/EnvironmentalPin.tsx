@@ -3,12 +3,13 @@
 import { divIcon } from "leaflet";
 import { QUALITY_COLORS, type Quality, type QualityLevel } from "@/lib/environmental-quality";
 
-type PinKind = "air" | "rivers" | "drinking";
+type PinKind = "air" | "rivers" | "drinking" | "bathing";
 // Small, code-native line icons: wind, flowing water, and drinking glass.
 const ICONS: Record<PinKind, string> = {
   air: '<path d="M3 8h12a3 3 0 1 0-3-3M2 12h17a3 3 0 1 1-3 3M4 16h5a3 3 0 1 1-3 3"/>',
   rivers: '<path d="M2 6q3-4 7 0t7 0q3-4 6 0M2 12q3-4 7 0t7 0q3-4 6 0M2 18q3-4 7 0t7 0q3-4 6 0"/>',
   drinking: '<path d="m5 3 2 18h10l2-18ZM6 10q3-3 6 0t6 0"/>',
+  bathing: '<circle cx="17" cy="5" r="2"/><path d="m3 11 5-5 5 4-4 4M2 16q3-3 6 0t6 0q3-3 6 0M2 21q3-3 6 0t6 0q3-3 6 0"/>',
 };
 const icons = new Map<string, ReturnType<typeof divIcon>>();
 export function environmentalPin(kind: PinKind, level: QualityLevel) {

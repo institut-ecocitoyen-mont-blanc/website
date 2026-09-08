@@ -5,7 +5,7 @@ import { X, Wind, Waves, GlassWater, MapPin } from "lucide-react";
 import styles from "./AtlasDetails.module.css";
 
 export default function AtlasDetailDialog({ title, kind, subtitle, children, onClose }: {
-  title: string; kind: "atmo" | "rivers" | "drinking" | "inventory"; subtitle: string;
+  title: string; kind: "atmo" | "rivers" | "drinking" | "bathing" | "inventory"; subtitle: string;
   children: ReactNode; onClose: () => void;
 }) {
   const ref = useRef<HTMLDialogElement>(null);
@@ -27,8 +27,8 @@ export default function AtlasDetailDialog({ title, kind, subtitle, children, onC
       if (previousFocus?.isConnected) previousFocus.focus({ preventScroll: true });
     };
   }, []);
-  const Icon = { atmo: Wind, rivers: Waves, drinking: GlassWater, inventory: MapPin }[kind];
-  const label = { atmo: "Qualité de l’air", rivers: "Qualité des cours d’eau", drinking: "Eau potable", inventory: "Inventaire écocitoyen" }[kind];
+  const Icon = { atmo: Wind, rivers: Waves, drinking: GlassWater, bathing: Waves, inventory: MapPin }[kind];
+  const label = { atmo: "Qualité de l’air", rivers: "Qualité des cours d’eau", drinking: "Eau potable", bathing: "Eaux de baignade · ARS", inventory: "Inventaire écocitoyen" }[kind];
   return <dialog ref={ref} aria-labelledby={titleId} aria-modal="true" className={styles.dialog}
     onCancel={(event) => { event.preventDefault(); onClose(); }}
     onKeyDown={(event) => {

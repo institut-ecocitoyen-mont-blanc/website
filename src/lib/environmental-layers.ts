@@ -1,7 +1,7 @@
 // Public providers queried directly by the static site's browser client.
 export const AREA = { west: 6.45, south: 45.7, east: 7.1, north: 46.1 };
-export type LayerId = "inventory" | "atmo" | "rivers" | "drinking" | "wood";
-export type RemoteLayerId = Exclude<LayerId, "inventory" | "wood" | "atmo">;
+export type LayerId = "inventory" | "atmo" | "rivers" | "drinking" | "bathing" | "wood";
+export type RemoteLayerId = Exclude<LayerId, "inventory" | "wood" | "atmo" | "bathing">;
 export type Row = Record<string, unknown>;
 export interface LayerPoint {
   id: string;
@@ -15,6 +15,7 @@ export const LAYERS: { id: LayerId; title: string; source: string; url?: string;
   { id: "wood", title: "Chauffage au bois", source: "Démonstration · données fictives", description: "Carte de chaleur entièrement simulée. Les zones et intensités sont inventées : ni mesures, ni émissions estimées, ni seuils sanitaires.", color: "#f52222" },
   { id: "atmo", title: "Qualité de l’air", source: "Atmo Auvergne-Rhône-Alpes", url: "https://www.atmo-auvergnerhonealpes.fr/dataviz/mesures-aux-stations", description: "Stations aux coordonnées publiées par Atmo : concentrations horaires par polluant, dates et historique.", color: "#8b5cf6" },
   { id: "rivers", title: "Qualité des cours d’eau", source: "Hub’Eau · Naïades", url: "https://hubeau.eaufrance.fr/page/api-qualite-cours-deau", description: "Stations de suivi physico-chimique. Cliquez sur un point pour consulter les analyses disponibles.", color: "#0891b2" },
+  { id: "bathing", title: "Eaux de baignade · ARS", source: "Ministère de la Santé", url: "https://baignades.sante.gouv.fr/baignades/", description: "Six sites à Passy, Sallanches, Thyez, Morillon et Samoëns : E. coli, entérocoques et appréciations des prélèvements. Coordonnées officielles des sites, pas de chaque prélèvement.", color: "#0891b2" },
   { id: "drinking", title: "Eau potable · contrôle ARS", source: "Ministère de la Santé · Hub’Eau", url: "https://hubeau.eaufrance.fr/page/api-qualite-eau-potable", description: "Accès aux analyses par commune. Les points représentent les centres communaux, pas les captages ni les lieux de prélèvement.", color: "#2563eb" },
 ];
 
