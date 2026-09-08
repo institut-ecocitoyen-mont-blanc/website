@@ -23,7 +23,10 @@ function visit(node: HastNode) {
     const source = properties.src;
 
     if (supportsResponsiveImage(source)) {
-      properties.srcSet = getResponsiveSourceSet(source);
+      // Match next/image's dev behavior: export-only variants do not exist yet.
+      if (process.env.NODE_ENV !== "development") {
+        properties.srcSet = getResponsiveSourceSet(source);
+      }
       properties.sizes ??= CONTENT_IMAGE_SIZES;
       properties.loading ??= "lazy";
       properties.decoding ??= "async";

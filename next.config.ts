@@ -8,6 +8,9 @@ import {
 const nextConfig: NextConfig = {
   output: "export",
   images: {
+    // Responsive variants are generated in out/ after the production export.
+    // Serve public originals in dev, including on a fresh checkout.
+    unoptimized: process.env.NODE_ENV === "development",
     loader: "custom",
     loaderFile: "./src/lib/image-loader.ts",
     deviceSizes: RESPONSIVE_DEVICE_SIZES,

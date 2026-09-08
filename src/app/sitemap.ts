@@ -30,6 +30,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: absoluteUrl("/actualites"), priority: 0.9 },
     { url: absoluteUrl("/projets"), priority: 0.9 },
     { url: absoluteUrl("/carte"), priority: 0.8 },
+    { url: absoluteUrl("/atlas"), priority: 0.8 },
     { url: absoluteUrl("/a-propos"), priority: 0.7 },
     { url: absoluteUrl("/etre-acteur"), priority: 0.7 },
     { url: absoluteUrl("/mentions-legales"), priority: 0.2 },

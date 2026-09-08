@@ -6,6 +6,7 @@
     "dev": "next dev",
     "build": "next build && npm run optimize:export && npm run check:images && npm run check:seo",
     "check:images": "node scripts/check-exported-images.mjs",
+    "check:images:dev": "node scripts/check-dev-images.mjs",
     "check:seo": "node scripts/check-exported-seo.mjs",
     "optimize:export": "node scripts/optimize-exported-images.mjs",
     "start": "next start",
