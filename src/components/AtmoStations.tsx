@@ -4,11 +4,11 @@ import { useEffect, useState } from "react";
 import { Tooltip } from "react-leaflet";
 import Marker from "@/components/AtlasMarker";
 import { environmentalPin, QualitySummary } from "@/components/EnvironmentalPin";
-import { airQuality, DEMO_PIN_PREVIEW, demoAirPinLevel } from "@/lib/environmental-quality";
+import { airQuality, unknownQuality, DEMO_PIN_PREVIEW, demoAirPinLevel } from "@/lib/environmental-quality";
 import { DetailFacts, DetailSection } from "@/components/AtlasDetailDialog";
 import styles from "./AtlasDetails.module.css";
 import { AREA } from "@/lib/environmental-layers";
-import { AIR_POLLUTANTS, combineAirStations, loadAirStations, latestAirValue, airChartSegments, airDate, airIsStale, airQueryUrl, type AirPollutant, type AirStation } from "@/lib/atmo-stations";
+import { AIR_POLLUTANTS, combineAirStations, loadAirStations, latestAirValue, airChartSegments, airDate, airIsStale, airQueryUrl, dailyAirQueryUrl, type AirPollutant, type AirStation } from "@/lib/atmo-stations";
 
 type Dataset = { status: "loading" | "ready" | "error"; stations: AirStation[]; error?: string };
 type AirState = Record<AirPollutant, Dataset>;
@@ -46,6 +46,7 @@ export function AtmoControls({ state, onRetry }: { state: AirState; onRetry: () 
   const newest = Math.max(...Object.values(state).flatMap((data) => data.stations.flatMap((station) => station.readings.map((reading) => reading.time))));
   return <div className="space-y-3 text-xs">
     <p>Tous les polluants disponibles sont affichés ensemble.</p>
+    <p>Sallanches Régie et Passy Chedde : moyennes journalières lorsque les mesures horaires ne sont pas disponibles.</p>
     <ul aria-label="Polluants affichés" aria-live="polite" className="space-y-1.5">
       {AIR_POLLUTANTS.map(({ id, label }) => <li key={id} className="rounded-lg border border-violet-200 bg-violet-50 px-3 py-2">
         <div className="flex items-center justify-between gap-2"><span className="font-semibold">{label}</span><span className="text-slate-500">{state[id].status === "loading" ? "chargement…" : state[id].status === "error" ? "indisponible" : `${state[id].stations.length} station(s)`}</span></div>
@@ -70,9 +71,9 @@ function HistoryChart({ station, label }: { station: AirStation; label: string }
   const y = (value: number) => 114 - (value - min) / (max - min) * 98;
   return <figure className="m-0">
     <figcaption className="font-semibold">Historique disponible · {values[0].unit}</figcaption>
-    <svg viewBox="0 0 306 144" role="img" aria-label={`Historique ${label} à ${station.name}. Moyennes horaires ; tableau des valeurs ci-dessous.`} className="w-full mt-3">
+    <svg viewBox="0 0 306 144" role="img" aria-label={`Historique ${label} à ${station.name}. Moyennes ${station.period === "daily" ? "journalières" : "horaires"} ; tableau des valeurs ci-dessous.`} className="w-full mt-3">
       {[min, (min + max) / 2, max].map((value) => <g key={value}><line x1="38" x2="292" y1={y(value)} y2={y(value)} stroke="#e2e8f0" /><text x="32" y={y(value) + 3} textAnchor="end" fontSize="10" fill="#64748b">{value.toFixed(1)}</text></g>)}
-      {airChartSegments(station.readings).map((segment, index) => <g key={index}>
+      {airChartSegments(station.readings, station.period).map((segment, index) => <g key={index}>
         <polyline points={segment.map((r) => `${x(r.time)},${y(r.value!)}`).join(" ")} fill="none" stroke="var(--color-blue-iec, #1d6ab2)" strokeWidth="2" />
         {segment.map((r) => <circle key={r.time} cx={x(r.time)} cy={y(r.value!)} r="2" fill="var(--color-blue-iec, #1d6ab2)"><title>{airDate(r.time)} · {r.value} {r.unit} · validation : {r.validation ?? "non renseignée"}</title></circle>)}
       </g>)}
@@ -90,7 +91,7 @@ function StationDetails({ station, pollutant }: { station: AirStation; pollutant
     {latest ? <div className="rounded-lg bg-blue-50 p-4">
       <p className="text-xs text-slate-600 mb-2">Dernière valeur numérique disponible</p>
       <strong className="text-3xl text-blue-iec tabular-nums">{latest.value!.toLocaleString("fr-FR")} <span className="text-sm font-normal">{latest.unit}</span></strong>
-      <p className="mt-3 text-xs leading-relaxed text-slate-600">Moyenne horaire · {airDate(latest.time)}{latest.end ? ` → ${airDate(latest.end)}` : ""} (Paris)<br />Validation : {latest.validation === null ? "non renseignée" : `code fournisseur « ${latest.validation} »`}</p>
+      <p className="mt-3 text-xs leading-relaxed text-slate-600">Moyenne {station.period === "daily" ? "journalière" : "horaire"} · {airDate(latest.time)}{latest.end ? ` → ${airDate(latest.end)}` : ""} (Paris)<br />Validation : {latest.validation === null ? "non renseignée" : `code fournisseur « ${latest.validation} »`}</p>
     </div> : <p>Aucune valeur numérique disponible.</p>}
     {slot.value === null && <p className="text-amber-900">Dernier créneau ({airDate(slot.time)}) : mesure absente, pas une valeur nulle.</p>}
     {airIsStale(latest?.time ?? slot.time) && <p className="font-semibold text-amber-900">Données historiques — pas une mesure actuelle.</p>}
@@ -98,16 +99,17 @@ function StationDetails({ station, pollutant }: { station: AirStation; pollutant
     <details><summary className="cursor-pointer text-blue-iec underline underline-offset-4">Valeurs et statuts de validation ({station.readings.length})</summary>
       <div className="overflow-x-auto mt-3"><table className="w-full text-xs"><thead><tr><th className="text-left">Début (Paris)</th><th>Valeur</th><th>Validation*</th></tr></thead><tbody>{[...station.readings].reverse().map((r) => <tr className="border-t" key={r.time}><td className="py-2">{airDate(r.time)}</td><td>{r.value === null ? "Absente" : `${r.value.toLocaleString("fr-FR")} ${r.unit}`}</td><td>{r.validation ?? "Non renseignée"}</td></tr>)}</tbody></table></div>
     </details>
-    <p className="text-xs text-slate-500">* Champ source « statut_valid ». Les codes ne sont pas assimilés à une validation définitive. Une concentration ne permet pas à elle seule d’identifier la source d’émission.</p>
-    <a className={styles.source} href={airQueryUrl(pollutant, { west: station.lng - 0.00001, east: station.lng + 0.00001, south: station.lat - 0.00001, north: station.lat + 0.00001 })} target="_blank" rel="noreferrer">Données sources · Atmo</a>
+    <p className="text-xs text-slate-500">* Champ source « {station.period === "daily" ? "validite" : "statut_valid"} ». Les codes ne sont pas assimilés à une validation définitive. Une concentration ne permet pas à elle seule d’identifier la source d’émission.</p>
+    <a className={styles.source} href={station.period === "daily" && (pollutant === "pm10" || pollutant === "pm25") ? dailyAirQueryUrl(pollutant, [station.id]) : airQueryUrl(pollutant, { west: station.lng - 0.00001, east: station.lng + 0.00001, south: station.lat - 0.00001, north: station.lat + 0.00001 })} target="_blank" rel="noreferrer">Données sources · Atmo</a>
   </article>;
 }
 
 export function AtmoMarkers({ state, opacity, onSelect }: { state: AirState; opacity: number; onSelect: (id: string) => void }) {
   const now = useAirClock();
   return combineAirStations(state).map(({ station, measurements }) => {
-    const quality = airQuality(measurements, now, Object.values(state).every((data) => data.status === "ready"));
-    const pinLevel = DEMO_PIN_PREVIEW ? demoAirPinLevel(measurements, station.id) : quality.level;
+    const hourly = measurements.filter(({ station }) => station.period !== "daily");
+    const quality = hourly.length ? airQuality(hourly, now, Object.values(state).every((data) => data.status === "ready")) : unknownQuality(measurements.length ? "Moyennes journalières : les bandes horaires ne sont pas applicables." : "Mesures en chargement ou indisponibles.");
+    const pinLevel = DEMO_PIN_PREVIEW ? demoAirPinLevel(hourly, station.id) : quality.level;
     return <Marker key={station.id} position={[station.lat, station.lng]} icon={environmentalPin("air", pinLevel)} opacity={opacity} zIndexOffset={1000} title={`Station Atmo · ${station.name}`} attribution="Atmo Auvergne-Rhône-Alpes · mesures aux stations" onSelect={() => onSelect(station.id)}>
     <Tooltip>{station.name} · {quality.label}<br />{measurements.map(({ pollutant }) => AIR_POLLUTANTS.find((p) => p.id === pollutant)!.label).join(" · ")}</Tooltip>
   </Marker>;
@@ -119,17 +121,19 @@ export function AtmoDetails({ state, stationId }: { state: AirState; stationId: 
   const group = combineAirStations(state).find(({ station }) => station.id === stationId);
   if (!group) return <p role="status">Les mesures de cette station ne sont plus disponibles. Actualisez la couche pour réessayer.</p>;
   const { station, measurements } = group;
-  const quality = airQuality(measurements, now, Object.values(state).every((data) => data.status === "ready"));
+  const hourly = measurements.filter(({ station }) => station.period !== "daily");
+  const quality = hourly.length ? airQuality(hourly, now, Object.values(state).every((data) => data.status === "ready")) : unknownQuality(measurements.length ? "Moyennes journalières : les bandes horaires ne sont pas applicables." : "Mesures en chargement ou indisponibles.");
   return <>
     <DetailFacts items={[
       { label: "Station", value: station.id }, { label: "Implantation", value: [station.typology, station.influence].filter(Boolean).join(" · ") },
       { label: "Coordonnées publiées", value: `${station.lat.toFixed(5)}, ${station.lng.toFixed(5)}` },
     ]} />
     <QualitySummary quality={quality} />
-    <DetailSection title="Les polluants mesurés" description="Toutes les mesures disponibles à cette station, avec leur historique horaire. Les dates peuvent varier d’un polluant à l’autre.">
+    <DetailSection title="Les polluants mesurés" description="Toutes les mesures disponibles à cette station, avec leur historique. La période de moyenne et les dates sont précisées pour chaque polluant.">
       <div className={styles.cards}>{measurements.map(({ pollutant, station: data }) => <StationDetails key={pollutant} station={data} pollutant={pollutant} />)}</div>
+      {!measurements.length && <p className={styles.notice}>Station aux coordonnées publiées par Atmo. Aucune mesure chargée pour le moment ; sa présence sur la carte ne signifie pas qu’un flux en temps réel est disponible.</p>}
       {Object.values(state).some((data) => data.status === "loading" || data.status === "error") && <p className={`${styles.notice} mt-5`}>Certains flux sont encore en chargement ou indisponibles. Leur absence n’indique pas une absence de pollution.</p>}
     </DetailSection>
-    <DetailSection title="À propos de ces données"><p className={styles.notice}>Source : Atmo Auvergne-Rhône-Alpes. Mesures horaires aux coordonnées des stations, pas des indices communaux. Les codes de validation sont reproduits tels que publiés. Une concentration ne permet pas à elle seule d’identifier la source d’émission.</p></DetailSection>
+    <DetailSection title="À propos de ces données"><p className={styles.notice}>Source : Atmo Auvergne-Rhône-Alpes. Mesures horaires ou journalières aux coordonnées des stations, pas des indices communaux. Les codes de validation sont reproduits tels que publiés. Une concentration ne permet pas à elle seule d’identifier la source d’émission.</p></DetailSection>
   </>;
 }

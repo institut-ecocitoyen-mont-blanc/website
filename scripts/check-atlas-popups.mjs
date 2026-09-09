@@ -58,11 +58,11 @@ try {
 
     await page.getByRole('checkbox', { name: 'Sources de pollution Inventaire écocitoyen', exact: true }).uncheck();
     if (mobile) await page.getByRole('checkbox', { name: 'Chauffage au bois Démonstration · données fictives', exact: true }).check();
-    await page.getByRole('checkbox', { name: 'Qualité des cours d’eau Hub’Eau · Naïades', exact: true }).check();
+    await page.getByRole('checkbox', { name: 'Qualité des cours d’eau Agence de l’eau · Hub’Eau · Naïades', exact: true }).check();
     const riverPin = page.getByRole('button', { name: 'Cours d’eau · L’Arve à Sallanches', exact: true });
     await riverPin.focus();
     await riverPin.press('Enter');
-    assert.ok(['#16a34a', '#d97706', '#dc2626'].includes(await page.locator('.rivers-station-pin svg > path').getAttribute('fill')));
+    assert.equal(await page.locator('.rivers-station-pin svg > path').getAttribute('fill'), 'white', 'Unmatched station must remain outlined');
     await page.getByText('10 derniers résultats au maximum', { exact: true }).waitFor();
     assert.equal(await page.getByRole('dialog').locator('details').count(), 4, 'Repeated parameters grouped without losing results');
     await page.getByRole('dialog').locator('summary').first().click();
@@ -76,7 +76,7 @@ try {
     assert.equal(await page.evaluate(() => document.body.style.overflow), '');
     assert.ok(await riverPin.evaluate((el) => el === document.activeElement), 'Focus returned to triggering pin');
 
-    await page.getByRole('checkbox', { name: 'Qualité de l’air Atmo Auvergne-Rhône-Alpes', exact: true }).check();
+    await page.getByRole('checkbox', { name: 'Particules et gaz Atmo Auvergne-Rhône-Alpes', exact: true }).check();
     const airPin = page.getByRole('button', { name: 'Station Atmo · Passy', exact: true });
     await airPin.click();
     await page.waitForFunction(() => document.querySelectorAll('dialog svg[role="img"]').length === 4);

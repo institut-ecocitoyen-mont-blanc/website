@@ -25,8 +25,8 @@ export default function WoodHeatingLayer({ opacity }: { opacity: number }) {
       bounds={[[south, west], [north, east]]}
       opacity={opacity}
       interactive={false}
-      alt="Chauffage au bois : carte de chaleur fictive, sans données réelles"
-      attribution="Chauffage au bois : données fictives de démonstration"
+      alt="Chauffage résidentiel : carte de chaleur fictive, sans données réelles"
+      attribution="Chauffage résidentiel : données fictives de démonstration"
     />}
   </Pane>;
 }

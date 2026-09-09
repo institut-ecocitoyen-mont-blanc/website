@@ -1,11 +1,11 @@
 "use client";
 
 import { useEffect, useId, useRef, type ReactNode } from "react";
-import { X, Wind, Waves, GlassWater, MapPin } from "lucide-react";
+import { X, Wind, Waves, GlassWater, MapPin, Route, Leaf, FlaskConical, Shovel } from "lucide-react";
 import styles from "./AtlasDetails.module.css";
 
 export default function AtlasDetailDialog({ title, kind, subtitle, children, onClose }: {
-  title: string; kind: "atmo" | "rivers" | "drinking" | "bathing" | "inventory"; subtitle: string;
+  title: string; kind: "atmo" | "rivers" | "drinking" | "bathing" | "inventory" | "traffic" | "lichens" | "bioacc" | "soil"; subtitle: string;
   children: ReactNode; onClose: () => void;
 }) {
   const ref = useRef<HTMLDialogElement>(null);
@@ -14,7 +14,7 @@ export default function AtlasDetailDialog({ title, kind, subtitle, children, onC
   const titleId = useId();
   useEffect(() => {
     const dialog = ref.current!;
-    const previousFocus = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    const previousFocus = document.activeElement instanceof HTMLElement || document.activeElement instanceof SVGElement ? document.activeElement : null;
     const previousOverflow = document.body.style.overflow;
     dialog.showModal();
     // Focus static content so Enter on a map pin cannot also activate Close.
@@ -27,8 +27,8 @@ export default function AtlasDetailDialog({ title, kind, subtitle, children, onC
       if (previousFocus?.isConnected) previousFocus.focus({ preventScroll: true });
     };
   }, []);
-  const Icon = { atmo: Wind, rivers: Waves, drinking: GlassWater, bathing: Waves, inventory: MapPin }[kind];
-  const label = { atmo: "Qualité de l’air", rivers: "Qualité des cours d’eau", drinking: "Eau potable", bathing: "Eaux de baignade · ARS", inventory: "Inventaire écocitoyen" }[kind];
+  const Icon = { atmo: Wind, rivers: Waves, drinking: GlassWater, bathing: Waves, inventory: MapPin, traffic: Route, lichens: Leaf, bioacc: FlaskConical, soil: Shovel }[kind];
+  const label = { atmo: "Particules et gaz", rivers: "Qualité des cours d’eau", drinking: "Eau potable", bathing: "Eaux de baignade · ARS", inventory: "Inventaire écocitoyen", traffic: "Trafic routier annuel", lichens: "Lichens (bio-indication)", bioacc: "Bio-accumulation (retombées)", soil: "Qualité du sol · Analyses de sols" }[kind];
   return <dialog ref={ref} aria-labelledby={titleId} aria-modal="true" className={styles.dialog}
     onCancel={(event) => { event.preventDefault(); onClose(); }}
     onKeyDown={(event) => {

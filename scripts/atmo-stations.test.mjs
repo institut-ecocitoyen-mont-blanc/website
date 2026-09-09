@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { combineAirStations, groupAirStations, latestAirValue, airChartSegments, airQueryUrl, loadAirStations, airIsStale } from "../src/lib/atmo-stations.ts";
+import { ADDITIONAL_AIR_STATIONS, combineAirStations, groupAirStations, latestAirValue, airChartSegments, airQueryUrl, dailyAirQueryUrl, loadAirStations, airIsStale } from "../src/lib/atmo-stations.ts";
 
 const bounds = { west: 6.45, east: 7.1, south: 45.7, north: 46.1 };
 const time = Date.parse("2026-02-03T09:00:00Z");
@@ -11,10 +11,69 @@ test("all pollutants share one pin per station without losing their separate his
   const pm25 = groupAirStations([row({ valeur: 8 })], bounds);
   const pm10 = groupAirStations([row({ code_station: "FR33232", nom_station: "Bossons" })], bounds);
   const groups = combineAirStations({ no2: { stations: no2 }, pm25: { stations: pm25 }, pm10: { stations: pm10 }, o3: { stations: [] } });
-  assert.equal(groups.length, 2);
+  assert.equal(groups.length, 3);
+  assert.ok(!groups.some((group) => group.station.id === "FR33232"));
   const passy = groups.find((group) => group.station.id === "FR33220");
   assert.deepEqual(passy.measurements.map((m) => m.pollutant), ["pm25", "no2"]);
   assert.deepEqual(passy.measurements.map((m) => m.station.readings[0].value), [8, 12.9]);
+});
+
+test("requested sites retain published coordinates without inventing readings", () => {
+  const groups = combineAirStations({});
+  assert.equal(groups.length, 2);
+  for (const metadata of ADDITIONAL_AIR_STATIONS) {
+    const group = groups.find((g) => g.station.id === metadata.id);
+    assert.equal(group.station.lat, metadata.lat);
+    assert.equal(group.station.lng, metadata.lng);
+    assert.deepEqual(group.measurements, []);
+    assert.deepEqual(group.station.readings, []);
+  }
+});
+
+test("daily fallback adds only requested stations and preserves sampling period and validity", async (t) => {
+  const calls = [];
+  t.mock.method(globalThis, "fetch", async (url) => {
+    calls.push(new URL(url));
+    const daily = calls.length > 1;
+    return Response.json({ features: (daily
+      ? [row({ code_station: "ET00909", nom_station: "Passy Chedde", validite: "f" }), row({ code_station: "FR33236", nom_station: "Sallanches Régie", validite: "t" })]
+      : [row(), row({ code_station: "FR33232" })]).map((attributes) => ({ attributes })) });
+  });
+  const stations = await loadAirStations("pm10", bounds, new AbortController().signal);
+  assert.equal(stations.length, 3);
+  assert.ok(!stations.some((s) => s.id === "FR33232"));
+  assert.equal(stations.find((s) => s.id === "FR33220").period, "hourly");
+  assert.equal(stations.find((s) => s.id === "ET00909").period, "daily");
+  assert.equal(stations.find((s) => s.id === "ET00909").readings[0].validation, "f");
+  assert.equal(combineAirStations({ pm10: { stations } }).length, 3);
+  assert.match(calls[1].searchParams.get("where"), /FR33236.*ET00909/);
+  assert.match(calls[1].searchParams.get("outFields"), /validite/);
+  assert.ok(!calls[1].searchParams.get("outFields").includes("statut_valid"));
+});
+
+test("daily fallback does not replace available hourly histories", async (t) => {
+  const calls = [];
+  t.mock.method(globalThis, "fetch", async (url) => {
+    calls.push(new URL(url));
+    return Response.json({ features: calls.length === 1 ? [{ attributes: row({ code_station: "FR33236" }) }] : [] });
+  });
+  const stations = await loadAirStations("pm25", bounds, new AbortController().signal);
+  assert.equal(stations[0].period, "hourly");
+  assert.equal(calls[1].searchParams.get("where"), "code_station IN ('ET00909')");
+  assert.ok(new URL(dailyAirQueryUrl("pm25", ["ET00909"])).pathname.endsWith("/3/query"));
+});
+
+test("failure of the daily feed does not discard working hourly data", async (t) => {
+  let calls = 0;
+  t.mock.method(globalThis, "fetch", async () => ++calls === 1 ? Response.json({ features: [{ attributes: row() }] }) : Response.json({ error: {} }));
+  const stations = await loadAirStations("pm10", bounds, new AbortController().signal);
+  assert.equal(stations.length, 1);
+  assert.equal(stations[0].id, "FR33220");
+});
+
+test("daily charts connect consecutive days but break across missing days", () => {
+  const readings = [0, 1, 3].map((day) => ({ time: time + day * 86400000, value: day, unit: "µg/m³", validation: null, end: null }));
+  assert.deepEqual(airChartSegments(readings, "daily").map((s) => s.length), [2, 1]);
 });
 
 test("published coordinates, chronological histories, missing values and raw validation codes are preserved", () => {

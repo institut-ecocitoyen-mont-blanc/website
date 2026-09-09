@@ -16,8 +16,10 @@ export function environmentalPin(kind: PinKind, level: QualityLevel) {
   const key = `${kind}-${level}`;
   let icon = icons.get(key);
   if (!icon) {
+    const outlined = kind !== "air" && level === "unknown";
+    const fill = outlined ? "white" : QUALITY_COLORS[level], stroke = outlined ? "#475569" : "white";
     icon = divIcon({ className: kind === "air" ? "atmo-station-pin" : `${kind}-station-pin`,
-      html: `<svg width="36" height="46" viewBox="0 0 36 46" aria-hidden="true" data-quality="${level}"><path d="M18 44C14 37 2 27 2 18a16 16 0 1 1 32 0c0 9-12 19-16 26Z" fill="${QUALITY_COLORS[level]}" stroke="white" stroke-width="2"/><g transform="translate(7 7) scale(.92)" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${ICONS[kind]}</g></svg>`,
+      html: `<svg width="36" height="46" viewBox="0 0 36 46" aria-hidden="true" data-quality="${level}"><path d="M18 44C14 37 2 27 2 18a16 16 0 1 1 32 0c0 9-12 19-16 26Z" fill="${fill}" stroke="${stroke}" stroke-width="2"/><g transform="translate(7 7) scale(.92)" fill="none" stroke="${stroke}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${ICONS[kind]}</g></svg>`,
       iconSize: [36, 46], iconAnchor: [18, 44], popupAnchor: [0, -40] });
     icons.set(key, icon);
   }
@@ -26,16 +28,18 @@ export function environmentalPin(kind: PinKind, level: QualityLevel) {
 
 export function QualitySummary({ quality }: { quality: Quality }) {
   return <div className="space-y-1 rounded-lg border border-slate-200 bg-slate-50 p-3 text-xs">
-    <p className="flex items-center gap-2 font-semibold"><span aria-hidden="true" className="h-3 w-3 shrink-0 rounded-full" style={{ background: QUALITY_COLORS[quality.level] }} />{quality.label}</p>
+    <p className="flex items-center gap-2 font-semibold"><span aria-hidden="true" className="h-3 w-3 shrink-0 rounded-full border border-slate-500" style={{ background: quality.level === "unknown" ? "white" : QUALITY_COLORS[quality.level] }} />{quality.label}</p>
+    {quality.period && <p>Évaluation publiée · {quality.period}</p>}
     {quality.time !== undefined && <p>{new Date(quality.time).toLocaleString("fr-FR", { timeZone: "Europe/Paris" })} (Paris)</p>}
+    {quality.historical && <p className="font-medium">Donnée historique · plus de 90 jours (repère de lecture, pas une durée de validité sanitaire)</p>}
     <p>{quality.detail}</p>
   </div>;
 }
 
 export function QualityLegend() {
   return <div aria-label="Couleurs des mesures" className="mt-4 space-y-2 text-xs text-slate-600">
-    <p className="font-semibold">Air et eau potable</p>
-    <div className="flex flex-wrap gap-x-3 gap-y-1">{([["good", "Bon / conforme"], ["moderate", "Intermédiaire"], ["poor", "Mauvais / non conforme"], ["unknown", "Non déterminé"]] as const).map(([level, label]) => <span key={level} className="inline-flex items-center gap-1"><span className="h-2.5 w-2.5 rounded-full" style={{ background: QUALITY_COLORS[level] }} />{label}</span>)}</div>
-    <p>Bleu : données anciennes, absentes ou insuffisantes. Consultez la date et la portée du résultat dans la fiche. L’inventaire conserve ses couleurs par secteur.</p>
+    <p className="font-semibold">Couleurs des couches eau</p>
+    <div className="flex flex-wrap gap-x-3 gap-y-1">{([["good", "Bon / conforme"], ["moderate", "Intermédiaire"], ["poor", "Dégradé / non conforme"], ["unknown", "Non déterminé"]] as const).map(([level, label]) => <span key={level} className="inline-flex items-center gap-1"><span className="h-2.5 w-2.5 rounded-full border border-slate-500" style={{ background: level === "unknown" ? "white" : QUALITY_COLORS[level] }} />{label}</span>)}</div>
+    <p>Contour seul : données absentes ou insuffisantes. Les couleurs décrivent les évaluations datées disponibles, pas la situation en temps réel. Chaque couche a sa propre méthode, détaillée ci-dessus et dans les fiches.</p>
   </div>;
 }

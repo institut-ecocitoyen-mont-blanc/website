@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { airQuality, drinkingQuality, RIVER_QUALITY, AIR_COLOR_MAX_AGE, WATER_COLOR_MAX_AGE, demoPinLevel, demoAirPinLevel, demoDrinkingPinLevel } from "../src/lib/environmental-quality.ts";
+import { airQuality, drinkingQuality, AIR_COLOR_MAX_AGE, WATER_COLOR_MAX_AGE, demoPinLevel, demoAirPinLevel } from "../src/lib/environmental-quality.ts";
 
 const now = Date.parse("2026-09-08T12:00:00Z");
 const time = now - 3600000;
@@ -54,13 +54,13 @@ test("water uses official sample conformity codes, not raw parameter concentrati
   assert.match(drinkingQuality(sample(), now).detail, /pas un bilan de tous les réseaux/);
 });
 
-test("old and undated water samples never imply current conformity or danger", () => {
-  assert.equal(drinkingQuality(sample(), time + WATER_COLOR_MAX_AGE + 1).level, "unknown");
-  assert.equal(drinkingQuality(sample({ conformite_limites_pc_prelevement: "N" }), time + WATER_COLOR_MAX_AGE + 1).level, "unknown");
+test("historical water keeps the published assessment with age flagged; invalid dates stay unknown", () => {
+  assert.equal(drinkingQuality(sample(), time + WATER_COLOR_MAX_AGE + 1).level, "good");
+  assert.equal(drinkingQuality(sample(), time + WATER_COLOR_MAX_AGE + 1).historical, true);
+  assert.equal(drinkingQuality(sample({ conformite_limites_pc_prelevement: "N" }), time + WATER_COLOR_MAX_AGE + 1).level, "poor");
   assert.equal(drinkingQuality(sample({ date_prelevement: null }), now).level, "unknown");
   assert.equal(drinkingQuality(sample(), time - 1).level, "unknown");
   assert.equal(drinkingQuality(undefined, now).level, "unknown");
-  assert.equal(RIVER_QUALITY.level, "unknown");
 });
 
 test("demo pins use historical ratings without mutating dates, readings or real assessments", () => {
@@ -70,10 +70,6 @@ test("demo pins use historical ratings without mutating dates, readings or real 
   assert.equal(demoAirPinLevel(measurements, "air"), "poor");
   assert.equal(airQuality(measurements, now + AIR_COLOR_MAX_AGE + 1).level, "unknown");
   assert.deepEqual(measurements, before);
-  const water = sample({ conformite_limites_pc_prelevement: "N" });
-  assert.equal(demoDrinkingPinLevel(water, "water"), "poor");
-  assert.equal(drinkingQuality(water, now + WATER_COLOR_MAX_AGE).level, "unknown");
-  assert.equal(demoDrinkingPinLevel(sample(), "water"), "good");
 });
 
 test("demo fallback is stable and limited to green, orange and red", () => {
@@ -84,5 +80,4 @@ test("demo fallback is stable and limited to green, orange and red", () => {
   assert.equal(demoPinLevel("very-poor", "a"), "poor");
   assert.equal(demoPinLevel("extreme", "a"), "poor");
   assert.ok(levels.has(demoAirPinLevel([], "missing")));
-  assert.ok(levels.has(demoDrinkingPinLevel(undefined, "missing")));
 });

@@ -1,0 +1,43 @@
+import { createRequire } from 'node:module';
+import assert from 'node:assert/strict';
+const {chromium} = createRequire(import.meta.url)('playwright');
+const browser = await chromium.launch({headless:true,channel:'chrome'});
+try {
+  const page = await browser.newPage({viewport:{width:1440,height:1000}});
+  let outage = true, calls = 0;
+  await page.route('**/hubeau.eaufrance.fr/**/station_pc?**', route => {
+    calls++;
+    return outage ? route.fulfill({status:500,body:'Provider error'}) : route.fulfill({json:{data:[{code_station:'06061000',libelle_station:'ARVE A MAGLAND',latitude:45.97,longitude:6.62}],next:null}});
+  });
+  await page.route('**/hubeau.eaufrance.fr/**/analyse_pc?**',route=>route.fulfill({status:500,body:'Provider error'}));
+  await page.goto(process.env.ATLAS_URL || 'http://localhost:3000/atlas');
+  await page.getByRole('checkbox',{name:'Sources de pollution Inventaire écocitoyen',exact:true}).uncheck();
+  const toggle=page.getByRole('checkbox',{name:'Qualité des cours d’eau Agence de l’eau · Hub’Eau · Naïades',exact:true});
+  await toggle.check();
+  const warning=page.getByText('Hub’Eau est temporairement indisponible. Le catalogue conservé reste affiché ; les analyses détaillées peuvent être indisponibles.',{exact:true});
+  await warning.waitFor();
+  const count=await page.locator('.rivers-station-pin').count();
+  assert.ok(count>1,'Build-time catalogue survives the initial HTTP 500 outage');
+  assert.equal(calls,3);
+  await page.getByText(/repères conservés · catalogue enregistré le/).waitFor();
+  await page.getByRole('button',{name:/Cours d’eau · ARVE A MAGLAND/i}).click();
+  await page.getByRole('dialog').getByText(/Potentiel écologique : moyen/).waitFor();
+  await page.getByRole('dialog').getByText(/Les analyses sont temporairement indisponibles/).waitFor();
+  await page.keyboard.press('Escape');
+  await page.screenshot({path:'/tmp/atlas-river-outage.png'});
+  outage=false;
+  await page.getByRole('button',{name:'Réessayer',exact:true}).click();
+  await warning.waitFor({state:'hidden'});
+  await page.getByText(/1 stations · Catalogue chargé/).waitFor();
+  assert.equal(await page.locator('.rivers-station-pin').count(),1);
+  assert.equal(calls,4);
+  outage=true;
+  await page.getByRole('button',{name:'Actualiser les couches externes',exact:true}).click();
+  assert.equal(await page.locator('.rivers-station-pin').count(),1,'Do not erase successful results during refresh');
+  await warning.waitFor();
+  assert.equal(await page.locator('.rivers-station-pin').count(),1,'Do not revert a fresher catalogue to the build snapshot');
+  assert.equal(calls,7);
+  await toggle.uncheck();
+  assert.equal(await page.locator('.rivers-station-pin').count(),0);
+  console.log('PASS: HTTP 500 initial outage, dated fallback, assessments available, analyses error, retry recovery and retained refresh results');
+} finally {await browser.close();}

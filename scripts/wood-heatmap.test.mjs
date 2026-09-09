@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { createWoodHeatmap } from "../src/lib/wood-heatmap.ts";
+import { createWoodHeatmap, WOOD_HEATMAP_BOUNDS } from "../src/lib/wood-heatmap.ts";
 
 test("fictional heatmap is deterministic, with transparent surroundings and a full colour ramp", () => {
   const first = createWoodHeatmap(200);
@@ -28,4 +28,24 @@ test("invalid raster sizes are rejected", () => {
   for (const width of [0, -1, 1.5, NaN, Infinity, 3000]) {
     assert.throws(() => createWoodHeatmap(width), /Invalid heatmap width/);
   }
+});
+
+test("residential demo excludes Chamonix and Les Houches and adds Les Contamines and Praz-sur-Arly", () => {
+  const raster = createWoodHeatmap(900);
+  const { west, east, south, north } = WOOD_HEATMAP_BOUNDS;
+  const mercator = (lat) => Math.log(Math.tan(Math.PI / 4 + lat * Math.PI / 360));
+  const pixel = (lat, lng) => {
+    const x = Math.round((lng - west) / (east - west) * (raster.width - 1));
+    const y = Math.round((mercator(north) - mercator(lat)) / (mercator(north) - mercator(south)) * (raster.height - 1));
+    return [...raster.pixels.slice((y * raster.width + x) * 4, (y * raster.width + x) * 4 + 4)];
+  };
+  for (const [lat, lng] of [[45.909,6.836],[45.925,6.868],[45.944,6.892],[45.979,6.925]]) {
+    assert.equal(pixel(lat,lng)[3],0,"No remaining Chamonix/Bossons/Les Praz/Argentière hotspots");
+  }
+  for (const [lat,lng] of [[45.821,6.728],[45.837,6.572]]) {
+    const [r,g,,a] = pixel(lat,lng);
+    assert.ok(a > 200 && r > 220 && g < 90,"Added village has a visible heatmap core");
+  }
+  assert.equal(pixel(45.886,6.803)[3],0,"Les Houches is excluded too");
+  assert.ok(pixel(45.929,6.642)[3] > 200,"Existing Sallanches coverage remains present");
 });
