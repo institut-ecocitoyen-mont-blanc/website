@@ -1,3 +1,4 @@
+import { filterCcpmbPoints, insideCcpmb } from "./ccpmb-territory.ts";
 export const ATMO_SERVICE = "https://services3.arcgis.com/o7Q3o5SkiSeZD5LK/arcgis/rest/services/Concentrations%20moyennes%20horaires/FeatureServer";
 export const ATMO_DAILY_SERVICE = "https://services3.arcgis.com/o7Q3o5SkiSeZD5LK/arcgis/rest/services/Concentrations%20moyennes%20journali%C3%A8res/FeatureServer";
 export const EXCLUDED_AIR_STATION = "FR33232"; // Les Bossons: excluded from this atlas by request.
@@ -34,10 +35,10 @@ export interface AirStation {
 export interface AirBounds { west: number; south: number; east: number; north: number }
 export function combineAirStations(datasets: Partial<Record<AirPollutant, { stations: AirStation[] }>>) {
   const groups = new Map<string, { station: AirStation; measurements: { pollutant: AirPollutant; station: AirStation }[] }>();
-  for (const station of ADDITIONAL_AIR_STATIONS) groups.set(station.id, { station: { ...station, readings: [] }, measurements: [] });
+  for (const station of filterCcpmbPoints(ADDITIONAL_AIR_STATIONS)) groups.set(station.id, { station: { ...station, readings: [] }, measurements: [] });
   for (const { id } of AIR_POLLUTANTS) {
     for (const station of datasets[id]?.stations ?? []) {
-      if (station.id === EXCLUDED_AIR_STATION) continue;
+      if (station.id === EXCLUDED_AIR_STATION || !insideCcpmb(station.lat, station.lng)) continue;
       const group = groups.get(station.id) ?? { station, measurements: [] };
       if (!group.measurements.length) group.station = station;
       group.measurements.push({ pollutant: id, station });
@@ -90,7 +91,7 @@ async function loadAdditionalDaily(pollutant: "pm10" | "pm25", bounds: AirBounds
     const records = data.features.map((f: { attributes?: Row }) => f.attributes);
     if (records.some((r: unknown) => !r || typeof r !== "object")) throw new Error("Mesures journalières au format inattendu.");
     all.push(...records);
-    if (!data.exceededTransferLimit) return groupAirStations(all, bounds, "daily").filter((s) => ids.includes(s.id));
+    if (!data.exceededTransferLimit) return filterCcpmbPoints(groupAirStations(all, bounds, "daily")).filter((s) => ids.includes(s.id));
     if (!records.length) break;
   }
   throw new Error("Mesures journalières incomplètes.");
@@ -109,7 +110,7 @@ export async function loadAirStations(pollutant: AirPollutant, bounds: AirBounds
     if (rows.some((row: unknown) => !row || typeof row !== "object")) throw new Error("Mesures Atmo au format inattendu.");
     all.push(...rows);
     if (!data.exceededTransferLimit) {
-      const hourly = groupAirStations(all, bounds).filter((station) => station.id !== EXCLUDED_AIR_STATION);
+      const hourly = filterCcpmbPoints(groupAirStations(all, bounds)).filter((station) => station.id !== EXCLUDED_AIR_STATION);
       if (pollutant !== "pm10" && pollutant !== "pm25") return hourly;
       const missing = ADDITIONAL_AIR_STATIONS.filter((s) => !hourly.some((h) => h.id === s.id)).map((s) => s.id);
       if (!missing.length) return hourly;

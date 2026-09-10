@@ -1,6 +1,6 @@
 import { AREA } from "./environmental-layers.ts";
 
-export const TRAFFIC_ROADS = ["A40", "D1205", "D909", "D1212", "D13", "D39", "D902"] as const;
+export const TRAFFIC_ROADS = ["A40", "D1205", "D909", "D1212", "D13", "D39", "D902", "D339", "N205"] as const;
 export type TrafficRoad = typeof TRAFFIC_ROADS[number];
 export type RoadPosition = [number, number]; // Latitude, longitude for Leaflet.
 export interface RoadTrafficSegment {

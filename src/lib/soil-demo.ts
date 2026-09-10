@@ -1,3 +1,4 @@
+import { filterCcpmbPoints } from "./ccpmb-territory.ts";
 // Entirely fictional scenarios: coordinates, land uses, dates and measurements
 // do not describe actual parcels, samples or contamination in these communes.
 export interface SoilDemoSite {
@@ -21,7 +22,7 @@ const locations: [string, number, number][] = [
 ];
 const settings = ["Jardin", "Terrain agricole", "Espace urbain"];
 const depths: [number, number][] = [[0, 10], [0, 20], [10, 30]];
-export const SOIL_DEMO_SITES: SoilDemoSite[] = locations.map(([commune, lat, lng], i) => {
+export const SOIL_DEMO_SITES: SoilDemoSite[] = filterCcpmbPoints(locations.map(([commune, lat, lng], i) => {
   const index = 12 + i * 31 % 83;
   return {
     id: `soil-demo-${i + 1}`, name: `${commune} · Sol ${String(i + 1).padStart(2, "0")}`, commune, lat, lng,
@@ -35,4 +36,4 @@ export const SOIL_DEMO_SITES: SoilDemoSite[] = locations.map(([commune, lat, lng
       { name: "Pesticides · indicateur fictif", family: "Pesticides", value: Number((0.02 + i * 0.07 % 0.9).toFixed(2)), unit: "mg/kg MS" },
     ],
   };
-});
+}));

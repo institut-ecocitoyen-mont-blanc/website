@@ -1,3 +1,4 @@
+import { ccpmbLongitudeSpans } from "./ccpmb-territory.ts";
 // Entirely fictional hotspots: no measurements, household locations, emissions
 // estimates or health thresholds are represented.
 export const WOOD_HEATMAP_BOUNDS = { west: 6.45, south: 45.7, east: 7.1, north: 46.1 };
@@ -50,10 +51,18 @@ export function createWoodHeatmap(width = 900) {
     }
   }
 
+  const mask = new Uint8Array(width * height);
+  for (let y = 0; y < height; y++) {
+    const lat = (2 * Math.atan(Math.exp(top - y / (height - 1) * (top - bottom))) - Math.PI / 2) * 180 / Math.PI;
+    for (const [left, right] of ccpmbLongitudeSpans(lat)) {
+      const start = Math.max(0, Math.ceil(xFor(left))), end = Math.min(width - 1, Math.floor(xFor(right)));
+      if (start <= end) mask.fill(1, y * width + start, y * width + end + 1);
+    }
+  }
   const pixels = new Uint8ClampedArray(width * height * 4);
   for (let i = 0; i < field.length; i++) {
     const value = Math.min(1, field[i]);
-    if (value < 0.055) continue;
+    if (value < 0.055 || !mask[i]) continue;
     const scaled = Math.max(0, (value - 0.055) / 0.945) * (COLORS.length - 1);
     const index = Math.min(COLORS.length - 2, Math.floor(scaled));
     const fraction = scaled - index;

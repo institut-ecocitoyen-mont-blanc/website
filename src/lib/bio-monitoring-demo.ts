@@ -1,3 +1,4 @@
+import { filterCcpmbPoints } from "./ccpmb-territory.ts";
 // Locations transcribed from the supplied atlas-ccpmb-prototype.html.
 // They are unverified prototype locations, not an official monitoring network.
 // All indices and readings below are invented, deterministic demo values.
@@ -53,4 +54,4 @@ function makeSites(kind: BioDemoKind, locations: Location[]): BioDemoSite[] {
     ] };
   });
 }
-export const BIO_DEMO_SITES: Record<BioDemoKind, BioDemoSite[]> = { lichens: makeSites("lichens", lichens), bioacc: makeSites("bioacc", bioacc) };
+export const BIO_DEMO_SITES: Record<BioDemoKind, BioDemoSite[]> = { lichens: filterCcpmbPoints(makeSites("lichens", lichens)), bioacc: filterCcpmbPoints(makeSites("bioacc", bioacc)) };

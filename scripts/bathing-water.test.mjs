@@ -58,7 +58,8 @@ test("bounds concurrency, keeps partial successes and does not timestamp failed 
     if (site.id === "074003361" && year === 2026) throw new Error("timeout");
     return new Response(page(site, year));
   }, new Date("2026-09-08"));
-  assert.equal(calls, 12);
+  assert.equal(calls, 6);
+  assert.deepEqual(data.points.map(p=>p.id), ['074003360','074003361','074003362']);
   assert.equal(maximum, 3);
   assert.equal(data.points[0].seasons[0].samples.length, 2);
   assert.ok(data.points[1].seasons[0].error);

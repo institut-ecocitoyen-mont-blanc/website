@@ -8,8 +8,8 @@ try {
     await page.goto(process.env.ATLAS_URL || "http://localhost:3000/atlas");
     const toggle = page.getByRole("checkbox", { name: "Eaux de baignade · ARS Ministère de la Santé", exact: true });
     await toggle.check();
-    await page.getByText(/^6 sites · \d+ prélèvements récupérés\.$/).waitFor();
-    assert.equal(await page.locator(".bathing-station-pin").count(), 6);
+    await page.getByText(/^3 sites · \d+ prélèvements récupérés\.$/).waitFor();
+    assert.equal(await page.locator(".bathing-station-pin").count(), 3);
     const pin = page.getByRole("button", { name: "Baignade · Lac de Passy · Îles", exact: true });
     await pin.focus(); await page.keyboard.press("Enter");
     const dialog = page.getByRole("dialog");
@@ -30,13 +30,9 @@ try {
     for (const name of ["Thyez · Baignade municipale", "Morillon · Baignade municipale", "Samoëns · Lac des Dames"]) {
       await toggle.check();
       const addedPin = page.getByRole("button", { name: `Baignade · ${name}`, exact: true });
-      await addedPin.focus(); await page.keyboard.press("Enter");
-      await page.getByRole("dialog").waitFor();
-      assert.equal(await page.getByRole("dialog").getByRole("table").count(), 2);
-      assert.equal(await page.getByRole("dialog").getByRole("alert").count(), 0);
-      await page.keyboard.press("Escape");
+      assert.equal(await addedPin.count(), 0);
     }
-    console.log(`PASS bathing: ${width}px, real data, six pins, two seasons, modal and keyboard`);
+    console.log(`PASS bathing: ${width}px, three CCPMB pins, neighbouring communes excluded, two seasons, modal and keyboard`);
     await page.close();
   }
 } finally { await browser.close(); }

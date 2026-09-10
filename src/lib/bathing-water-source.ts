@@ -1,5 +1,6 @@
 // Server/build-time adapter: the Ministry's legacy HTML is not a browser API.
 import { BATHING_SITES, bathingSourceUrl, type BathingAssessment, type BathingData, type BathingPoint, type BathingSample, type BathingSite } from "./bathing-water.ts";
+import { filterCcpmbPoints } from "./ccpmb-territory.ts";
 
 const text = (html: string) => html.replace(/<!--[\s\S]*?-->/g, "").replace(/<\/?[a-z][^>]*>/gi, "")
   .replace(/&nbsp;|&#160;/g, " ").replace(/&lt;|&#60;/g, "<").replace(/&gt;|&#62;/g, ">")
@@ -72,11 +73,12 @@ export async function loadBathingWater(fetcher: typeof fetch = fetch, now = new 
     return { ...site, seasons };
   };
   const points: BathingPoint[] = [];
+  const sites = filterCcpmbPoints(BATHING_SITES);
   let index = 0;
   await Promise.all(Array.from({ length: 3 }, async () => {
-    while (index < BATHING_SITES.length) {
+    while (index < sites.length) {
       const i = index++;
-      points[i] = await loadSite(BATHING_SITES[i]);
+      points[i] = await loadSite(sites[i]);
     }
   }));
   return { points };

@@ -24,7 +24,7 @@ export function useSoilDemoLayer() {
   const controls = <section className={`rounded-xl border p-3 ${enabled ? "border-blue-200 bg-blue-50/40" : "border-slate-200"}`}>
     <label className="flex gap-3 items-start cursor-pointer"><input type="checkbox" className="mt-1 h-4 w-4 accent-blue-iec" checked={enabled} onChange={(event) => setEnabled(event.target.checked)} /><span><span className="block font-semibold text-sm text-slate-900">Analyses de sols</span><span className="block text-xs text-slate-500 mt-1">Démonstration · données fictives</span></span></label>
     {enabled && <div className="mt-3 space-y-3 text-xs text-slate-600">
-      <p>15 sites fictifs : jardins, terrains agricoles et espaces urbains simulés. Métaux, hydrocarbures et pesticides.</p>
+      <p>{SOIL_DEMO_SITES.length} sites fictifs : jardins, terrains agricoles et espaces urbains simulés. Métaux, hydrocarbures et pesticides.</p>
       <label className="flex items-center gap-2">Opacité<input aria-label="Opacité · Analyses de sols" className="min-w-0 flex-1 accent-blue-iec" type="range" min="0.15" max="1" step="0.05" value={opacity} onChange={(event) => setOpacity(Number(event.target.value))} /><span>{Math.round(opacity * 100)} %</span></label>
       <p className="font-semibold">Intensité de contamination fictive · 0–100</p>
       <div className="flex flex-wrap gap-2">{SOIL_DEMO_BANDS.map((band) => <span key={band.label} className="inline-flex items-center gap-1"><span aria-hidden="true" className="h-2.5 w-2.5 rounded-full" style={{ background: band.color }} />{band.label}</span>)}</div>

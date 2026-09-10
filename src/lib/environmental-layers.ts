@@ -1,4 +1,5 @@
-// Public providers queried directly by the static site's browser client.
+import { insideCcpmb } from "./ccpmb-territory.ts";
+// Broad provider query envelope only; displayed data use the commune polygons.
 export const AREA = { west: 6.45, south: 45.7, east: 7.1, north: 46.1 };
 export type LayerId = "inventory" | "atmo" | "rivers" | "drinking" | "bathing" | "wood" | "traffic";
 export type RemoteLayerId = Exclude<LayerId, "inventory" | "wood" | "atmo" | "bathing" | "traffic">;
@@ -12,17 +13,17 @@ export interface LayerPoint {
 }
 export const LAYERS: { id: LayerId; title: string; source: string; url?: string; description: string; color: string }[] = [
   { id: "inventory", title: "Sources de pollution", source: "Inventaire écocitoyen", url: "/carte", description: "Les sites de l’inventaire participatif, avec leurs secteurs d’activité.", color: "#1d6ab2" },
-  { id: "traffic", title: "Trafic routier annuel", source: "DDT de Haute-Savoie", url: "https://www.data.gouv.fr/datasets/trafic-routier-en-haute-savoie", description: "A40, D1205, D909, D1212, D13, D39 et D902 : tracés colorés par le nombre moyen de véhicules par jour sur l’année.", color: "#ea580c" },
+  { id: "traffic", title: "Trafic routier annuel", source: "DDT de Haute-Savoie", url: "https://www.data.gouv.fr/datasets/trafic-routier-en-haute-savoie", description: "Tronçons des routes sélectionnées limités aux 10 communes de la CCPMB, colorés par le nombre moyen de véhicules par jour sur l’année.", color: "#ea580c" },
   { id: "wood", title: "Chauffage résidentiel", source: "Démonstration · données fictives", description: "Carte de chaleur entièrement simulée. Les zones et intensités sont inventées : ni mesures, ni émissions estimées, ni seuils sanitaires.", color: "#f52222" },
   { id: "atmo", title: "Particules et gaz", source: "Atmo Auvergne-Rhône-Alpes", url: "https://www.atmo-auvergnerhonealpes.fr/dataviz/mesures-aux-stations", description: "Stations aux coordonnées publiées par Atmo : concentrations horaires par polluant, dates et historique.", color: "#8b5cf6" },
   { id: "rivers", title: "Qualité des cours d’eau", source: "Agence de l’eau · Hub’Eau · Naïades", url: "https://hubeau.eaufrance.fr/page/api-qualite-cours-deau", description: "État ou potentiel écologique officiel à la station, et analyses physico-chimiques disponibles.", color: "#0891b2" },
-  { id: "bathing", title: "Eaux de baignade · ARS", source: "Ministère de la Santé", url: "https://baignades.sante.gouv.fr/baignades/", description: "Six sites à Passy, Sallanches, Thyez, Morillon et Samoëns : E. coli, entérocoques et appréciations des prélèvements. Coordonnées officielles des sites, pas de chaque prélèvement.", color: "#0891b2" },
+  { id: "bathing", title: "Eaux de baignade · ARS", source: "Ministère de la Santé", url: "https://baignades.sante.gouv.fr/baignades/", description: "Sites de baignade de Passy et Sallanches : E. coli, entérocoques et appréciations des prélèvements. Coordonnées officielles des sites, pas de chaque prélèvement.", color: "#0891b2" },
   { id: "drinking", title: "Eau potable · contrôle ARS", source: "Ministère de la Santé · Hub’Eau", url: "https://hubeau.eaufrance.fr/page/api-qualite-eau-potable", description: "Conclusions sanitaires par réseau de distribution. Les points sont des repères communaux, pas des captages ni des lieux de prélèvement.", color: "#2563eb" },
 ];
 
 export const asText = (value: unknown): string => typeof value === "string" || typeof value === "number" ? String(value) : "";
 export function insideArea(lat: number, lng: number) {
-  return Number.isFinite(lat) && Number.isFinite(lng) && lat >= AREA.south && lat <= AREA.north && lng >= AREA.west && lng <= AREA.east;
+  return insideCcpmb(lat, lng);
 }
 function retryDelay(ms: number, signal: AbortSignal) {
   signal.throwIfAborted();

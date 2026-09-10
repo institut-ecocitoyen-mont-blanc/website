@@ -26,7 +26,8 @@ import { WOOD_HEATMAP_GRADIENT } from "@/lib/wood-heatmap";
 import RoadTrafficLayer, { RoadTrafficControls, RoadTrafficDetails } from "@/components/RoadTrafficLayer";
 import type { RoadTrafficData, RoadTrafficSegment } from "@/lib/road-traffic";
 import { getSectorColor, type PollutionSite, type PollutionSitesResult } from "@/lib/google-sheets";
-import { AREA, LAYERS, loadLayer, type LayerId, type LayerPoint } from "@/lib/environmental-layers";
+import { LAYERS, loadLayer, type LayerId, type LayerPoint } from "@/lib/environmental-layers";
+import { CCPMB_BOUNDS as AREA, filterCcpmbPoints } from "@/lib/ccpmb-territory";
 
 type RemoteId = Exclude<LayerId, "inventory" | "wood" | "bathing" | "traffic">;
 interface RemoteState { points: LayerPoint[]; status: "idle" | "loading" | "ready" | "error"; error?: string; fetchedAt?: string; cached?: boolean }
@@ -45,7 +46,10 @@ const dateLabel = (value: string) => {
 const errorLabel = (error: unknown) => error instanceof Error && error.name === "TimeoutError" ? "Le fournisseur met trop de temps à répondre. Réessayez." : error instanceof TypeError ? "Connexion au fournisseur indisponible. Réessayez." : error instanceof Error ? error.message : "Données temporairement indisponibles.";
 
 function useRemoteLayer(id: Exclude<RemoteId, "atmo">, enabled: boolean, revision: number, snapshot?: RiverCatalogue) {
-  const [state, setState] = useState<RemoteState>(() => snapshot?.points.length ? { points: snapshot.points, status: "ready", fetchedAt: snapshot.fetchedAt ?? undefined, cached: true } : EMPTY);
+  const [state, setState] = useState<RemoteState>(() => {
+    const points = filterCcpmbPoints(snapshot?.points ?? []);
+    return points.length ? { points, status: "ready", fetchedAt: snapshot?.fetchedAt ?? undefined, cached: true } : EMPTY;
+  });
   useEffect(() => {
     if (!enabled) return;
     const controller = new AbortController();

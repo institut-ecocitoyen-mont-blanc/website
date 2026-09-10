@@ -1,4 +1,5 @@
 import { createHash } from "node:crypto";
+import { clipPathsToCcpmb } from "./ccpmb-territory.ts";
 import { AREA } from "./environmental-layers.ts";
 import { TRAFFIC_ROADS, clipTrafficPaths, type RoadPosition, type RoadTrafficData, type RoadTrafficSegment, type TrafficRoad } from "./road-traffic.ts";
 
@@ -48,7 +49,7 @@ export function parseRoadTraffic(xml: string, currentYear = new Date().getUTCFul
       }
       return path;
     });
-    const paths = clipTrafficPaths(originalPaths);
+    const paths = clipPathsToCcpmb(clipTrafficPaths(originalPaths));
     if (!paths.length) continue;
     const officialId = field(member, "ID"), point = field(member, "N_COMPT"), countingType = field(member, "T_COMPT");
     const sourceId = officialId && officialId !== "X" ? officialId : null;
