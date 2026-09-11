@@ -26,7 +26,7 @@ export default function WoodHeatingLayer({ opacity }: { opacity: number }) {
       opacity={opacity}
       interactive={false}
       alt="Chauffage résidentiel : carte de chaleur fictive, sans données réelles"
-      attribution="Chauffage résidentiel : données fictives de démonstration"
+      attribution="Institut écocitoyen · chauffage résidentiel · données fictives"
     />}
   </Pane>;
 }

@@ -2,8 +2,10 @@ import Link from "next/link";
 import { DetailFacts, DetailSection } from "./AtlasDetailDialog";
 import type { PollutionSite } from "@/lib/google-sheets";
 import styles from "./AtlasDetails.module.css";
+import IndustrialEmissionsDetails from "./IndustrialEmissionsDetails";
+import type { IndustrialEmissionsData } from "@/lib/industrial-emissions";
 
-export default function AtlasInventoryDetails({ site }: { site: PollutionSite }) {
+export default function AtlasInventoryDetails({ site, emissions }: { site: PollutionSite; emissions: IndustrialEmissionsData }) {
   return <>
     <DetailFacts items={[
       { label: "Commune", value: site.commune }, { label: "Secteur d’activité", value: site.sector },
@@ -11,6 +13,7 @@ export default function AtlasInventoryDetails({ site }: { site: PollutionSite })
       { label: "Localisation", value: site.localizationDetail || site.localizationType },
     ]} />
     {site.activity && <DetailSection title="L’activité du site"><p className="whitespace-pre-line text-sm leading-relaxed">{site.activity}</p></DetailSection>}
+    <IndustrialEmissionsDetails site={site} data={emissions} />
     {(site.emissionTiming || site.knowledgeLevel) && <DetailFacts items={[
       { label: "Temporalité de l’émission", value: site.emissionTiming }, { label: "Niveau de connaissance", value: site.knowledgeLevel },
     ]} />}

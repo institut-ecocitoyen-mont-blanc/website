@@ -1,0 +1,31 @@
+.drawer {
+  position: fixed;
+  inset: 0 auto 0 0;
+  margin: 0;
+  padding: 0;
+  width: min(380px, calc(100% - 32px));
+  max-width: none;
+  height: 100dvh;
+  max-height: none;
+  border: 0;
+  border-radius: 0 18px 18px 0;
+  background: white;
+  color: #1e293b;
+  box-shadow: 12px 0 50px #0f172a40;
+  overflow: hidden;
+}
+.drawer::backdrop { background: #0f172a88; }
+.layout { display: flex; flex-direction: column; height: 100%; }
+.header { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: max(12px, env(safe-area-inset-top)) 12px 12px 20px; background: var(--color-blue-iec, #1d6ab2); color: white; flex-shrink: 0; }
+.header h2 { display: flex; align-items: center; gap: 8px; font-size: 16px; font-weight: 700; }
+.header button { display: grid; place-items: center; width: 44px; height: 44px; flex-shrink: 0; border-radius: 50%; cursor: pointer; }
+.header button:hover { background: #ffffff20; }
+.content { min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding: 20px; }
+.footer { padding: 12px 20px max(12px, env(safe-area-inset-bottom)); border-top: 1px solid #e2e8f0; background: white; flex-shrink: 0; }
+.footer button { width: 100%; min-height: 44px; border-radius: 8px; background: var(--color-blue-iec, #1d6ab2); color: white; font-size: 14px; font-weight: 600; cursor: pointer; }
+.drawer :focus-visible { outline: 3px solid var(--color-blue-iec, #1d6ab2); outline-offset: 3px; }
+.header button:focus-visible, .footer button:focus-visible { outline: 2px solid currentColor; outline-offset: -5px; }
+@media (prefers-reduced-motion: no-preference) {
+  .drawer[open] { animation: slide-in 180ms ease-out; }
+  @keyframes slide-in { from { transform: translateX(-100%); } to { transform: translateX(0); } }
+}

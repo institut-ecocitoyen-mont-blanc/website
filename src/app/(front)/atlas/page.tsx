@@ -6,6 +6,8 @@ import { loadRiverAssessments } from "@/lib/river-assessments-source";
 import { loadRiverCatalogue } from "@/lib/river-catalogue";
 import { loadRoadTraffic } from "@/lib/road-traffic-source";
 import { clipAtlasInventory } from "@/lib/atlas-inventory";
+import { loadIndustrialEmissions } from "@/lib/industrial-emissions-source";
+import { loadGroundwaterCatalogue } from "@/lib/groundwater-source";
 
 export const metadata = createPageMetadata({ title: "Atlas environnemental du Pays du Mont-Blanc", description: "Superposez l’inventaire participatif, la qualité de l’air et les données publiques sur l’eau dans le Pays du Mont-Blanc.", path: "/atlas" });
 export const revalidate = 3600;
@@ -15,6 +17,8 @@ export default async function AtlasPage() {
   const riverPromise = loadRiverAssessments();
   const riverCataloguePromise = loadRiverCatalogue();
   const trafficPromise = loadRoadTraffic();
+  const emissionsPromise = loadIndustrialEmissions();
+  const groundwaterPromise = loadGroundwaterCatalogue();
   let inventory: PollutionSitesResult | null = null;
   try { inventory = clipAtlasInventory(await fetchAllPollutionSites()); }
   catch (error) { console.error("Unable to load atlas inventory", error); }
@@ -28,8 +32,7 @@ export default async function AtlasPage() {
             <p className="mt-3 text-slate-600 max-w-2xl">Croisez les regards sur le territoire. Activez plusieurs couches et cliquez sur la carte pour explorer leurs données.</p>
           </div>
         </div>
-        <AtlasClient inventory={inventory} bathing={await bathingPromise} riverAssessments={await riverPromise} riverCatalogue={await riverCataloguePromise} traffic={await trafficPromise} />
-        <p className="mt-5 text-sm text-slate-600">Périmètre : les 10 communes de la communauté de communes Pays du Mont-Blanc, sans Servoz. Toutes les couches de données sont limitées à leurs frontières. Les dates et les échelles diffèrent selon les sources. La proximité entre une source et une mesure ne permet pas d’établir un lien de causalité.</p>
+        <AtlasClient inventory={inventory} bathing={await bathingPromise} riverAssessments={await riverPromise} riverCatalogue={await riverCataloguePromise} traffic={await trafficPromise} emissions={await emissionsPromise} groundwater={await groundwaterPromise} />
       </div>
     </main>
   );

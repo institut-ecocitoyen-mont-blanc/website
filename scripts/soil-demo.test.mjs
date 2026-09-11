@@ -2,9 +2,10 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 import {SOIL_DEMO_SITES, soilDemoBand} from '../src/lib/soil-demo.ts';
 
-test('15 distinct fictional soil samples have valid local coordinates, dates, depths and all parameter families', () => {
-  assert.equal(SOIL_DEMO_SITES.length,15);
-  assert.equal(new Set(SOIL_DEMO_SITES.map(s=>s.id)).size,15);
+test('five distinct fictional culture samples retain local coverage, dates, depths and all parameter families', () => {
+  assert.equal(SOIL_DEMO_SITES.length,5);
+  assert.equal(new Set(SOIL_DEMO_SITES.map(s=>s.id)).size,5);
+  assert.equal(new Set(SOIL_DEMO_SITES.map(s=>s.commune)).size,5);
   assert.equal(new Set(SOIL_DEMO_SITES.map(s=>s.setting)).size,3);
   assert.equal(new Set(SOIL_DEMO_SITES.map(s=>soilDemoBand(s.index).color)).size,3);
   for(const site of SOIL_DEMO_SITES) {

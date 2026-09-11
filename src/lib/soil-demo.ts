@@ -20,12 +20,14 @@ const locations: [string, number, number][] = [
   ["Megève", 45.865, 6.615], ["Praz-sur-Arly", 45.837, 6.571],
   ["Les Contamines-Montjoie", 45.821, 6.72], ["Cordon", 45.918, 6.61], ["Domancy", 45.912, 6.674],
 ];
-const settings = ["Jardin", "Terrain agricole", "Espace urbain"];
+const settings = ["Jardin potager", "Parcelle maraîchère", "Potager collectif"];
 const depths: [number, number][] = [[0, 10], [0, 20], [10, 30]];
+// Keep five geographically spread examples without renumbering or changing readings.
+const displayedIds = new Set(["soil-demo-1", "soil-demo-6", "soil-demo-8", "soil-demo-11", "soil-demo-13"]);
 export const SOIL_DEMO_SITES: SoilDemoSite[] = filterCcpmbPoints(locations.map(([commune, lat, lng], i) => {
   const index = 12 + i * 31 % 83;
   return {
-    id: `soil-demo-${i + 1}`, name: `${commune} · Sol ${String(i + 1).padStart(2, "0")}`, commune, lat, lng,
+    id: `soil-demo-${i + 1}`, name: `${commune} · Culture ${String(i + 1).padStart(2, "0")}`, commune, lat, lng,
     setting: settings[i % settings.length], date: `2026-06-${String(10 + i).padStart(2, "0")}`,
     depth: depths[i % depths.length], index,
     readings: [
@@ -36,4 +38,4 @@ export const SOIL_DEMO_SITES: SoilDemoSite[] = filterCcpmbPoints(locations.map((
       { name: "Pesticides · indicateur fictif", family: "Pesticides", value: Number((0.02 + i * 0.07 % 0.9).toFixed(2)), unit: "mg/kg MS" },
     ],
   };
-}));
+})).filter((site) => displayedIds.has(site.id));

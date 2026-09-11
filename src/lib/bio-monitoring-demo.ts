@@ -24,7 +24,7 @@ const bioacc: Location[] = [
   ["Sallanches 1", "Sallanches", 45.96280490076312, 6.635914269988728],
   ["Sallanches 2", "Sallanches", 45.9359158908671, 6.6222041865831835],
   ["Passy 1", "Passy", 45.93526976099349, 6.69041920006516],
-  ["Passy 2", "Passy", 45.92287972750016, 6.725777728981752],
+  ["UVE de Passy · proximité", "Passy", 45.92287972750016, 6.725777728981752],
   ["Saint-Gervais 1", "Saint-Gervais-les-Bains", 45.85909592944609, 6.735318383757104],
   ["Saint-Gervais 2", "Saint-Gervais-les-Bains", 45.90963139308304, 6.702164785534532],
   ["Saint-Gervais 3", "Saint-Gervais-les-Bains", 45.884769681403284, 6.7117242008118865],
@@ -54,4 +54,13 @@ function makeSites(kind: BioDemoKind, locations: Location[]): BioDemoSite[] {
     ] };
   });
 }
-export const BIO_DEMO_SITES: Record<BioDemoKind, BioDemoSite[]> = { lichens: filterCcpmbPoints(makeSites("lichens", lichens)), bioacc: filterCcpmbPoints(makeSites("bioacc", bioacc)) };
+// Five stable examples per layer, plus the requested bio-accumulation example near the UVE.
+// Select after generating values so retained samples keep their IDs and readings.
+const displayedIds: Record<BioDemoKind, Set<string>> = {
+  lichens: new Set(["lichens-1", "lichens-5", "lichens-8", "lichens-11", "lichens-12"]),
+  bioacc: new Set(["bioacc-1", "bioacc-3", "bioacc-4", "bioacc-7", "bioacc-8", "bioacc-9"]),
+};
+export const BIO_DEMO_SITES: Record<BioDemoKind, BioDemoSite[]> = {
+  lichens: filterCcpmbPoints(makeSites("lichens", lichens)).filter((site) => displayedIds.lichens.has(site.id)),
+  bioacc: filterCcpmbPoints(makeSites("bioacc", bioacc)).filter((site) => displayedIds.bioacc.has(site.id)),
+};
