@@ -1,13 +1,13 @@
 import { fetchAllPollutionSites, type PollutionSitesResult } from "@/lib/google-sheets";
 import { createPageMetadata } from "@/lib/seo";
-import AtlasClient from "./AtlasClient";
-import { loadBathingWater } from "@/lib/bathing-water-source";
-import { loadRiverAssessments } from "@/lib/river-assessments-source";
-import { loadRiverCatalogue } from "@/lib/river-catalogue";
-import { loadRoadTraffic } from "@/lib/road-traffic-source";
-import { clipAtlasInventory } from "@/lib/atlas-inventory";
-import { loadIndustrialEmissions } from "@/lib/industrial-emissions-source";
-import { loadGroundwaterCatalogue } from "@/lib/groundwater-source";
+import AtlasClient from "@/atlas/AtlasClient";
+import { loadBathingWater } from "@/atlas/lib/bathing-water-source";
+import { loadRiverAssessments } from "@/atlas/lib/river-assessments-source";
+import { loadRiverCatalogue } from "@/atlas/lib/river-catalogue";
+import { loadRoadTraffic } from "@/atlas/lib/road-traffic-source";
+import { clipAtlasInventory } from "@/atlas/lib/atlas-inventory";
+import { loadIndustrialEmissions } from "@/atlas/lib/industrial-emissions-source";
+import { loadGroundwaterCatalogue } from "@/atlas/lib/groundwater-source";
 
 export const metadata = createPageMetadata({ title: "Atlas environnemental du Pays du Mont-Blanc", description: "Superposez l’inventaire participatif, la qualité de l’air et les données publiques sur l’eau dans le Pays du Mont-Blanc.", path: "/atlas" });
 export const revalidate = 3600;
