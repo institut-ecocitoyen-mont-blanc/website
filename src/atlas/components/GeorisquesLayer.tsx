@@ -12,7 +12,7 @@ const date = (value: string) => value && Number.isFinite(Date.parse(value)) ? ne
 export function useGeorisquesLayer(data: GeorisquesData) {
   const [enabled, setEnabled] = useState(false), [opacity, setOpacity] = useState(0.9);
   const [selected, setSelected] = useState<GeorisquesSite | null>(null);
-  const controls = <EvidenceLayerControl title="Géorisques" source="Sites et sols pollués · État" enabled={enabled} onEnabled={setEnabled} opacity={opacity} onOpacity={setOpacity}>
+  const controls = <EvidenceLayerControl title="Géorisques" source="Sites et sols pollués · État" enabled={enabled} onEnabled={setEnabled} opacityControl={data.sites.some(site => site.geometry.type === "MultiPolygon") ? { value: opacity, onChange: setOpacity } : undefined}>
     <p>Dossiers de pollution des sols suspectée ou avérée, et secteurs d’information sur les sols (SIS). Périmètre limité aux 10 communes.</p>
     {data.fetchedAt ? <p>{data.sites.length} sites · {data.sites.reduce((sum, site) => sum + site.records.length, 0)} dossiers officiels regroupés.</p> : <p role="status" className="text-amber-800">Catalogue indisponible ou en cours de chargement. Aucune absence de pollution ne peut en être déduite.</p>}
     <p><span style={{ color: "#925323" }}>●</span> Brun : dossier d’instruction. <span style={{ color: "#7c3aed" }}>●</span> Violet : secteur SIS. Couleurs de catégories, pas de gravité.</p>

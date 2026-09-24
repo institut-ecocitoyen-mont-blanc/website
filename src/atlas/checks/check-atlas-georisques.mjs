@@ -29,7 +29,8 @@ try {
     const openLayers = async () => { if (width < 1024) await page.getByRole("button", { name: /^Couches/ }).click(); };
     const closeLayers = async () => { if (width < 1024) await page.getByRole("button", { name: "Voir la carte", exact: true }).click(); };
     await page.goto(process.env.ATLAS_URL || "http://localhost:3000/atlas");
-    await page.getByText("Données synchronisées automatiquement", { exact: false }).waitFor();
+    await page.locator(".leaflet-container").waitFor();
+    await page.getByText("Chargement des jeux de données publiés…", { exact: true }).waitFor({ state: "hidden" });
     await openLayers();
     const checkbox = page.getByRole("checkbox", { name: /^Géorisques/ });
     assert.equal(await checkbox.isChecked(), false);
@@ -55,7 +56,8 @@ try {
     assert.equal(await pin.count(), 0);
     unavailable = true;
     await page.reload();
-    await page.getByText("Données synchronisées automatiquement", { exact: false }).waitFor();
+    await page.locator(".leaflet-container").waitFor();
+    await page.getByText("Chargement des jeux de données publiés…", { exact: true }).waitFor({ state: "hidden" });
     await openLayers(); await checkbox.check();
     await page.getByText(/Catalogue indisponible ou en cours de chargement/).waitFor();
     assert.equal(await pin.count(), 0);

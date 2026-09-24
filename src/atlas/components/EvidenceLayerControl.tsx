@@ -1,13 +1,14 @@
 import type { ReactNode } from "react";
 import { divIcon } from "leaflet";
 
-export default function EvidenceLayerControl({ title, source, enabled, onEnabled, opacity, onOpacity, children }: {
-  title: string; source: string; enabled: boolean; onEnabled: (value: boolean) => void; opacity: number; onOpacity: (value: number) => void; children: ReactNode;
+export default function EvidenceLayerControl({ title, source, enabled, onEnabled, opacityControl, children }: {
+  title: string; source: string; enabled: boolean; onEnabled: (value: boolean) => void; children: ReactNode;
+  opacityControl?: { value: number; onChange: (value: number) => void };
 }) {
   return <section className={`rounded-xl border p-3 ${enabled ? "border-blue-200 bg-blue-50/40" : "border-slate-200"}`}>
     <label className="flex gap-3 items-start cursor-pointer"><input type="checkbox" className="mt-1 h-4 w-4 accent-blue-iec" checked={enabled} onChange={(event) => onEnabled(event.target.checked)} /><span><span className="block font-semibold text-sm text-slate-900">{title}</span><span className="block text-xs text-slate-500 mt-1">{source}</span></span></label>
     {enabled && <div className="mt-3 space-y-3 text-xs text-slate-600">
-      <label className="flex items-center gap-2">Opacité<input aria-label={`Opacité · ${title}`} className="min-w-0 flex-1 accent-blue-iec" type="range" min="0.15" max="1" step="0.05" value={opacity} onChange={(event) => onOpacity(Number(event.target.value))} /><span>{Math.round(opacity * 100)} %</span></label>
+      {opacityControl && <label className="flex items-center gap-2">Opacité<input aria-label={`Opacité · ${title}`} className="min-w-0 flex-1 accent-blue-iec" type="range" min="0.15" max="1" step="0.05" value={opacityControl.value} onChange={(event) => opacityControl.onChange(Number(event.target.value))} /><span>{Math.round(opacityControl.value * 100)} %</span></label>}
       {children}
     </div>}
   </section>;

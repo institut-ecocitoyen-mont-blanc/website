@@ -48,9 +48,9 @@ function GroundwaterDetails({ station }: { station: GroundwaterStation }) {
   </>;
 }
 export function useGroundwaterLayer(data: GroundwaterCatalogue) {
-  const [enabled, setEnabled] = useState(false), [opacity, setOpacity] = useState(0.9);
+  const [enabled, setEnabled] = useState(false);
   const [selected, setSelected] = useState<GroundwaterStation | null>(null);
-  const controls = <EvidenceLayerControl title="Qualité des eaux souterraines" source="Hub’Eau · ADES" enabled={enabled} onEnabled={setEnabled} opacity={opacity} onOpacity={setOpacity}>
+  const controls = <EvidenceLayerControl title="Qualité des eaux souterraines" source="Hub’Eau · ADES" enabled={enabled} onEnabled={setEnabled}>
     <p>Analyses chimiques aux points de suivi : paramètres, valeurs, unités, dates et qualifications.</p>
     <p>{data.stations.length} points avec analyses disponibles. Les points sans résultats accessibles sont masqués. Le détail des analyses est chargé à l’ouverture d’une fiche.</p>
     <p>Goutte à contour : aucune classe de qualité globale déduite des résultats. Repères publiés, sans garantie de localisation précise des prélèvements.</p>
@@ -58,7 +58,7 @@ export function useGroundwaterLayer(data: GroundwaterCatalogue) {
     {data.fetchedAt && <p>Catalogue récupéré le {date(data.fetchedAt)} · import automatique quotidien.</p>}
     <a className="text-blue-iec underline" href={GROUNDWATER_SOURCE} target="_blank" rel="noreferrer">Consulter la source</a>
   </EvidenceLayerControl>;
-  const markers = enabled && data.stations.map((station) => <AtlasMarker key={station.id} position={[station.lat, station.lng]} icon={groundwaterPin()} opacity={opacity} title={`Eaux souterraines · ${station.name} · ${station.id}`} attribution="Hub’Eau / ADES · coordonnées publiées, précision variable" onSelect={() => setSelected(station)}><Tooltip>{station.name} · {station.commune}<br />Repère de localisation non précise</Tooltip></AtlasMarker>);
+  const markers = enabled && data.stations.map((station) => <AtlasMarker key={station.id} position={[station.lat, station.lng]} icon={groundwaterPin()} opacity={0.9} title={`Eaux souterraines · ${station.name} · ${station.id}`} attribution="Hub’Eau / ADES · coordonnées publiées, précision variable" onSelect={() => setSelected(station)}><Tooltip>{station.name} · {station.commune}<br />Repère de localisation non précise</Tooltip></AtlasMarker>);
   const details = selected && <AtlasDetailDialog kind="groundwater" title={selected.name} subtitle={`${selected.commune} · Hub’Eau / ADES · Eaux souterraines`} onClose={() => setSelected(null)}><GroundwaterDetails key={selected.id} station={selected} /></AtlasDetailDialog>;
   return { controls, markers, details, activeCount: Number(enabled) };
 }

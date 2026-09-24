@@ -20,19 +20,17 @@ function soilPin(index: number) {
 
 export function useSoilDemoLayer() {
   const [enabled, setEnabled] = useState(false);
-  const [opacity, setOpacity] = useState(0.9);
   const [selected, setSelected] = useState<SoilDemoSite | null>(null);
   const controls = <section className={`rounded-xl border p-3 ${enabled ? "border-blue-200 bg-blue-50/40" : "border-slate-200"}`}>
     <label className="flex gap-3 items-start cursor-pointer"><input type="checkbox" className="mt-1 h-4 w-4 accent-blue-iec" checked={enabled} onChange={(event) => setEnabled(event.target.checked)} /><span><span className="block font-semibold text-sm text-slate-900">Cultures potagères/maraîchères</span><span className="block text-xs text-slate-500 mt-1">{INSTITUTE_DEMO_SOURCE}</span></span></label>
     {enabled && <div className="mt-3 space-y-3 text-xs text-slate-600">
       <p>{SOIL_DEMO_SITES.length} sites fictifs : jardins potagers et parcelles maraîchères simulés. Analyses des sols cultivés. Métaux, hydrocarbures et pesticides.</p>
-      <label className="flex items-center gap-2">Opacité<input aria-label="Opacité · Cultures potagères/maraîchères" className="min-w-0 flex-1 accent-blue-iec" type="range" min="0.15" max="1" step="0.05" value={opacity} onChange={(event) => setOpacity(Number(event.target.value))} /><span>{Math.round(opacity * 100)} %</span></label>
       <p className="font-semibold">Intensité de contamination fictive · 0–100</p>
       <div className="flex flex-wrap gap-2">{SOIL_DEMO_BANDS.map((band) => <span key={band.label} className="inline-flex items-center gap-1"><span aria-hidden="true" className="h-2.5 w-2.5 rounded-full" style={{ background: band.color }} />{band.label}</span>)}</div>
       <p>{INSTITUTE_DEMO_NOTICE}</p><p>Emplacements et valeurs inventés. Les couleurs ne déterminent pas si un sol est sûr.</p>
     </div>}
   </section>;
-  const markers = enabled && SOIL_DEMO_SITES.map((site) => <AtlasMarker key={site.id} position={[site.lat, site.lng]} icon={soilPin(site.index)} opacity={opacity} title={`Cultures potagères/maraîchères · ${site.name} · Démonstration`} attribution={INSTITUTE_DEMO_SOURCE} onSelect={() => setSelected(site)}>
+  const markers = enabled && SOIL_DEMO_SITES.map((site) => <AtlasMarker key={site.id} position={[site.lat, site.lng]} icon={soilPin(site.index)} opacity={0.9} title={`Cultures potagères/maraîchères · ${site.name} · Démonstration`} attribution={INSTITUTE_DEMO_SOURCE} onSelect={() => setSelected(site)}>
     <Tooltip>{site.name}<br />Contamination simulée : {site.index}/100 · {soilDemoBand(site.index).label}</Tooltip>
   </AtlasMarker>);
   const details = selected && <AtlasDetailDialog kind="soil" title={selected.name} subtitle={`${selected.commune} · ${INSTITUTE_DEMO_SOURCE}`} onClose={() => setSelected(null)}>

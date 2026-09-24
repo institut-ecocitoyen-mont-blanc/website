@@ -52,10 +52,9 @@ export default function AtlasLayerSidebar({ children, activeCount }: { children:
   const [open, setOpen] = useState(false);
   // Reset the mobile drawer on breakpoint changes; layer state lives in AtlasMap.
   useEffect(() => { if (!mobile) setOpen(false); }, [mobile]);
-  const content = <><p className="text-xs text-slate-500 mb-5">{activeCount} couche{activeCount > 1 ? "s" : ""} active{activeCount > 1 ? "s" : ""} · Superposez les données et réglez leur transparence.</p>{children}</>;
   if (mobile) return <>
     <div className="p-3 border-b border-slate-200 lg:hidden"><button type="button" aria-haspopup="dialog" aria-expanded={open} aria-controls="atlas-mobile-layers" onClick={() => setOpen(true)} className="flex min-h-11 w-full items-center justify-center gap-2 rounded-lg bg-blue-iec px-4 py-2 font-semibold text-sm text-white"><Layers size={18} aria-hidden="true" />Couches<span className="rounded-full bg-white/20 px-2 py-0.5 text-xs">{activeCount}</span></button></div>
-    {open && <MobileDrawer onClose={() => setOpen(false)}>{content}</MobileDrawer>}
+    {open && <MobileDrawer onClose={() => setOpen(false)}>{children}</MobileDrawer>}
   </>;
-  return <aside aria-label="Couches de l’atlas" className="hidden lg:block p-5 border-r max-h-[740px] overflow-y-auto"><h2 className="font-bold text-lg flex items-center gap-2 mb-2"><Layers size={19} />Couches</h2>{content}</aside>;
+  return <aside aria-label="Couches de l’atlas" className="hidden lg:block p-5 border-r max-h-[740px] overflow-y-auto"><h2 className="font-bold text-lg flex items-center gap-2 mb-2"><Layers size={19} />Couches</h2>{children}</aside>;
 }

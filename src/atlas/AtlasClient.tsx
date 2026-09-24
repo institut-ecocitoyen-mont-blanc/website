@@ -23,7 +23,6 @@ export default function AtlasClient() {
   const [manifest, setManifest] = useState<DataManifest>();
   const [errors, setErrors] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
-  const [revision, setRevision] = useState(0);
   useEffect(() => {
     const controller = new AbortController();
     const refresh = async () => {
@@ -44,16 +43,16 @@ export default function AtlasClient() {
     void refresh();
     const timer = window.setInterval(() => void refresh(), 300000);
     return () => { controller.abort(); window.clearInterval(timer); };
-  }, [revision]);
+  }, []);
   const problems = manifest ? Object.entries(manifest.datasets).filter(([, entry]) => datasetNeedsAttention(entry)) : [];
   return <>
-    <div className="mb-3 text-xs text-slate-600" aria-live="polite">
-      {loading ? <p>Chargement des jeux de données publiés…</p> : <p>Données synchronisées automatiquement · les dates des mesures restent indiquées dans chaque fiche. <button className="underline text-blue-iec" onClick={() => setRevision((value) => value + 1)}>Actualiser</button></p>}
+    {(loading || errors.length > 0 || problems.length > 0) && <div className="mb-3 text-xs text-slate-600" aria-live="polite">
+      {loading && <p>Chargement des jeux de données publiés…</p>}
       {(errors.length > 0 || problems.length > 0) && <details className="mt-2 rounded-lg bg-amber-50 p-3 text-amber-900"><summary>Certains imports sont indisponibles ou en retard. Les dernières données récupérées restent affichées lorsqu’elles existent.</summary>
         {errors.length > 0 && <p className="mt-2">Chargement indisponible : {errors.join(", ")}.</p>}
         <ul className="mt-2 list-disc pl-4">{problems.map(([key, entry]) => <li key={key}>{key} · dernier import réussi : {entry.lastSuccessAt ? new Date(entry.lastSuccessAt).toLocaleString("fr-FR") : "aucun"}.</li>)}</ul>
       </details>}
-    </div>
-    <AtlasMap {...data} dataRevision={revision + (manifest ? Date.parse(manifest.checkedAt) : 0)} />
+    </div>}
+    <AtlasMap {...data} dataRevision={manifest ? Date.parse(manifest.checkedAt) : 0} />
   </>;
 }

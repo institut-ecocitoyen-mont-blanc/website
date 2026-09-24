@@ -24,7 +24,8 @@ try {
     catch { await route.fulfill({ status: 404 }); }
   });
   await page.goto(process.env.ATLAS_URL || "http://localhost:3000/atlas", { timeout: 60000 });
-  await page.getByText("Données synchronisées automatiquement", { exact: false }).waitFor();
+  await page.locator(".leaflet-container").waitFor();
+  await page.getByText("Chargement des jeux de données publiés…", { exact: true }).waitFor({ state: "hidden" });
   await page.getByText(/sites cartographiés/).waitFor();
   const sidebar = page.getByRole("complementary", { name: "Couches de l’atlas" });
   for (const label of [/Particules et gaz/, /Qualité des cours d’eau/, /Eau potable · contrôle ARS/, /Eaux de baignade · ARS/, /Qualité des eaux souterraines/, /^Géorisques/]) {

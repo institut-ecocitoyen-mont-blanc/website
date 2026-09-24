@@ -27,7 +27,9 @@ try {
   await water.uncheck();
   assert.equal(await page.locator('.rivers-station-pin[title^="Institut ·"]').count(), 0);
   await drawer.getByRole('checkbox', { name: 'Eaux de baignade Institut écocitoyen · données fictives', exact: true }).check();
-  const opacity = drawer.getByRole('slider', { name: 'Opacité · Eaux de baignade', exact: true });
+  assert.equal(await drawer.getByRole('slider').count(), 0, 'Pin-only layers have no opacity controls');
+  await drawer.getByRole('checkbox', { name: /Chauffage résidentiel/ }).check();
+  const opacity = drawer.getByRole('slider', { name: /Opacité · Chauffage résidentiel/ });
   await opacity.focus(); await opacity.press('Home');
   for (let i = 0; i < 7; i++) await opacity.press('ArrowRight');
   const geometry = await drawer.boundingBox();
@@ -41,7 +43,7 @@ try {
   await page.screenshot({ path: '/tmp/atlas-sidebar-mobile-closed.png' });
   await trigger.click();
   assert.equal(await water.isChecked(), false, 'Layer choices survive closing');
-  assert.equal(await drawer.getByRole('slider', { name: 'Opacité · Eaux de baignade', exact: true }).inputValue(), '0.5');
+  assert.equal(await drawer.getByRole('slider', { name: /Opacité · Chauffage résidentiel/ }).inputValue(), '0.5');
   await page.mouse.click(385, 400);
   assert.equal(await drawer.count(), 0, 'Backdrop closes drawer');
   await trigger.click();
@@ -52,6 +54,11 @@ try {
   assert.notEqual(await page.evaluate(() => document.body.style.overflow), 'hidden');
   assert.equal(await sidebar.getByRole('checkbox', { name: 'Cours d’eau Institut écocitoyen · données fictives', exact: true }).isChecked(), false);
   assert.equal(await trigger.count(), 0);
+  for (const checkbox of await sidebar.getByRole('checkbox').all()) await checkbox.check();
+  await page.locator('.georisques-pin').first().waitFor();
+  assert.deepEqual((await sidebar.getByRole('slider').evaluateAll(nodes => nodes.map(n => n.getAttribute('aria-label')))).sort(), [
+    'Opacité · Chauffage résidentiel', 'Opacité · Géorisques', 'Opacité · Trafic routier annuel',
+  ].sort(), 'Only heatmap, polygon and line layers have opacity controls');
   await page.screenshot({ path: '/tmp/atlas-sidebar-desktop.png' });
   await page.setViewportSize({ width: 768, height: 900 });
   await trigger.waitFor();

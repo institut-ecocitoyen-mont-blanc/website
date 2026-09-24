@@ -8,7 +8,6 @@ export default function AtlasPage() {
       <div className="container mx-auto px-4">
         <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
           <div>
-            <p className="text-sm font-semibold text-blue-iec mb-2">PAYS DU MONT-BLANC · AIR, EAU ET TERRITOIRE</p>
             <h1 className="text-3xl sm:text-4xl font-bold text-slate-900">Atlas environnemental</h1>
             <p className="mt-3 text-slate-600 max-w-2xl">Croisez les regards sur le territoire. Activez plusieurs couches et cliquez sur la carte pour explorer leurs données.</p>
           </div>

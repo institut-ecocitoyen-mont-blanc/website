@@ -26,18 +26,16 @@ function demoPin(site: BioDemoSite) {
 // or interfere with the independently evolving road-traffic layer.
 export function useBioMonitoringDemo() {
   const [enabled, setEnabled] = useState<Record<BioDemoKind, boolean>>({ lichens: false, bioacc: false });
-  const [opacity, setOpacity] = useState<Record<BioDemoKind, number>>({ lichens: 0.9, bioacc: 0.9 });
   const [selected, setSelected] = useState<BioDemoSite | null>(null);
   const controls = BIO_DEMO_LAYERS.map((layer) => <section key={layer.id} className={`rounded-xl border p-3 ${enabled[layer.id] ? "border-blue-200 bg-blue-50/40" : "border-slate-200"}`}>
     <label className="flex gap-3 items-start cursor-pointer"><input type="checkbox" className="mt-1 h-4 w-4 accent-blue-iec" checked={enabled[layer.id]} onChange={(event) => setEnabled((prev) => ({ ...prev, [layer.id]: event.target.checked }))} /><span><span className="block font-semibold text-sm text-slate-900">{layer.title}</span><span className="block text-xs text-slate-500 mt-1">{INSTITUTE_DEMO_SOURCE}</span></span></label>
     {enabled[layer.id] && <div className="mt-3 space-y-3 text-xs text-slate-600"><p>{layer.description}</p><p>{INSTITUTE_DEMO_NOTICE}</p>
-      <label className="flex items-center gap-2">Opacité<input aria-label={`Opacité · ${layer.title}`} className="min-w-0 flex-1 accent-blue-iec" type="range" min="0.15" max="1" step="0.05" value={opacity[layer.id]} onChange={(event) => setOpacity((prev) => ({ ...prev, [layer.id]: Number(event.target.value) }))} /><span>{Math.round(opacity[layer.id] * 100)} %</span></label>
       <p>{BIO_DEMO_SITES[layer.id].length} sites · aucune mesure réelle</p><p className="font-semibold">Intensité fictive · indice illustratif 0–100</p>
       <div className="flex flex-wrap gap-2">{BIO_DEMO_BANDS.map((band) => <span key={band.label} className="inline-flex items-center gap-1"><span className="h-2.5 w-2.5 rounded-full" style={{ background: band.color }} />{band.label}</span>)}</div>
       <p>Couleurs de démonstration, sans seuil sanitaire ni conclusion sur la qualité de l’air.</p>
     </div>}
   </section>);
-  const markers = BIO_DEMO_LAYERS.flatMap((layer) => enabled[layer.id] ? BIO_DEMO_SITES[layer.id].map((site) => <AtlasMarker key={site.id} position={[site.lat, site.lng]} icon={demoPin(site)} opacity={opacity[layer.id]} title={`${layer.title} · ${site.name} · Démonstration`} attribution={INSTITUTE_DEMO_SOURCE} onSelect={() => setSelected(site)}>
+  const markers = BIO_DEMO_LAYERS.flatMap((layer) => enabled[layer.id] ? BIO_DEMO_SITES[layer.id].map((site) => <AtlasMarker key={site.id} position={[site.lat, site.lng]} icon={demoPin(site)} opacity={0.9} title={`${layer.title} · ${site.name} · Démonstration`} attribution={INSTITUTE_DEMO_SOURCE} onSelect={() => setSelected(site)}>
     <Tooltip>{site.name} · {layer.title}<br />Simulation : {site.index}/100 · {bioDemoBand(site.index).label}</Tooltip>
   </AtlasMarker>) : []);
   const details = selected && <AtlasDetailDialog kind={selected.kind} title={selected.name} subtitle={`${selected.commune} · ${INSTITUTE_DEMO_SOURCE}`} onClose={() => setSelected(null)}>
