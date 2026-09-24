@@ -1,11 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { loadPublishedData } from "@/atlas/lib/published-data";
 import { Tooltip } from "react-leaflet";
 import AtlasMarker from "./AtlasMarker";
 import AtlasDetailDialog, { DetailFacts, DetailSection } from "./AtlasDetailDialog";
 import EvidenceLayerControl, { groundwaterPin } from "./EvidenceLayerControl";
-import { coordinatePrecision, groundwaterAnalysisUrl, groundwaterStationUrl, groundwaterResultLabel, groundwaterResultUnit, loadGroundwaterAnalyses, GROUNDWATER_RESULT_LIMIT, GROUNDWATER_SOURCE, type GroundwaterAnalysis, type GroundwaterCatalogue, type GroundwaterResults, type GroundwaterStation } from "@/atlas/lib/groundwater";
+import { coordinatePrecision, groundwaterAnalysisUrl, groundwaterStationUrl, groundwaterResultLabel, groundwaterResultUnit, GROUNDWATER_RESULT_LIMIT, GROUNDWATER_SOURCE, type GroundwaterAnalysis, type GroundwaterCatalogue, type GroundwaterResults, type GroundwaterStation } from "@/atlas/lib/groundwater";
 import styles from "./AtlasDetails.module.css";
 
 const date = (value: string) => value && Number.isFinite(Date.parse(value)) ? new Date(value).toLocaleDateString("fr-FR", { timeZone: "Europe/Paris" }) : "Non renseignée";
@@ -15,7 +16,7 @@ function GroundwaterDetails({ station }: { station: GroundwaterStation }) {
   useEffect(() => {
     const controller = new AbortController();
     setResults(null); setError(false);
-    loadGroundwaterAnalyses(station, controller.signal).then((value) => { if (!controller.signal.aborted) setResults(value); }).catch(() => { if (!controller.signal.aborted) setError(true); });
+    loadPublishedData<GroundwaterResults>(`groundwater-${station.id.toLowerCase()}`, controller.signal).then((value) => { if (!controller.signal.aborted) setResults(value); }).catch(() => { if (!controller.signal.aborted) setError(true); });
     return () => controller.abort();
   }, [station, attempt]);
   const groups = new Map<string, GroundwaterAnalysis[]>();
@@ -54,7 +55,7 @@ export function useGroundwaterLayer(data: GroundwaterCatalogue) {
     <p>{data.stations.length} points avec analyses disponibles. Les points sans résultats accessibles sont masqués. Le détail des analyses est chargé à l’ouverture d’une fiche.</p>
     <p>Goutte à contour : aucune classe de qualité globale déduite des résultats. Repères publiés, sans garantie de localisation précise des prélèvements.</p>
     {data.error && <p role="alert" className="text-amber-800">{data.error}</p>}
-    {data.fetchedAt && <p>Catalogue récupéré le {date(data.fetchedAt)} · actualisation à la reconstruction du site.</p>}
+    {data.fetchedAt && <p>Catalogue récupéré le {date(data.fetchedAt)} · import automatique quotidien.</p>}
     <a className="text-blue-iec underline" href={GROUNDWATER_SOURCE} target="_blank" rel="noreferrer">Consulter la source</a>
   </EvidenceLayerControl>;
   const markers = enabled && data.stations.map((station) => <AtlasMarker key={station.id} position={[station.lat, station.lng]} icon={groundwaterPin()} opacity={opacity} title={`Eaux souterraines · ${station.name} · ${station.id}`} attribution="Hub’Eau / ADES · coordonnées publiées, précision variable" onSelect={() => setSelected(station)}><Tooltip>{station.name} · {station.commune}<br />Repère de localisation non précise</Tooltip></AtlasMarker>);

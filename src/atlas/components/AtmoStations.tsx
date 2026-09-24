@@ -7,8 +7,8 @@ import { environmentalPin, QualitySummary } from "@/atlas/components/Environment
 import { airQuality, unknownQuality, DEMO_PIN_PREVIEW, demoAirPinLevel } from "@/atlas/lib/environmental-quality";
 import { DetailFacts, DetailSection } from "@/atlas/components/AtlasDetailDialog";
 import styles from "./AtlasDetails.module.css";
-import { AREA } from "@/atlas/lib/environmental-layers";
-import { AIR_POLLUTANTS, combineAirStations, loadAirStations, latestAirValue, airChartSegments, airDate, airIsStale, airQueryUrl, dailyAirQueryUrl, type AirPollutant, type AirStation } from "@/atlas/lib/atmo-stations";
+import { loadPublishedData } from "@/atlas/lib/published-data";
+import { AIR_POLLUTANTS, combineAirStations, latestAirValue, airChartSegments, airDate, airIsStale, airQueryUrl, dailyAirQueryUrl, type AirPollutant, type AirStation } from "@/atlas/lib/atmo-stations";
 
 type Dataset = { status: "loading" | "ready" | "error"; stations: AirStation[]; error?: string };
 type AirState = Record<AirPollutant, Dataset>;
@@ -28,12 +28,11 @@ export function useAtmoStations(enabled: boolean, revision: number) {
   useEffect(() => {
     if (!enabled) return;
     const controller = new AbortController();
-    setState(initialState());
     for (const pollutant of AIR_POLLUTANTS) {
-      loadAirStations(pollutant.id, AREA, controller.signal).then((stations) => {
+      loadPublishedData<AirStation[]>(`air-${pollutant.id}`, controller.signal).then((stations) => {
         if (!controller.signal.aborted) setState((prev) => ({ ...prev, [pollutant.id]: { status: "ready", stations } }));
       }).catch((error: unknown) => {
-        if (!controller.signal.aborted) setState((prev) => ({ ...prev, [pollutant.id]: { status: "error", stations: [], error: error instanceof Error && error.name === "TimeoutError" ? "Atmo met trop de temps à répondre." : "Impossible de charger ce polluant. Réessayez." } }));
+        if (!controller.signal.aborted) setState((prev) => ({ ...prev, [pollutant.id]: { status: "error", stations: prev[pollutant.id].stations, error: error instanceof Error ? error.message : "Impossible de charger ce polluant. Réessayez." } }));
       });
     }
     return () => controller.abort();
@@ -59,6 +58,7 @@ export function AtmoControls({ state, onRetry }: { state: AirState; onRetry: () 
     {Number.isFinite(newest) && airIsStale(newest) && <p className="rounded bg-amber-50 p-2 font-semibold text-amber-900">Flux historique : aucune donnée récente (moins de 48 h). Ne décrit pas la qualité de l’air actuelle.</p>}
     <p className="text-slate-500">{DEMO_PIN_PREVIEW ? "Icône vent · cliquez sur une station pour consulter les concentrations, leurs dates et l’historique." : "Icône vent · couleur selon le niveau le plus défavorable au même créneau, sur les polluants disponibles. Bleu si le créneau a plus de 6 h ou si la couverture est insuffisante. Repère indicatif, pas l’indice Atmo communal."}</p>
     <a className="text-blue-iec underline" href="https://airindex.eea.europa.eu/AQI/?webgl=0" target="_blank" rel="noreferrer">Méthode : bandes horaires européennes</a>
+    <p className="text-slate-500">Source ATMO Auvergne - Rhône-Alpes : Mesure de la pollution atmosphérique sur la région Auvergne - Rhône-Alpes. <a className="underline" href="https://institut-ecocitoyen-mont-blanc.github.io/iec-atlas-data/" target="_blank" rel="noreferrer">Extrait local normalisé</a> disponible sous <a className="underline" href="https://opendatacommons.org/licenses/odbl/1-0/" target="_blank" rel="noreferrer">ODbL 1.0</a>.</p>
   </div>;
 }
 

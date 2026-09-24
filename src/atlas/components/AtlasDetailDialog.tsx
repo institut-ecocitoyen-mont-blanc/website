@@ -5,7 +5,7 @@ import { X, Wind, Waves, GlassWater, MapPin, Route, Leaf, FlaskConical, Shovel, 
 import styles from "./AtlasDetails.module.css";
 
 export default function AtlasDetailDialog({ title, kind, subtitle, children, onClose }: {
-  title: string; kind: "atmo" | "rivers" | "drinking" | "bathing" | "inventory" | "traffic" | "lichens" | "bioacc" | "soil" | "groundwater" | "institute-bathing" | "institute-rivers"; subtitle: string;
+  title: string; kind: "atmo" | "rivers" | "drinking" | "bathing" | "inventory" | "traffic" | "lichens" | "bioacc" | "soil" | "groundwater" | "georisques" | "institute-bathing" | "institute-rivers"; subtitle: string;
   children: ReactNode; onClose: () => void;
 }) {
   const ref = useRef<HTMLDialogElement>(null);
@@ -27,8 +27,8 @@ export default function AtlasDetailDialog({ title, kind, subtitle, children, onC
       if (previousFocus?.isConnected) previousFocus.focus({ preventScroll: true });
     };
   }, []);
-  const Icon = { atmo: Wind, rivers: Waves, drinking: GlassWater, bathing: Waves, inventory: MapPin, traffic: Route, lichens: Leaf, bioacc: FlaskConical, soil: Shovel, groundwater: Droplets, "institute-bathing": Waves, "institute-rivers": Waves }[kind];
-  const label = { atmo: "Particules et gaz", rivers: "Qualité des cours d’eau", drinking: "Eau potable", bathing: "Eaux de baignade · ARS", inventory: "Inventaire écocitoyen", traffic: "Trafic routier annuel", lichens: "Lichens (bio-indication)", bioacc: "Bio-accumulation (retombées)", soil: "Cultures potagères/maraîchères", groundwater: "Qualité des eaux souterraines", "institute-bathing": "Eaux de baignade · Institut", "institute-rivers": "Cours d’eau · Institut" }[kind];
+  const Icon = { atmo: Wind, rivers: Waves, drinking: GlassWater, bathing: Waves, inventory: MapPin, traffic: Route, lichens: Leaf, bioacc: FlaskConical, soil: Shovel, groundwater: Droplets, georisques: Shovel, "institute-bathing": Waves, "institute-rivers": Waves }[kind];
+  const label = { atmo: "Particules et gaz", rivers: "Qualité des cours d’eau", drinking: "Eau potable", bathing: "Eaux de baignade · ARS", inventory: "Inventaire écocitoyen", traffic: "Trafic routier annuel", lichens: "Lichens (bio-indication)", bioacc: "Bio-accumulation (retombées)", soil: "Cultures potagères/maraîchères", groundwater: "Qualité des eaux souterraines", georisques: "Géorisques", "institute-bathing": "Eaux de baignade · Institut", "institute-rivers": "Cours d’eau · Institut" }[kind];
   return <dialog ref={ref} aria-labelledby={titleId} aria-modal="true" className={styles.dialog}
     onCancel={(event) => { event.preventDefault(); onClose(); }}
     onKeyDown={(event) => {

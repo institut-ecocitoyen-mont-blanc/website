@@ -12,7 +12,7 @@ try {
     const inventory=page.getByRole('checkbox',{name:'Sources de pollution Inventaire écocitoyen',exact:true});
     const water=page.getByRole('checkbox',{name:'Qualité des eaux souterraines Hub’Eau · ADES',exact:true});
     await inventory.waitFor();
-    assert.equal(await page.getByRole('checkbox',{name:/^Géorisques/}).count(),0);
+    assert.equal(await page.getByRole('checkbox',{name:/^Géorisques/}).isChecked(),false);
     assert.equal(await page.locator('.georisques-pin').count(),0);
     assert.equal(await water.isChecked(),false);
     await inventory.uncheck();
@@ -47,7 +47,7 @@ try {
     await page.keyboard.press('Escape');await water.uncheck();
     assert.equal(await page.locator('.groundwater-pin').count(),0);
     assert.deepEqual(errors,[]);
-    console.log(`PASS ${width}px: no Géorisques layer, ${pinCount} verified groundwater points, no empty Cayenne pin, real chemistry, approximate-location warning, error/retry and keyboard`);
+    console.log(`PASS ${width}px: Géorisques remains disabled, ${pinCount} verified groundwater points, no empty Cayenne pin, real chemistry, approximate-location warning, error/retry and keyboard`);
     await page.close();
   }
 } finally {await browser.close();}

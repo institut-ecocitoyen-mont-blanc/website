@@ -1,6 +1,10 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { airQuality, drinkingQuality, AIR_COLOR_MAX_AGE, WATER_COLOR_MAX_AGE, demoPinLevel, demoAirPinLevel } from "../lib/environmental-quality.ts";
+import { airQuality, drinkingQuality, AIR_COLOR_MAX_AGE, WATER_COLOR_MAX_AGE, DEMO_PIN_PREVIEW, demoPinLevel, demoAirPinLevel } from "../lib/environmental-quality.ts";
+
+test("air pins use measured quality rather than illustrative demo colours", () => {
+  assert.equal(DEMO_PIN_PREVIEW, false);
+});
 
 const now = Date.parse("2026-09-08T12:00:00Z");
 const time = now - 3600000;

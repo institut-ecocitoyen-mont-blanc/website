@@ -42,7 +42,7 @@ export function RoadTrafficControls({ data }: { data: RoadTrafficData }) {
     {data.error && <p role="alert" className="text-amber-800">{data.error}</p>}
     {!!data.segments.length && TRAFFIC_ROADS.some((r) => !present.has(r)) && <p>Géométrie non disponible dans ce périmètre : {TRAFFIC_ROADS.filter((r) => !present.has(r)).join(", ")}.</p>}
     <p>Volume de circulation, pas un indicateur de congestion ni de pollution. Les deux sens sont cumulés ; ne pas additionner les tronçons.</p>
-    {data.fetchedAt && <p>Source récupérée le {new Date(data.fetchedAt).toLocaleDateString("fr-FR", { timeZone: "Europe/Paris" })}. Actualisation à la reconstruction du site.</p>}
+    {data.fetchedAt && <p>Source récupérée le {new Date(data.fetchedAt).toLocaleDateString("fr-FR", { timeZone: "Europe/Paris" })}. Recherche de mises à jour chaque mois.</p>}
   </div>;
 }
 

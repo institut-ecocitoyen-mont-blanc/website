@@ -36,7 +36,7 @@ export default function AtlasBathingDetails({ point }: { point: BathingPoint }) 
             <tbody>{[...season.samples].sort((a, b) => b.date.localeCompare(a.date)).map((sample) => <tr key={sample.date} className="border-t border-slate-100"><th scope="row" className="whitespace-nowrap px-4 py-3 font-normal">{dateLabel(sample.date)}</th><td className="px-4 py-3">{sample.ecoli ?? "Non renseigné"}</td><td className="px-4 py-3">{sample.enterococci ?? "Non renseigné"}</td><td className="px-4 py-3">{sample.assessment}</td></tr>)}</tbody>
           </table>
         </div>}
-        {season.fetchedAt && <p className="mt-2 text-xs text-slate-500">Données récupérées le {dateLabel(season.fetchedAt)} · actualisées à la reconstruction du site.</p>}
+        {season.fetchedAt && <p className="mt-2 text-xs text-slate-500">Données récupérées le {dateLabel(season.fetchedAt)} · import automatique quotidien.</p>}
       </div>)}
     </DetailSection>
     <DetailSection title="À propos du suivi sanitaire">

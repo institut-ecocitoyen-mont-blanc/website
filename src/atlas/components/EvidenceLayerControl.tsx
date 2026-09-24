@@ -13,6 +13,15 @@ export default function EvidenceLayerControl({ title, source, enabled, onEnabled
   </section>;
 }
 let icon: ReturnType<typeof divIcon> | undefined;
+const soilIcons = new Map<boolean, ReturnType<typeof divIcon>>();
+export function georisquesPin(sis: boolean) {
+  if (!soilIcons.has(sis)) {
+    const color = sis ? "#7c3aed" : "#925323";
+    soilIcons.set(sis, divIcon({ className: "georisques-pin", iconSize: [36, 46], iconAnchor: [18, 44],
+      html: `<svg width="36" height="46" viewBox="0 0 36 46" aria-hidden="true"><path d="M18 44C14 37 2 27 2 18a16 16 0 1 1 32 0c0 9-12 19-16 26Z" fill="${color}" stroke="white" stroke-width="2"/><g transform="translate(7 6) scale(.92)" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m15 3 6 6-3 3-6-6ZM14 10 5 19M3 15l6 6-5 1-2-2Z"/></g></svg>` }));
+  }
+  return soilIcons.get(sis)!;
+}
 export function groundwaterPin() {
   return icon ??= divIcon({ className: "groundwater-pin", iconSize: [36, 46], iconAnchor: [18, 44],
     html: '<svg width="36" height="46" viewBox="0 0 36 46" aria-hidden="true"><path d="M18 44C14 37 2 27 2 18a16 16 0 1 1 32 0c0 9-12 19-16 26Z" fill="white" stroke="#0e7490" stroke-width="2"/><g transform="translate(7 6) scale(.92)" fill="none" stroke="#0e7490" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C10 7 5 11 5 15a7 7 0 0 0 14 0c0-4-5-8-7-13ZM2 22h20M8 17q4 3 8 0"/></g></svg>' });

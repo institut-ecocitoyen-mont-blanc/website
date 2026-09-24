@@ -26,11 +26,14 @@ import { WOOD_HEATMAP_GRADIENT } from "@/atlas/lib/wood-heatmap";
 import RoadTrafficLayer, { RoadTrafficControls, RoadTrafficDetails } from "@/atlas/components/RoadTrafficLayer";
 import type { RoadTrafficData, RoadTrafficSegment } from "@/atlas/lib/road-traffic";
 import { getSectorColor, type PollutionSite, type PollutionSitesResult } from "@/lib/google-sheets";
-import { LAYERS, loadLayer, type LayerId, type LayerPoint } from "@/atlas/lib/environmental-layers";
+import { LAYERS, type LayerId, type LayerPoint } from "@/atlas/lib/environmental-layers";
+import { loadPublishedData } from "@/atlas/lib/published-data";
 import { CCPMB_BOUNDS as AREA, filterCcpmbPoints } from "@/atlas/lib/ccpmb-territory";
 import type { IndustrialEmissionsData } from "@/atlas/lib/industrial-emissions";
 import type { GroundwaterCatalogue } from "@/atlas/lib/groundwater";
 import { useGroundwaterLayer } from "./GroundwaterLayer";
+import { useGeorisquesLayer } from "./GeorisquesLayer";
+import type { GeorisquesData } from "@/atlas/lib/georisques";
 import { useInstituteWaterDemo } from "./InstituteWaterDemo";
 import AtlasLayerSidebar from "./AtlasLayerSidebar";
 
@@ -58,9 +61,9 @@ function useRemoteLayer(id: Exclude<RemoteId, "atmo">, enabled: boolean, revisio
   useEffect(() => {
     if (!enabled) return;
     const controller = new AbortController();
-    setState((prev) => id === "rivers" ? { ...prev, status: "loading", error: undefined } : { points: [], status: "loading" });
-    loadLayer(id, controller.signal).then((points) => {
-      if (!controller.signal.aborted) setState({ points, status: "ready", fetchedAt: new Date().toISOString() });
+    setState((prev) => ({ ...prev, status: "loading", error: undefined }));
+    loadPublishedData<RiverCatalogue>(id, controller.signal).then((data) => {
+      if (!controller.signal.aborted) setState({ points: filterCcpmbPoints(data.points), status: "ready", fetchedAt: data.fetchedAt ?? undefined });
     }).catch((error: unknown) => {
       if (!controller.signal.aborted) setState((prev) => ({ ...prev, status: prev.points.length ? "ready" : "error", cached: !!prev.points.length, error: errorLabel(error) }));
     });
@@ -75,21 +78,22 @@ function Recenter() {
   return <button type="button" onClick={() => map.fitBounds([[AREA.south, AREA.west], [AREA.north, AREA.east]])} className="absolute right-3 top-3 z-[800] flex items-center gap-2 bg-white rounded-lg border shadow px-3 py-2 text-sm text-slate-700" aria-label="Recentrer sur le Pays du Mont-Blanc"><LocateFixed size={16} />Recentrer</button>;
 }
 
-export default function AtlasMap({ inventory, bathing, riverAssessments, riverCatalogue, traffic, emissions, groundwater }: { inventory: PollutionSitesResult | null; bathing: BathingData; riverAssessments: RiverAssessments; riverCatalogue: RiverCatalogue; traffic: RoadTrafficData; emissions: IndustrialEmissionsData; groundwater: GroundwaterCatalogue }) {
+export default function AtlasMap({ inventory, bathing, riverAssessments, riverCatalogue, traffic, emissions, groundwater, georisques, dataRevision = 0 }: { inventory: PollutionSitesResult | null; bathing: BathingData; riverAssessments: RiverAssessments; riverCatalogue: RiverCatalogue; traffic: RoadTrafficData; emissions: IndustrialEmissionsData; groundwater: GroundwaterCatalogue; georisques: GeorisquesData; dataRevision?: number }) {
   const [enabled, setEnabled] = useState<Record<LayerId, boolean>>({ inventory: true, wood: false, atmo: false, rivers: false, drinking: false, bathing: false, traffic: false });
   const [opacity, setOpacity] = useState<Record<LayerId, number>>({ inventory: 1, wood: 0.65, atmo: 0.8, rivers: 0.9, drinking: 0.9, bathing: 0.9, traffic: 0.9 });
   const [revision, setRevision] = useState<Record<RemoteId, number>>({ atmo: 0, rivers: 0, drinking: 0 });
   const [selection, setSelection] = useState<Selection | null>(null);
-  const atmo = useAtmoStations(enabled.atmo, revision.atmo);
-  const rivers = useRemoteLayer("rivers", enabled.rivers, revision.rivers, riverCatalogue);
-  const drinking = useRemoteLayer("drinking", enabled.drinking, revision.drinking);
-  const drinkingSummaries = useDrinkingQuality(drinking.points, enabled.drinking, revision.drinking);
+  const atmo = useAtmoStations(enabled.atmo, revision.atmo + dataRevision);
+  const rivers = useRemoteLayer("rivers", enabled.rivers, revision.rivers + dataRevision, riverCatalogue);
+  const drinking = useRemoteLayer("drinking", enabled.drinking, revision.drinking + dataRevision);
+  const drinkingSummaries = useDrinkingQuality(drinking.points, enabled.drinking, revision.drinking + dataRevision);
   const remote = { rivers, drinking };
   const bioDemo = useBioMonitoringDemo();
   const soilDemo = useSoilDemoLayer();
   const groundwaterLayer = useGroundwaterLayer(groundwater);
+  const georisquesLayer = useGeorisquesLayer(georisques);
   const instituteWater = useInstituteWaterDemo();
-  const activeCount = Object.values(enabled).filter(Boolean).length + bioDemo.activeCount + soilDemo.activeCount + groundwaterLayer.activeCount + instituteWater.activeCount;
+  const activeCount = Object.values(enabled).filter(Boolean).length + bioDemo.activeCount + soilDemo.activeCount + groundwaterLayer.activeCount + instituteWater.activeCount + georisquesLayer.activeCount;
 
   return <><div className="grid grid-cols-1 lg:grid-cols-[320px_minmax(0,1fr)] overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
     <AtlasLayerSidebar activeCount={activeCount}>
@@ -100,6 +104,7 @@ export default function AtlasMap({ inventory, bathing, riverAssessments, riverCa
         {group.id === "air" && bioDemo.controls}
         {group.id === "water" && instituteWater.controls}
         {group.id === "soil" && soilDemo.controls}
+        {group.id === "soil" && georisquesLayer.controls}
         {group.layers.map((id) => {
           const layer = LAYERS.find((layer) => layer.id === id)!;
           const state = layer.id === "inventory" || layer.id === "wood" || layer.id === "atmo" || layer.id === "bathing" || layer.id === "traffic" ? null : remote[layer.id];
@@ -124,10 +129,10 @@ export default function AtlasMap({ inventory, bathing, riverAssessments, riverCa
               {layer.id === "bathing" && <div className="space-y-2 text-xs text-slate-600">
                 <p>{bathing.points.length} sites · {bathing.points.reduce((count, point) => count + bathingSamples(point).length, 0)} prélèvements récupérés.</p>
                 <p>Icône nageur · vert : bon, orange : moyen, rouge : mauvais. Appréciation du dernier prélèvement disponible, pas de la situation actuelle.</p>
-                <p>Actualisation à la reconstruction du site. Dates de récupération dans chaque fiche.</p>
+                <p>Import automatique quotidien. Dates de récupération dans chaque fiche.</p>
                 {bathing.points.some((point) => point.seasons.some((season) => season.error)) && <p role="alert" className="text-amber-800">Certaines saisons n’ont pas pu être récupérées. Les fiches donnent accès aux sources officielles.</p>}
               </div>}
-              {layer.id === "rivers" && <div className="text-xs text-slate-600 space-y-2"><p>Icône vagues · état ou potentiel écologique : vert = très bon / bon, orange = moyen, rouge = médiocre / mauvais. Classe officielle et état chimique séparé dans la fiche.</p><p>Évaluations actualisées à la reconstruction du site{riverAssessments.fetchedAt ? ` · récupérées le ${dateLabel(riverAssessments.fetchedAt)}` : ""}. Le bouton ci-dessous recharge uniquement le catalogue Hub’Eau.</p>{riverAssessments.error && <p role="alert" className="text-amber-800">{riverAssessments.error}</p>}</div>}
+              {layer.id === "rivers" && <div className="text-xs text-slate-600 space-y-2"><p>Icône vagues · état ou potentiel écologique : vert = très bon / bon, orange = moyen, rouge = médiocre / mauvais. Classe officielle et état chimique séparé dans la fiche.</p><p>Évaluations importées quotidiennement{riverAssessments.fetchedAt ? ` · récupérées le ${dateLabel(riverAssessments.fetchedAt)}` : ""}. Actualiser recharge les dernières données publiées, sans interroger le fournisseur.</p>{riverAssessments.error && <p role="alert" className="text-amber-800">{riverAssessments.error}</p>}</div>}
               {layer.id === "drinking" && <p className="text-xs text-slate-600">Icône verre · vert : derniers contrôles conformes pour tous les réseaux recensés. Orange : dérogation ou référence non respectée sur au moins un réseau. Rouge : limite non respectée sur au moins un réseau. Contour seul : couverture insuffisante. Dates et réseaux concernés dans la fiche.</p>}
               {layer.id === "wood" && <div className="text-xs space-y-2">
                 <p className="font-semibold text-amber-800">Données fictives · aucune valeur réelle</p>
@@ -149,6 +154,7 @@ export default function AtlasMap({ inventory, bathing, riverAssessments, riverCa
         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>' />
         <Recenter /><ScaleControl position="bottomleft" />
         {groundwaterLayer.markers}
+        {georisquesLayer.markers}
         {bioDemo.markers}
         {soilDemo.markers}
         {instituteWater.markers}
@@ -183,6 +189,7 @@ export default function AtlasMap({ inventory, bathing, riverAssessments, riverCa
   {soilDemo.details}
   {instituteWater.details}
   {groundwaterLayer.details}
+  {georisquesLayer.details}
   {selection && <AtlasDetailDialog
     key={selection.kind + (selection.kind === "atmo" ? selection.id : selection.kind === "inventory" ? selection.site.id : selection.kind === "traffic" ? selection.segment.id : selection.point.id)}
     kind={selection.kind}

@@ -1,6 +1,10 @@
 # Environmental atlas
 
-The atlas feature lives here. `src/app/(front)/atlas/page.tsx` remains the Next.js route entry for `/atlas`, with its page metadata and server-side data loading.
+The atlas feature lives here. `src/app/(front)/atlas/page.tsx` remains the static Next.js route entry for `/atlas`, with its page metadata. Provider imports now run in [iec-atlas-data](https://github.com/institut-ecocitoyen-mont-blanc/iec-atlas-data), independently of website builds.
+
+`lib/published-data.ts` reads the version-1 manifest and snapshots published on GitHub Pages. `NEXT_PUBLIC_ATLAS_DATA_URL` optionally overrides the data origin (set at build time). The atlas checks published data on opening and every five minutes; it never needs a provider token. Failed imports retain their last good snapshot and are reported in the manifest/UI. Observation dates and provider precision remain unchanged. `/carte` is not changed by this pipeline.
+
+The data repository owns the operational parsers (initially copied from website commit `8114d37021ea242eba32bc68653a40b5e060625a`). Existing local provider helpers/tests remain for compatibility and source-link construction, but editing them here does not update the scheduled importer. Make ingestion changes in the data repository as well until the shared models are extracted into a package. GitHub Actions schedules are best-effort; consult the manifest and Actions run summaries for health.
 
 - `AtlasClient.tsx`: client entry and lazy map loading.
 - `components/`: map layers, controls, report dialogs and their CSS modules.

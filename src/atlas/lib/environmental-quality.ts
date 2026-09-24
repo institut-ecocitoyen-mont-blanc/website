@@ -55,7 +55,7 @@ export function drinkingQuality(row: Record<string, unknown> | undefined, now = 
 
 // Air-only preview requested for the atlas demo. Water never uses this flag.
 // Turn off to restore freshness-aware air pins; never use in data reports.
-export const DEMO_PIN_PREVIEW = true;
+export const DEMO_PIN_PREVIEW = false;
 type DemoPinLevel = "good" | "moderate" | "poor";
 export function demoPinLevel(level: QualityLevel, id: string): DemoPinLevel {
   if (level === "good" || level === "fair") return "good";

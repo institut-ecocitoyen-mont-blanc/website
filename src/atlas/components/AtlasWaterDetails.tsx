@@ -4,7 +4,8 @@ import { useEffect, useState } from "react";
 import { ExternalLink } from "lucide-react";
 import { DetailFacts, DetailSection } from "./AtlasDetailDialog";
 import { QualitySummary } from "./EnvironmentalPin";
-import { analysisUrl, fetchJson, rows, asText, type LayerPoint, type Row } from "@/atlas/lib/environmental-layers";
+import { analysisUrl, asText, type LayerPoint, type Row } from "@/atlas/lib/environmental-layers";
+import { loadPublishedData } from "@/atlas/lib/published-data";
 import type { Quality } from "@/atlas/lib/environmental-quality";
 import type { DrinkingNetwork } from "@/atlas/lib/drinking-networks";
 import { riverAssessmentUrl, riverChemicalLabel, type RiverAssessment } from "@/atlas/lib/river-assessments";
@@ -27,13 +28,12 @@ export default function AtlasWaterDetails({ kind, point, quality, sample, networ
     const controller = new AbortController();
     setError(null); setData(null);
     if (!url) return () => controller.abort();
-    fetchJson(url, controller.signal).then((result) => {
-      const data = rows(result);
+    loadPublishedData<Row[]>(`${kind === "rivers" ? "river" : "drinking"}-${(network?.id ?? point.id).toLowerCase()}`, controller.signal).then((data) => {
       if (network && data.some((r) => !Array.isArray(r.reseaux) || !r.reseaux.some((n: Row) => asText(n.code) === network.id))) throw new Error("Réseau incorrect.");
       if (!controller.signal.aborted) setData(data);
     }).catch(() => { if (!controller.signal.aborted) setError("Les analyses sont temporairement indisponibles. Réessayez."); });
     return () => controller.abort();
-  }, [url, attempt, network]);
+  }, [url, attempt, network, kind, point.id]);
   // Preserve every result, date, unit and qualifier. Only group the presentation.
   const groups = new Map<string, Row[]>();
   for (const row of data ?? []) {
@@ -49,7 +49,7 @@ export default function AtlasWaterDetails({ kind, point, quality, sample, networ
     <QualitySummary quality={quality} />
     {kind === "rivers" && <DetailSection title="Évaluation officielle à la station">
       {assessment && <><p className="font-semibold">{riverChemicalLabel(assessment)}</p>{assessment.chemicalDowngraders && <p className="mt-2 text-sm">Paramètres déclassants publiés : {assessment.chemicalDowngraders}</p>}<p className="mt-2 text-sm text-slate-600">Année de l’évaluation : {assessment.year}. L’état chimique est distinct de l’état ou du potentiel écologique qui colore le repère. Ces classes ne déterminent pas si l’eau est potable ou baignable.</p></>}
-      {assessmentFetchedAt && <p className="mt-2 text-xs text-slate-500">Évaluations récupérées le {dateLabel(assessmentFetchedAt)} · actualisation à la reconstruction du site.</p>}
+      {assessmentFetchedAt && <p className="mt-2 text-xs text-slate-500">Évaluations récupérées le {dateLabel(assessmentFetchedAt)} · import automatique quotidien.</p>}
       <a href={riverAssessmentUrl(point.id)} target="_blank" rel="noreferrer" className={`${styles.source} mt-4`}>Évaluation et méthode · Agence de l’eau<ExternalLink size={14} /></a>
     </DetailSection>}
     {sample && <div className={styles.notice}><p className="font-semibold">Prélèvement {asText(sample.code_prelevement)} · {networkNames(sample)}</p><p className="mt-2">{asText(sample.conclusion_conformite_prelevement)}</p></div>}
