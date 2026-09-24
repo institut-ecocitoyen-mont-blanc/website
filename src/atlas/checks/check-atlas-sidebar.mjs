@@ -23,9 +23,9 @@ try {
   const water = drawer.getByRole('checkbox', { name: 'Cours d’eau Institut écocitoyen · données fictives', exact: true });
   assert.equal(await water.isChecked(), false);
   await water.check();
-  assert.equal(await page.locator('.rivers-station-pin[title^="Institut ·"]').count(), 5);
+  assert.equal(await page.locator('.rivers-station-pin[aria-label^="Institut ·"]').count(), 5);
   await water.uncheck();
-  assert.equal(await page.locator('.rivers-station-pin[title^="Institut ·"]').count(), 0);
+  assert.equal(await page.locator('.rivers-station-pin[aria-label^="Institut ·"]').count(), 0);
   await drawer.getByRole('checkbox', { name: 'Eaux de baignade Institut écocitoyen · données fictives', exact: true }).check();
   assert.equal(await drawer.getByRole('slider').count(), 0, 'Pin-only layers have no opacity controls');
   await drawer.getByRole('checkbox', { name: /Chauffage résidentiel/ }).check();

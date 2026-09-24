@@ -56,5 +56,5 @@ export default function AtlasLayerSidebar({ children, activeCount }: { children:
     <div className="p-3 border-b border-slate-200 lg:hidden"><button type="button" aria-haspopup="dialog" aria-expanded={open} aria-controls="atlas-mobile-layers" onClick={() => setOpen(true)} className="flex min-h-11 w-full items-center justify-center gap-2 rounded-lg bg-blue-iec px-4 py-2 font-semibold text-sm text-white"><Layers size={18} aria-hidden="true" />Couches<span className="rounded-full bg-white/20 px-2 py-0.5 text-xs">{activeCount}</span></button></div>
     {open && <MobileDrawer onClose={() => setOpen(false)}>{children}</MobileDrawer>}
   </>;
-  return <aside aria-label="Couches de l’atlas" className="hidden lg:block p-5 border-r max-h-[740px] overflow-y-auto"><h2 className="font-bold text-lg flex items-center gap-2 mb-2"><Layers size={19} />Couches</h2>{children}</aside>;
+  return <aside aria-label="Couches de l’atlas" className="hidden lg:block p-5 border-r"><h2 className="font-bold text-lg flex items-center gap-2 mb-2"><Layers size={19} />Couches</h2>{children}</aside>;
 }

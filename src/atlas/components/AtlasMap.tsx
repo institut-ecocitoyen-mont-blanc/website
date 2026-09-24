@@ -95,7 +95,7 @@ export default function AtlasMap({ inventory, bathing, riverAssessments, riverCa
   const instituteWater = useInstituteWaterDemo();
   const activeCount = Object.values(enabled).filter(Boolean).length + bioDemo.activeCount + soilDemo.activeCount + groundwaterLayer.activeCount + instituteWater.activeCount + georisquesLayer.activeCount;
 
-  return <><div className="grid grid-cols-1 lg:grid-cols-[320px_minmax(0,1fr)] overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+  return <><div className="grid grid-cols-1 lg:grid-cols-[320px_minmax(0,1fr)] overflow-clip rounded-2xl border border-slate-200 bg-white shadow-sm">
     <AtlasLayerSidebar activeCount={activeCount}>
       <div className="space-y-6">
         {LAYER_GROUPS.map((group) => <section key={group.id} aria-labelledby={`atlas-layer-group-${group.id}`}>
@@ -149,8 +149,8 @@ export default function AtlasMap({ inventory, bathing, riverAssessments, riverCa
         </section>)}
       </div>
     </AtlasLayerSidebar>
-    <div className="relative z-0 min-w-0">
-      <MapContainer bounds={[[AREA.south, AREA.west], [AREA.north, AREA.east]]} style={{ height: "740px", width: "100%" }} scrollWheelZoom={true}>
+    <div className="relative z-0 min-w-0 h-[740px] lg:sticky lg:top-32 lg:self-start lg:h-[min(740px,calc(100dvh-144px))]">
+      <MapContainer bounds={[[AREA.south, AREA.west], [AREA.north, AREA.east]]} style={{ height: "100%", width: "100%" }} scrollWheelZoom={true}>
         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>' />
         <Recenter /><ScaleControl position="bottomleft" />
         {groundwaterLayer.markers}
