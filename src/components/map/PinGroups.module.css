@@ -1,0 +1,7 @@
+.group {
+  border: none;
+  background: transparent;
+  color: var(--color-blue-iec, #1d6ab2);
+}
+.group:hover { filter: brightness(1.1); }
+.group:focus-visible { outline: 3px solid #0f172a; outline-offset: 3px; }

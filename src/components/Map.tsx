@@ -4,13 +4,15 @@ import { useEffect } from "react";
 import {
   MapContainer,
   TileLayer,
-  Marker,
   Popup,
   useMap,
 } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { type PollutionSite, getSectorColor } from "@/lib/google-sheets";
+import Marker from "./map/MapMarker";
+import PinGroups from "./map/PinGroups";
+import { createPinIcon } from "./map/pin-icon";
 
 interface MapProps {
   sites: PollutionSite[];
@@ -112,30 +114,7 @@ function getSectorIconMarkup(sector: string): string {
 // Create custom marker icons based on sector color and activity.
 export const createCustomIcon = (color: string, sector: string) => {
   const sectorIcon = getSectorIconMarkup(sector);
-  const svgIcon = `
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="38" height="38" aria-hidden="true">
-      <path fill="${color}" stroke="white" stroke-width="1.5" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
-      <circle cx="12" cy="9" r="4.6" fill="white"/>
-      <g
-        transform="translate(8.5 5.5) scale(.292)"
-        fill="none"
-        stroke="${color}"
-        stroke-width="2.4"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      >
-        ${sectorIcon}
-      </g>
-    </svg>
-  `;
-
-  return L.divIcon({
-    html: svgIcon,
-    className: "custom-marker",
-    iconSize: [38, 38],
-    iconAnchor: [19, 38],
-    popupAnchor: [0, -38],
-  });
+  return createPinIcon({ className: "custom-marker", fill: color, glyph: sectorIcon, glyphColor: color, whiteCenter: true });
 };
 
 function FitMapToSites({ sites }: { sites: PollutionSite[] }) {
@@ -223,6 +202,7 @@ export default function Map({ sites, onSelectSite }: MapProps) {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         <FitMapToSites sites={sites} />
+        <PinGroups>
         {sites.map((site) => {
           const color = getSectorColor(site.sector);
 
@@ -232,6 +212,7 @@ export default function Map({ sites, onSelectSite }: MapProps) {
               position={[site.coordinates.lat, site.coordinates.lng]}
               icon={createCustomIcon(color, site.sector)}
               alt={`${site.name} — ${site.sector}`}
+              title={`${site.name} — ${site.sector}`}
             >
               <Popup>
                 <div className="site-popup">
@@ -246,6 +227,7 @@ export default function Map({ sites, onSelectSite }: MapProps) {
             </Marker>
           );
         })}
+        </PinGroups>
       </MapContainer>
     </>
   );

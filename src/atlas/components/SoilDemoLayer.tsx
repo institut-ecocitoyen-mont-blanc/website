@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { divIcon } from "leaflet";
+import { createPinIcon } from "@/components/map/pin-icon";
 import { Tooltip } from "react-leaflet";
 import AtlasMarker from "./AtlasMarker";
 import AtlasDetailDialog from "./AtlasDetailDialog";
@@ -10,11 +10,11 @@ import { INSTITUTE_DEMO_SOURCE, INSTITUTE_DEMO_NOTICE } from "@/atlas/lib/instit
 import InstituteReport from "./InstituteReport";
 import { soilInstituteReport } from "@/atlas/lib/institute-report";
 
-const icons = new Map<string, ReturnType<typeof divIcon>>();
+const icons = new Map<string, ReturnType<typeof createPinIcon>>();
 function soilPin(index: number) {
   const color = soilDemoBand(index).color;
-  if (!icons.has(color)) icons.set(color, divIcon({ className: "soil-demo-pin", iconSize: [36, 46], iconAnchor: [18, 44],
-    html: `<svg width="36" height="46" viewBox="0 0 36 46" aria-hidden="true"><path d="M18 44C14 37 2 27 2 18a16 16 0 1 1 32 0c0 9-12 19-16 26Z" fill="${color}" stroke="white" stroke-width="2"/><g transform="translate(7 6) scale(.92)" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2h6v3a3 3 0 0 1-6 0ZM12 8v6M7 14h10v3c0 3-5 5-5 5s-5-2-5-5ZM2 20h3m14 0h3"/></g></svg>` }));
+  if (!icons.has(color)) icons.set(color, createPinIcon({ className: "soil-demo-pin", fill: color,
+    glyph: '<path d="M9 2h6v3a3 3 0 0 1-6 0ZM12 8v6M7 14h10v3c0 3-5 5-5 5s-5-2-5-5ZM2 20h3m14 0h3"/>' }));
   return icons.get(color)!;
 }
 

@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { MapContainer, TileLayer, Tooltip, ScaleControl, useMap } from "react-leaflet";
 import Marker from "@/atlas/components/AtlasMarker";
+import PinGroups from "@/components/map/PinGroups";
 import { LocateFixed, ExternalLink, MapPin, Wind, Droplets, Shovel } from "lucide-react";
 import "leaflet/dist/leaflet.css";
 import { createCustomIcon } from "@/components/Map";
@@ -153,6 +154,7 @@ export default function AtlasMap({ inventory, bathing, riverAssessments, riverCa
       <MapContainer bounds={[[AREA.south, AREA.west], [AREA.north, AREA.east]]} style={{ height: "100%", width: "100%" }} scrollWheelZoom={true}>
         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>' />
         <Recenter /><ScaleControl position="bottomleft" />
+        <PinGroups>
         {groundwaterLayer.markers}
         {georisquesLayer.markers}
         {bioDemo.markers}
@@ -181,6 +183,7 @@ export default function AtlasMap({ inventory, bathing, riverAssessments, riverCa
         {enabled.inventory && inventory?.sites.map((site) => <Marker key={site.id} position={[site.coordinates.lat, site.coordinates.lng]} icon={createCustomIcon(getSectorColor(site.sector), site.sector)} opacity={opacity.inventory} title={`${site.name} · ${site.sector}`} attribution="Inventaire écocitoyen" onSelect={() => setSelection({ kind: "inventory", site })}>
           <Tooltip>{site.name} · {site.commune}</Tooltip>
         </Marker>)}
+        </PinGroups>
       </MapContainer>
       {activeCount === 0 && <p className="absolute bottom-10 left-4 right-4 z-[800] bg-white rounded-lg p-3 shadow text-center text-sm">Activez une couche pour explorer ses données.</p>}
     </div>

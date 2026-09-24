@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { divIcon } from "leaflet";
+import { createPinIcon } from "@/components/map/pin-icon";
 import { Tooltip } from "react-leaflet";
 import AtlasMarker from "./AtlasMarker";
 import AtlasDetailDialog from "./AtlasDetailDialog";
@@ -14,11 +14,10 @@ const paths = {
   lichens: '<path d="M20 3C10 2 3 6 4 13c1 8 12 8 15 0 1-3 1-6 1-10ZM3 22 16 8M8 17v-5m0 5h5"/>',
   bioacc: '<path d="M9 2h6M10 2v7L4 19q-1 3 3 3h10q4 0 3-3L14 9V2M7 15h10"/><circle cx="10" cy="18" r="1"/>',
 };
-const pins = new Map<string, ReturnType<typeof divIcon>>();
+const pins = new Map<string, ReturnType<typeof createPinIcon>>();
 function demoPin(site: BioDemoSite) {
   const color = bioDemoBand(site.index).color, key = `${site.kind}-${color}`;
-  if (!pins.has(key)) pins.set(key, divIcon({ className: `bio-demo-pin ${site.kind}-demo-pin`, iconSize: [36, 46], iconAnchor: [18, 44],
-    html: `<svg width="36" height="46" viewBox="0 0 36 46" aria-hidden="true"><path d="M18 44C14 37 2 27 2 18a16 16 0 1 1 32 0c0 9-12 19-16 26Z" fill="${color}" stroke="white" stroke-width="2"/><g transform="translate(7 6) scale(.92)" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${paths[site.kind]}</g></svg>` }));
+  if (!pins.has(key)) pins.set(key, createPinIcon({ className: `bio-demo-pin ${site.kind}-demo-pin`, fill: color, glyph: paths[site.kind] }));
   return pins.get(key)!;
 }
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { divIcon } from "leaflet";
+import { createPinIcon } from "@/components/map/pin-icon";
 import { QUALITY_COLORS, type Quality, type QualityLevel } from "@/atlas/lib/environmental-quality";
 
 type PinKind = "air" | "rivers" | "drinking" | "bathing";
@@ -11,16 +11,15 @@ const ICONS: Record<PinKind, string> = {
   drinking: '<path d="m5 3 2 18h10l2-18ZM6 10q3-3 6 0t6 0"/>',
   bathing: '<circle cx="17" cy="5" r="2"/><path d="m3 11 5-5 5 4-4 4M2 16q3-3 6 0t6 0q3-3 6 0M2 21q3-3 6 0t6 0q3-3 6 0"/>',
 };
-const icons = new Map<string, ReturnType<typeof divIcon>>();
+const icons = new Map<string, ReturnType<typeof createPinIcon>>();
 export function environmentalPin(kind: PinKind, level: QualityLevel) {
   const key = `${kind}-${level}`;
   let icon = icons.get(key);
   if (!icon) {
     const outlined = kind !== "air" && level === "unknown";
     const fill = outlined ? "white" : QUALITY_COLORS[level], stroke = outlined ? "#475569" : "white";
-    icon = divIcon({ className: kind === "air" ? "atmo-station-pin" : `${kind}-station-pin`,
-      html: `<svg width="36" height="46" viewBox="0 0 36 46" aria-hidden="true" data-quality="${level}"><path d="M18 44C14 37 2 27 2 18a16 16 0 1 1 32 0c0 9-12 19-16 26Z" fill="${fill}" stroke="${stroke}" stroke-width="2"/><g transform="translate(7 7) scale(.92)" fill="none" stroke="${stroke}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${ICONS[kind]}</g></svg>`,
-      iconSize: [36, 46], iconAnchor: [18, 44], popupAnchor: [0, -40] });
+    icon = createPinIcon({ className: kind === "air" ? "atmo-station-pin" : `${kind}-station-pin`,
+      fill, stroke, glyph: ICONS[kind], quality: level });
     icons.set(key, icon);
   }
   return icon;

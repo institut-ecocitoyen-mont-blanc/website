@@ -38,10 +38,10 @@ export default async function CartePage() {
         <div className="container mx-auto px-4">
           <div className="text-center mb-8">
             <h1 className="text-4xl font-bold text-blue-iec mb-4">
-              Carte des Sites de Pollution
+              Carte des Sites de Pollution Potentielle
             </h1>
             <p className="text-gray-600 max-w-2xl mx-auto">
-              Visualisez les sites de pollution recensés dans le Pays du Mont
+              Visualisez les sites de pollution potentielle recensés dans le Pays du Mont
               Blanc.
             </p>
           </div>
