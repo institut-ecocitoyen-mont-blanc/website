@@ -122,7 +122,7 @@ if (mapHeadings.length !== 1 || !mapHeadings[0][1].trim()) {
 
 const mapText = mapMain.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ");
 for (const content of [
-  "Visualisez les sites de pollution recensés dans le Pays du Mont Blanc.",
+  "Visualisez les sites de pollution potentielle recensés dans le Pays du Mont Blanc.",
   "Cet inventaire est en cours de construction.",
 ]) {
   if (!mapText.includes(content)) {
