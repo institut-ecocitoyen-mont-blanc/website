@@ -15,6 +15,11 @@ try {
       return { left: rect.left, right: rect.right, bottom: rect.bottom + window.scrollY };
     });
     assert.ok(layout.left <= 17 && layout.right >= viewport.width - 17, "Atlas uses full page width");
+    const intro = await page.locator("main h1").evaluate(el => {
+      const rect = el.parentElement.getBoundingClientRect();
+      return { left: rect.left, right: rect.right, normalContainer: el.parentElement.classList.contains("container") };
+    });
+    assert.ok(intro.normalContainer && intro.left > layout.left && intro.right < layout.right, "Intro uses the normal centered site container, independently of the full-width map");
     await page.evaluate(() => window.scrollTo(0, 450));
     await page.waitForFunction(() => Math.abs(document.querySelector('.leaflet-container').getBoundingClientRect().top - 128) < 2);
     const stuck = await map.boundingBox();

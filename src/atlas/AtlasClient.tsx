@@ -21,16 +21,17 @@ const DATASETS = { inventory: "inventory", bathing: "bathing", riverAssessments:
 export default function AtlasClient() {
   const [data, setData] = useState<AtlasData>(INITIAL);
   const [manifest, setManifest] = useState<DataManifest>();
-  const [errors, setErrors] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     const controller = new AbortController();
     const refresh = async () => {
       clearManifestCache();
       const failures: string[] = [];
+      let problems: { dataset: string; lastSuccessAt: string | null }[] = [];
       try {
         const status = await loadDataManifest();
         if (!controller.signal.aborted) setManifest(status);
+        problems = Object.entries(status.datasets).filter(([, entry]) => datasetNeedsAttention(entry)).map(([dataset, entry]) => ({ dataset, lastSuccessAt: entry.lastSuccessAt ?? null }));
         await Promise.all(Object.entries(DATASETS).map(async ([property, key]) => {
           try {
             const value = await loadPublishedData(key, controller.signal);
@@ -38,21 +39,17 @@ export default function AtlasClient() {
           } catch { failures.push(key); }
         }));
       } catch { failures.push("catalogue"); }
-      if (!controller.signal.aborted) { setErrors(failures); setLoading(false); }
+      if (!controller.signal.aborted) {
+        if (failures.length || problems.length) console.warn("[Atlas] Imports indisponibles ou en retard. Les dernières données disponibles sont conservées.", { loadingFailures: failures, imports: problems });
+        setLoading(false);
+      }
     };
     void refresh();
     const timer = window.setInterval(() => void refresh(), 300000);
     return () => { controller.abort(); window.clearInterval(timer); };
   }, []);
-  const problems = manifest ? Object.entries(manifest.datasets).filter(([, entry]) => datasetNeedsAttention(entry)) : [];
   return <>
-    {(loading || errors.length > 0 || problems.length > 0) && <div className="mb-3 text-xs text-slate-600" aria-live="polite">
-      {loading && <p>Chargement des jeux de données publiés…</p>}
-      {(errors.length > 0 || problems.length > 0) && <details className="mt-2 rounded-lg bg-amber-50 p-3 text-amber-900"><summary>Certains imports sont indisponibles ou en retard. Les dernières données récupérées restent affichées lorsqu’elles existent.</summary>
-        {errors.length > 0 && <p className="mt-2">Chargement indisponible : {errors.join(", ")}.</p>}
-        <ul className="mt-2 list-disc pl-4">{problems.map(([key, entry]) => <li key={key}>{key} · dernier import réussi : {entry.lastSuccessAt ? new Date(entry.lastSuccessAt).toLocaleString("fr-FR") : "aucun"}.</li>)}</ul>
-      </details>}
-    </div>}
+    {loading && <p className="mb-3 text-xs text-slate-600" role="status">Chargement des jeux de données publiés…</p>}
     <AtlasMap {...data} dataRevision={manifest ? Date.parse(manifest.checkedAt) : 0} />
   </>;
 }

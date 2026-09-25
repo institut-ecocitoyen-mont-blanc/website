@@ -12,8 +12,8 @@ try {
     const closeLayers = async () => { if (mobile) await page.getByRole('button', { name: 'Voir la carte', exact: true }).click(); };
     await openLayers();
     const sidebar = page.getByRole(mobile ? 'dialog' : 'complementary', { name: 'Couches de l’atlas' });
-    await sidebar.getByRole('checkbox', { name: 'Sources de pollution Inventaire écocitoyen', exact: true }).waitFor();
-    assert.deepEqual(await sidebar.locator('input[type="checkbox"]:checked').evaluateAll(inputs => inputs.map(input => input.closest('label').innerText.replace(/\s+/g, ' ').trim())), ['Sources de pollution Inventaire écocitoyen']);
+    await sidebar.getByRole('checkbox', { name: 'Sources de pollution potentielle Inventaire écocitoyen', exact: true }).waitFor();
+    assert.deepEqual(await sidebar.locator('input[type="checkbox"]:checked').evaluateAll(inputs => inputs.map(input => input.closest('label').innerText.replace(/\s+/g, ' ').trim())), ['Sources de pollution potentielle Inventaire écocitoyen']);
     assert.equal(await page.locator('.bio-demo-pin, .soil-demo-pin, .bathing-station-pin, .rivers-station-pin, .groundwater-pin, .atmo-station-pin, .leaflet-wood-heating-demo-pane').count(), 0);
     const names = ['Lichens (bio-indication)', 'Bio-accumulation (retombées)', 'Chauffage résidentiel', 'Eaux de baignade', 'Cours d’eau', 'Cultures potagères/maraîchères'];
     for (const name of names) {
@@ -29,7 +29,7 @@ try {
     assert.ok(waterLabels[0].startsWith('Eaux de baignade\nInstitut'));
     assert.ok(waterLabels[1].startsWith('Cours d’eau\nInstitut'));
     assert.equal(await sidebar.getByRole('checkbox', { name: /Analyses de sols/ }).count(), 0);
-    await sidebar.getByRole('checkbox', { name: 'Sources de pollution Inventaire écocitoyen', exact: true }).uncheck();
+    await sidebar.getByRole('checkbox', { name: 'Sources de pollution potentielle Inventaire écocitoyen', exact: true }).uncheck();
     await closeLayers();
     for (const selector of ['.lichens-demo-pin', '.bioacc-demo-pin', '.soil-demo-pin']) {
       assert.equal(await page.locator(selector).count(), selector === '.bioacc-demo-pin' ? 6 : 5, `${selector}: curated examples, including the extra UVE point`);

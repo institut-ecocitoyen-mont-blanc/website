@@ -53,7 +53,7 @@ try {
     assert.equal(await pechiney.isVisible(), false, "Zoom collapses displaced pins");
     const toggleWater = async checked => {
       if (width < 1024) await page.getByRole("button", { name: /^Couches/ }).click();
-      await page.getByRole("checkbox", { name: /Qualité des eaux souterraines/ }).setChecked(checked);
+      await page.getByRole("checkbox", { name: /Eaux souterraines/ }).setChecked(checked);
       if (width < 1024) await page.getByRole("button", { name: "Voir la carte", exact: true }).click();
     };
     await toggleWater(true);

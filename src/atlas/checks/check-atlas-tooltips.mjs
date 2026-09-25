@@ -6,7 +6,7 @@ try {
   const page = await browser.newPage({ viewport: { width: 1440, height: 1000 } });
   await page.goto(process.env.ATLAS_URL || "http://localhost:3000/atlas");
   const sidebar = page.getByRole("complementary", { name: "Couches de l’atlas" });
-  await sidebar.getByRole("checkbox", { name: /Qualité des eaux souterraines/ }).check();
+  await sidebar.getByRole("checkbox", { name: /Eaux souterraines/ }).check();
   const pin = page.locator(".groundwater-pin").first();
   await pin.waitFor();
   await pin.hover({ force: true });

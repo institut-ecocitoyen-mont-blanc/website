@@ -51,7 +51,7 @@ try {
     const toggle=(name)=>page.getByRole('checkbox',{name,exact:true}).check();
     await page.getByText(new RegExp(`^${inventoryCount} sites cartographiés`)).waitFor();
     assert.equal(await page.locator('.custom-marker').count(),inventoryCount);
-    await toggle('Qualité des cours d’eau Agence de l’eau · Hub’Eau · Naïades');
+    await toggle('Cours d’eau Agence de l’eau · Hub’Eau · Naïades');
     await page.getByText('Hub’Eau est temporairement indisponible. Le catalogue conservé reste affiché ; les analyses détaillées peuvent être indisponibles.',{exact:true}).waitFor();
     assert.equal(await page.locator('.rivers-station-pin').count(),riverCount,'Clipped snapshot survives outage');
     riverOutage=false;
@@ -62,7 +62,7 @@ try {
     await page.getByText(/1 communes · Catalogue chargé/).waitFor();
     await page.getByRole('button',{name:'Eau potable · Passy test',exact:true}).waitFor();
     assert.equal(await page.locator('.drinking-station-pin').count(),1);
-    await toggle('Particules et gaz Atmo Auvergne-Rhône-Alpes');
+    await toggle('Stations de mesure · Atmo Atmo Auvergne-Rhône-Alpes');
     await page.getByText('3 station(s) · un pin par station, tous ses polluants dans la fiche.',{exact:true}).waitFor();
     await page.getByRole('button',{name:'Station Atmo · Passy test',exact:true}).waitFor();
     await toggle('Eaux de baignade · ARS Ministère de la Santé');

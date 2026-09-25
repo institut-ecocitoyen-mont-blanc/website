@@ -28,7 +28,7 @@ try {
   await page.getByText("Chargement des jeux de données publiés…", { exact: true }).waitFor({ state: "hidden" });
   await page.getByText(/sites cartographiés/).waitFor();
   const sidebar = page.getByRole("complementary", { name: "Couches de l’atlas" });
-  for (const label of [/Particules et gaz/, /Qualité des cours d’eau/, /Eau potable · contrôle ARS/, /Eaux de baignade · ARS/, /Qualité des eaux souterraines/, /^Géorisques/]) {
+  for (const label of [/Stations de mesure · Atmo/, /Cours d’eau/, /Eau potable · contrôle ARS/, /Eaux de baignade · ARS/, /Eaux souterraines/, /^Géorisques/]) {
     await sidebar.getByRole("checkbox", { name: label }).check();
   }
   await page.locator('.atmo-station-pin').first().waitFor();

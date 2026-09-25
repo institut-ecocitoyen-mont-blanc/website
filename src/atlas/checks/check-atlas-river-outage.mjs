@@ -11,8 +11,8 @@ try {
   });
   await page.route('**/hubeau.eaufrance.fr/**/analyse_pc?**',route=>route.fulfill({status:500,body:'Provider error'}));
   await page.goto(process.env.ATLAS_URL || 'http://localhost:3000/atlas');
-  await page.getByRole('checkbox',{name:'Sources de pollution Inventaire écocitoyen',exact:true}).uncheck();
-  const toggle=page.getByRole('checkbox',{name:'Qualité des cours d’eau Agence de l’eau · Hub’Eau · Naïades',exact:true});
+  await page.getByRole('checkbox',{name:'Sources de pollution potentielle Inventaire écocitoyen',exact:true}).uncheck();
+  const toggle=page.getByRole('checkbox',{name:'Cours d’eau Agence de l’eau · Hub’Eau · Naïades',exact:true});
   await toggle.check();
   const warning=page.getByText('Hub’Eau est temporairement indisponible. Le catalogue conservé reste affiché ; les analyses détaillées peuvent être indisponibles.',{exact:true});
   await warning.waitFor();

@@ -9,7 +9,7 @@ try {
     await page.goto(process.env.ATLAS_URL || 'http://localhost:3000/atlas');
     const toggle=page.getByRole('checkbox',{name:'Trafic routier annuel DDT de Haute-Savoie',exact:true});
     assert.equal(await page.locator('[data-road]').count(),0);
-    await page.getByRole('checkbox',{name:'Sources de pollution Inventaire écocitoyen',exact:true}).uncheck();
+    await page.getByRole('checkbox',{name:'Sources de pollution potentielle Inventaire écocitoyen',exact:true}).uncheck();
     await toggle.check();
     await page.getByText('27 tronçons · 20 avec un comptage. Cliquez sur une route pour consulter sa fiche.',{exact:true}).waitFor();
     await page.locator('[data-road]').first().waitFor({state:'attached'});

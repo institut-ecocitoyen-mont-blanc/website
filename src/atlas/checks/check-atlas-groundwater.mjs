@@ -9,8 +9,8 @@ try {
     let analysesRequests=0;
     page.on('request',request=>{if(request.url().includes('/qualite_nappes/analyses?'))analysesRequests++;});
     await page.goto(process.env.ATLAS_URL || 'http://localhost:3000/atlas', {timeout:90000});
-    const inventory=page.getByRole('checkbox',{name:'Sources de pollution Inventaire écocitoyen',exact:true});
-    const water=page.getByRole('checkbox',{name:'Qualité des eaux souterraines Hub’Eau · ADES',exact:true});
+    const inventory=page.getByRole('checkbox',{name:'Sources de pollution potentielle Inventaire écocitoyen',exact:true});
+    const water=page.getByRole('checkbox',{name:'Eaux souterraines Hub’Eau · ADES',exact:true});
     await inventory.waitFor();
     assert.equal(await page.getByRole('checkbox',{name:/^Géorisques/}).isChecked(),false);
     assert.equal(await page.locator('.georisques-pin').count(),0);

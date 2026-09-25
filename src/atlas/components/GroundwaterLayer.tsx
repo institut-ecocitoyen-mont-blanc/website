@@ -50,7 +50,7 @@ function GroundwaterDetails({ station }: { station: GroundwaterStation }) {
 export function useGroundwaterLayer(data: GroundwaterCatalogue) {
   const [enabled, setEnabled] = useState(false);
   const [selected, setSelected] = useState<GroundwaterStation | null>(null);
-  const controls = <EvidenceLayerControl title="Qualité des eaux souterraines" source="Hub’Eau · ADES" enabled={enabled} onEnabled={setEnabled}>
+  const controls = <EvidenceLayerControl title="Eaux souterraines" source="Hub’Eau · ADES" enabled={enabled} onEnabled={setEnabled}>
     <p>Analyses chimiques aux points de suivi : paramètres, valeurs, unités, dates et qualifications.</p>
     <p>{data.stations.length} points avec analyses disponibles. Les points sans résultats accessibles sont masqués. Le détail des analyses est chargé à l’ouverture d’une fiche.</p>
     <p>Goutte à contour : aucune classe de qualité globale déduite des résultats. Repères publiés, sans garantie de localisation précise des prélèvements.</p>

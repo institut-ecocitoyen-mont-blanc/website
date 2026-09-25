@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { MapContainer, TileLayer, Tooltip, ScaleControl, useMap } from "react-leaflet";
 import Marker from "@/atlas/components/AtlasMarker";
 import PinGroups from "@/components/map/PinGroups";
@@ -20,10 +20,11 @@ import { riverQuality, type RiverAssessments } from "@/atlas/lib/river-assessmen
 import type { RiverCatalogue } from "@/atlas/lib/river-catalogue";
 import { useAtmoStations, AtmoControls, AtmoMarkers, AtmoDetails } from "@/atlas/components/AtmoStations";
 import { combineAirStations } from "@/atlas/lib/atmo-stations";
-import WoodHeatingLayer from "@/atlas/components/WoodHeatingLayer";
-import { useBioMonitoringDemo } from "@/atlas/components/BioMonitoringDemo";
-import { useSoilDemoLayer } from "@/atlas/components/SoilDemoLayer";
-import { WOOD_HEATMAP_GRADIENT } from "@/atlas/lib/wood-heatmap";
+// Illustrative Institut layers are temporarily disabled; keep their code for later.
+// import WoodHeatingLayer from "@/atlas/components/WoodHeatingLayer";
+// import { useBioMonitoringDemo } from "@/atlas/components/BioMonitoringDemo";
+// import { useSoilDemoLayer } from "@/atlas/components/SoilDemoLayer";
+// import { WOOD_HEATMAP_GRADIENT } from "@/atlas/lib/wood-heatmap";
 import RoadTrafficLayer, { RoadTrafficControls, RoadTrafficDetails } from "@/atlas/components/RoadTrafficLayer";
 import type { RoadTrafficData, RoadTrafficSegment } from "@/atlas/lib/road-traffic";
 import { getSectorColor, type PollutionSite, type PollutionSitesResult } from "@/lib/google-sheets";
@@ -35,17 +36,20 @@ import type { GroundwaterCatalogue } from "@/atlas/lib/groundwater";
 import { useGroundwaterLayer } from "./GroundwaterLayer";
 import { useGeorisquesLayer } from "./GeorisquesLayer";
 import type { GeorisquesData } from "@/atlas/lib/georisques";
-import { useInstituteWaterDemo } from "./InstituteWaterDemo";
+// import { useInstituteWaterDemo } from "./InstituteWaterDemo";
 import AtlasLayerSidebar from "./AtlasLayerSidebar";
+import { useAtmoModelLayers } from "./AtmoModelLayer";
+import { useCeremaLightLayer } from "./CeremaLightLayer";
+import { usePesticidePurchasesLayer } from "./PesticidePurchasesLayer";
 
 type RemoteId = Exclude<LayerId, "inventory" | "wood" | "bathing" | "traffic">;
 interface RemoteState { points: LayerPoint[]; status: "idle" | "loading" | "ready" | "error"; error?: string; fetchedAt?: string; cached?: boolean }
 const EMPTY: RemoteState = { points: [], status: "idle" };
 const LAYER_GROUPS = [
   { id: "inventory", title: "Inventaire", icon: MapPin, layers: ["inventory"] },
-  { id: "air", title: "Air", icon: Wind, layers: ["wood", "atmo", "traffic"] },
+  { id: "air", title: "Air", icon: Wind, layers: [/* "wood", */ "atmo", "traffic"] },
   { id: "water", title: "Eau", icon: Droplets, layers: ["rivers", "bathing", "drinking"] },
-  { id: "soil", title: "Qualité du sol", icon: Shovel, layers: [] },
+  { id: "soil", title: "Sol", icon: Shovel, layers: [] },
 ] as const;
 type Selection = { kind: "atmo"; id: string; name: string } | { kind: "rivers"; point: LayerPoint } | { kind: "drinking"; point: LayerPoint } | { kind: "bathing"; point: BathingPoint } | { kind: "inventory"; site: PollutionSite } | { kind: "traffic"; segment: RoadTrafficSegment };
 const dateLabel = (value: string) => {
@@ -84,17 +88,20 @@ export default function AtlasMap({ inventory, bathing, riverAssessments, riverCa
   const [opacity, setOpacity] = useState<Record<LayerId, number>>({ inventory: 1, wood: 0.65, atmo: 0.8, rivers: 0.9, drinking: 0.9, bathing: 0.9, traffic: 0.9 });
   const [revision, setRevision] = useState<Record<RemoteId, number>>({ atmo: 0, rivers: 0, drinking: 0 });
   const [selection, setSelection] = useState<Selection | null>(null);
+  const atmoModels = useAtmoModelLayers();
   const atmo = useAtmoStations(enabled.atmo, revision.atmo + dataRevision);
   const rivers = useRemoteLayer("rivers", enabled.rivers, revision.rivers + dataRevision, riverCatalogue);
   const drinking = useRemoteLayer("drinking", enabled.drinking, revision.drinking + dataRevision);
   const drinkingSummaries = useDrinkingQuality(drinking.points, enabled.drinking, revision.drinking + dataRevision);
   const remote = { rivers, drinking };
-  const bioDemo = useBioMonitoringDemo();
-  const soilDemo = useSoilDemoLayer();
+  // const bioDemo = useBioMonitoringDemo();
+  // const soilDemo = useSoilDemoLayer();
   const groundwaterLayer = useGroundwaterLayer(groundwater);
   const georisquesLayer = useGeorisquesLayer(georisques);
-  const instituteWater = useInstituteWaterDemo();
-  const activeCount = Object.values(enabled).filter(Boolean).length + bioDemo.activeCount + soilDemo.activeCount + groundwaterLayer.activeCount + instituteWater.activeCount + georisquesLayer.activeCount;
+  // const instituteWater = useInstituteWaterDemo();
+  const lightLayer = useCeremaLightLayer();
+  const pesticideLayer = usePesticidePurchasesLayer();
+  const activeCount = Object.entries(enabled).filter(([id, active]) => id !== "wood" && active).length + groundwaterLayer.activeCount + georisquesLayer.activeCount + lightLayer.activeCount + atmoModels.activeCount + pesticideLayer.activeCount;
 
   return <><div className="grid grid-cols-1 lg:grid-cols-[320px_minmax(0,1fr)] overflow-clip rounded-2xl border border-slate-200 bg-white shadow-sm">
     <AtlasLayerSidebar activeCount={activeCount}>
@@ -102,14 +109,16 @@ export default function AtlasMap({ inventory, bathing, riverAssessments, riverCa
         {LAYER_GROUPS.map((group) => <section key={group.id} aria-labelledby={`atlas-layer-group-${group.id}`}>
           <h3 id={`atlas-layer-group-${group.id}`} className="mb-3 flex items-center gap-2 text-sm font-bold text-blue-iec"><group.icon size={17} aria-hidden="true" />{group.title}</h3>
           <div className="space-y-3">
-        {group.id === "air" && bioDemo.controls}
-        {group.id === "water" && instituteWater.controls}
-        {group.id === "soil" && soilDemo.controls}
+        {/* {group.id === "air" && bioDemo.controls} */}
+        {/* {group.id === "water" && instituteWater.controls} */}
+        {/* {group.id === "soil" && soilDemo.controls} */}
         {group.id === "soil" && georisquesLayer.controls}
+        {group.id === "soil" && pesticideLayer.controls}
         {group.layers.map((id) => {
           const layer = LAYERS.find((layer) => layer.id === id)!;
           const state = layer.id === "inventory" || layer.id === "wood" || layer.id === "atmo" || layer.id === "bathing" || layer.id === "traffic" ? null : remote[layer.id];
-          return <section key={layer.id} className={`rounded-xl border p-3 ${enabled[layer.id] ? "border-blue-200 bg-blue-50/40" : "border-slate-200"}`}>
+          return <Fragment key={layer.id}>
+            <section className={`rounded-xl border p-3 ${enabled[layer.id] ? "border-blue-200 bg-blue-50/40" : "border-slate-200"}`}>
             <label className="flex gap-3 items-start cursor-pointer">
               <input type="checkbox" className="mt-1 h-4 w-4 accent-blue-iec" checked={enabled[layer.id]} onChange={(event) => setEnabled((prev) => ({ ...prev, [layer.id]: event.target.checked }))} />
               <span><span className="block font-semibold text-sm text-slate-900">{layer.title}</span><span className="block text-xs text-slate-500 mt-1">{layer.source}</span></span>
@@ -135,16 +144,19 @@ export default function AtlasMap({ inventory, bathing, riverAssessments, riverCa
               </div>}
               {layer.id === "rivers" && <div className="text-xs text-slate-600 space-y-2"><p>Icône vagues · état ou potentiel écologique : vert = très bon / bon, orange = moyen, rouge = médiocre / mauvais. Classe officielle et état chimique séparé dans la fiche.</p><p>Évaluations importées quotidiennement{riverAssessments.fetchedAt ? ` · récupérées le ${dateLabel(riverAssessments.fetchedAt)}` : ""}.</p>{riverAssessments.error && <p role="alert" className="text-amber-800">{riverAssessments.error}</p>}</div>}
               {layer.id === "drinking" && <p className="text-xs text-slate-600">Icône verre · vert : derniers contrôles conformes pour tous les réseaux recensés. Orange : dérogation ou référence non respectée sur au moins un réseau. Rouge : limite non respectée sur au moins un réseau. Contour seul : couverture insuffisante. Dates et réseaux concernés dans la fiche.</p>}
-              {layer.id === "wood" && <div className="text-xs space-y-2">
+              {/* {layer.id === "wood" && <div className="text-xs space-y-2">
                 <p className="font-semibold text-amber-800">Données fictives · aucune valeur réelle</p>
                 <div className="h-3 rounded-full" style={{ background: WOOD_HEATMAP_GRADIENT }} />
                 <div className="flex justify-between text-slate-600"><span>Faible</span><span>Forte</span></div>
                 <p className="text-slate-500">Intensité illustrative, sans unité.</p>
-              </div>}
+              </div>} */}
               {layer.url && <a className="text-xs text-blue-iec underline inline-flex gap-1 items-center" href={layer.url} target={layer.url.startsWith("https:") ? "_blank" : undefined} rel="noreferrer">Consulter la source<ExternalLink size={11} /></a>}
             </div>}
-          </section>;
+          </section>
+          {layer.id === "atmo" && atmoModels.controls}
+          </Fragment>;
         })}
+        {group.id === "air" && lightLayer.controls}
         {group.id === "water" && groundwaterLayer.controls}
           </div>
         </section>)}
@@ -154,13 +166,16 @@ export default function AtlasMap({ inventory, bathing, riverAssessments, riverCa
       <MapContainer bounds={[[AREA.south, AREA.west], [AREA.north, AREA.east]]} style={{ height: "100%", width: "100%" }} scrollWheelZoom={true}>
         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>' />
         <Recenter /><ScaleControl position="bottomleft" />
+        {atmoModels.layers}
+        {lightLayer.polygons}
+        {pesticideLayer.polygons}
         <PinGroups>
         {groundwaterLayer.markers}
         {georisquesLayer.markers}
-        {bioDemo.markers}
-        {soilDemo.markers}
-        {instituteWater.markers}
-        {enabled.wood && <WoodHeatingLayer opacity={opacity.wood} />}
+        {/* {bioDemo.markers} */}
+        {/* {soilDemo.markers} */}
+        {/* {instituteWater.markers} */}
+        {/* {enabled.wood && <WoodHeatingLayer opacity={opacity.wood} />} */}
         {enabled.traffic && <RoadTrafficLayer data={traffic} opacity={opacity.traffic} onSelect={(segment) => setSelection({ kind: "traffic", segment })} />}
         {enabled.bathing && bathing.points.map((point) => {
           const quality = bathingQuality(point), latest = bathingSamples(point)[0];
@@ -188,11 +203,13 @@ export default function AtlasMap({ inventory, bathing, riverAssessments, riverCa
       {activeCount === 0 && <p className="absolute bottom-10 left-4 right-4 z-[800] bg-white rounded-lg p-3 shadow text-center text-sm">Activez une couche pour explorer ses données.</p>}
     </div>
   </div>
-  {bioDemo.details}
-  {soilDemo.details}
-  {instituteWater.details}
+  {/* {bioDemo.details} */}
+  {/* {soilDemo.details} */}
+  {/* {instituteWater.details} */}
   {groundwaterLayer.details}
   {georisquesLayer.details}
+  {lightLayer.details}
+  {pesticideLayer.details}
   {selection && <AtlasDetailDialog
     key={selection.kind + (selection.kind === "atmo" ? selection.id : selection.kind === "inventory" ? selection.site.id : selection.kind === "traffic" ? selection.segment.id : selection.point.id)}
     kind={selection.kind}

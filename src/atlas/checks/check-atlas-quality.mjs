@@ -31,7 +31,7 @@ try {
       }]}});
     });
     await page.goto(process.env.ATLAS_URL || 'http://localhost:3000/atlas');
-    await page.getByRole('checkbox',{name:'Sources de pollution Inventaire écocitoyen',exact:true}).uncheck();
+    await page.getByRole('checkbox',{name:'Sources de pollution potentielle Inventaire écocitoyen',exact:true}).uncheck();
     await page.getByRole('checkbox',{name:'Eau potable · contrôle ARS Ministère de la Santé · Hub’Eau',exact:true}).check();
     await page.getByRole('button',{name:'Eau potable · Commune test',exact:true}).click();
     await page.getByRole('dialog').getByText('Réseau 2',{exact:true}).waitFor();
@@ -57,7 +57,7 @@ try {
     await page.keyboard.press('Escape');
     if(width===1400 && level==='poor') {
       await page.getByRole('checkbox',{name:'Eau potable · contrôle ARS Ministère de la Santé · Hub’Eau',exact:true}).uncheck();
-      await page.getByRole('checkbox',{name:'Qualité des cours d’eau Agence de l’eau · Hub’Eau · Naïades',exact:true}).check();
+      await page.getByRole('checkbox',{name:'Cours d’eau Agence de l’eau · Hub’Eau · Naïades',exact:true}).check();
       const known = page.getByRole('button',{name:'Cours d’eau · Magland',exact:true});
       await known.waitFor();
       assert.equal(await known.locator('svg').getAttribute('data-quality'),'moderate');
