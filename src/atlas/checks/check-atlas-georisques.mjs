@@ -8,6 +8,10 @@ const fixture = { sites: [{ id: "SSPTEST", name: "Site de test", commune: "Passy
   { id: "SSPTEST", kind: "instruction", sisId: "", status: "En cours", updatedAt: "2017-05-22", url: "https://fiches-risques.brgm.fr/georisques/infosols/instruction/SSPTEST" },
   { id: "SSPTEST01", kind: "sis", sisId: "SIS de test", status: "Secteur SIS", updatedAt: "2020-09-30", url: "https://fiches-risques.brgm.fr/georisques/infosols/classification/SSPTEST01" },
 ] }], fetchedAt: "2026-09-24T00:00:00Z", errors: [] };
+fixture.sites.push({ id: "AIOT0003204031", name: "Installation de test", commune: "Passy", communeCode: "74208", address: "Adresse publiée", geometry: { type: "Point", coordinates: [6.692092,45.921347] }, records: [
+  { id: "0003204031", kind: "installation", status: "", regime: "Non ICPE", seveso: "", inspectionService: "DREAL AURA", lastInspectionAt: "2021-06-15", updatedAt: "2026-04-26", url: "https://www.georisques.gouv.fr/risques/installations/donnees/details/0003204031" },
+] });
+fixture.installations = { total: 1, mapped: 1, missingCoordinates: 0, outsideTerritory: 0 };
 const browser = await chromium.launch({ headless: true, channel: "chrome" });
 try {
   for (const width of [1440, 390]) {
@@ -36,11 +40,12 @@ try {
     assert.equal(await checkbox.isChecked(), false);
     assert.equal(await page.locator('input[type="checkbox"]:checked').count(), 1);
     await checkbox.check();
-    await page.getByText("1 sites · 2 dossiers officiels regroupés.", { exact: true }).waitFor();
+    await page.getByText(/2 entrées cartographiées · 3 dossiers officiels/).waitFor();
     await page.getByRole("slider", { name: "Opacité · Géorisques", exact: true }).fill("0.5");
     await closeLayers();
-    const pin = page.locator(".georisques-pin");
-    assert.equal(await pin.count(), 1);
+    const pins = page.locator(".georisques-pin");
+    const pin = pins.first();
+    assert.equal(await pins.count(), 2);
     assert.equal(await page.locator('path[stroke="#7c3aed"]').getAttribute("stroke-opacity"), "0.5");
     await pin.press("Enter");
     const dialog = page.getByRole("dialog");
@@ -52,6 +57,18 @@ try {
     await page.screenshot({ path: `/tmp/atlas-georisques-restored-${width}.png` });
     await page.keyboard.press("Escape");
     assert.ok(await pin.evaluate((el) => document.activeElement === el));
+    await pins.nth(1).press("Enter");
+    await dialog.waitFor();
+    const installationText = await dialog.innerText();
+    assert.match(installationText, /Non ICPE/);
+    assert.match(installationText, /15\/06\/2021/);
+    assert.match(installationText, /26\/04\/2026/);
+    assert.match(installationText, /pas une mesure de pollution/);
+    assert.doesNotMatch(installationText, /Dossier de pollution des sols/);
+    assert.equal(await dialog.getByRole("link", { name: "Ouvrir la fiche officielle" }).getAttribute("href"), "https://www.georisques.gouv.fr/risques/installations/donnees/details/0003204031");
+    assert.equal(await dialog.locator("[data-atlas-detail-body]").evaluate((el) => el.scrollWidth > el.clientWidth), false);
+    await page.screenshot({ path: `/tmp/atlas-georisques-installations-${width}.png` });
+    await page.keyboard.press("Escape");
     await openLayers(); await checkbox.uncheck(); await closeLayers();
     assert.equal(await pin.count(), 0);
     unavailable = true;
@@ -62,7 +79,7 @@ try {
     await page.getByText(/Catalogue indisponible ou en cours de chargement/).waitFor();
     assert.equal(await pin.count(), 0);
     assert.deepEqual(errors, []); assert.deepEqual(upstream, []);
-    console.log(`PASS ${width}px: opt-in, polygon, opacity, dossiers, keyboard, unavailable state, no provider calls`);
+    console.log(`PASS ${width}px: opt-in, polygon, installation status/dates, opacity, dossiers, keyboard, unavailable state, no provider calls`);
     await page.close();
   }
 } finally { await browser.close(); }

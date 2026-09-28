@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useAtlasUrlLayer, useAtlasUrlPin } from "./useAtlasUrlState";
 import { loadPublishedData } from "@/atlas/lib/published-data";
 import { Tooltip } from "react-leaflet";
 import AtlasMarker from "./AtlasMarker";
@@ -48,8 +49,10 @@ function GroundwaterDetails({ station }: { station: GroundwaterStation }) {
   </>;
 }
 export function useGroundwaterLayer(data: GroundwaterCatalogue) {
-  const [enabled, setEnabled] = useState(false);
-  const [selected, setSelected] = useState<GroundwaterStation | null>(null);
+  const [enabled, setEnabled] = useAtlasUrlLayer("groundwater");
+  const [selectedId, setSelectedId] = useAtlasUrlPin("groundwater");
+  const selected = data.stations.find(station => station.id === selectedId);
+  const setSelected = (station: GroundwaterStation | null) => setSelectedId(station?.id);
   const controls = <EvidenceLayerControl title="Eaux souterraines" source="Hub’Eau · ADES" enabled={enabled} onEnabled={setEnabled}>
     <p>Analyses chimiques aux points de suivi : paramètres, valeurs, unités, dates et qualifications.</p>
     <p>{data.stations.length} points avec analyses disponibles. Les points sans résultats accessibles sont masqués. Le détail des analyses est chargé à l’ouverture d’une fiche.</p>

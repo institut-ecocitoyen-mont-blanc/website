@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { useAtlasUrlState } from "./useAtlasUrlState";
 import L from "leaflet";
 import { useMap } from "react-leaflet";
 import { CCPMB_BOUNDS, CCPMB_POLYGONS } from "@/atlas/lib/ccpmb-territory";
@@ -97,23 +98,25 @@ function AtmoModelControls({ pollutant, status, onRetry }: {
   </div>;
 }
 
-type ModelState = { enabled: boolean; opacity: number; status: ModelStatus; revision: number };
+type ModelState = { opacity: number; status: ModelStatus; revision: number };
 export function useAtmoModelLayers() {
+  const url = useAtlasUrlState();
+  const enabled = (id: AtmoModelId) => url.layers.includes(`atmo-model-${id}`);
   const [states, setStates] = useState<Record<AtmoModelId, ModelState>>(() => Object.fromEntries(
-    ATMO_MODELS.map(({ id }) => [id, { enabled: false, opacity: 0.55, status: "loading", revision: 0 }]),
+    ATMO_MODELS.map(({ id }) => [id, { opacity: 0.55, status: "loading", revision: 0 }]),
   ) as Record<AtmoModelId, ModelState>);
   const update = useCallback((id: AtmoModelId, value: Partial<ModelState>) => {
     setStates((previous) => ({ ...previous, [id]: { ...previous[id], ...value } }));
   }, []);
   const onStatus = useCallback((id: AtmoModelId, status: ModelStatus) => update(id, { status }), [update]);
   return {
-    activeCount: ATMO_MODELS.filter(({ id }) => states[id].enabled).length,
+    activeCount: ATMO_MODELS.filter(({ id }) => enabled(id)).length,
     controls: ATMO_MODELS.map(({ id, label, period }) => <EvidenceLayerControl
-      key={id} title={`${label} · modèle`} source={`Atmo Auvergne-Rhône-Alpes · ${period}`} enabled={states[id].enabled}
-      onEnabled={(enabled) => update(id, { enabled })} opacityControl={{ value: states[id].opacity, onChange: (opacity) => update(id, { opacity }) }}>
+      key={id} title={`${label} · modèle`} source={`Atmo Auvergne-Rhône-Alpes · ${period}`} enabled={enabled(id)}
+      onEnabled={(value) => url.setLayer(`atmo-model-${id}`, value)} opacityControl={{ value: states[id].opacity, onChange: (opacity) => update(id, { opacity }) }}>
       <AtmoModelControls pollutant={id} status={states[id].status} onRetry={() => update(id, { revision: states[id].revision + 1 })} />
     </EvidenceLayerControl>),
-    layers: ATMO_MODELS.map(({ id }) => states[id].enabled && <AtmoModelLayer
+    layers: ATMO_MODELS.map(({ id }) => enabled(id) && <AtmoModelLayer
       key={`${id}-${states[id].revision}`} pollutant={id} opacity={states[id].opacity} onStatus={onStatus} />),
   };
 }

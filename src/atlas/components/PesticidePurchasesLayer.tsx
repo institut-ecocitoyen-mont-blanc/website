@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useAtlasUrlLayer, useAtlasUrlPin } from "./useAtlasUrlState";
 import { Pane, Polygon, Tooltip } from "react-leaflet";
 import polygonClipping, { type Polygon as ClippingPolygon } from "polygon-clipping";
 import boundaries from "@/atlas/lib/data/ccpmb-boundaries.json";
@@ -17,14 +18,14 @@ const zones = PESTICIDE_ZONES.map((zone) => {
 const scopeNote = "Les contours regroupent les communes du Pays du Mont-Blanc par code postal : ce ne sont pas des limites postales officielles. Les chiffres concernent toute la zone postale, sans répartition entre communes.";
 
 export function usePesticidePurchasesLayer() {
-  const [enabled, setEnabled] = useState(false);
+  const [enabled, setEnabled] = useAtlasUrlLayer("pesticide-purchases");
   const [opacity, setOpacity] = useState(0.55);
   const [data, setData] = useState<PurchaseData>();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string>();
   const [revision, setRevision] = useState(0);
   const [chosenYear, setYear] = useState<number>();
-  const [selectedCode, setSelectedCode] = useState<string>();
+  const [selectedCode, setSelectedCode] = useAtlasUrlPin("pesticide-purchases");
   const year = chosenYear && data?.years.includes(chosenYear) ? chosenYear : data?.years[0];
   useEffect(() => {
     if (!enabled) return;

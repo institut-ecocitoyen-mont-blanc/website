@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useAtlasUrlLayer, useAtlasUrlPin } from "./useAtlasUrlState";
 import { Polygon, Tooltip, Pane } from "react-leaflet";
 import EvidenceLayerControl from "./EvidenceLayerControl";
 import AtlasDetailDialog, { DetailFacts, DetailSection } from "./AtlasDetailDialog";
@@ -15,14 +16,16 @@ const positions = (geometry: typeof boundaries.features[number]["geometry"]) => 
 };
 
 export function useCeremaLightLayer() {
-  const [enabled, setEnabled] = useState(false);
+  const [enabled, setEnabled] = useAtlasUrlLayer("cerema-light");
   const [opacity, setOpacity] = useState(0.55);
   const [data, setData] = useState<LightData>();
   const [error, setError] = useState<string>();
   const [loading, setLoading] = useState(false);
   const [revision, setRevision] = useState(0);
   const [chosenMonth, setMonth] = useState("");
-  const [selection, setSelection] = useState<LightCommune>();
+  const [selectedCode, setSelectedCode] = useAtlasUrlPin("cerema-light");
+  const selection = data?.communes.find(commune => commune.code === selectedCode);
+  const setSelection = (commune: LightCommune | undefined) => setSelectedCode(commune?.code);
   const month = chosenMonth || defaultLightMonth(data?.months ?? []);
   useEffect(() => {
     if (!enabled) return;

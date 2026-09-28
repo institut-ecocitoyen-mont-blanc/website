@@ -14,14 +14,14 @@ export default function EvidenceLayerControl({ title, source, enabled, onEnabled
   </section>;
 }
 let icon: ReturnType<typeof createPinIcon> | undefined;
-const soilIcons = new Map<boolean, ReturnType<typeof createPinIcon>>();
-export function georisquesPin(sis: boolean) {
-  if (!soilIcons.has(sis)) {
-    const color = sis ? "#7c3aed" : "#925323";
-    soilIcons.set(sis, createPinIcon({ className: "georisques-pin", fill: color,
-      glyph: '<path d="m15 3 6 6-3 3-6-6ZM14 10 5 19M3 15l6 6-5 1-2-2Z"/>' }));
+const soilIcons = new Map<string, ReturnType<typeof createPinIcon>>();
+export function georisquesPin(kind: "sis" | "instruction" | "installation") {
+  if (!soilIcons.has(kind)) {
+    const color = kind === "sis" ? "#7c3aed" : kind === "installation" ? "#247184" : "#925323";
+    soilIcons.set(kind, createPinIcon({ className: "georisques-pin", fill: color,
+      glyph: kind === "installation" ? '<path d="M3 21V10l6 3V7l6 3V3h4l2 18ZM7 17h1m4 0h1m4 0h1"/>' : '<path d="m15 3 6 6-3 3-6-6ZM14 10 5 19M3 15l6 6-5 1-2-2Z"/>' }));
   }
-  return soilIcons.get(sis)!;
+  return soilIcons.get(kind)!;
 }
 export function groundwaterPin() {
   return icon ??= createPinIcon({ className: "groundwater-pin", fill: "white", stroke: "#0e7490",

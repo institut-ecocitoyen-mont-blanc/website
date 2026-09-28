@@ -41,6 +41,7 @@ import AtlasLayerSidebar from "./AtlasLayerSidebar";
 import { useAtmoModelLayers } from "./AtmoModelLayer";
 import { useCeremaLightLayer } from "./CeremaLightLayer";
 import { usePesticidePurchasesLayer } from "./PesticidePurchasesLayer";
+import { useAtlasUrlState } from "./useAtlasUrlState";
 
 type RemoteId = Exclude<LayerId, "inventory" | "wood" | "bathing" | "traffic">;
 interface RemoteState { points: LayerPoint[]; status: "idle" | "loading" | "ready" | "error"; error?: string; fetchedAt?: string; cached?: boolean }
@@ -84,10 +85,10 @@ function Recenter() {
 }
 
 export default function AtlasMap({ inventory, bathing, riverAssessments, riverCatalogue, traffic, emissions, groundwater, georisques, dataRevision = 0 }: { inventory: PollutionSitesResult | null; bathing: BathingData; riverAssessments: RiverAssessments; riverCatalogue: RiverCatalogue; traffic: RoadTrafficData; emissions: IndustrialEmissionsData; groundwater: GroundwaterCatalogue; georisques: GeorisquesData; dataRevision?: number }) {
-  const [enabled, setEnabled] = useState<Record<LayerId, boolean>>({ inventory: true, wood: false, atmo: false, rivers: false, drinking: false, bathing: false, traffic: false });
+  const url = useAtlasUrlState();
+  const enabled = Object.fromEntries(LAYERS.map(({ id }) => [id, url.layers.some(layer => layer === id)])) as Record<LayerId, boolean>;
   const [opacity, setOpacity] = useState<Record<LayerId, number>>({ inventory: 1, wood: 0.65, atmo: 0.8, rivers: 0.9, drinking: 0.9, bathing: 0.9, traffic: 0.9 });
   const [revision, setRevision] = useState<Record<RemoteId, number>>({ atmo: 0, rivers: 0, drinking: 0 });
-  const [selection, setSelection] = useState<Selection | null>(null);
   const atmoModels = useAtmoModelLayers();
   const atmo = useAtmoStations(enabled.atmo, revision.atmo + dataRevision);
   const rivers = useRemoteLayer("rivers", enabled.rivers, revision.rivers + dataRevision, riverCatalogue);
@@ -101,6 +102,38 @@ export default function AtlasMap({ inventory, bathing, riverAssessments, riverCa
   // const instituteWater = useInstituteWaterDemo();
   const lightLayer = useCeremaLightLayer();
   const pesticideLayer = usePesticidePurchasesLayer();
+  // Resolve URL identifiers against loaded catalogues on every render. A deep
+  // link is retained while its source loads; never overwrite it with defaults.
+  const selection: Selection | null = (() => {
+    const pin = url.pin;
+    if (!pin) return null;
+    switch (pin.layer) {
+      case "inventory": {
+        const site = inventory?.sites.find(site => site.id === pin.id);
+        return site ? { kind: "inventory", site } : null;
+      }
+      case "traffic": {
+        const segment = traffic.segments.find(segment => segment.id === pin.id);
+        return segment ? { kind: "traffic", segment } : null;
+      }
+      case "bathing": {
+        const point = bathing.points.find(point => point.id === pin.id);
+        return point ? { kind: "bathing", point } : null;
+      }
+      case "rivers": case "drinking": {
+        const point = remote[pin.layer].points.find(point => point.id === pin.id);
+        return point ? { kind: pin.layer, point } : null;
+      }
+      case "atmo": {
+        const group = combineAirStations(atmo).find(({ station }) => station.id === pin.id);
+        return group ? { kind: "atmo", id: pin.id, name: group.station.name } : null;
+      }
+      default: return null; // Other detail types are resolved by their layer hooks.
+    }
+  })();
+  const setSelection = (value: Selection | null) => url.setPin(value ? { layer: value.kind,
+    id: value.kind === "atmo" ? value.id : value.kind === "inventory" ? value.site.id : value.kind === "traffic" ? value.segment.id : value.point.id,
+  } : null);
   const activeCount = Object.entries(enabled).filter(([id, active]) => id !== "wood" && active).length + groundwaterLayer.activeCount + georisquesLayer.activeCount + lightLayer.activeCount + atmoModels.activeCount + pesticideLayer.activeCount;
 
   return <><div className="grid grid-cols-1 lg:grid-cols-[320px_minmax(0,1fr)] overflow-clip rounded-2xl border border-slate-200 bg-white shadow-sm">
@@ -120,7 +153,7 @@ export default function AtlasMap({ inventory, bathing, riverAssessments, riverCa
           return <Fragment key={layer.id}>
             <section className={`rounded-xl border p-3 ${enabled[layer.id] ? "border-blue-200 bg-blue-50/40" : "border-slate-200"}`}>
             <label className="flex gap-3 items-start cursor-pointer">
-              <input type="checkbox" className="mt-1 h-4 w-4 accent-blue-iec" checked={enabled[layer.id]} onChange={(event) => setEnabled((prev) => ({ ...prev, [layer.id]: event.target.checked }))} />
+              <input type="checkbox" className="mt-1 h-4 w-4 accent-blue-iec" checked={enabled[layer.id]} onChange={(event) => { if (layer.id !== "wood") url.setLayer(layer.id, event.target.checked); }} />
               <span><span className="block font-semibold text-sm text-slate-900">{layer.title}</span><span className="block text-xs text-slate-500 mt-1">{layer.source}</span></span>
             </label>
             {enabled[layer.id] && <div className="mt-3 space-y-3">

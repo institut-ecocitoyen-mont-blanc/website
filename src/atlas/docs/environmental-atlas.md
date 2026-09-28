@@ -1,5 +1,19 @@
 # Atlas environnemental
 
+## Shareable atlas state (28 September 2026)
+
+The query string is the source of truth for enabled production layers and the single open detail: `?layers=inventory,georisques&pin=georisques:AIOT0003204031`. Layer IDs are allowlisted in `atlas-url-state.ts`; no `layers` parameter keeps the inventory-only default, while `layers=` explicitly disables all layers. A valid `pin=layer:source-id` automatically enables its source and resolves against the catalogue once loaded. Unknown IDs do not open a different site. The same mechanism covers station/inventory pins, roads and commune/postal-area polygon details; disabled demonstration layers are excluded.
+
+All user toggles, pin openings and detail closures use the native History API without reloading the page or resetting scroll. Back/Forward restores the state; unrelated query parameters and the fragment are preserved. Disabling the selected layer also closes its detail. Only layers and the selected source ID are serialized, not opacity, map viewport or period selectors. Browser regression `checks/check-atlas-url-state.mjs` covers all 14 layer toggles and all 10 detail types on desktop/mobile, reloads, Back/Forward and incoming links before data arrives.
+
+## Géorisques installations extension (28 September 2026)
+
+The Géorisques layer now combines the existing SSP/SIS soil records with the official `/api/v1/installations_classees` catalogue, including other inspected sites marked **Non ICPE**. Live local import: **72 installations + 9 grouped soil entries = 81 map entries / 82 administrative records** across the exact ten CCPMB communes. All 72 installations have published points inside the territory, including PUGNAT Frères TP (`0003204031`). CASIAS is still excluded. Entries from different databases can describe the same physical site; the UI does not present this count as unique pollution sources.
+
+`georisques-installations.ts` validates page/total counts, duplicate AIOT IDs and coordinates, bounds response size and duration, and records exclusions instead of inventing locations. Installation status, regulatory regime, Seveso status, inspection service, last published inspection date and dossier update date remain distinct. Teal factory pins distinguish installations from brown instruction records and purple SIS zones; colours do not express pollution severity. Installation membership is not evidence of contamination. Only exactly matching soil dossiers are grouped; installations remain identified by AIOT.
+
+The corresponding importer and snapshot are maintained in `institut-ecocitoyen-mont-blanc/iec-atlas-data`, under Géorisques' Licence Ouverte notice. Any incomplete source rejects the combined refresh and retains the last complete snapshot. GitHub-hosted access to Géorisques was still failing at TCP connection time during earlier checks; the expanded snapshot was imported locally, without claiming that network problem is fixed. Desktop/mobile regression coverage checks Non ICPE labels, dates, links and the existing soil overlay, with no browser calls to the provider.
+
 Page: `/atlas`. The existing `/carte` remains the inventory interface and does not advertise the atlas yet. Layer controls, opacity, attribution, dates, retry and recentering are available. Browser-side external requests run only for enabled layers; bathing-water results, the river station catalogue and river assessments are fetched at build/render time alongside the inventory. Detailed Hub’Eau analyses run on clicking a water point/network; drinking-water summaries load on layer activation (one row per unique distribution network, four requests concurrently at most). All requests are bounded and cancellable.
 
 ## Current atlas perimeter (10 September 2026)
