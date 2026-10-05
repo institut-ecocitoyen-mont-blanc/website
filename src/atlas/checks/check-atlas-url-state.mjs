@@ -8,7 +8,8 @@ if (!process.env.ATLAS_DATA_DIR) throw new Error("Set ATLAS_DATA_DIR to the expo
 const data = async key => JSON.parse(await readFile(join(process.env.ATLAS_DATA_DIR, `data/${key}.json`), "utf8")).data;
 const inventory = (await data("inventory")).sites[0], bathing = (await data("bathing")).points[0];
 const river = (await data("rivers")).points[0], drinking = (await data("drinking")).points[0];
-const ground = (await data("groundwater")).stations[0], atmo = (await data("air-pm25"))[0];
+const nationalAir = await data("geodair-hourly").catch(() => undefined);
+const ground = (await data("groundwater")).stations[0], atmo = nationalAir?.stations.pm25 ?? (await data("air-pm25"))[0];
 const traffic = (await data("traffic")).segments[0], light = (await data("cerema-light")).communes[0];
 const geo = (await data("georisques")).sites.find(site => site.id === "AIOT0003204031");
 assert.ok(geo, "expanded export includes PUGNAT");

@@ -2,6 +2,7 @@
 
 import { createPinIcon } from "@/components/map/pin-icon";
 import { QUALITY_COLORS, type Quality, type QualityLevel } from "@/atlas/lib/environmental-quality";
+import { ATMO_INDEX_CLASSES, ATMO_INDEX_NEUTRAL } from "@/atlas/lib/atmo-index";
 
 type PinKind = "air" | "rivers" | "drinking" | "bathing";
 // Small, code-native line icons: wind, flowing water, and drinking glass.
@@ -20,6 +21,16 @@ export function environmentalPin(kind: PinKind, level: QualityLevel) {
     const fill = outlined ? "white" : QUALITY_COLORS[level], stroke = outlined ? "#475569" : "white";
     icon = createPinIcon({ className: kind === "air" ? "atmo-station-pin" : `${kind}-station-pin`,
       fill, stroke, glyph: ICONS[kind], quality: level });
+    icons.set(key, icon);
+  }
+  return icon;
+}
+
+export function atmoIndexPin(code?: number | null) {
+  const category = ATMO_INDEX_CLASSES.find(c => c.code === code), key = `atmo-index-${category?.code ?? "unknown"}`;
+  let icon = icons.get(key);
+  if (!icon) {
+    icon = createPinIcon({ className: "atmo-station-pin", fill: category?.color ?? ATMO_INDEX_NEUTRAL, glyph: ICONS.air, quality: key });
     icons.set(key, icon);
   }
   return icon;
