@@ -33,6 +33,14 @@ test("successful but overdue imports still need attention", () => {
   assert.equal(datasetNeedsAttention({ ...entry, status: "ok" }, Date.parse("2026-09-23T11:00:00Z")), false);
   assert.equal(datasetNeedsAttention({ ...entry, status: "ok" }, Date.parse("2026-09-27T11:00:00Z")), true);
 });
+test("retired datasets do not generate stale or failed-import warnings", async () => {
+  const retired = { ...entry, retiredAt: "2026-10-10T20:00:00Z" };
+  assert.equal(datasetNeedsAttention(retired), false);
+  globalThis.fetch = async (url) => Response.json(url.includes("manifest.json")
+    ? { ...manifest, datasets: { rivers: retired } }
+    : { schemaVersion: 1, key: "rivers", data: { points: [{ id: "saved" }] } });
+  assert.equal((await loadPublishedData("rivers")).points[0].id, "saved");
+});
 test("manifest requests are shared, and a failed request can be retried", async () => {
   let count = 0;
   globalThis.fetch = async (url) => {

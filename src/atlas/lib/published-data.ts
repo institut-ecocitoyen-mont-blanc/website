@@ -9,6 +9,7 @@ export interface DatasetStatus {
   lastSuccessAt?: string;
   status: "ok" | "error";
   error?: string;
+  retiredAt?: string;
 }
 export interface DataManifest { schemaVersion: 1; checkedAt: string; datasets: Record<string, DatasetStatus> }
 
@@ -49,5 +50,6 @@ export async function loadPublishedData<T>(key: string, signal?: AbortSignal): P
   return data;
 }
 export function datasetNeedsAttention(entry: DatasetStatus, now = Date.now()) {
+  if (entry.retiredAt) return false;
   return entry.status !== "ok" || !entry.lastSuccessAt || now - Date.parse(entry.lastSuccessAt) > (entry.intervalHours * 2 + 1) * 3600000;
 }
