@@ -8,7 +8,9 @@ import boundaries from "@/atlas/lib/data/ccpmb-boundaries.json";
 import { PESTICIDE_ZONES, PESTICIDE_BANDS, PESTICIDE_SOURCE, PESTICIDE_LICENSE, purchaseSummary, substanceSummaries, purchaseLabel, pesticideColor, type PurchaseData } from "@/atlas/lib/pesticide-purchases";
 import { loadPublishedData } from "@/atlas/lib/published-data";
 import EvidenceLayerControl from "./EvidenceLayerControl";
-import AtlasDetailDialog, { DetailFacts, DetailSection } from "./AtlasDetailDialog";
+import LayerAbout from "./LayerAbout";
+import { DetailData, DetailHeadline, DetailLimits, DetailGauges, DetailBars, DetailTable } from "./DetailCard";
+import AtlasDetailDialog, { DetailFacts } from "./AtlasDetailDialog";
 
 const zones = PESTICIDE_ZONES.map((zone) => {
   const polygons = boundaries.features.filter((feature) => zone.communes.some((code) => code === feature.properties.code)).flatMap(({ geometry }) => geometry.type === "Polygon" ? [geometry.coordinates as ClippingPolygon] : geometry.coordinates as ClippingPolygon[]);
@@ -43,6 +45,10 @@ export function usePesticidePurchasesLayer() {
     return { ...zone, rows, summary: purchaseSummary(rows) };
   });
   const selection = annualZones.find(({ code }) => code === selectedCode);
+  const substances = substanceSummaries(selection?.rows ?? []);
+  const top = substances.slice(0, 5);
+  const rest = substances.slice(5);
+  const barRows = [...top, ...(rest.length ? [{ name: "Autres", quantity: rest.some(s => s.quantity !== null) ? rest.reduce((sum, s) => sum + (s.quantity ?? 0), 0) : null, missing: rest.reduce((sum, s) => sum + s.missing, 0), records: rest.reduce((sum, s) => sum + s.records, 0) }] : [])];
   return {
     activeCount: Number(enabled),
     controls: <EvidenceLayerControl title="Achats de pesticides" source="Hub’Eau · BNV-D · OFB" enabled={enabled} onEnabled={setEnabled} opacityControl={{ value: opacity, onChange: setOpacity }}>
@@ -56,28 +62,30 @@ export function usePesticidePurchasesLayer() {
         <p>Classes de quantité, sans seuil sanitaire. Pointillés : somme partielle, certaines quantités ne sont pas renseignées.</p>
         <details><summary className="cursor-pointer text-blue-iec">Consulter les 5 zones postales</summary><ul className="mt-2 space-y-2">{annualZones.map((zone) => <li key={zone.code}><button className="text-left underline" onClick={() => setSelectedCode(zone.code)}>{zone.code} · {zone.name}<br />{purchaseLabel(zone.summary)}</button></li>)}</ul></details>
       </> : <p>Aucun achat renseigné pour les zones postales du territoire.</p>)}
-      <p>{scopeNote}</p>
+      <LayerAbout><p>{scopeNote}</p>
       <p className="text-slate-500">Déclarations annuelles des distributeurs · <a href={PESTICIDE_LICENSE} className="underline" target="_blank" rel="noreferrer">Licence Ouverte 2.0</a>. {data && `Récupérées le ${new Date(data.fetchedAt).toLocaleDateString("fr-FR")}.`}</p>
       <a href={PESTICIDE_SOURCE} className="text-blue-iec underline" target="_blank" rel="noreferrer">Données et méthode · Hub’Eau</a>
+      </LayerAbout>
     </EvidenceLayerControl>,
     polygons: enabled && data && year && <Pane name="pesticide-purchases" style={{ zIndex: 365 }}>{annualZones.map((zone) => <Polygon key={zone.code} positions={zone.positions} pathOptions={{ color: "#1e40af", weight: 2, dashArray: zone.summary.missing ? "5 5" : undefined, fillColor: pesticideColor(zone.summary.quantity), fillOpacity: opacity }} attribution="OFB · BNV-D / Hub’Eau · Licence Ouverte 2.0" eventHandlers={{ click: () => setSelectedCode(zone.code) }}>
       <Tooltip pane="tooltipPane">Zone postale {zone.code} · {year}<br />{purchaseLabel(zone.summary)} de substances actives<br />Achats déclarés, pas une mesure de pollution</Tooltip>
     </Polygon>)}</Pane>,
-    details: selection && data && <AtlasDetailDialog kind="pesticides" title={`Zone postale ${selection.code}`} subtitle={`Achats de pesticides · ${selection.name}`} onClose={() => setSelectedCode(undefined)}>
-      <DetailFacts items={[{ label: "Année des achats", value: year }, { label: "Somme des quantités renseignées", value: purchaseLabel(selection.summary) }, { label: "Substances recensées", value: String(substanceSummaries(selection.rows).length) }]} />
-      <DetailSection title="Comment lire ces données">
-        <p>Somme des masses de substances actives des achats déclarés par les distributeurs, en kilogrammes. Ce n’est pas la masse des produits commerciaux, ni une mesure de toxicité, d’exposition ou de contamination.</p>
-        <p className="mt-3">Le lieu d’achat déclaré ne permet pas de connaître le lieu ni l’année d’application. L’absence de données ne signifie pas une absence d’achat.</p>
-        <p className="mt-3">{scopeNote}</p>
-        {selection.summary.missing > 0 && <p className="mt-3 font-semibold text-amber-800">{selection.summary.missing} ligne(s) sans quantité exploitable (non renseignée ou confidentielle). La somme affichée est partielle ; ces valeurs ne sont pas remplacées par zéro.</p>}
-      </DetailSection>
-      <DetailSection title={`Substances actives · ${year}`} description="Quantités regroupées par substance, tous produits et achats déclarés confondus.">
-        {selection.rows.length ? <div className="overflow-x-auto"><table className="w-full text-sm"><thead><tr><th className="text-left py-2">Substance / fonction</th><th className="text-right">Quantité</th></tr></thead><tbody>{substanceSummaries(selection.rows).map((substance) => <tr key={substance.id} className="border-t"><td className="py-3 pr-3">{substance.name}<span className="block text-xs text-slate-500">{substance.functions}</span></td><td className="text-right">{purchaseLabel(substance)}</td></tr>)}</tbody></table></div> : <p>Aucun achat renseigné pour cette année.</p>}
-      </DetailSection>
-      <DetailSection title="Historique annuel" description="Sommes renseignées pour la même zone postale ; les années partielles ne sont pas directement comparables.">
-        <table className="w-full text-sm"><thead><tr><th className="text-left py-2">Année</th><th className="text-right">Substances actives</th></tr></thead><tbody>{data.years.map((year) => <tr key={year} className="border-t"><td className="py-2">{year}</td><td className="text-right">{purchaseLabel(purchaseSummary(data.rows.filter((row) => row.zone === selection.code && row.year === year)))}</td></tr>)}</tbody></table>
-      </DetailSection>
-      <p className="mt-6 text-sm">Source : <a href={PESTICIDE_SOURCE} className="text-blue-iec underline" target="_blank" rel="noreferrer">OFB · BNV-D via Hub’Eau</a> · <a href={PESTICIDE_LICENSE} className="underline" target="_blank" rel="noreferrer">Licence Ouverte 2.0</a>. Agrégation et représentation par l’Institut écocitoyen.</p>
+    details: selection && data && <AtlasDetailDialog kind="pesticides" title={`Zone postale ${selection.code}`} subtitle={selection.name} onClose={() => setSelectedCode(undefined)}>
+      <DetailHeadline title={purchaseLabel(selection.summary)} subtitle="Somme des masses de substances actives renseignées" date={year} color={selection.summary.quantity == null ? "#e2e8f0" : pesticideColor(selection.summary.quantity)} />
+      <DetailGauges label="Achats déclarés · classes de quantité de l’atlas" bands={PESTICIDE_BANDS} rows={[year, ...data.years.filter(y => y < (year ?? 0)).slice(0, 1)].filter((y): y is number => y !== undefined).map(y => { const summary = purchaseSummary(data.rows.filter(r => r.zone === selection.code && r.year === y)); return { label: String(y), value: summary.quantity, text: purchaseLabel(summary) }; })} />
+      <DetailBars label="Principales substances · masses renseignées (échelle relative commune)" rows={barRows.map(s => ({ label: s.name, value: s.quantity, max: Math.max(0, ...barRows.map(r => r.quantity ?? 0)), text: purchaseLabel(s), color: "#4d7c0f" }))} />
+      <DetailFacts items={[{ label: "Substances recensées", value: substances.length }, { label: "Lignes sans quantité exploitable", value: selection.summary.missing }]} />
+      <DetailData hint="Substances, fonctions et historique annuel">
+        <DetailTable caption={`Substances actives · ${year}`} headers={["Substance", "Fonction", "Quantité"]} rows={substances.map(s => [s.name, s.functions, purchaseLabel(s)])} />
+        {!selection.rows.length && <p>Aucun achat renseigné pour cette année.</p>}
+        <DetailTable caption="Historique annuel · même zone postale" headers={["Année", "Substances actives"]} rows={data.years.map(y => [y, purchaseLabel(purchaseSummary(data.rows.filter(r => r.zone === selection.code && r.year === y)))])} />
+        <p className="text-sm">Quantités regroupées par substance, tous produits et achats déclarés confondus. Les années partielles ne sont pas directement comparables. La somme est celle des masses de substances actives, pas des produits commerciaux.</p>
+      </DetailData>
+      <DetailLimits sources={<><a href={PESTICIDE_SOURCE} target="_blank" rel="noreferrer">OFB · BNV-D via Hub’Eau</a><a href={PESTICIDE_LICENSE} target="_blank" rel="noreferrer">Licence Ouverte 2.0</a></>}>
+        <p>Achats déclarés, pas quantités épandues ni mesure de toxicité, d’exposition ou de contamination. Le lieu d’achat ne permet pas de connaître le lieu ni l’année d’application. L’absence de données ne signifie pas une absence d’achat. {scopeNote}</p>
+        {selection.summary.missing > 0 && <p>{selection.summary.missing} ligne(s) sans quantité exploitable (non renseignée ou confidentielle) : somme partielle, sans remplacement par zéro.</p>}
+        <p>Agrégation et représentation par l’Institut écocitoyen. Récupérées le {new Date(data.fetchedAt).toLocaleDateString("fr-FR", { timeZone: "Europe/Paris" })}.</p>
+      </DetailLimits>
     </AtlasDetailDialog>,
   };
 }

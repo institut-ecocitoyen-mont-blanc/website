@@ -1,36 +1,62 @@
 import Link from "next/link";
-import { DetailFacts, DetailSection } from "./AtlasDetailDialog";
-import type { PollutionSite } from "@/lib/google-sheets";
+import { Droplets, Eye, Layers, Shovel, Volume2, Wind } from "lucide-react";
+import { DetailFacts } from "./AtlasDetailDialog";
+import { DetailLimits } from "./DetailCard";
+import { getSectorColor, type PollutionSiteBase } from "@/lib/google-sheets";
 import styles from "./AtlasDetails.module.css";
 import IndustrialEmissionsDetails from "./IndustrialEmissionsDetails";
-import type { IndustrialEmissionsData } from "@/atlas/lib/industrial-emissions";
+import { inventoryFacility, IREP_SOURCE_URL, type IndustrialEmissionsData } from "@/atlas/lib/industrial-emissions";
 
-export default function AtlasInventoryDetails({ site, emissions }: { site: PollutionSite; emissions: IndustrialEmissionsData }) {
+function InventoryLinks({ site }: { site: PollutionSiteBase }) {
   return <>
+    {site.link && (/^https?:\/\//i.test(site.link) ? <a href={site.link} target="_blank" rel="noreferrer">Référence de l’inventaire ↗</a> : <span>{site.link}</span>)}
+  </>;
+}
+
+export default function AtlasInventoryDetails({ site, emissions }: { site: PollutionSiteBase; emissions?: IndustrialEmissionsData }) {
+  const facility = emissions ? inventoryFacility(site, emissions) : null;
+  const period = site.activityPeriod || site.activityStatus;
+  return <>
+    <section className={styles.inventoryIdentity} aria-label="L’activité du site">
+      <span className={styles.sectorDisc} style={{ background: getSectorColor(site.sector) }} aria-hidden="true">{site.sector ? site.sector.slice(0, 3).toLocaleUpperCase("fr-FR") : "—"}</span>
+      <div><h3>{site.sector || "Secteur non renseigné"}{period && <> · activité {period.charAt(0).toLocaleLowerCase("fr-FR") + period.slice(1)}</>}</h3>
+        {site.activity && <p>{site.activity}</p>}
+      </div>
+    </section>
     <DetailFacts items={[
-      { label: "Commune", value: site.commune }, { label: "Secteur d’activité", value: site.sector },
-      { label: "Période d’activité", value: site.activityPeriod || site.activityStatus },
-      { label: "Localisation", value: site.localizationDetail || site.localizationType },
+      { label: "Temporalité de l’émission", value: site.emissionTiming },
+      { label: "Source", value: [...new Set([site.localizationType, site.localizationDetail].filter(Boolean))].join(" · ") },
+      { label: "Niveau de connaissance", value: <span className={styles.inventoryText}>{site.knowledgeLevel || "Non renseigné"}</span> },
     ]} />
-    {site.activity && <DetailSection title="L’activité du site"><p className="whitespace-pre-line text-sm leading-relaxed">{site.activity}</p></DetailSection>}
-    <IndustrialEmissionsDetails site={site} data={emissions} />
-    {(site.emissionTiming || site.knowledgeLevel) && <DetailFacts items={[
-      { label: "Temporalité de l’émission", value: site.emissionTiming }, { label: "Niveau de connaissance", value: site.knowledgeLevel },
-    ]} />}
-    {site.pollutions.length > 0 && <DetailSection title="Émissions et polluants potentiels" description={`${site.pollutions.length} description(s) issue(s) de l’inventaire participatif.`}>
-      <div className={styles.cards}>{site.pollutions.map((pollution, index) => <article className={styles.card} key={index}>
-        <h4 className="mb-4 font-semibold text-blue-iec">{pollution.environmentalCompartment || `Émission ${index + 1}`}</h4>
-        <dl className="space-y-4 text-sm">{[
-          ["Processus d’émission", pollution.process], ["Familles chimiques", pollution.chemicalFamilies],
-          ["Forme physico-chimique", pollution.chemicalForm], ["Voie de transfert", pollution.transferPathway],
-          ["Milieux récepteurs", pollution.receivingEnvironments],
-        ].filter(([, value]) => value).map(([label, value]) => <div key={label}><dt className="mb-1 text-xs text-slate-500">{label}</dt><dd className="whitespace-pre-line">{value}</dd></div>)}</dl>
-      </article>)}</div>
-    </DetailSection>}
-    {site.risk && <DetailSection title="Risque associé"><p className={styles.notice}>{site.risk}</p></DetailSection>}
-    <DetailSection title="Sources et références">
-      {site.link && <p className="mb-4 break-words text-sm">{/^https?:\/\//i.test(site.link) ? <a className={styles.source} href={site.link} target="_blank" rel="noreferrer">Référence de l’inventaire</a> : site.link}</p>}
-      <Link href={`/carte?site=${encodeURIComponent(site.id)}`} className={styles.source}>Ouvrir la fiche de l’inventaire</Link>
-    </DetailSection>
+    {site.risk.trim() && <section className={styles.inventoryRisk}>
+      <h3><span aria-hidden="true">!</span>Risque associé</h3>
+      <p>{site.risk}</p>
+    </section>}
+    <section className={styles.inventoryPollutions}>
+      <h3 className={styles.visualLabel}>Émissions et polluants potentiels</h3>
+      <ul>{site.pollutions.map((p, index) => {
+        const compartment = p.environmentalCompartment.trim();
+        const tone = /^air$/i.test(compartment) ? "air" : /^eau$/i.test(compartment) ? "water" : /^sols?$/i.test(compartment) ? "soil" : "other";
+        const CompartmentIcon = tone === "air" ? Wind : tone === "water" ? Droplets : tone === "soil" ? Shovel : /bruit/i.test(compartment) ? Volume2 : /odeur/i.test(compartment) ? Wind : /paysag|visuel/i.test(compartment) ? Eye : Layers;
+        return <li key={index}>
+          <span className={styles.compartmentTag} data-tone={tone}><CompartmentIcon size={18} aria-hidden="true" /></span>
+          <div>
+            <div className={styles.pollutionHeading}>
+              <p className={styles.compartmentLabel}>{compartment || "Compartiment non renseigné"}</p>
+              <h4>{p.process || "Processus non renseigné"}</h4>
+            </div>
+            {(p.chemicalFamilies || p.chemicalForm) && <p>{p.chemicalFamilies}{p.chemicalForm && <span className={styles.pollutionForm}>{p.chemicalFamilies && " · "}{p.chemicalForm}</span>}</p>}
+            {(p.transferPathway || p.receivingEnvironments) && <p className={styles.pollutionPathway}>{[p.transferPathway, p.receivingEnvironments].filter(Boolean).join(" → ")}</p>}
+          </div>
+        </li>;
+      })}</ul>
+      {!site.pollutions.length && <p className="text-sm text-slate-500">Aucune description d’émission renseignée.</p>}
+    </section>
+    {emissions && <IndustrialEmissionsDetails site={site} data={emissions} />}
+    {site.link && <div className={styles.inventoryLinks}><InventoryLinks site={site} /></div>}
+    <DetailLimits sources={<><Link href={`/carte?site=${encodeURIComponent(site.id)}`}>Inventaire participatif · Institut écocitoyen</Link>{facility && <a href={IREP_SOURCE_URL} target="_blank" rel="noreferrer">Géorisques / INERIS · IREP</a>}</>}>
+      <p>Description déclarative issue de l’inventaire participatif ; le niveau de connaissance est indiqué par fiche. La présence d’un site n’indique pas une pollution mesurée. Le risque associé est celui renseigné par les contributeurs, pas une évaluation sanitaire.{facility && " Les rejets IREP sont auto-déclarés par l’exploitant et ne décrivent pas les concentrations dans l’air ou l’eau. Le registre n’est pas exhaustif : un polluant non publié ne correspond pas à une émission nulle."}</p>
+      {facility && emissions?.fetchedAt && <p>Données IREP récupérées le {new Date(emissions.fetchedAt).toLocaleDateString("fr-FR", { timeZone: "Europe/Paris" })}.</p>}
+    </DetailLimits>
   </>;
 }

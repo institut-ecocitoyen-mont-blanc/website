@@ -8,6 +8,7 @@ import { CCPMB_BOUNDS, CCPMB_POLYGONS } from "@/atlas/lib/ccpmb-territory";
 import { ATMO_MODELS, ATMO_MODEL_SOURCE, parseAtmoModelSnapshot, type AtmoModelId } from "@/atlas/lib/atmo-model";
 import { loadPublishedData } from "@/atlas/lib/published-data";
 import EvidenceLayerControl from "./EvidenceLayerControl";
+import LayerAbout from "./LayerAbout";
 import AtmoModelLegend from "./AtmoModelLegend";
 
 export type ModelStatus = "loading" | "ready" | "error";
@@ -92,9 +93,11 @@ function AtmoModelControls({ pollutant, status, onRetry }: {
       {status === "loading" && <p role="status">Chargement de la carte {model.label}…</p>}
       {status === "error" && <p role="alert" className="text-amber-800">La carte publiée {model.label} est indisponible. Les autres couches restent accessibles. <button className="underline" onClick={onRetry}>Réessayer la carte {model.label}</button></p>}
       <AtmoModelLegend pollutant={pollutant} />
+      <LayerAbout>
       <p className="text-slate-500">Limites : incertitude à l’échelle d’un bâtiment ; cette carte n’identifie pas les sources d’émission. Image précalculée, pas une grille de concentrations interrogeable.</p>
     <a className="text-blue-iec underline" href={ATMO_MODEL_SOURCE} target="_blank" rel="noreferrer">Cartes et données annuelles · Atmo</a>
     <p className="text-slate-500">Source : Atmo Auvergne-Rhône-Alpes · cartes annuelles 2025, sous <a className="underline" href="https://opendatacommons.org/licenses/odbl/1-0/" target="_blank" rel="noreferrer">ODbL 1.0</a>. <a className="underline" href="https://depot.atmo-aura.fr/modelisation/opendata_geotiff/2025/" target="_blank" rel="noreferrer">Données originales</a>. Affichage limité aux dix communes.</p>
+      </LayerAbout>
   </div>;
 }
 

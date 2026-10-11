@@ -8,13 +8,14 @@ import {
   useState,
 } from "react";
 import { createPortal } from "react-dom";
+import AtlasDetailDialog from "@/atlas/components/AtlasDetailDialog";
+import AtlasInventoryDetails from "@/atlas/components/AtlasInventoryDetails";
 import { useRouter, useSearchParams } from "next/navigation";
 import dynamic from "next/dynamic";
 import {
   AlertTriangle,
   ChevronDown,
   Clock3,
-  ExternalLink,
   Search,
   SlidersHorizontal,
   X,
@@ -139,15 +140,6 @@ function formatLastUpdated(value: string | null): string | null {
     timeStyle: "short",
     timeZone: "Europe/Paris",
   }).format(date);
-}
-
-function isWebLink(value: string): boolean {
-  try {
-    const url = new URL(value);
-    return url.protocol === "http:" || url.protocol === "https:";
-  } catch {
-    return false;
-  }
 }
 
 export default function CarteClient({
@@ -602,23 +594,6 @@ export default function CarteClient({
     [getCurrentSearchParams, replaceSearchParams],
   );
 
-  useEffect(() => {
-    if (!selectedSite) {
-      document.body.style.overflow = "";
-      return;
-    }
-
-    document.body.style.overflow = "hidden";
-    const closeOnEscape = (event: KeyboardEvent) => {
-      if (event.key === "Escape") handleSelectSite(null);
-    };
-    window.addEventListener("keydown", closeOnEscape);
-
-    return () => {
-      document.body.style.overflow = "";
-      window.removeEventListener("keydown", closeOnEscape);
-    };
-  }, [selectedSite, handleSelectSite]);
 
   return (
     <>
@@ -869,230 +844,17 @@ export default function CarteClient({
         )}
       </div>
       {selectedSite && (
-        <div
-          className="fixed inset-0 bg-black/50 flex items-center justify-center z-[4000] p-4"
-          onClick={() => handleSelectSite(null)}
+        <AtlasDetailDialog
+          key={selectedSite.id}
+          kind="inventory"
+          title={selectedSite.name}
+          eyebrow={`Inventaire écocitoyen · source ${selectedSite.id}`}
+          subtitle={selectedSite.commune}
+          footerLabel="Inventaire participatif · Pays du Mont-Blanc"
+          onClose={() => handleSelectSite(null)}
         >
-          <div
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="pollution-source-title"
-            className="bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-[80vh] overflow-y-auto"
-            onClick={(event) => event.stopPropagation()}
-          >
-            <div
-              className="p-4 border-b flex justify-between items-start"
-              style={{ backgroundColor: getSectorColor(selectedSite.sector) }}
-            >
-              <div>
-                <p className="text-sm font-medium text-white/80 mb-1">
-                  {selectedSite.id}
-                </p>
-                <h3
-                  id="pollution-source-title"
-                  className="text-xl font-bold text-white"
-                >
-                  {selectedSite.name}
-                </h3>
-              </div>
-              <button
-                type="button"
-                aria-label="Fermer la fiche"
-                onClick={() => handleSelectSite(null)}
-                className="text-white/80 hover:text-white p-1"
-              >
-                <X className="w-6 h-6" />
-              </button>
-            </div>
-
-            <div className="p-4 space-y-4">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {selectedSite.commune && (
-                  <div>
-                    <h4 className="font-semibold text-gray-700 text-sm uppercase tracking-wide">
-                      Commune
-                    </h4>
-                    <p className="text-gray-900">{selectedSite.commune}</p>
-                  </div>
-                )}
-                <div>
-                  <h4 className="font-semibold text-gray-700 text-sm uppercase tracking-wide">
-                    Secteur d’activité
-                  </h4>
-                  <p className="text-gray-900">{selectedSite.sector}</p>
-                </div>
-                <div>
-                  <h4 className="font-semibold text-gray-700 text-sm uppercase tracking-wide">
-                    Activité actuelle / passée
-                  </h4>
-                  <p className="text-gray-900">
-                    {selectedSite.activityPeriod || selectedSite.activityStatus}
-                  </p>
-                </div>
-                <div>
-                  <h4 className="font-semibold text-gray-700 text-sm uppercase tracking-wide">
-                    Localisation de la source
-                  </h4>
-                  <p className="text-gray-900">
-                    {selectedSite.localizationDetail ||
-                      selectedSite.localizationType}
-                  </p>
-                </div>
-              </div>
-
-              {selectedSite.activity && (
-                <div>
-                  <h4 className="font-semibold text-gray-700 text-sm uppercase tracking-wide">
-                    Activité
-                  </h4>
-                  <p className="text-gray-900 whitespace-pre-line">
-                    {selectedSite.activity}
-                  </p>
-                </div>
-              )}
-
-              {selectedSite.emissionTiming && (
-                <div>
-                  <h4 className="font-semibold text-gray-700 text-sm uppercase tracking-wide">
-                    Temporalité de l’émission
-                  </h4>
-                  <p className="text-gray-900">
-                    {selectedSite.emissionTiming}
-                  </p>
-                </div>
-              )}
-
-              {selectedSite.knowledgeLevel && (
-                <div>
-                  <h4 className="font-semibold text-gray-700 text-sm uppercase tracking-wide">
-                    Niveau de connaissance
-                  </h4>
-                  <p className="text-gray-900">
-                    {selectedSite.knowledgeLevel}
-                  </p>
-                </div>
-              )}
-
-              {selectedSite.pollutions.length > 0 && (
-                <div>
-                  <h4 className="font-semibold text-gray-700 text-sm uppercase tracking-wide mb-3">
-                    {selectedSite.pollutions.length > 1
-                      ? "Émissions et polluants potentiels (" +
-                        selectedSite.pollutions.length +
-                        ")"
-                      : "Émission et polluant potentiel"}
-                  </h4>
-                  <div className="space-y-3">
-                    {selectedSite.pollutions.map((pollution, index) => (
-                      <div
-                        key={index}
-                        className="bg-gray-50 rounded-lg p-3 border-l-4"
-                        style={{
-                          borderLeftColor: getCompartmentColor(
-                            pollution.environmentalCompartment,
-                          ),
-                        }}
-                      >
-                        {pollution.process && (
-                          <div className="mb-2">
-                            <span className="text-xs text-gray-500 uppercase">
-                              Processus d’émission
-                            </span>
-                            <p className="text-gray-900 text-sm whitespace-pre-line">
-                              {pollution.process}
-                            </p>
-                          </div>
-                        )}
-                        {pollution.chemicalFamilies && (
-                          <div className="mb-2">
-                            <span className="text-xs text-gray-500 uppercase">
-                              Familles chimiques
-                            </span>
-                            <p className="text-gray-900 text-sm whitespace-pre-line">
-                              {pollution.chemicalFamilies}
-                            </p>
-                          </div>
-                        )}
-                        {pollution.chemicalForm && (
-                          <div className="mb-2">
-                            <span className="text-xs text-gray-500 uppercase">
-                              Forme physico-chimique
-                            </span>
-                            <p className="text-gray-900 text-sm">
-                              {pollution.chemicalForm}
-                            </p>
-                          </div>
-                        )}
-                        {pollution.environmentalCompartment && (
-                          <div className="mb-2">
-                            <span className="text-xs text-gray-500 uppercase">
-                              Compartiment ou nuisance
-                            </span>
-                            <p className="text-gray-900 text-sm">
-                              {pollution.environmentalCompartment}
-                            </p>
-                          </div>
-                        )}
-                        {pollution.transferPathway && (
-                          <div className="mb-2">
-                            <span className="text-xs text-gray-500 uppercase">
-                              Voie de transfert
-                            </span>
-                            <p className="text-gray-900 text-sm">
-                              {pollution.transferPathway}
-                            </p>
-                          </div>
-                        )}
-                        {pollution.receivingEnvironments && (
-                          <div>
-                            <span className="text-xs text-gray-500 uppercase">
-                              Milieux récepteurs
-                            </span>
-                            <p className="text-gray-900 text-sm">
-                              {pollution.receivingEnvironments}
-                            </p>
-                          </div>
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {selectedSite.risk && (
-                <div>
-                  <h4 className="font-semibold text-gray-700 text-sm uppercase tracking-wide">
-                    Risque associé
-                  </h4>
-                  <p className="text-gray-900 whitespace-pre-line">
-                    {selectedSite.risk}
-                  </p>
-                </div>
-              )}
-
-              {selectedSite.link && (
-                <div className="pt-4 border-t">
-                  <h4 className="font-semibold text-gray-700 text-sm uppercase tracking-wide mb-1">
-                    Lien ou référence
-                  </h4>
-                  {isWebLink(selectedSite.link) ? (
-                    <a
-                      href={selectedSite.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 text-blue-iec hover:underline"
-                    >
-                      <ExternalLink className="w-4 h-4 shrink-0" />
-                      Plus d’informations
-                    </a>
-                  ) : (
-                    <p className="text-gray-900">{selectedSite.link}</p>
-                  )}
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
+          <AtlasInventoryDetails site={selectedSite} />
+        </AtlasDetailDialog>
       )}
     </>
   );

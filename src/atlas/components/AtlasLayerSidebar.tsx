@@ -13,7 +13,7 @@ const subscribe = (notify: () => void) => {
 };
 const mobileSnapshot = () => window.matchMedia(query).matches;
 
-function MobileDrawer({ children, onClose }: { children: ReactNode; onClose: () => void }) {
+function MobileDrawer({ children, activeCount, onClose }: { children: ReactNode; activeCount: number; onClose: () => void }) {
   const ref = useRef<HTMLDialogElement>(null);
   const backdropDown = useRef(false);
   useEffect(() => {
@@ -32,7 +32,7 @@ function MobileDrawer({ children, onClose }: { children: ReactNode; onClose: () 
     onCancel={(event) => { event.preventDefault(); onClose(); }}
     onKeyDown={(event) => {
       if (event.key !== "Tab") return;
-      const controls = [...event.currentTarget.querySelectorAll<HTMLElement>('button:not(:disabled), input:not(:disabled), a[href], [tabindex="0"]')].filter((el) => el.getClientRects().length > 0);
+      const controls = [...event.currentTarget.querySelectorAll<HTMLElement>('button:not(:disabled), input:not(:disabled), select:not(:disabled), summary, a[href], [tabindex="0"]')].filter((el) => el.getClientRects().length > 0);
       const first = controls[0], last = controls.at(-1);
       if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last?.focus(); }
       else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first?.focus(); }
@@ -40,7 +40,7 @@ function MobileDrawer({ children, onClose }: { children: ReactNode; onClose: () 
     onPointerDown={(event) => { backdropDown.current = event.target === event.currentTarget; }}
     onClick={(event) => { if (event.target === event.currentTarget && backdropDown.current) onClose(); }}>
     <div className={styles.layout}>
-      <header className={styles.header}><h2><Layers size={20} aria-hidden="true" />Couches de l’atlas</h2><button type="button" onClick={onClose} aria-label="Fermer les couches"><X size={22} /></button></header>
+      <header className={styles.header}><h2><Layers size={23} aria-hidden="true" />Couches</h2><span className={styles.count}>{activeCount} active{activeCount > 1 ? "s" : ""}</span><button type="button" onClick={onClose} aria-label="Fermer les couches"><X size={22} /></button></header>
       <div className={styles.content}>{children}</div>
       <footer className={styles.footer}><button type="button" onClick={onClose}>Voir la carte</button></footer>
     </div>
@@ -54,7 +54,7 @@ export default function AtlasLayerSidebar({ children, activeCount }: { children:
   useEffect(() => { if (!mobile) setOpen(false); }, [mobile]);
   if (mobile) return <>
     <div className="p-3 border-b border-slate-200 lg:hidden"><button type="button" aria-haspopup="dialog" aria-expanded={open} aria-controls="atlas-mobile-layers" onClick={() => setOpen(true)} className="flex min-h-11 w-full items-center justify-center gap-2 rounded-lg bg-blue-iec px-4 py-2 font-semibold text-sm text-white"><Layers size={18} aria-hidden="true" />Couches<span className="rounded-full bg-white/20 px-2 py-0.5 text-xs">{activeCount}</span></button></div>
-    {open && <MobileDrawer onClose={() => setOpen(false)}>{children}</MobileDrawer>}
+    {open && <MobileDrawer activeCount={activeCount} onClose={() => setOpen(false)}>{children}</MobileDrawer>}
   </>;
-  return <aside aria-label="Couches de l’atlas" className="hidden lg:block p-5 border-r"><h2 className="font-bold text-lg flex items-center gap-2 mb-2"><Layers size={19} />Couches</h2>{children}</aside>;
+  return <aside aria-label="Couches de l’atlas" className={`hidden lg:block ${styles.sidebar}`}><header className={styles.header}><h2><Layers size={24} aria-hidden="true" />Couches</h2><span className={styles.count}>{activeCount} active{activeCount > 1 ? "s" : ""}</span></header><div className={styles.desktopContent}>{children}</div></aside>;
 }

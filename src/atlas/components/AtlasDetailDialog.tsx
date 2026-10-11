@@ -1,12 +1,12 @@
 "use client";
 
-import { useEffect, useId, useRef, type ReactNode } from "react";
+import { useEffect, useId, useRef, type ReactNode, type CSSProperties } from "react";
 import { X, Wind, Waves, GlassWater, MapPin, Route, Leaf, FlaskConical, Shovel, Droplets, Lightbulb } from "lucide-react";
 import styles from "./AtlasDetails.module.css";
 
-export default function AtlasDetailDialog({ title, kind, subtitle, children, onClose }: {
+export default function AtlasDetailDialog({ title, kind, subtitle, eyebrow, footerLabel = "Atlas environnemental · Pays du Mont-Blanc", children, onClose }: {
   title: string; kind: "atmo" | "rivers" | "drinking" | "bathing" | "inventory" | "traffic" | "lichens" | "bioacc" | "soil" | "groundwater" | "georisques" | "institute-bathing" | "institute-rivers" | "light" | "pesticides"; subtitle: string;
-  children: ReactNode; onClose: () => void;
+  eyebrow?: string; footerLabel?: string; children: ReactNode; onClose: () => void;
 }) {
   const ref = useRef<HTMLDialogElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
@@ -29,11 +29,13 @@ export default function AtlasDetailDialog({ title, kind, subtitle, children, onC
   }, []);
   const Icon = { atmo: Wind, rivers: Waves, drinking: GlassWater, bathing: Waves, inventory: MapPin, traffic: Route, lichens: Leaf, bioacc: FlaskConical, soil: Shovel, groundwater: Droplets, georisques: Shovel, "institute-bathing": Waves, "institute-rivers": Waves, light: Lightbulb, pesticides: FlaskConical }[kind];
   const label = { atmo: "Particules et gaz", rivers: "Cours d’eau", drinking: "Eau potable", bathing: "Eaux de baignade · ARS", inventory: "Inventaire écocitoyen", traffic: "Trafic routier annuel", lichens: "Lichens (bio-indication)", bioacc: "Bio-accumulation (retombées)", soil: "Cultures potagères/maraîchères", groundwater: "Eaux souterraines", georisques: "Géorisques", "institute-bathing": "Eaux de baignade · Institut", "institute-rivers": "Cours d’eau · Institut", light: "Pollution lumineuse", pesticides: "Achats de pesticides" }[kind];
-  return <dialog ref={ref} aria-labelledby={titleId} aria-modal="true" className={styles.dialog}
+  const accent = { drinking: "#0f766e", bathing: "#0f766e", traffic: "#b45309", georisques: "#925323", light: "#7c3e76", pesticides: "#4d7c0f" }[kind as string] ?? "#1d6ab2";
+  const producer = { atmo: "Atmo Auvergne-Rhône-Alpes", rivers: "Agence de l’eau · Hub’Eau", drinking: "ARS · Hub’Eau", bathing: "Ministère de la Santé", inventory: "Institut écocitoyen", traffic: "DDT de Haute-Savoie", groundwater: "Hub’Eau · ADES", georisques: "État · BRGM", light: "Cerema", pesticides: "OFB · BNV-D" }[kind as string] ?? "Institut écocitoyen";
+  return <dialog ref={ref} aria-labelledby={titleId} aria-modal="true" className={styles.dialog} style={{ "--detail-accent": accent } as CSSProperties}
     onCancel={(event) => { event.preventDefault(); onClose(); }}
     onKeyDown={(event) => {
       if (event.key !== "Tab") return;
-      const controls = [...event.currentTarget.querySelectorAll<HTMLElement>('button:not(:disabled), a[href], summary, [tabindex="0"]')].filter((el) => el.getClientRects().length > 0);
+      const controls = [...event.currentTarget.querySelectorAll<HTMLElement>('button:not(:disabled), input:not(:disabled), select:not(:disabled), a[href], summary, [tabindex="0"]')].filter((el) => el.getClientRects().length > 0);
       const first = controls[0], last = controls.at(-1);
       if (event.shiftKey && (document.activeElement === first || document.activeElement === headingRef.current)) {
         event.preventDefault(); last?.focus();
@@ -46,20 +48,20 @@ export default function AtlasDetailDialog({ title, kind, subtitle, children, onC
     <div className={styles.layout}>
       <header className={styles.hero}>
         <div className={styles.heading}>
-          <p className={styles.eyebrow}><Icon size={18} aria-hidden="true" />{label}<span> / Fiche du territoire</span></p>
+          <p className={styles.eyebrow}><Icon size={14} aria-hidden="true" />{eyebrow ?? `${label} · ${producer}`}</p>
           <h2 id={titleId} ref={headingRef} tabIndex={-1}>{title}</h2>
           <p className={styles.subtitle}>{subtitle}</p>
         </div>
         <button type="button" aria-label="Fermer la fiche" onClick={onClose} className={styles.close}><X size={22} /></button>
       </header>
       <div className={styles.body} data-atlas-detail-body>{children}</div>
-      <footer className={styles.footer}><span>Atlas environnemental · Pays du Mont-Blanc</span><button type="button" onClick={onClose}>Revenir à la carte</button></footer>
+      <footer className={styles.footer}><span>{footerLabel}</span><button type="button" onClick={onClose}>Revenir à la carte</button></footer>
     </div>
   </dialog>;
 }
 
 export function DetailFacts({ items }: { items: { label: string; value: ReactNode }[] }) {
-  return <dl className={styles.facts}>{items.map(({ label, value }) => <div key={label}><dt>{label}</dt><dd>{value || "Non renseigné"}</dd></div>)}</dl>;
+  return <dl className={styles.facts}>{items.map(({ label, value }) => <div key={label}><dt>{label}</dt><dd>{value === "" || value == null ? "Non renseigné" : value}</dd></div>)}</dl>;
 }
 
 export function DetailSection({ title, description, children }: { title: string; description?: string; children: ReactNode }) {

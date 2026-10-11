@@ -7,6 +7,7 @@ import { ExternalLink } from "lucide-react";
 import { TRAFFIC_BANDS, TRAFFIC_ROADS, TRAFFIC_SOURCE_URL, trafficColor, trafficValue, type RoadTrafficData, type RoadTrafficSegment } from "@/atlas/lib/road-traffic";
 import { DetailFacts, DetailSection } from "./AtlasDetailDialog";
 import styles from "./AtlasDetails.module.css";
+import { DetailData, DetailHeadline, DetailLimits, DetailGauges, DetailBars, DetailTable } from "./DetailCard";
 
 function RoadSection({ segment, opacity, onSelect }: { segment: RoadTrafficSegment; opacity: number; onSelect: (segment: RoadTrafficSegment) => void }) {
   const ref = useRef<LeafletPolyline>(null);
@@ -48,10 +49,14 @@ export function RoadTrafficControls({ data }: { data: RoadTrafficData }) {
 
 export function RoadTrafficDetails({ segment, data }: { segment: RoadTrafficSegment; data: RoadTrafficData }) {
   return <>
-    <div className="rounded-xl border bg-white p-6" style={{ borderLeft: `6px solid ${trafficColor(segment.vehicles)}` }}><p className="text-sm text-slate-500">Trafic moyen journalier annuel · {segment.year}</p><p className="mt-2 text-3xl font-semibold">{trafficValue(segment.vehicles)}</p><p className="mt-2 text-sm text-slate-600">Tous véhicules · deux sens cumulés</p></div>
+    <DetailHeadline title={trafficValue(segment.vehicles)} subtitle="Trafic moyen journalier annuel · deux sens cumulés" color={segment.vehicles === null ? "#e2e8f0" : trafficColor(segment.vehicles)} date={segment.year} />
+    <DetailGauges label="Classes de volume de l’atlas · véhicules / jour" bands={TRAFFIC_BANDS} rows={[{ label: "TMJA", value: segment.vehicles, text: trafficValue(segment.vehicles) }]} />
+    <DetailBars label="Part de poids lourds · échelle 0–100 %" rows={[{ label: "Poids lourds", value: segment.heavyVehiclesPercent, max: 100, text: segment.heavyVehiclesPercent === null ? "Non renseignée" : `${segment.heavyVehiclesPercent.toLocaleString("fr-FR")} %`, color: "#b45309" }]} />
     <DetailFacts items={[{ label: "Route", value: segment.road }, { label: "Tronçon", value: segment.name }, { label: "Part de poids lourds", value: segment.heavyVehiclesPercent === null ? "Non renseignée" : `${segment.heavyVehiclesPercent.toLocaleString("fr-FR")} %` }, { label: "Comptage", value: segment.countingType || "Non renseigné" }]} />
+    <DetailData hint="Tronçons de la même route, comptages et méthode">
+    <DetailTable caption={`Tronçons · ${segment.road}`} headers={["Tronçon", "Année", "TMJA", "Poids lourds", "Comptage"]} rows={data.segments.filter(s => s.road === segment.road).map(s => [s.name, s.year, s.vehicles === null ? "Sans comptage" : trafficValue(s.vehicles), s.heavyVehiclesPercent === null ? "Non renseignée" : `${s.heavyVehiclesPercent} %`, s.countingType || "Non renseigné"])} />
     <DetailSection title="Lire cette donnée">
-      <p className={styles.notice}>Le TMJA correspond au nombre moyen de véhicules passant chaque jour sur ce tronçon, calculé sur l’année indiquée. Ce n’est ni un total annuel, ni une mesure en temps réel. Une même route peut présenter plusieurs volumes selon ses sections. Les couleurs sont des classes de volume choisies pour cet atlas, pas des seuils de risque.</p>
+      <p className="text-sm">Le TMJA correspond au nombre moyen de véhicules passant chaque jour sur ce tronçon, calculé sur l’année indiquée. Ce n’est ni un total annuel, ni une mesure en temps réel. Une même route peut présenter plusieurs volumes selon ses sections.</p>
       {segment.vehicles === null && <p className={`${styles.notice} mt-4`}>Le tracé est publié, mais aucun comptage exploitable n’est disponible pour {segment.year}. Aucune valeur n’est extrapolée depuis un tronçon voisin ou une autre année.</p>}
     </DetailSection>
     <DetailSection title="Source et géométrie">
@@ -59,5 +64,7 @@ export function RoadTrafficDetails({ segment, data }: { segment: RoadTrafficSegm
       {data.fetchedAt && <p className="text-xs text-slate-500 mt-2">Données récupérées le {new Date(data.fetchedAt).toLocaleDateString("fr-FR", { timeZone: "Europe/Paris" })}.</p>}
       <a className={`${styles.source} mt-4`} href={TRAFFIC_SOURCE_URL} target="_blank" rel="noreferrer">Jeu de données officiel<ExternalLink size={14} /></a>
     </DetailSection>
+    </DetailData>
+    <DetailLimits sources={<a href={TRAFFIC_SOURCE_URL} target="_blank" rel="noreferrer">DDT de Haute-Savoie · Licence Ouverte 2.0</a>}><p>Volume de circulation, pas un indicateur de congestion ni de pollution. Les deux sens sont cumulés ; ne pas additionner les tronçons. Les couleurs sont des classes de volume choisies pour cet atlas, pas des seuils de risque. Aucun comptage manquant n’est extrapolé depuis une autre année ou un tronçon voisin.</p>{data.fetchedAt && <p>Données récupérées le {new Date(data.fetchedAt).toLocaleDateString("fr-FR", { timeZone: "Europe/Paris" })}.</p>}</DetailLimits>
   </>;
 }

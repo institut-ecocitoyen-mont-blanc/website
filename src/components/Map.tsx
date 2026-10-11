@@ -4,7 +4,6 @@ import { useEffect } from "react";
 import {
   MapContainer,
   TileLayer,
-  Popup,
   useMap,
 } from "react-leaflet";
 import L from "leaflet";
@@ -158,38 +157,6 @@ export default function Map({ sites, onSelectSite }: MapProps) {
           background: transparent;
           border: none;
         }
-        .leaflet-popup-content-wrapper {
-          border-radius: 8px;
-        }
-        .leaflet-popup-content {
-          margin: 12px;
-        }
-        .site-popup {
-          min-width: 200px;
-        }
-        .site-popup h3 {
-          font-weight: 600;
-          font-size: 14px;
-          margin-bottom: 4px;
-        }
-        .site-popup p {
-          font-size: 12px;
-          color: #666;
-          margin-bottom: 8px;
-        }
-        .site-popup button {
-          background-color: #1d6ab2;
-          color: white;
-          border: none;
-          padding: 6px 12px;
-          border-radius: 4px;
-          cursor: pointer;
-          font-size: 12px;
-          width: 100%;
-        }
-        .site-popup button:hover {
-          background-color: #155a94;
-        }
       `}</style>
       <MapContainer
         center={center}
@@ -213,18 +180,8 @@ export default function Map({ sites, onSelectSite }: MapProps) {
               icon={createCustomIcon(color, site.sector)}
               alt={`${site.name} — ${site.sector}`}
               title={`${site.name} — ${site.sector}`}
-            >
-              <Popup>
-                <div className="site-popup">
-                  <h3>{site.name}</h3>
-                  <p>{site.commune}</p>
-                  <p style={{ color }}>{site.sector}</p>
-                  <button onClick={() => onSelectSite(site)}>
-                    Voir les détails
-                  </button>
-                </div>
-              </Popup>
-            </Marker>
+              onSelect={() => onSelectSite(site)}
+            />
           );
         })}
         </PinGroups>

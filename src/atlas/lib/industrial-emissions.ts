@@ -1,4 +1,4 @@
-import type { PollutionSite } from "../../lib/google-sheets";
+import type { PollutionSiteBase } from "../../lib/google-sheets";
 
 export const IREP_SOURCE_URL = "https://www.georisques.gouv.fr/donnees/bases-de-donnees/installations-industrielles-rejetant-des-polluants";
 
@@ -33,7 +33,7 @@ function normalizedCommune(value: string) {
 // A business-directory reference identifies a company, not necessarily a plant.
 // Match only a unique establishment in the SAME commune. No fuzzy name or
 // nearest-coordinate matching: historical sites may share an active site's pin.
-export function inventoryFacility(site: PollutionSite, data: IndustrialEmissionsData): IndustrialFacility | null {
+export function inventoryFacility(site: PollutionSiteBase, data: IndustrialEmissionsData): IndustrialFacility | null {
   let url: URL;
   try { url = new URL(site.link); } catch { return null; }
   if (url.hostname !== "annuaire-entreprises.data.gouv.fr") return null;

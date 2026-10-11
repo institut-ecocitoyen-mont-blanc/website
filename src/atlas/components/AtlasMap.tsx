@@ -8,6 +8,7 @@ import { LocateFixed, ExternalLink, MapPin, Wind, Droplets, Shovel } from "lucid
 import "leaflet/dist/leaflet.css";
 import { createCustomIcon } from "@/components/Map";
 import AtlasDetailDialog from "@/atlas/components/AtlasDetailDialog";
+import LayerAbout from "./LayerAbout";
 import AtlasWaterDetails from "@/atlas/components/AtlasWaterDetails";
 import AtlasDrinkingDetails from "@/atlas/components/AtlasDrinkingDetails";
 import AtlasBathingDetails from "@/atlas/components/AtlasBathingDetails";
@@ -38,6 +39,7 @@ import { useGeorisquesLayer } from "./GeorisquesLayer";
 import type { GeorisquesData } from "@/atlas/lib/georisques";
 // import { useInstituteWaterDemo } from "./InstituteWaterDemo";
 import AtlasLayerSidebar from "./AtlasLayerSidebar";
+import AtlasLayerControl from "./AtlasLayerControl";
 import { useAtmoModelLayers } from "./AtmoModelLayer";
 import { useCeremaLightLayer } from "./CeremaLightLayer";
 import { usePesticidePurchasesLayer } from "./PesticidePurchasesLayer";
@@ -135,13 +137,19 @@ export default function AtlasMap({ inventory, bathing, riverAssessments, riverCa
     id: value.kind === "atmo" ? value.id : value.kind === "inventory" ? value.site.id : value.kind === "traffic" ? value.segment.id : value.point.id,
   } : null);
   const activeCount = Object.entries(enabled).filter(([id, active]) => id !== "wood" && active).length + groundwaterLayer.activeCount + georisquesLayer.activeCount + lightLayer.activeCount + atmoModels.activeCount + pesticideLayer.activeCount;
+  const groupCounts = {
+    inventory: Number(enabled.inventory),
+    air: Number(enabled.atmo) + Number(enabled.traffic) + atmoModels.activeCount + lightLayer.activeCount,
+    water: Number(enabled.rivers) + Number(enabled.bathing) + Number(enabled.drinking) + groundwaterLayer.activeCount,
+    soil: georisquesLayer.activeCount + pesticideLayer.activeCount,
+  };
 
-  return <><div className="grid grid-cols-1 lg:grid-cols-[320px_minmax(0,1fr)] overflow-clip rounded-2xl border border-slate-200 bg-white shadow-sm">
+  return <><div className="grid grid-cols-1 lg:grid-cols-[360px_minmax(0,1fr)] xl:grid-cols-[390px_minmax(0,1fr)] overflow-clip rounded-2xl border border-slate-200 bg-white shadow-sm">
     <AtlasLayerSidebar activeCount={activeCount}>
-      <div className="space-y-6">
+      <div className="space-y-5">
         {LAYER_GROUPS.map((group) => <section key={group.id} aria-labelledby={`atlas-layer-group-${group.id}`}>
-          <h3 id={`atlas-layer-group-${group.id}`} className="mb-3 flex items-center gap-2 text-sm font-bold text-blue-iec"><group.icon size={17} aria-hidden="true" />{group.title}</h3>
-          <div className="space-y-3">
+          <h3 id={`atlas-layer-group-${group.id}`} className="mb-1 flex items-center gap-2 px-3 text-xs font-bold uppercase tracking-wider text-blue-iec"><group.icon size={17} aria-hidden="true" />{group.title}{groupCounts[group.id] > 0 && <span className="ml-auto text-[11px] font-medium normal-case tracking-normal text-slate-500">{groupCounts[group.id]} active{groupCounts[group.id] > 1 ? "s" : ""}</span>}</h3>
+          <div className="space-y-1">
         {/* {group.id === "air" && bioDemo.controls} */}
         {/* {group.id === "water" && instituteWater.controls} */}
         {/* {group.id === "soil" && soilDemo.controls} */}
@@ -151,13 +159,8 @@ export default function AtlasMap({ inventory, bathing, riverAssessments, riverCa
           const layer = LAYERS.find((layer) => layer.id === id)!;
           const state = layer.id === "inventory" || layer.id === "wood" || layer.id === "atmo" || layer.id === "bathing" || layer.id === "traffic" ? null : remote[layer.id];
           return <Fragment key={layer.id}>
-            <section className={`rounded-xl border p-3 ${enabled[layer.id] ? "border-blue-200 bg-blue-50/40" : "border-slate-200"}`}>
-            <label className="flex gap-3 items-start cursor-pointer">
-              <input type="checkbox" className="mt-1 h-4 w-4 accent-blue-iec" checked={enabled[layer.id]} onChange={(event) => { if (layer.id !== "wood") url.setLayer(layer.id, event.target.checked); }} />
-              <span><span className="block font-semibold text-sm text-slate-900">{layer.title}</span><span className="block text-xs text-slate-500 mt-1">{layer.source}</span></span>
-            </label>
-            {enabled[layer.id] && <div className="mt-3 space-y-3">
-              <p className="text-xs text-slate-600">{layer.description}</p>
+            <AtlasLayerControl title={layer.title} source={layer.source} description={layer.description} enabled={enabled[layer.id]} onEnabled={(value) => { if (layer.id !== "wood") url.setLayer(layer.id, value); }}>
+            <div className="space-y-3">
               {(layer.id === "wood" || layer.id === "traffic") && <label className="flex items-center gap-2 text-xs text-slate-600">Opacité<input aria-label={`Opacité · ${layer.title}`} className="min-w-0 flex-1 accent-blue-iec" type="range" min="0.15" max="1" step="0.05" value={opacity[layer.id]} onChange={(event) => setOpacity((prev) => ({ ...prev, [layer.id]: Number(event.target.value) }))} /><span>{Math.round(opacity[layer.id] * 100)} %</span></label>}
               {layer.id === "inventory" && emissions.error && <p role="status" className="text-xs text-amber-800">{emissions.error}</p>}
               {layer.id === "inventory" ? inventory ? <p className="text-xs text-slate-500">{inventory.sites.length} sites cartographiés · {inventory.unmappedSites.length} sans coordonnées, consultables dans l’inventaire.<br />Inventaire récupéré le {dateLabel(inventory.lastUpdated)}.</p> : <p role="alert" className="text-xs text-red-700">Inventaire indisponible. Les autres couches restent accessibles.</p> : <div aria-live="polite" className="text-xs">
@@ -183,9 +186,12 @@ export default function AtlasMap({ inventory, bathing, riverAssessments, riverCa
                 <div className="flex justify-between text-slate-600"><span>Faible</span><span>Forte</span></div>
                 <p className="text-slate-500">Intensité illustrative, sans unité.</p>
               </div>} */}
-              {layer.url && <a className="text-xs text-blue-iec underline inline-flex gap-1 items-center" href={layer.url} target={layer.url.startsWith("https:") ? "_blank" : undefined} rel="noreferrer">Consulter la source<ExternalLink size={11} /></a>}
-            </div>}
-          </section>
+              {layer.id !== "atmo" && <LayerAbout>
+                <p>{layer.description}</p>
+                {layer.url && <a className="text-blue-iec underline inline-flex gap-1 items-center" href={layer.url} target={layer.url.startsWith("https:") ? "_blank" : undefined} rel="noreferrer">Consulter la source<ExternalLink size={11} /></a>}
+              </LayerAbout>}
+            </div>
+          </AtlasLayerControl>
           {layer.id === "atmo" && atmoModels.controls}
           </Fragment>;
         })}
@@ -246,8 +252,18 @@ export default function AtlasMap({ inventory, bathing, riverAssessments, riverCa
   {selection && <AtlasDetailDialog
     key={selection.kind + (selection.kind === "atmo" ? selection.id : selection.kind === "inventory" ? selection.site.id : selection.kind === "traffic" ? selection.segment.id : selection.point.id)}
     kind={selection.kind}
+    eyebrow={selection.kind === "inventory" ? `Inventaire écocitoyen · source ${selection.site.id}` : undefined}
     title={selection.kind === "atmo" ? selection.name : selection.kind === "inventory" ? selection.site.name : selection.kind === "traffic" ? `${selection.segment.road} · ${selection.segment.name}` : selection.point.name}
-    subtitle={selection.kind === "atmo" ? "Atmo Auvergne-Rhône-Alpes · Mesures aux stations" : selection.kind === "rivers" ? "Hub’Eau · Naïades · Suivi physico-chimique" : selection.kind === "drinking" ? "Ministère de la Santé · Hub’Eau · Contrôle sanitaire" : selection.kind === "bathing" ? "Ministère de la Santé · ARS · Contrôle des eaux de baignade" : selection.kind === "traffic" ? "DDT de Haute-Savoie · Trafic moyen journalier annuel" : `${selection.site.commune} · Source ${selection.site.id}`}
+    subtitle={(() => {
+      if (selection.kind === "atmo") {
+        const s = combineAirStations(atmo).find(g => g.station.id === selection.id)?.station;
+        return s ? `Station ${s.id} · ${[s.typology, s.influence].filter(Boolean).join(" · ")} · ${s.lat.toFixed(5)}, ${s.lng.toFixed(5)}` : `Station ${selection.id}`;
+      }
+      if (selection.kind === "inventory") return `${selection.site.commune} · ${selection.site.coordinates.lat.toFixed(5)}, ${selection.site.coordinates.lng.toFixed(5)}`;
+      if (selection.kind === "traffic") return `${selection.segment.road} · ${selection.segment.sourceId || selection.segment.id}`;
+      const p = selection.point;
+      return `${p.id} · ${p.lat.toFixed(5)}, ${p.lng.toFixed(5)}${selection.kind === "bathing" ? ` · ${selection.point.commune}` : ""}`;
+    })()}
     onClose={() => setSelection(null)}>
     {selection.kind === "atmo" ? <AtmoDetails state={atmo} stationId={selection.id} /> : selection.kind === "inventory" ? <AtlasInventoryDetails site={selection.site} emissions={emissions} /> : selection.kind === "traffic" ? <RoadTrafficDetails segment={selection.segment} data={traffic} /> : selection.kind === "bathing" ? <AtlasBathingDetails point={selection.point} /> : selection.kind === "drinking" ? <AtlasDrinkingDetails point={selection.point} summary={drinkingSummaries[selection.point.id]} /> : <AtlasWaterDetails
       kind={selection.kind} point={selection.point}

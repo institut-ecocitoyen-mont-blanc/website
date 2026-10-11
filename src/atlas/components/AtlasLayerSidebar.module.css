@@ -16,11 +16,30 @@
 }
 .drawer::backdrop { background: #0f172a88; }
 .layout { display: flex; flex-direction: column; height: 100%; }
-.header { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: max(12px, env(safe-area-inset-top)) 12px 12px 20px; background: var(--color-blue-iec, #1d6ab2); color: white; flex-shrink: 0; }
-.header h2 { display: flex; align-items: center; gap: 8px; font-size: 16px; font-weight: 700; }
+.sidebar { min-width: 0; border-right: 1px solid #e2e8f0; }
+.header { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 22px 24px; border-bottom: 1px solid #e2e8f0; background: white; color: #0f172a; flex-shrink: 0; }
+.header h2 { display: flex; align-items: center; gap: 10px; font-size: 23px; font-weight: 700; }
+.count { flex-shrink: 0; border-radius: 999px; padding: 3px 10px; background: #eff6ff; color: var(--color-blue-iec, #1d6ab2); font-size: 13px; font-weight: 600; }
+.desktopContent { padding: 20px 12px 24px; }
 .header button { display: grid; place-items: center; width: 44px; height: 44px; flex-shrink: 0; border-radius: 50%; cursor: pointer; }
-.header button:hover { background: #ffffff20; }
-.content { min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding: 20px; }
+.header button:hover { background: #f1f5f9; }
+.content { min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding: 20px 10px; }
+.drawer .header { padding: max(12px, env(safe-area-inset-top)) 10px 12px 20px; }
+.drawer .header h2 { font-size: 20px; }
+.drawer .count { margin-left: auto; font-size: 12px; }
+.layer { border-radius: 12px; }
+.layer:hover { background: #f8fafc; }
+.layerExpanded { background: #f7f9fb; }
+.layerRow { display: flex; align-items: center; gap: 12px; padding: 4px 10px 4px 12px; }
+.checkbox { flex-shrink: 0; width: 19px; height: 19px; cursor: pointer; accent-color: var(--color-blue-iec, #1d6ab2); }
+.layerDisclosure { display: flex; flex: 1; min-width: 0; min-height: 58px; align-items: center; justify-content: space-between; gap: 8px; padding: 6px 0; text-align: left; cursor: pointer; }
+.layerIdentity { min-width: 0; }
+.layerTitle { display: block; color: #0f172a; font-size: 15px; font-weight: 550; line-height: 1.4; overflow-wrap: anywhere; }
+.layerSource { display: block; margin-top: 2px; color: #64748b; font-size: 12px; line-height: 1.5; }
+.chevron, .chevronOpen { flex-shrink: 0; color: #94a3b8; }
+.chevronOpen { transform: rotate(90deg); color: var(--color-blue-iec, #1d6ab2); }
+.layerBody { padding: 6px 16px 18px 43px; font-size: 13px; line-height: 1.6; color: #475569; }
+.layer :focus-visible { outline: 2px solid var(--color-blue-iec, #1d6ab2); outline-offset: 3px; border-radius: 4px; }
 .footer { padding: 12px 20px max(12px, env(safe-area-inset-bottom)); border-top: 1px solid #e2e8f0; background: white; flex-shrink: 0; }
 .footer button { width: 100%; min-height: 44px; border-radius: 8px; background: var(--color-blue-iec, #1d6ab2); color: white; font-size: 14px; font-weight: 600; cursor: pointer; }
 .drawer :focus-visible { outline: 3px solid var(--color-blue-iec, #1d6ab2); outline-offset: 3px; }
