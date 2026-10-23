@@ -1,6 +1,6 @@
 {
-  "commit": "8575ebfa68458b9a2627c93eb05c44a417ff175e",
-  "generated": "2026-10-23T14:41:18.750Z",
+  "commit": "dd40fbf7b555c3e573ab66c3c9ce9d1d04fe48ff",
+  "generated": "2026-10-23T14:41:35.424Z",
   "metadata": [
     {
       "__outstatic": {
@@ -693,6 +693,32 @@
       "slug": "les-mardis-de-l-institut",
       "status": "published",
       "title": "Les Mardis de l'Institut"
+    },
+    {
+      "__outstatic": {
+        "commit": "dd40fbf7b555c3e573ab66c3c9ce9d1d04fe48ff",
+        "hash": "1291295604",
+        "path": "outstatic/content/evenements/formation-en-sante-environnementale.mdx"
+      },
+      "adresse": "170 Av. Léman Mont-Blanc, 74190 Passy",
+      "author": {
+        "name": "Sarahd",
+        "picture": "https://avatars.githubusercontent.com/u/310082419?v=4"
+      },
+      "categories": [
+        {
+          "label": "Santé",
+          "value": "santé"
+        }
+      ],
+      "collection": "evenements",
+      "description": "Une formation à destination des professionnels de santé",
+      "image": "/images/formation-sant--environnementale--a4--paysage----1--kyND.png",
+      "lieu": "Mountain Store à Passy",
+      "publishedAt": "2026-11-06T08:00:00.000Z",
+      "slug": "formation-en-sante-environnementale",
+      "status": "published",
+      "title": "Formation en santé environnementale"
     }
   ]
 }
