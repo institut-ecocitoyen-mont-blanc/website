@@ -1,6 +1,6 @@
 {
-  "commit": "9b95643ee95055b92601167816b06ce56b0baa15",
-  "generated": "2026-10-23T13:50:00.860Z",
+  "commit": "5dacc5ff2f337a156ce1d30d42e33662ad526d76",
+  "generated": "2026-10-23T14:05:53.922Z",
   "metadata": [
     {
       "__outstatic": {
@@ -671,6 +671,30 @@
       "slug": "journee-recherche",
       "status": "published",
       "title": "Journée Recherche"
+    },
+    {
+      "__outstatic": {
+        "commit": "5dacc5ff2f337a156ce1d30d42e33662ad526d76",
+        "hash": "2201703329",
+        "path": "outstatic/content/actualites/formation-en-sante-environnementale.mdx"
+      },
+      "author": {
+        "name": "Sarahd",
+        "picture": "https://avatars.githubusercontent.com/u/310082419?v=4"
+      },
+      "categories": [
+        {
+          "label": "Santé",
+          "value": "Santé"
+        }
+      ],
+      "collection": "actualites",
+      "description": "Une formation en santé environnementale à destination des professionnels de santé",
+      "image": "/images/formation-sant--environnementale--6--MzMz.png",
+      "publishedAt": "2026-10-23T13:57:50.384Z",
+      "slug": "formation-en-sante-environnementale",
+      "status": "draft",
+      "title": "Formation en santé environnementale"
     }
   ]
 }
