@@ -1,6 +1,6 @@
 {
-  "commit": "8c6a424d211ac727dea8e1d352e68e00b31c31cf",
-  "generated": "2026-10-23T13:49:28.183Z",
+  "commit": "95b964794ea9018c54c9dc0d3dedfe5a320cb667",
+  "generated": "2026-10-23T13:49:56.221Z",
   "metadata": [
     {
       "__outstatic": {
@@ -445,28 +445,6 @@
     },
     {
       "__outstatic": {
-        "commit": "27c18e7211b9622ab5762d63091979046c5bec81",
-        "hash": "95824320",
-        "path": "outstatic/content/evenements/journee-recherche.mdx"
-      },
-      "adresse": "54 route des Vorziers, 74700 Sallanches",
-      "author": {
-        "name": "Mathieu Dutour",
-        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
-      },
-      "categories": [
-      ],
-      "collection": "evenements",
-      "description": "Et si la recherche scientifique sur les pollutions au Pays du Mont-Blanc partait des préoccupations des habitants et structures du territoire ?",
-      "image": "/images/journee-recherche-Y3Nz.png",
-      "lieu": "Espace Mont-Blanc Coworking",
-      "publishedAt": "2026-05-11T22:00:00.000Z",
-      "slug": "journee-recherche",
-      "status": "published",
-      "title": "Journée Recherche"
-    },
-    {
-      "__outstatic": {
         "commit": "389b44169987a223e20da48335b7af64acfebaef",
         "hash": "2900664874",
         "path": "outstatic/content/evenements/journees-etude-lichens.mdx"
@@ -671,6 +649,28 @@
       "slug": "politique-de-confidentialite",
       "status": "published",
       "title": "Politique de Confidentialité"
+    },
+    {
+      "__outstatic": {
+        "commit": "95b964794ea9018c54c9dc0d3dedfe5a320cb667",
+        "hash": "2129336715",
+        "path": "outstatic/content/evenements/journee-recherche.mdx"
+      },
+      "adresse": "54 route des Vorziers, 74700 Sallanches",
+      "author": {
+        "name": "Mathieu Dutour",
+        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
+      },
+      "categories": [
+      ],
+      "collection": "evenements",
+      "description": "Et si la recherche scientifique sur les pollutions au Pays du Mont-Blanc partait des préoccupations des habitants et structures du territoire ?",
+      "image": "/images/journee-recherche-Y3Nz.png",
+      "lieu": "Espace Mont-Blanc Coworking",
+      "publishedAt": "2026-05-11T22:00:00.000Z",
+      "slug": "journee-recherche",
+      "status": "published",
+      "title": "Journée Recherche"
     }
   ]
 }
