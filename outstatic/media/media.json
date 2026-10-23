@@ -1,6 +1,6 @@
 {
-  "commit": "0dbf82cc71a35194290e97d16e50276dabd7da3b",
-  "generated": "2026-10-23T14:05:15.019Z",
+  "commit": "37cc80ab8c53dbaf8cf2f5a1bf17f21bc79730b9",
+  "generated": "2026-10-23T14:12:19.181Z",
   "media": [
     {
       "__outstatic": {
@@ -44,6 +44,18 @@
       "alt": "",
       "filename": "affiche-conf-rence-18-juin--2--M3Mz.png",
       "publishedAt": "2025-06-03T10:52:02.899Z",
+      "type": "image"
+    },
+    {
+      "__outstatic": {
+        "commit": "37cc80ab8c53dbaf8cf2f5a1bf17f21bc79730b9",
+        "hash": "1659948385",
+        "path": "public/images/affiche-les-mardis-de-l-institut-I5NT.png"
+      },
+      "alt": "",
+      "filename": "affiche-les-mardis-de-l-institut-I5NT.png",
+      "publishedAt": "2026-10-23T14:12:19.181Z",
+      "source": "images",
       "type": "image"
     },
     {
