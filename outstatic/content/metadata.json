@@ -1,6 +1,6 @@
 {
-  "commit": "c4626620e0c50f9c3412c0aafe0702e8df2a26d1",
-  "generated": "2026-10-23T14:14:00.892Z",
+  "commit": "73f21433277705b269fa27b16e2d74a20a4add79",
+  "generated": "2026-10-23T14:20:20.948Z",
   "metadata": [
     {
       "__outstatic": {
@@ -698,8 +698,8 @@
     },
     {
       "__outstatic": {
-        "commit": "c4626620e0c50f9c3412c0aafe0702e8df2a26d1",
-        "hash": "3582454759",
+        "commit": "73f21433277705b269fa27b16e2d74a20a4add79",
+        "hash": "3667897491",
         "path": "outstatic/content/actualites/formation-en-sante-environnementale.mdx"
       },
       "author": {
@@ -714,7 +714,7 @@
       ],
       "collection": "actualites",
       "description": "Une formation à destination des professionnels de santé",
-      "image": "/images/formation-sant--environnementale--6--MzMz.png",
+      "image": "/images/formation-sant--environnementale--a4--paysage----1--kyND.png",
       "publishedAt": "2026-10-23T13:57:50.384Z",
       "slug": "formation-en-sante-environnementale",
       "status": "published",
