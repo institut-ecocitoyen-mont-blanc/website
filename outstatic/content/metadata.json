@@ -1,6 +1,6 @@
 {
-  "commit": "3793d2d42a8344bbec6034f4c401477e3613090e",
-  "generated": "2026-10-23T14:26:25.202Z",
+  "commit": "451e49c453d2554bb82e52dc051a8ccc7053e44b",
+  "generated": "2026-10-23T14:26:46.135Z",
   "metadata": [
     {
       "__outstatic": {
@@ -671,52 +671,6 @@
       "slug": "journee-recherche",
       "status": "published",
       "title": "Journée Recherche"
-    },
-    {
-      "__outstatic": {
-        "commit": "a89bb04addc71c1f8791360c9ce2e42e3ed6e5cd",
-        "hash": "2536597477",
-        "path": "outstatic/content/actualites/les-mardis-de-l-institut.mdx"
-      },
-      "author": {
-        "name": "Sarahd",
-        "picture": "https://avatars.githubusercontent.com/u/310082419?v=4"
-      },
-      "categories": [
-        {
-          "label": "Air",
-          "value": "Air"
-        }
-      ],
-      "collection": "actualites",
-      "description": "Les Mardis de l’Institut : un rendez-vous mensuel autour de la qualité de l’air",
-      "image": "/images/affiche-les-mardis-de-l-institut-I5NT.png",
-      "publishedAt": "2026-10-23T14:09:25.184Z",
-      "slug": "les-mardis-de-l-institut",
-      "status": "published",
-      "title": "Les Mardis de l'Institut"
-    },
-    {
-      "__outstatic": {
-        "commit": "3793d2d42a8344bbec6034f4c401477e3613090e",
-        "hash": "3772946712",
-        "path": "outstatic/content/evenements/les-mardis-de-l-institut.mdx"
-      },
-      "adresse": "170 Av. Léman Mont-Blanc, 74190 Passy",
-      "author": {
-        "name": "Sarahd",
-        "picture": "https://avatars.githubusercontent.com/u/310082419?v=4"
-      },
-      "categories": [
-      ],
-      "collection": "evenements",
-      "description": "Les Mardis de l’Institut : un rendez-vous mensuel autour de la qualité de l’air",
-      "image": "/images/affiche-les-mardis-de-l-institut-I5NT.png",
-      "lieu": "Mountain Store à Passy",
-      "publishedAt": "2026-10-23T14:25:23.805Z",
-      "slug": "les-mardis-de-l-institut",
-      "status": "published",
-      "title": "Les Mardis de l'Institut"
     }
   ]
 }
