@@ -112,6 +112,31 @@
 .headlineText h3 { font-size: 22px; font-weight: 600; line-height: 1.2; overflow-wrap: anywhere; }
 .headlineText p { font-size: 13px; color: #64748b; margin-top: 3px; }
 .headlineDate { max-width: 120px; font-size: 12px; color: #64748b; text-align: right; }
+.waterSummary { display: flex; align-items: center; gap: 24px; padding: 24px; border-block: 1px solid #e2e8f0; }
+.waterRing { width: 96px; height: 96px; border-radius: 50%; flex-shrink: 0; display: grid; place-items: center; }
+.waterRing > span { width: 74px; height: 74px; border-radius: 50%; background: white; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.waterRing b { font-size: 25px; line-height: 1.15; font-weight: 600; font-variant-numeric: tabular-nums; }
+.waterRing small { font-size: 10px; color: #64748b; }
+.waterSummaryContent { min-width: 0; flex: 1; }
+.waterSummaryMeta { display: flex; align-items: center; gap: 8px 12px; flex-wrap: wrap; font-size: 12px; color: #64748b; margin-bottom: 8px; }
+.waterSummaryContent h3 { font-size: 22px; font-weight: 600; line-height: 1.3; overflow-wrap: anywhere; }
+.waterSummaryContent > p { font-size: 13px; color: #64748b; margin-top: 5px; }
+.waterSummaryLegend { display: flex; flex-wrap: wrap; gap: 6px 20px; margin-top: 16px; font-size: 13px; }
+.waterSummaryLegend li { display: flex; align-items: center; gap: 6px; }
+.waterSummaryLegend i { width: 8px; height: 8px; border-radius: 50%; flex: none; }
+.waterSummaryLegend strong { font-weight: 600; font-variant-numeric: tabular-nums; }
+.waterSummaryContent > .waterCoverage { margin-top: 10px; font-size: 12px; }
+.waterOld { padding: 2px 6px; border-radius: 4px; color: #785c26; background: #fff5dd; font-size: 11px; }
+.waterSummaryContent > .waterCaution { color: #785c26; font-size: 12px; margin-top: 8px; }
+@media (max-width: 600px) {
+  .waterSummary { padding: 20px; gap: 16px; align-items: flex-start; }
+  .waterRing { width: 72px; height: 72px; }
+  .waterRing > span { width: 56px; height: 56px; }
+  .waterRing b { font-size: 21px; }
+  .waterRing small { font-size: 9px; }
+  .waterSummaryContent h3 { font-size: 19px; }
+  .waterSummaryLegend { gap: 6px 12px; }
+}
 .allData { border-top: 1px solid #e2e8f0; }
 .allData > summary { padding: 12px 24px; display: flex; align-items: center; gap: 10px; font-size: 13.5px; font-weight: 600; cursor: pointer; list-style: none; }
 .allData > summary::-webkit-details-marker { display: none; }

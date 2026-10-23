@@ -10,7 +10,9 @@ import EvidenceLayerControl, { groundwaterPin } from "./EvidenceLayerControl";
 import { coordinatePrecision, groundwaterAnalysisUrl, groundwaterStationUrl, groundwaterResultLabel, groundwaterResultUnit, GROUNDWATER_RESULT_LIMIT, GROUNDWATER_SOURCE, type GroundwaterAnalysis, type GroundwaterCatalogue, type GroundwaterResults, type GroundwaterStation } from "@/atlas/lib/groundwater";
 import styles from "./AtlasDetails.module.css";
 import LayerAbout from "./LayerAbout";
-import { DetailData, DetailHeadline, DetailLimits, DetailStats, DetailTable } from "./DetailCard";
+import { DetailData, DetailLimits, DetailStats, DetailTable } from "./DetailCard";
+import WaterResultSummary from "./WaterResultSummary";
+import { groundwaterResultSummary } from "@/atlas/lib/water-result-summary";
 
 const date = (value: string) => value && Number.isFinite(Date.parse(value)) ? new Date(value).toLocaleDateString("fr-FR", { timeZone: "Europe/Paris" }) : "Non renseignée";
 function GroundwaterDetails({ station }: { station: GroundwaterStation }) {
@@ -31,7 +33,7 @@ function GroundwaterDetails({ station }: { station: GroundwaterStation }) {
     if (values) values.push(analysis); else groups.set(key, [analysis]);
   }
   return <>
-    <DetailHeadline title={results ? `${results.analyses.length} résultats disponibles dans la fiche` : "Analyses des eaux souterraines"} subtitle="Résultats publiés · aucun score sanitaire calculé" date={results?.analyses[0] ? date(results.analyses[0].date) : undefined} count={results ? { value: results.analyses.length, total: results.total } : undefined} />
+    {results && <WaterResultSummary summary={groundwaterResultSummary(results.analyses, results.more)} source="groundwater" />}
     {results && <DetailStats items={[...new Map(results.analyses.map(a => [JSON.stringify([a.parameter, a.fraction, a.unit]), a] as const).reverse()).values()].slice(0, 4).map(a => ({ label: `${a.name} · ${a.fraction || "Fraction non renseignée"}`, value: groundwaterResultLabel(a), unit: groundwaterResultUnit(a), note: `${date(a.date)} · ${a.qualification || "Qualification non renseignée"}` }))} />}
     <DetailFacts items={[{ label: "Nature du point", value: station.nature }, { label: "Dernière mesure annoncée au catalogue", value: date(station.lastMeasurement) }, { label: "Réseaux", value: station.networks.join(" · ") }]} />
     {error && <p role="alert" className={styles.visual}>Les analyses n’ont pas pu être récupérées. <button className="underline" onClick={() => setAttempt(n => n + 1)}>Réessayer</button></p>}
@@ -43,7 +45,7 @@ function GroundwaterDetails({ station }: { station: GroundwaterStation }) {
         {results.more && <p className="mb-4 text-xs text-slate-500">Fenêtre limitée aux {GROUNDWATER_RESULT_LIMIT} derniers résultats : elle peut ne pas couvrir tous les paramètres d’un prélèvement ni tout l’historique. Le lien source donne accès au catalogue complet et à sa pagination.</p>}
         <label className="mb-4 block text-sm text-slate-600">Rechercher un paramètre parmi les résultats affichés<input type="search" className="mt-2 block w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-900" value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Nitrates, arsenic, pesticides…" /></label>
         {!groups.size && <p className="text-sm text-slate-500">Aucun paramètre correspondant dans les résultats chargés.</p>}
-        <DetailTable key={search} caption="Résultats publiés · fractions et unités conservées" headers={["Paramètre · fraction", "Prélèvement (Paris)", "Résultat", "Remarque", "Qualification · statut"]} records={[...groups.values()].flat()} renderRow={a => [`${a.name} · ${a.fraction || "Fraction non renseignée"}`, new Date(a.date).toLocaleString("fr-FR", { timeZone: "Europe/Paris" }), `${groundwaterResultLabel(a)} ${groundwaterResultUnit(a)}`, a.remark || "Non renseignée", `${a.qualification || "Non renseignée"} · ${a.status || "Non renseigné"}`]} />
+        <DetailTable key={search} caption="Résultats publiés · fractions et unités conservées" headers={["Paramètre · fraction", "Prélèvement", "Résultat", "Remarque", "Qualification · statut"]} records={[...groups.values()].flat()} renderRow={a => [`${a.name} · ${a.fraction || "Fraction non renseignée"}`, new Date(a.date).toLocaleString("fr-FR", { timeZone: "Europe/Paris" }), `${groundwaterResultLabel(a)} ${groundwaterResultUnit(a)}`, a.remark || "Non renseignée", `${a.qualification || "Non renseignée"} · ${a.status || "Non renseigné"}`]} />
       </>}
     </DetailSection>
     </DetailData>

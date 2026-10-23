@@ -11,6 +11,8 @@ import type { Quality } from "@/atlas/lib/environmental-quality";
 import type { DrinkingNetwork } from "@/atlas/lib/drinking-networks";
 import { riverAssessmentUrl, riverChemicalLabel, type RiverAssessment } from "@/atlas/lib/river-assessments";
 import styles from "./AtlasDetails.module.css";
+import WaterResultSummary from "./WaterResultSummary";
+import { waterResultSummary } from "@/atlas/lib/water-result-summary";
 
 const dateLabel = (value: unknown) => {
   const raw = asText(value), date = new Date(raw);
@@ -47,6 +49,7 @@ export default function AtlasWaterDetails({ kind, point, quality, sample, networ
   return <>
     <DetailHeadline title={quality.label} subtitle={kind === "rivers" ? "Évaluation officielle à la station · Agence de l’eau" : `Dernier prélèvement · ${network?.name ?? "Réseau"}`} color={quality.level === "unknown" ? "#e2e8f0" : QUALITY_COLORS[quality.level]} date={kind === "rivers" ? assessment?.year : sample ? dateLabel(sample.date_prelevement) : undefined} />
     {networkControls}
+    {data && <WaterResultSummary summary={waterResultSummary(data, kind)} source={kind} />}
     {error ? <div role="alert" className={styles.visual}>{error} <button className="underline" onClick={() => setAttempt(n => n + 1)}>Réessayer</button></div> : !data ? <p role="status" className={styles.visual}>Chargement des analyses…</p> : !data.length ? <p className={styles.visual}>Aucune analyse disponible pour ce point.</p> : <DetailStats items={latestRows.slice(0, 6).map(row => ({ label: asText(row.libelle_parametre) || "Paramètre non renseigné", value: resultValue(row), unit: resultUnit(row), note: <>{dateLabel(row.date_prelevement)}{kind === "rivers" ? <> · {asText(row.mnemo_remarque)}</> : row.limite_qualite_parametre ? <> · Limite publiée : {asText(row.limite_qualite_parametre)}</> : null}</> }))} />}
     <DetailFacts items={kind === "rivers" ? [
       { label: "État chimique officiel", value: assessment ? riverChemicalLabel(assessment) : "Non disponible" },

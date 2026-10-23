@@ -1,0 +1,105 @@
+<!doctype html>
+<!-- THROWAWAY PROTOTYPE: three summary layouts, seven data scenarios. Standalone,
+     no provider requests, no real classifications. Open directly in a browser.
+     Question: how to replace a technical result count with a useful summary?
+     URL parameters: variant=counts|ring|sentence, scenario=mixed|all|partial|unknown|censored|old|empty. -->
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Atlas · Propositions de synthèse des analyses</title>
+<style>
+  :root{color-scheme:light;--ink:#1e293b;--muted:#64748b;--blue:#1d6ab2;--line:#e2e8f0;--green:#207451;--red:#b23c39;--grey:#94a3b8;--amber:#946213}
+  *{box-sizing:border-box}body{margin:0;background:#f1f5f9;color:var(--ink);font-family:Arial,Helvetica,sans-serif;font-size:15px;line-height:1.5}
+  button,select,input{font:inherit}button,select{cursor:pointer}button:focus-visible,select:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid #72a7d8;outline-offset:4px}
+  button{touch-action:manipulation}h1,h2,h3,p{margin:0}button{border:0}main{max-width:1110px;margin:auto;padding:44px 28px 126px}
+  .eyebrow{font-size:11px;letter-spacing:.12em;font-weight:700;text-transform:uppercase;color:var(--blue)}h1{font-size:30px;line-height:1.2;margin:9px 0 12px;letter-spacing:-.025em}
+  .intro{max-width:780px;color:var(--muted)}.prototype{display:inline-block;font-size:11px;letter-spacing:.06em;border:1px solid #bfdbfe;background:#eff6ff;color:var(--blue);border-radius:5px;padding:4px 8px;margin-bottom:14px}
+  .controls{display:flex;align-items:end;gap:20px;flex-wrap:wrap;margin:28px 0 16px}.field{display:grid;gap:7px;flex:1;min-width:min(100%,270px)}.field>span{font-size:12px;color:var(--muted);font-weight:600}
+  select{width:100%;border:1px solid #cbd5e1;border-radius:8px;padding:10px 36px 10px 12px;background:white;color:var(--ink);min-height:44px}
+  .compare{display:flex;align-items:center;gap:9px;min-height:44px;font-size:13px;cursor:pointer}.compare input{accent-color:var(--blue);width:17px;height:17px}
+  .case-caption{color:var(--muted);font-size:13px;margin:0 0 14px;min-height:20px}.card{background:white;border:1px solid var(--line);border-top:4px solid var(--blue);border-radius:14px;box-shadow:0 8px 26px #0f172a06;overflow:hidden}
+  .identity{padding:23px 28px 20px;border-bottom:1px solid var(--line);display:flex;align-items:start;justify-content:space-between;gap:18px}.identity h2{font-family:Georgia,serif;font-size:25px;font-weight:400;line-height:1.2;margin:7px 0}.identity p{color:var(--muted);font-size:13px}.location{border:1px solid var(--line);border-radius:50%;width:38px;height:38px;display:grid;place-items:center;color:var(--blue);flex:none}
+  .summary{padding:26px 28px}.meta{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin-bottom:18px}.meta strong{font-weight:600;color:#475569}.tag{border-radius:5px;background:#f1f5f9;padding:3px 7px;font-size:11px;color:#475569}.tag.old{background:#fff5dd;color:var(--amber)}
+  .headline{font-size:24px;line-height:1.3;letter-spacing:-.02em;font-weight:600;max-width:730px}.subline{color:var(--muted);font-size:14px;margin-top:7px;max-width:760px}
+  .stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:25px}.stat{padding-left:14px;border-left:3px solid var(--line)}.stat.good{border-color:var(--green)}.stat.bad{border-color:var(--red)}.stat.unknown{border-color:#cbd5e1}
+  .stat .number{font-size:34px;line-height:1.1;letter-spacing:-.04em;font-weight:600;font-variant-numeric:tabular-nums;color:var(--ink)}.stat .label{font-size:13px;font-weight:600;margin-top:7px}.stat .hint{color:var(--muted);font-size:12px;margin-top:3px}
+  .bar{display:flex;gap:3px;height:7px;border-radius:5px;overflow:hidden;margin-top:24px;background:#f1f5f9}.segment{min-width:3px}.good-fill{background:var(--green)}.bad-fill{background:var(--red)}.unknown-fill{background:#cbd5e1}.coverage{font-size:12px;color:var(--muted);margin-top:9px}
+  .ring-layout{display:grid;grid-template-columns:108px minmax(0,1fr);gap:26px;align-items:center}.ring{width:108px;height:108px;border-radius:50%;display:grid;place-items:center;position:relative;background:conic-gradient(var(--green) 0 var(--g),var(--red) var(--g) var(--r),#cbd5e1 var(--r) 100%)}.ring-core{width:84px;height:84px;background:white;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-direction:column;font-size:13px;color:var(--muted)}.ring-core b{font-size:28px;line-height:1.1;color:var(--ink);font-variant-numeric:tabular-nums}.ring.neutral{background:#edf2f7}.ring.neutral .ring-core{color:var(--blue)}
+  .legend{display:flex;gap:10px 22px;flex-wrap:wrap;margin-top:18px;font-size:13px}.legend span{display:flex;align-items:center;gap:7px}.swatch{width:8px;height:8px;border-radius:50%;display:inline-block;flex:none}
+  .sentence-layout{display:grid;grid-template-columns:44px minmax(0,1fr);gap:16px}.status-icon{width:44px;height:44px;border-radius:12px;background:#f1f5f9;color:var(--blue);display:grid;place-items:center;font-size:21px;font-weight:600}.status-icon.bad{background:#fff1ef;color:var(--red)}.status-icon.good{background:#edf7f1;color:var(--green)}.sentence-layout .headline{font-size:28px}.ledger{margin-top:22px;display:grid;grid-template-columns:1fr auto;gap:0;font-size:14px}.ledger div{display:contents}.ledger dt,.ledger dd{padding:10px 0;border-bottom:1px solid #f1f5f9;margin:0}.ledger dt{color:#475569;display:flex;align-items:center;gap:8px}.ledger dd{font-weight:600;font-variant-numeric:tabular-nums}.empty{padding:8px 0}.empty .subline{max-width:650px}
+  .notice{margin-top:22px;font-size:12px;color:#475569;background:#f8fafc;padding:11px 13px;border-radius:6px}.notice.old{background:#fff9eb;color:#785c26}.detail-link{margin-top:20px;display:inline-flex;align-items:center;gap:10px;color:var(--blue);font-weight:600;font-size:13px;background:none;padding:5px 0;text-align:left}.detail-link:hover{text-decoration:underline;text-underline-offset:4px}
+  .expanded{border-top:1px solid var(--line);background:#f8fafc;padding:18px 28px;font-size:13px}.expanded h3{font-size:14px;margin-bottom:7px}.expanded p{color:#475569}.expanded ul{padding-left:19px;margin-bottom:0}.reference{padding:12px 28px 15px;border-top:1px solid #f1f5f9;color:var(--muted);font-size:12px}
+  .notes{margin-top:20px;font-size:13px;color:var(--muted)}.notes summary{cursor:pointer;color:#475569}.notes ul{padding-left:20px;max-width:880px}.notes li+li{margin-top:7px}
+  .switcher{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:12px;background:#1e293b;color:white;border-radius:40px;padding:7px;box-shadow:0 8px 30px #0f172a30;max-width:calc(100% - 24px);z-index:5}.switcher button{width:40px;height:40px;border-radius:50%;background:#334155;color:white;font-size:20px;flex:none}.switcher button:hover{background:#475569}.switcher .name{min-width:215px;text-align:center;font-size:13px}.switcher small{display:block;font-size:10px;color:#cbd5e1;letter-spacing:.06em;text-transform:uppercase}
+  .gallery{display:grid;gap:26px}.gallery-label{margin-bottom:10px;font-size:13px;font-weight:600;color:#475569}.gallery .identity{display:none}.gallery .card{border-top-width:1px}
+  @media(max-width:600px){main{padding:24px 14px 110px}h1{font-size:25px}.identity,.summary{padding:20px}.identity h2{font-size:22px}.headline{font-size:21px}.sentence-layout .headline{font-size:23px}.stats{gap:12px;grid-template-columns:1fr}.stat{display:grid;grid-template-columns:52px 1fr;column-gap:10px}.stat .number{grid-row:1/3;font-size:29px;align-self:center}.stat .label{margin:0}.stat .hint{margin-top:2px}.ring-layout{grid-template-columns:76px minmax(0,1fr);gap:16px}.ring{width:76px;height:76px}.ring-core{width:58px;height:58px;font-size:10px}.ring-core b{font-size:23px}.legend{grid-column:1/-1}.switcher .name{min-width:170px}.reference,.expanded{padding-inline:20px}.sentence-layout{grid-template-columns:1fr}.status-icon{display:none}.controls{margin-top:20px;gap:8px}}
+  @media(prefers-reduced-motion:no-preference){button{transition:background .15s}}
+  @media print{.controls,.switcher,.notes,.intro,.prototype{display:none}main{padding:0}.card{break-inside:avoid;box-shadow:none}.gallery{gap:18px}}
+</style>
+</head>
+<body>
+<main>
+  <span class="prototype">PROTOTYPE · CHIFFRES ET DATES FICTIFS</span>
+  <p class="eyebrow">Atlas environnemental / fiches de données</p>
+  <h1>Des résultats, pas un compteur de chargement.</h1>
+  <p class="intro">Trois propositions pour lire ce qui se situe dans les repères disponibles, ce qui les dépasse et ce qui ne peut pas être évalué. Les scénarios illustrent le comportement de la fiche, pas la qualité réelle d’un site.</p>
+  <div class="controls">
+    <label class="field"><span>Données disponibles</span><select id="scenario"></select></label>
+    <label class="compare"><input type="checkbox" id="compare">Comparer tous les cas</label>
+  </div>
+  <p class="case-caption" id="case-caption"></p>
+  <div id="preview" aria-live="polite"></div>
+  <details class="notes"><summary>Règles communes aux trois propositions</summary><ul>
+    <li>La synthèse porte sur <strong>un prélèvement identifié</strong>, pas sur une addition de décennies de mesures. L’historique reste consultable séparément.</li>
+    <li>Un résultat = un paramètre analysé dans ce prélèvement. Les nombres ne représentent ni des personnes, ni un pourcentage de risque.</li>
+    <li>Vert / rouge uniquement si un repère documenté est applicable au milieu, au paramètre, à la fraction, à l’unité et à la période considérés. « Dans le repère » ne signifie pas « sans risque ».</li>
+    <li>Sans repère applicable : résultat non évalué. « Correcte » qualifie la donnée, pas la qualité de l’eau. Un résultat non quantifié n’est pas automatiquement classé favorable : sa limite de quantification doit permettre la comparaison.</li>
+    <li>Un repère scientifique n’est pas une limite réglementaire. Leurs libellés et leur source doivent être explicites ; la maquette ne définit aucun seuil réel.</li>
+  </ul></details>
+</main>
+<nav class="switcher" aria-label="Propositions de mise en page">
+  <button id="previous" aria-label="Proposition précédente">←</button><div class="name"><small id="variant-count"></small><span id="variant-name"></span></div><button id="next" aria-label="Proposition suivante">→</button>
+</nav>
+<script>
+const variants=[{id:'counts',name:'Compteurs + répartition'},{id:'ring',name:'Anneau + synthèse'},{id:'sentence',name:'Message + bilan détaillé'}];
+const scenarios=[
+ {id:'mixed',name:'Repères disponibles · dépassements',good:120,bad:3,unknown:17,date:'12 septembre 2026',title:'3 résultats au-dessus des repères',sub:'120 dans les repères disponibles · 17 non évaluables.',context:'Prélèvement de 140 résultats, avec des références utilisables pour 123 d’entre eux.',note:'17 résultats sans repère applicable. Ils ne sont pas comptés comme favorables.',reason:'Aucun repère applicable pour ces paramètres dans ce milieu.'},
+ {id:'all',name:'Tous les résultats dans les repères',good:28,bad:0,unknown:0,date:'12 septembre 2026',title:'Aucun dépassement des repères',sub:'Les 28 résultats évaluables se situent dans les repères applicables.',context:'Tous les résultats du prélèvement peuvent être comparés à un repère.',note:'Ce bilan concerne les paramètres recherchés à cette date, pas l’absence de toute pollution.'},
+ {id:'partial',name:'Comparaison possible · données partielles',good:18,bad:0,unknown:122,date:'12 septembre 2026',title:'Aucun dépassement parmi les 18 résultats évaluables',sub:'122 résultats ne permettent pas de conclure.',context:'Peu de repères disponibles : éviter un grand « tout va bien » fondé sur 18 résultats sur 140.',note:'La majorité des résultats ne peut pas être évaluée. Aucun bilan global de qualité n’est déduit.',reason:'100 sans repère applicable · 22 avec une qualification insuffisante.'},
+ {id:'unknown',name:'Analyses disponibles · aucun repère',good:0,bad:0,unknown:42,date:'12 septembre 2026',title:'42 résultats, sans classement de qualité',sub:'Aucun repère applicable disponible pour cette sélection.',context:'Cas fréquent d’un jeu de mesures environnementales sans limites de comparaison associées.',note:'La présence d’une mesure ne permet pas de décider si le résultat est « bon » ou « mauvais ».',reason:'42 résultats sans repère applicable. Leurs valeurs et qualifications restent consultables.'},
+ {id:'censored',name:'Non quantifié · comparaison impossible',good:0,bad:0,unknown:20,date:'12 septembre 2026',title:'20 résultats sous les limites de quantification',sub:'Les limites analytiques ne permettent pas de les situer par rapport aux repères.',context:'Exemple : le laboratoire ne quantifie pas assez finement pour conclure au respect du repère.',note:'« Non quantifié » ne signifie ni absence de substance, ni résultat conforme.',reason:'20 limites de quantification trop élevées pour trancher la comparaison.'},
+ {id:'old',name:'Repères disponibles · mesures anciennes',good:21,bad:2,unknown:5,date:'4 juin 2021',title:'2 dépassements dans le dernier prélèvement disponible',sub:'Mesures de 2021 : elles ne décrivent pas la situation actuelle.',context:'La synthèse garde les résultats historiques, sans les présenter comme un état actuel.',note:'Comparaison aux repères applicables à la date du prélèvement. Aucune donnée plus récente disponible dans cet exemple.',old:true,reason:'5 résultats sans repère applicable.'},
+ {id:'empty',name:'Aucune analyse disponible',good:0,bad:0,unknown:0,date:null,title:'Pas encore de résultats disponibles',sub:'Aucune analyse accessible pour ce point et cette sélection.',context:'Absence de données : ni zéro dépassement, ni pourcentage favorable.',note:'L’absence d’analyses ne renseigne pas sur la présence ou l’absence de pollution.'}
+];
+const params=new URLSearchParams(location.search);let variant=Math.max(0,variants.findIndex(v=>v.id===params.get('variant')));let current=scenarios.find(s=>s.id===params.get('scenario'))||scenarios[0];
+const select=document.getElementById('scenario'),compare=document.getElementById('compare'),preview=document.getElementById('preview');
+select.innerHTML=scenarios.map(s=>`<option value="${s.id}">${s.name}</option>`).join('');select.value=current.id;
+const number=n=>n.toLocaleString('fr-FR');const total=s=>s.good+s.bad+s.unknown;
+function stats(s){return `<div class="stats"><div class="stat good"><div class="number">${number(s.good)}</div><div class="label">Dans les repères</div><div class="hint">Comparaison possible</div></div><div class="stat bad"><div class="number">${number(s.bad)}</div><div class="label">Au-dessus</div><div class="hint">Repère dépassé</div></div><div class="stat unknown"><div class="number">${number(s.unknown)}</div><div class="label">Non évaluables</div><div class="hint">Sans conclusion de qualité</div></div></div>`;}
+function bar(s){return `<div class="bar" aria-hidden="true">${[['good',s.good],['bad',s.bad],['unknown',s.unknown]].filter(([,n])=>n).map(([tone,n])=>`<span class="segment ${tone}-fill" style="flex:${n}"></span>`).join('')}</div><p class="coverage">${number(s.good+s.bad)} résultats évaluables sur ${number(total(s))} analyses du prélèvement</p>`;}
+function legend(s){return `<div class="legend"><span><i class="swatch good-fill"></i>${s.good} dans les repères</span><span><i class="swatch bad-fill"></i>${s.bad} au-dessus</span><span><i class="swatch unknown-fill"></i>${s.unknown} non évaluables</span></div>`;}
+function content(s){
+ const n=total(s),e=s.good+s.bad,neutral=!e;
+ if(!n)return `<div class="empty"><h3 class="headline">${s.title}</h3><p class="subline">${s.sub}</p></div>`;
+ if(variants[variant].id==='counts')return `<h3 class="headline">${s.title}</h3><p class="subline">${s.sub}</p>${e?stats(s):`<div class="stats"><div class="stat unknown"><div class="number">${n}</div><div class="label">Non évaluables</div><div class="hint">Aucun classement favorable ou défavorable</div></div></div>`}${bar(s)}`;
+ if(variants[variant].id==='ring')return `<div class="ring-layout"><div class="ring ${neutral?'neutral':''}" style="--g:${s.good/n*100}%;--r:${e/n*100}%" aria-label="${s.good} résultats dans les repères, ${s.bad} au-dessus, ${s.unknown} non évaluables"><div class="ring-core"><b>${neutral?'—':s.bad}</b><span>${neutral?'non évalué':'au-dessus'}</span></div></div><div><h3 class="headline">${s.title}</h3><p class="subline">${s.sub}</p>${e?legend(s):''}</div></div><p class="coverage">${e} résultats évaluables sur ${n} analyses du prélèvement</p>`;
+ return `<div class="sentence-layout"><div class="status-icon ${s.bad?'bad':e===n?'good':''}" aria-hidden="true">${s.bad?'!':e===n?'✓':'—'}</div><div><h3 class="headline">${s.title}</h3><p class="subline">${s.sub}</p><dl class="ledger">${e?`<div><dt><i class="swatch good-fill"></i>Dans les repères disponibles</dt><dd>${s.good}</dd></div><div><dt><i class="swatch bad-fill"></i>Au-dessus des repères</dt><dd>${s.bad}</dd></div>`:''}<div><dt><i class="swatch unknown-fill"></i>Sans conclusion possible</dt><dd>${s.unknown}</dd></div></dl></div></div>`;
+}
+function card(s){return `<article class="card"><header class="identity"><div><p class="eyebrow">Eaux souterraines</p><h2>Point de suivi · exemple</h2><p>Pays du Mont-Blanc · fiche de démonstration</p></div><span class="location" aria-hidden="true">⌖</span></header><section class="summary"><div class="meta"><strong>${s.date?`Prélèvement du ${s.date}`:'Résultats du point de suivi'}</strong><span class="tag ${s.old?'old':''}">${s.old?'Données anciennes':s.date?'Un seul prélèvement':'Aucune donnée'}</span></div>${content(s)}<p class="notice ${s.old?'old':''}">${s.note}</p>${total(s)?`<button class="detail-link" data-detail="${s.id}" aria-expanded="false" aria-controls="detail-${s.id}">${s.bad?'Comprendre les dépassements':s.good?'Voir les résultats et leurs repères':'Voir les analyses et leurs limites'} <span aria-hidden="true">→</span></button>`:''}</section><div class="expanded" id="detail-${s.id}" hidden><h3>Ce que la fiche présenterait</h3><p>${s.reason||'Les résultats comparables sont associés à leur repère et à la source de ce repère.'}</p><ul><li>Paramètre, valeur mesurée, unité et date.</li><li>Repère applicable et sa nature : limite réglementaire ou référence scientifique.</li><li>Qualification de la donnée et éventuelle limite de quantification.</li></ul></div><footer class="reference">${total(s)?'Références de comparaison à documenter par paramètre et par milieu.':'Les sources et la disponibilité des analyses restent consultables.'} Aucun score sanitaire calculé.</footer></article>`;}
+function render(){
+ document.getElementById('variant-name').textContent=variants[variant].name;document.getElementById('variant-count').textContent=`Proposition ${variant+1} / ${variants.length}`;
+ document.getElementById('case-caption').textContent=compare.checked?'Même présentation, selon les données réellement disponibles.':current.context;
+ select.disabled=compare.checked;
+ preview.className=compare.checked?'gallery':'';preview.innerHTML=compare.checked?scenarios.map(s=>`<section><h2 class="gallery-label">${s.name}</h2>${card(s)}</section>`).join(''):card(current);
+ const url=new URL(location.href);url.searchParams.set('variant',variants[variant].id);url.searchParams.set('scenario',current.id);history.replaceState(null,'',url);
+}
+function cycle(step){variant=(variant+step+variants.length)%variants.length;render();}
+document.getElementById('previous').onclick=()=>cycle(-1);document.getElementById('next').onclick=()=>cycle(1);
+select.onchange=()=>{current=scenarios.find(s=>s.id===select.value);render();};compare.onchange=render;
+document.addEventListener('keydown',e=>{if(e.target.closest('input,select,textarea,button,[contenteditable]')||e.altKey||e.metaKey||e.ctrlKey)return;if(e.key==='ArrowLeft'||e.key==='ArrowRight'){e.preventDefault();cycle(e.key==='ArrowRight'?1:-1);}});
+preview.addEventListener('click',e=>{const button=e.target.closest('[data-detail]');if(!button)return;const details=document.getElementById(`detail-${button.dataset.detail}`);details.hidden=!details.hidden;button.setAttribute('aria-expanded',String(!details.hidden));});
+render();
+</script>
+</body>
+</html>

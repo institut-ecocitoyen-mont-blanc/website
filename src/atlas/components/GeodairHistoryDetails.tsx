@@ -9,7 +9,7 @@ import styles from "./AtlasDetails.module.css";
 
 function Values({ rows, annual = false }: { rows: GeodairHistoricalReading[]; annual?: boolean }) {
   return <div className="overflow-x-auto mt-4"><table className="w-full text-xs text-left">
-    <thead><tr><th className="p-2">{annual ? "Année" : "Prélèvement (Paris)"}</th><th className="p-2">Polluant</th><th className="p-2">Valeur publiée</th><th className="p-2">Statut fournisseur</th></tr></thead>
+    <thead><tr><th className="p-2">{annual ? "Année" : "Prélèvement"}</th><th className="p-2">Polluant</th><th className="p-2">Valeur publiée</th><th className="p-2">Statut fournisseur</th></tr></thead>
     <tbody>{[...rows].reverse().map(r => <tr key={`${r.pollutant}-${r.time}`} className="border-t">
       <td className="p-2 whitespace-nowrap">{annual ? new Date(r.time).getUTCFullYear() : <>{airDate(r.time)}<br />→ {airDate(r.end!)}</>}</td>
       <td className="p-2">{GEODAIR_POLLUTANTS.find(p => p.id === r.pollutant)?.label}</td>
