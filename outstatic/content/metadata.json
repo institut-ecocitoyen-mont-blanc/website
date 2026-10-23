@@ -1,6 +1,6 @@
 {
-  "commit": "95b964794ea9018c54c9dc0d3dedfe5a320cb667",
-  "generated": "2026-10-23T13:49:56.221Z",
+  "commit": "9b95643ee95055b92601167816b06ce56b0baa15",
+  "generated": "2026-10-23T13:50:00.860Z",
   "metadata": [
     {
       "__outstatic": {
@@ -652,8 +652,8 @@
     },
     {
       "__outstatic": {
-        "commit": "95b964794ea9018c54c9dc0d3dedfe5a320cb667",
-        "hash": "2129336715",
+        "commit": "9b95643ee95055b92601167816b06ce56b0baa15",
+        "hash": "140672247",
         "path": "outstatic/content/evenements/journee-recherche.mdx"
       },
       "adresse": "54 route des Vorziers, 74700 Sallanches",
