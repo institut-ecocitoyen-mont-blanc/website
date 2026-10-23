@@ -36,7 +36,7 @@ Toute reproduction, représentation, modification, publication, adaptation ou ex
 
 Conformément au Règlement Général sur la Protection des Données (RGPD) et à la loi Informatique et Libertés, vous disposez d'un droit d'accès, de rectification, de suppression et d'opposition aux données personnelles vous concernant.
 
-Pour exercer ces droits ou pour toute question sur le traitement de vos données, vous pouvez écrire à l'adresse suivante : [contact@institut-pmb.fr](mailto:contact@institut-pmb.fr).
+Pour exercer ces droits ou pour toute question sur le traitement de vos données, vous pouvez écrire à l'adresse suivante : [contact@institut-ecocitoyen-pmb.fr](https://contact@institut-ecocitoyen-pmb.fr/).
 
 Pour plus d'informations sur la façon dont nous traitons vos données, veuillez consulter notre [Politique de confidentialité](https://institut-ecocitoyen-pmb.fr/politique-de-confidentialite).
 
@@ -58,7 +58,7 @@ Les présentes mentions légales sont soumises au droit français. En cas de lit
 
 ## 8. Contact
 
-[contact@institut-pmb.fr](mailto:contact@institut-pmb.fr)
+[contact@institut-ecocitoyen-pmb.fr](mailto:contact@institut-ecocitoyen-pmb.fr)
 
 648 rue des Prés Caton\
 74190 Passy\
