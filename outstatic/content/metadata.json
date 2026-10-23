@@ -1,6 +1,6 @@
 {
-  "commit": "5dacc5ff2f337a156ce1d30d42e33662ad526d76",
-  "generated": "2026-10-23T14:05:53.922Z",
+  "commit": "858476dfe5c072712a836ae2b78207e090b16fdb",
+  "generated": "2026-10-23T14:06:00.228Z",
   "metadata": [
     {
       "__outstatic": {
@@ -674,8 +674,8 @@
     },
     {
       "__outstatic": {
-        "commit": "5dacc5ff2f337a156ce1d30d42e33662ad526d76",
-        "hash": "2201703329",
+        "commit": "858476dfe5c072712a836ae2b78207e090b16fdb",
+        "hash": "1042910733",
         "path": "outstatic/content/actualites/formation-en-sante-environnementale.mdx"
       },
       "author": {
@@ -693,7 +693,7 @@
       "image": "/images/formation-sant--environnementale--6--MzMz.png",
       "publishedAt": "2026-10-23T13:57:50.384Z",
       "slug": "formation-en-sante-environnementale",
-      "status": "draft",
+      "status": "published",
       "title": "Formation en santé environnementale"
     }
   ]
