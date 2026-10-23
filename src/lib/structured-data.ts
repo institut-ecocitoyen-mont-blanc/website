@@ -15,7 +15,7 @@ export const organizationStructuredData = {
         "@type": "ImageObject",
         url: absoluteUrl("/logo.png"),
       },
-      email: "contact@institut-pmb.fr",
+      email: "contact@institut-ecocitoyen-pmb.fr",
       address: {
         "@type": "PostalAddress",
         streetAddress: "648 rue des Prés Caton",
