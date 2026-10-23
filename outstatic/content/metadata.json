@@ -1,6 +1,6 @@
 {
-  "commit": "40ffbf4b60492754493127a1b66ff04e7c542eed",
-  "generated": "2026-10-23T14:36:46.305Z",
+  "commit": "1177dbd5e96ede9d1ffa1a766c7f34ec9c3a04c5",
+  "generated": "2026-10-23T14:37:53.236Z",
   "metadata": [
     {
       "__outstatic": {
@@ -674,8 +674,8 @@
     },
     {
       "__outstatic": {
-        "commit": "40ffbf4b60492754493127a1b66ff04e7c542eed",
-        "hash": "1808550798",
+        "commit": "1177dbd5e96ede9d1ffa1a766c7f34ec9c3a04c5",
+        "hash": "889038568",
         "path": "outstatic/content/evenements/les-mardis-de-l-institut.mdx"
       },
       "adresse": "170 Av. Léman Mont-Blanc, 74190 Passy",
