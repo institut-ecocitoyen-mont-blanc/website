@@ -1,6 +1,6 @@
 {
-  "commit": "715a7d3837c1d3fd4deffd2daa7a6b636422c528",
-  "generated": "2026-10-23T14:26:10.792Z",
+  "commit": "3793d2d42a8344bbec6034f4c401477e3613090e",
+  "generated": "2026-10-23T14:26:25.202Z",
   "metadata": [
     {
       "__outstatic": {
@@ -698,8 +698,8 @@
     },
     {
       "__outstatic": {
-        "commit": "715a7d3837c1d3fd4deffd2daa7a6b636422c528",
-        "hash": "1102245186",
+        "commit": "3793d2d42a8344bbec6034f4c401477e3613090e",
+        "hash": "3772946712",
         "path": "outstatic/content/evenements/les-mardis-de-l-institut.mdx"
       },
       "adresse": "170 Av. Léman Mont-Blanc, 74190 Passy",
@@ -715,7 +715,7 @@
       "lieu": "Mountain Store à Passy",
       "publishedAt": "2026-10-23T14:25:23.805Z",
       "slug": "les-mardis-de-l-institut",
-      "status": "draft",
+      "status": "published",
       "title": "Les Mardis de l'Institut"
     }
   ]
