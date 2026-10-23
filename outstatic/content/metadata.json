@@ -1,6 +1,6 @@
 {
-  "commit": "b0030ba1eca26dc8d2720251738a6a552959c78e",
-  "generated": "2026-10-23T14:13:08.191Z",
+  "commit": "a89bb04addc71c1f8791360c9ce2e42e3ed6e5cd",
+  "generated": "2026-10-23T14:13:15.450Z",
   "metadata": [
     {
       "__outstatic": {
@@ -698,8 +698,8 @@
     },
     {
       "__outstatic": {
-        "commit": "b0030ba1eca26dc8d2720251738a6a552959c78e",
-        "hash": "833946924",
+        "commit": "a89bb04addc71c1f8791360c9ce2e42e3ed6e5cd",
+        "hash": "2536597477",
         "path": "outstatic/content/actualites/les-mardis-de-l-institut.mdx"
       },
       "author": {
@@ -717,7 +717,7 @@
       "image": "/images/affiche-les-mardis-de-l-institut-I5NT.png",
       "publishedAt": "2026-10-23T14:09:25.184Z",
       "slug": "les-mardis-de-l-institut",
-      "status": "draft",
+      "status": "published",
       "title": "Les Mardis de l'Institut"
     }
   ]
