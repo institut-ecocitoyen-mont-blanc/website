@@ -1,6 +1,6 @@
 {
-  "commit": "1177dbd5e96ede9d1ffa1a766c7f34ec9c3a04c5",
-  "generated": "2026-10-23T14:37:53.236Z",
+  "commit": "8575ebfa68458b9a2627c93eb05c44a417ff175e",
+  "generated": "2026-10-23T14:41:18.750Z",
   "metadata": [
     {
       "__outstatic": {
@@ -674,8 +674,8 @@
     },
     {
       "__outstatic": {
-        "commit": "1177dbd5e96ede9d1ffa1a766c7f34ec9c3a04c5",
-        "hash": "889038568",
+        "commit": "8575ebfa68458b9a2627c93eb05c44a417ff175e",
+        "hash": "3309887115",
         "path": "outstatic/content/evenements/les-mardis-de-l-institut.mdx"
       },
       "adresse": "170 Av. Léman Mont-Blanc, 74190 Passy",
@@ -689,7 +689,7 @@
       "description": "Les Mardis de l’Institut : un rendez-vous mensuel autour de la qualité de l’air",
       "image": "/images/affiche-les-mardis-de-l-institut--a4--paysage---E4OD.png",
       "lieu": "Mountain Store à Passy",
-      "publishedAt": "2026-10-23T14:25:23.805Z",
+      "publishedAt": "2026-11-03T17:30:00.000Z",
       "slug": "les-mardis-de-l-institut",
       "status": "published",
       "title": "Les Mardis de l'Institut"
