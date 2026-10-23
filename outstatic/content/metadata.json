@@ -1,6 +1,6 @@
 {
-  "commit": "73f21433277705b269fa27b16e2d74a20a4add79",
-  "generated": "2026-10-23T14:20:20.948Z",
+  "commit": "21195935faaed61603acc19a4934cef874eefece",
+  "generated": "2026-10-23T14:23:26.489Z",
   "metadata": [
     {
       "__outstatic": {
@@ -718,6 +718,26 @@
       "publishedAt": "2026-10-23T13:57:50.384Z",
       "slug": "formation-en-sante-environnementale",
       "status": "published",
+      "title": "Formation en santé environnementale"
+    },
+    {
+      "__outstatic": {
+        "commit": "21195935faaed61603acc19a4934cef874eefece",
+        "hash": "3025666393",
+        "path": "outstatic/content/evenements/formation-en-sante-environnementale.mdx"
+      },
+      "author": {
+        "name": "Sarahd",
+        "picture": "https://avatars.githubusercontent.com/u/310082419?v=4"
+      },
+      "categories": [
+      ],
+      "collection": "evenements",
+      "description": "aaa",
+      "image": "/images/formation-sant--environnementale--a4--paysage----1--kyND.png",
+      "publishedAt": "2026-10-23T14:22:58.927Z",
+      "slug": "formation-en-sante-environnementale",
+      "status": "draft",
       "title": "Formation en santé environnementale"
     }
   ]
