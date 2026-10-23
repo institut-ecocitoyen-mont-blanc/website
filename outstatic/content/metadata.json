@@ -1,6 +1,6 @@
 {
-  "commit": "a89bb04addc71c1f8791360c9ce2e42e3ed6e5cd",
-  "generated": "2026-10-23T14:13:15.450Z",
+  "commit": "c4626620e0c50f9c3412c0aafe0702e8df2a26d1",
+  "generated": "2026-10-23T14:14:00.892Z",
   "metadata": [
     {
       "__outstatic": {
@@ -674,30 +674,6 @@
     },
     {
       "__outstatic": {
-        "commit": "858476dfe5c072712a836ae2b78207e090b16fdb",
-        "hash": "1042910733",
-        "path": "outstatic/content/actualites/formation-en-sante-environnementale.mdx"
-      },
-      "author": {
-        "name": "Sarahd",
-        "picture": "https://avatars.githubusercontent.com/u/310082419?v=4"
-      },
-      "categories": [
-        {
-          "label": "Santé",
-          "value": "Santé"
-        }
-      ],
-      "collection": "actualites",
-      "description": "Une formation en santé environnementale à destination des professionnels de santé",
-      "image": "/images/formation-sant--environnementale--6--MzMz.png",
-      "publishedAt": "2026-10-23T13:57:50.384Z",
-      "slug": "formation-en-sante-environnementale",
-      "status": "published",
-      "title": "Formation en santé environnementale"
-    },
-    {
-      "__outstatic": {
         "commit": "a89bb04addc71c1f8791360c9ce2e42e3ed6e5cd",
         "hash": "2536597477",
         "path": "outstatic/content/actualites/les-mardis-de-l-institut.mdx"
@@ -719,6 +695,30 @@
       "slug": "les-mardis-de-l-institut",
       "status": "published",
       "title": "Les Mardis de l'Institut"
+    },
+    {
+      "__outstatic": {
+        "commit": "c4626620e0c50f9c3412c0aafe0702e8df2a26d1",
+        "hash": "3582454759",
+        "path": "outstatic/content/actualites/formation-en-sante-environnementale.mdx"
+      },
+      "author": {
+        "name": "Sarahd",
+        "picture": "https://avatars.githubusercontent.com/u/310082419?v=4"
+      },
+      "categories": [
+        {
+          "label": "Santé",
+          "value": "Santé"
+        }
+      ],
+      "collection": "actualites",
+      "description": "Une formation à destination des professionnels de santé",
+      "image": "/images/formation-sant--environnementale--6--MzMz.png",
+      "publishedAt": "2026-10-23T13:57:50.384Z",
+      "slug": "formation-en-sante-environnementale",
+      "status": "published",
+      "title": "Formation en santé environnementale"
     }
   ]
 }
