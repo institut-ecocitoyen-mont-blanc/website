@@ -1,6 +1,6 @@
 {
-  "commit": "858476dfe5c072712a836ae2b78207e090b16fdb",
-  "generated": "2026-10-23T14:06:00.228Z",
+  "commit": "b0030ba1eca26dc8d2720251738a6a552959c78e",
+  "generated": "2026-10-23T14:13:08.191Z",
   "metadata": [
     {
       "__outstatic": {
@@ -695,6 +695,30 @@
       "slug": "formation-en-sante-environnementale",
       "status": "published",
       "title": "Formation en santé environnementale"
+    },
+    {
+      "__outstatic": {
+        "commit": "b0030ba1eca26dc8d2720251738a6a552959c78e",
+        "hash": "833946924",
+        "path": "outstatic/content/actualites/les-mardis-de-l-institut.mdx"
+      },
+      "author": {
+        "name": "Sarahd",
+        "picture": "https://avatars.githubusercontent.com/u/310082419?v=4"
+      },
+      "categories": [
+        {
+          "label": "Air",
+          "value": "Air"
+        }
+      ],
+      "collection": "actualites",
+      "description": "Les Mardis de l’Institut : un rendez-vous mensuel autour de la qualité de l’air",
+      "image": "/images/affiche-les-mardis-de-l-institut-I5NT.png",
+      "publishedAt": "2026-10-23T14:09:25.184Z",
+      "slug": "les-mardis-de-l-institut",
+      "status": "draft",
+      "title": "Les Mardis de l'Institut"
     }
   ]
 }
