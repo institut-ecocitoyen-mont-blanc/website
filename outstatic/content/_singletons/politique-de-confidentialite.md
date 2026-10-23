@@ -58,7 +58,7 @@ Conformément au RGPD, vous disposez des droits suivants concernant vos données
 
 Pour exercer ces droits, veuillez nous contacter à l'adresse :
 
-[contact@institut-pmb.fr](mailto:contact@institut-pmb.fr)
+[contact@institut-ecocitoyen-pmb.fr](mailto:contact@institut-ecocitoyen-pmb.fr)
 
 ## **Cookies**
 
@@ -72,4 +72,4 @@ Nous nous réservons le droit de modifier cette politique de confidentialité à
 
 ## **Contact**
 
-Si vous avez des questions concernant cette politique de confidentialité, vous pouvez nous contacter à l'adresse suivante : [contact@institut-pmb.fr](mailto:contact@institut-pmb.fr)
+Si vous avez des questions concernant cette politique de confidentialité, vous pouvez nous contacter à l'adresse suivante : [contact@institut-ecocitoyen-pmb.fr](mailto:contact@institut-ecocitoyen-pmb.fr)

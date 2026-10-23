@@ -1,6 +1,6 @@
 {
-  "commit": "ee0744081779ba768f67f314982017f3828a93ee",
-  "generated": "2026-10-23T13:49:03.143Z",
+  "commit": "8c6a424d211ac727dea8e1d352e68e00b31c31cf",
+  "generated": "2026-10-23T13:49:28.183Z",
   "metadata": [
     {
       "__outstatic": {
@@ -291,22 +291,6 @@
       "slug": "leur-connaissance-du-terrain-est-excellente-dans-la-vallee-de-l-arve-ces-habitants-aident-la-recherche-face-aux-pollutions",
       "status": "published",
       "title": "«Leur connaissance du terrain est excellente» : dans la vallée de l’Arve, ces habitants aident la recherche face aux pollutions"
-    },
-    {
-      "__outstatic": {
-        "commit": "4584ec5d626f9bbc9a36e56428fc54cfe8a2972e",
-        "hash": "2292344226",
-        "path": "outstatic/content/_singletons/politique-de-confidentialite.md"
-      },
-      "author": {
-        "name": "Mathieu Dutour",
-        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
-      },
-      "collection": "_singletons",
-      "publishedAt": "2026-01-29T09:14:31.566Z",
-      "slug": "politique-de-confidentialite",
-      "status": "published",
-      "title": "Politique de Confidentialité"
     },
     {
       "__outstatic": {
@@ -671,6 +655,22 @@
       "slug": "mentions-legales",
       "status": "published",
       "title": "Mentions Légales"
+    },
+    {
+      "__outstatic": {
+        "commit": "8c6a424d211ac727dea8e1d352e68e00b31c31cf",
+        "hash": "1027104147",
+        "path": "outstatic/content/_singletons/politique-de-confidentialite.md"
+      },
+      "author": {
+        "name": "Mathieu Dutour",
+        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
+      },
+      "collection": "_singletons",
+      "publishedAt": "2026-01-29T09:14:31.566Z",
+      "slug": "politique-de-confidentialite",
+      "status": "published",
+      "title": "Politique de Confidentialité"
     }
   ]
 }
