@@ -1,6 +1,6 @@
 {
-  "commit": "21195935faaed61603acc19a4934cef874eefece",
-  "generated": "2026-10-23T14:23:26.489Z",
+  "commit": "a5d32d0add0d8d326c80b4cd3096b59849dcb6a3",
+  "generated": "2026-10-23T14:24:34.419Z",
   "metadata": [
     {
       "__outstatic": {
@@ -722,19 +722,25 @@
     },
     {
       "__outstatic": {
-        "commit": "21195935faaed61603acc19a4934cef874eefece",
-        "hash": "3025666393",
+        "commit": "a5d32d0add0d8d326c80b4cd3096b59849dcb6a3",
+        "hash": "531280273",
         "path": "outstatic/content/evenements/formation-en-sante-environnementale.mdx"
       },
+      "adresse": "170 Av. Léman Mont-Blanc, 74190 Passy",
       "author": {
         "name": "Sarahd",
         "picture": "https://avatars.githubusercontent.com/u/310082419?v=4"
       },
       "categories": [
+        {
+          "label": "Santé",
+          "value": "santé"
+        }
       ],
       "collection": "evenements",
-      "description": "aaa",
+      "description": "Une formation à destination des professionnels de santé",
       "image": "/images/formation-sant--environnementale--a4--paysage----1--kyND.png",
+      "lieu": "Mountain Store à Passy",
       "publishedAt": "2026-10-23T14:22:58.927Z",
       "slug": "formation-en-sante-environnementale",
       "status": "draft",
