@@ -27,7 +27,8 @@ function GroundwaterDetails({ station }: { station: GroundwaterStation }) {
     if (!analysis.name.toLocaleLowerCase("fr").includes(search.toLocaleLowerCase("fr"))) continue;
     // Keep fractions/units distinct; never turn heterogeneous values into a trend.
     const key = JSON.stringify([analysis.parameter, analysis.fraction, analysis.unit]);
-    groups.set(key, [...(groups.get(key) ?? []), analysis]);
+    const values = groups.get(key);
+    if (values) values.push(analysis); else groups.set(key, [analysis]);
   }
   return <>
     <DetailHeadline title={results ? `${results.analyses.length} résultats disponibles dans la fiche` : "Analyses des eaux souterraines"} subtitle="Résultats publiés · aucun score sanitaire calculé" date={results?.analyses[0] ? date(results.analyses[0].date) : undefined} count={results ? { value: results.analyses.length, total: results.total } : undefined} />
@@ -42,7 +43,7 @@ function GroundwaterDetails({ station }: { station: GroundwaterStation }) {
         {results.more && <p className="mb-4 text-xs text-slate-500">Fenêtre limitée aux {GROUNDWATER_RESULT_LIMIT} derniers résultats : elle peut ne pas couvrir tous les paramètres d’un prélèvement ni tout l’historique. Le lien source donne accès au catalogue complet et à sa pagination.</p>}
         <label className="mb-4 block text-sm text-slate-600">Rechercher un paramètre parmi les résultats affichés<input type="search" className="mt-2 block w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-900" value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Nitrates, arsenic, pesticides…" /></label>
         {!groups.size && <p className="text-sm text-slate-500">Aucun paramètre correspondant dans les résultats chargés.</p>}
-        <DetailTable caption="Résultats publiés · fractions et unités conservées" headers={["Paramètre · fraction", "Prélèvement (Paris)", "Résultat", "Remarque", "Qualification · statut"]} rows={[...groups.values()].flat().map(a => [`${a.name} · ${a.fraction || "Fraction non renseignée"}`, new Date(a.date).toLocaleString("fr-FR", { timeZone: "Europe/Paris" }), `${groundwaterResultLabel(a)} ${groundwaterResultUnit(a)}`, a.remark || "Non renseignée", `${a.qualification || "Non renseignée"} · ${a.status || "Non renseigné"}`])} />
+        <DetailTable key={search} caption="Résultats publiés · fractions et unités conservées" headers={["Paramètre · fraction", "Prélèvement (Paris)", "Résultat", "Remarque", "Qualification · statut"]} records={[...groups.values()].flat()} renderRow={a => [`${a.name} · ${a.fraction || "Fraction non renseignée"}`, new Date(a.date).toLocaleString("fr-FR", { timeZone: "Europe/Paris" }), `${groundwaterResultLabel(a)} ${groundwaterResultUnit(a)}`, a.remark || "Non renseignée", `${a.qualification || "Non renseignée"} · ${a.status || "Non renseigné"}`]} />
       </>}
     </DetailSection>
     </DetailData>

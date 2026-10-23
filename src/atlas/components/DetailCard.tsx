@@ -1,4 +1,5 @@
-import type { ReactNode } from "react";
+"use client";
+import { useState, type ReactNode } from "react";
 import styles from "./AtlasDetails.module.css";
 
 export function DetailHeadline({ title, subtitle, date, color = "#e2e8f0", count }: { title: ReactNode; subtitle: ReactNode; date?: ReactNode; color?: string; count?: { value: number; total: number } }) {
@@ -18,8 +19,12 @@ export function DetailLimits({ children, sources }: { children: ReactNode; sourc
   return <footer className={styles.limits}><h3>Limites et sources</h3><div>{children}</div>{sources && <div className={styles.sourceLinks}>{sources}</div>}</footer>;
 }
 
-export function DetailTable({ headers, rows, caption }: { headers: string[]; rows: ReactNode[][]; caption: string }) {
-  return <div className={styles.tableScroll}><table className={styles.dataTable}><caption>{caption}</caption><thead><tr>{headers.map(h => <th key={h} scope="col">{h}</th>)}</tr></thead><tbody>{rows.map((row, i) => <tr key={i}>{row.map((cell, j) => j === 0 ? <th scope="row" key={j}>{cell ?? "Non renseigné"}</th> : <td key={j}>{cell ?? "Non renseigné"}</td>)}</tr>)}</tbody></table></div>;
+export function DetailTable<T = ReactNode[]>({ headers, rows, records, renderRow, caption }: { headers: string[]; caption: string } & ({ rows: ReactNode[][]; records?: never; renderRow?: never } | { rows?: never; records: T[]; renderRow: (record: T) => ReactNode[] })) {
+  const [page, setPage] = useState(0);
+  const count = rows ? rows.length : records.length;
+  const pages = Math.max(1, Math.ceil(count / 50)), current = Math.min(page, pages - 1);
+  const visible = rows ? rows.slice(current * 50, (current + 1) * 50) : records.slice(current * 50, (current + 1) * 50).map(renderRow);
+  return <><div className={styles.tableScroll}><table className={styles.dataTable}><caption>{caption}</caption><thead><tr>{headers.map(h => <th key={h} scope="col">{h}</th>)}</tr></thead><tbody>{visible.map((row, i) => <tr key={current * 50 + i}>{row.map((cell, j) => j === 0 ? <th scope="row" key={j}>{cell ?? "Non renseigné"}</th> : <td key={j}>{cell ?? "Non renseigné"}</td>)}</tr>)}</tbody></table></div>{pages > 1 && <nav aria-label="Pagination des résultats" className="flex items-center justify-between gap-3 py-3 text-sm"><button disabled={current === 0} className="text-blue-iec disabled:opacity-40" onClick={() => setPage(current - 1)}>Précédent</button><span>Page {current + 1} / {pages} · {count.toLocaleString("fr-FR")} résultats</span><button disabled={current + 1 >= pages} className="text-blue-iec disabled:opacity-40" onClick={() => setPage(current + 1)}>Suivant</button></nav>}</>;
 }
 
 export function DetailStats({ items }: { items: { label: string; value: ReactNode; unit?: string; note?: ReactNode }[] }) {

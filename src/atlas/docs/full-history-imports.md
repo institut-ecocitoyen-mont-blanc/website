@@ -1,0 +1,13 @@
+# Complete atlas histories
+
+Implementation checked 23 October 2026. Operational collectors live in `institut-ecocitoyen-mont-blanc/iec-atlas-data`; this website is the consumer, not the scheduled importer.
+
+Water previews no longer define data retention. The data repository collects complete station/network histories with identity checks, provider totals, recursive date partitioning and complete page traversal. Its snapshot envelope retains a small legacy `data` preview and adds `archive` with `version: 1`, `complete: true`, `field`, `count` and ordered `{path, hash, count}` gzip fragments. `field: "$"` replaces the whole array; `analyses`/`records` replace the named field. Immutable fragment paths contain the compressed-byte SHA-256. `loadPublishedData` validates and expands all fragments on demand. Missing/corrupt fragments fail the detail load instead of presenting a preview as complete. Existing unarchived snapshots remain readable during rollout.
+
+Tables display 50 results per page, and format only the visible rows; this is a presentation limit, not a collection limit. Parameter search covers the entire loaded history. Source dates, null values, detection/quantification bounds and validation remain unchanged. Raw ADES fields are retained in each normalized observation's `source` field.
+
+Other historical collections are independent exports: regional hourly/daily air, monthly Geod’air since 2013, annual industrial emissions since the first listed archive, model editions and original legends, all available bathing seasons, all road-count years and all published AERMC assessment rows. The main map's current summaries remain compact. `history-catalogue.json` records discovery failures, pending partitions, successful partitions and missing credentials. The backfill resumes in bounded batches through the existing GitHub workflow; deployment of the code does not by itself establish that every historical partition has finished.
+
+The ten communes remain the geographic scope. Drinking-water history includes former networks without treating them as today's serving networks. Current-only sources (inventory/Géorisques) have immutable revisions from collection onward; unavailable past versions cannot be reconstructed. Provider-rendered model images are not numerical concentration grids. Metadata and licenses remain dataset-specific.
+
+Live regression examples: river station `06580009` returned 2,124 results; groundwater `BSS001SGSB` returned 23,096, including TFA on 21 May 2026. All three bathing sites expose seasons 2022–2026 (25 samples per site). These are point-in-time verification results, not hard-coded expected production counts.

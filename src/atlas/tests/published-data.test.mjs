@@ -1,6 +1,8 @@
 import { test, afterEach } from "node:test";
 import assert from "node:assert/strict";
-import { clearManifestCache, datasetNeedsAttention, loadPublishedData, parseSnapshot } from "../lib/published-data.ts";
+import { clearManifestCache, datasetNeedsAttention, loadPublishedData, parseSnapshot, expandSnapshot } from "../lib/published-data.ts";
+import { gzipSync } from "node:zlib";
+import { createHash } from "node:crypto";
 const original = globalThis.fetch;
 afterEach(() => { globalThis.fetch = original; clearManifestCache(); });
 const entry = { path: "data/rivers.json", hash: "abc", source: "provider", intervalHours: 24, lastAttemptAt: "2026-09-24T10:00:00Z", lastSuccessAt: "2026-09-23T10:00:00Z", status: "error" };
@@ -50,4 +52,18 @@ test("manifest requests are shared, and a failed request can be retried", async 
   await assert.rejects(loadPublishedData("rivers"));
   await Promise.all([loadPublishedData("rivers"), loadPublishedData("rivers")]);
   assert.equal(count, 2);
+});
+
+test("loads the complete compressed archive rather than the backwards-compatible preview", async () => {
+  const records = Array.from({length: 1001}, (_, i) => ({parameter: String(i), value: i === 0 ? null : i}));
+  const bodies = records.reduce((chunks, row, i) => { (chunks[Math.floor(i/500)] ??= []).push(row); return chunks; }, []).map(rows => gzipSync(JSON.stringify(rows)));
+  const parts = bodies.map((bytes, i) => { const hash = createHash('sha256').update(bytes).digest('hex'); return {path:`history/groundwater-test/${hash}.json.gz`,hash,count:Math.min(500, records.length - i*500)}; });
+  globalThis.fetch = async url => new Response(bodies[parts.findIndex(p => url.endsWith(p.path))]);
+  const snapshot = {schemaVersion:1,key:'groundwater-test',data:{analyses:records.slice(0,100),total:records.length,more:true},archive:{version:1,complete:true,field:'analyses',count:records.length,parts}};
+  const data = await expandSnapshot(snapshot, 'groundwater-test');
+  assert.deepEqual(data.analyses, records); assert.equal(data.more, false); assert.equal(data.total, 1001);
+  await assert.rejects(expandSnapshot({...snapshot,archive:{...snapshot.archive,count:1002}},'groundwater-test'), /incomplet/);
+  await assert.rejects(expandSnapshot({...snapshot,archive:{...snapshot.archive,parts:[{...parts[0],path:'https://other.invalid'}]}},'groundwater-test'), /invalide/);
+  globalThis.fetch = async () => new Response(gzipSync('[]'));
+  await assert.rejects(expandSnapshot(snapshot,'groundwater-test'), /corrompu/);
 });

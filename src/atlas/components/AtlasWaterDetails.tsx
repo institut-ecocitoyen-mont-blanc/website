@@ -24,6 +24,7 @@ export default function AtlasWaterDetails({ kind, point, quality, sample, networ
   const [data, setData] = useState<Row[] | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [attempt, setAttempt] = useState(0);
+  const [search, setSearch] = useState("");
   const url = kind === "drinking" && !network ? null : analysisUrl(kind, network?.id ?? point.id);
   useEffect(() => {
     const controller = new AbortController();
@@ -39,7 +40,8 @@ export default function AtlasWaterDetails({ kind, point, quality, sample, networ
   const groups = new Map<string, Row[]>();
   for (const row of data ?? []) {
     const key = asText(row.code_parametre) || asText(row.libelle_parametre) || "Paramètre non renseigné";
-    groups.set(key, [...(groups.get(key) ?? []), row]);
+    const values = groups.get(key);
+    if (values) values.push(row); else groups.set(key, [row]);
   }
   const latestRows = [...groups.values()].map(values => values[0]);
   return <>
@@ -53,11 +55,12 @@ export default function AtlasWaterDetails({ kind, point, quality, sample, networ
     ] : [{ label: "Réseau de distribution", value: network?.id }, { label: "Prélèvement", value: sample ? asText(sample.code_prelevement) : "Non renseigné" }]} />
     <DetailData hint={`${data?.length ?? 0} résultats · unités et qualifications`}>
       {sample && <DetailSection title="Conclusion du prélèvement"><p className="text-sm">{asText(sample.conclusion_conformite_prelevement)}</p><p className="text-xs text-slate-500">{networkNames(sample)}</p></DetailSection>}
-      <DetailTable caption="Analyses disponibles · 10 derniers résultats au maximum" headers={kind === "rivers" ? ["Paramètre", "Date", "Résultat", "Remarque publiée"] : ["Paramètre", "Date", "Résultat", "Limite · référence", "Réseau · conclusion"]} rows={(data ?? []).map(row => [
+      <label className="mb-4 block text-sm">Rechercher un paramètre<input type="search" value={search} onChange={e => setSearch(e.target.value)} placeholder="PFAS, nitrates, arsenic…" className="mt-2 block w-full rounded-lg border border-slate-300 px-3 py-2" /></label>
+      <DetailTable key={`${point.id}:${network?.id}:${search}`} caption="Historique des analyses importées · dates et qualifications conservées" headers={kind === "rivers" ? ["Paramètre", "Date", "Résultat", "Remarque publiée"] : ["Paramètre", "Date", "Résultat", "Limite · référence", "Réseau · conclusion"]} records={(data ?? []).filter(row => `${asText(row.libelle_parametre)} ${asText(row.code_parametre)}`.toLocaleLowerCase("fr").includes(search.toLocaleLowerCase("fr")))} renderRow={row => [
         asText(row.libelle_parametre) || asText(row.code_parametre), dateLabel(row.date_prelevement), `${resultValue(row)} ${resultUnit(row)}`,
         ...(kind === "rivers" ? [asText(row.mnemo_remarque)] : [[asText(row.limite_qualite_parametre), asText(row.reference_qualite_parametre)].filter(Boolean).join(" · ") || "Non renseignées", `${networkNames(row)} · ${asText(row.conclusion_conformite_prelevement)}`]),
-      ])} />
-      <DetailSection title="Lire cette donnée"><p className="text-sm">{kind === "rivers" ? "L’état chimique est distinct de l’état ou du potentiel écologique qui colore le repère. Aucune classe par paramètre ni bilan sur 24 mois n’est déduit de cet extrait limité aux dix derniers résultats." : `Résultats du réseau ${network?.name} uniquement. Les limites et références sont reproduites dans leurs unités et formulations publiées.`}</p></DetailSection>
+      ]} />
+      <DetailSection title="Lire cette donnée"><p className="text-sm">{kind === "rivers" ? "L’état chimique est distinct de l’état ou du potentiel écologique qui colore le repère. Aucune classe par paramètre ni bilan sur 24 mois n’est déduit automatiquement de ces analyses." : `Résultats du réseau ${network?.name} uniquement. Les limites et références sont reproduites dans leurs unités et formulations publiées.`}</p></DetailSection>
     </DetailData>
     <DetailLimits sources={<>{kind === "rivers" && <a href={riverAssessmentUrl(point.id)} target="_blank" rel="noreferrer">Évaluation et méthode · Agence de l’eau<ExternalLink size={12} className="inline ml-1" /></a>}{url && <a href={url} target="_blank" rel="noreferrer">Données sources · Hub’Eau</a>}</>}>
       {networkContext}
