@@ -1,6 +1,6 @@
 {
-  "commit": "37cc80ab8c53dbaf8cf2f5a1bf17f21bc79730b9",
-  "generated": "2026-10-23T14:12:19.181Z",
+  "commit": "dca71dd8926410ccdb8672e33ff4b05f7aa38eb2",
+  "generated": "2026-10-23T14:20:09.020Z",
   "media": [
     {
       "__outstatic": {
@@ -210,6 +210,18 @@
       "alt": "",
       "filename": "formation-sant--environnementale--6--MzMz.png",
       "publishedAt": "2026-10-23T14:05:15.019Z",
+      "source": "images",
+      "type": "image"
+    },
+    {
+      "__outstatic": {
+        "commit": "dca71dd8926410ccdb8672e33ff4b05f7aa38eb2",
+        "hash": "2183637082",
+        "path": "public/images/formation-sant--environnementale--a4--paysage----1--kyND.png"
+      },
+      "alt": "",
+      "filename": "formation-sant--environnementale--a4--paysage----1--kyND.png",
+      "publishedAt": "2026-10-23T14:20:09.020Z",
       "source": "images",
       "type": "image"
     },
