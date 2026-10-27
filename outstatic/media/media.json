@@ -1,6 +1,6 @@
 {
-  "commit": "4f98502286f75206cb99bc395667cc0ee5852fce",
-  "generated": "2026-10-27T08:30:49.824Z",
+  "commit": "cabfd64e10b5cbe501bcb8c28c3629ea50518e90",
+  "generated": "2026-10-27T08:52:23.950Z",
   "media": [
     {
       "__outstatic": {
@@ -222,6 +222,18 @@
       "alt": "",
       "filename": "formation-sant--environnementale---site-internet-E3MD.png",
       "publishedAt": "2026-10-27T08:30:49.824Z",
+      "source": "images",
+      "type": "image"
+    },
+    {
+      "__outstatic": {
+        "commit": "cabfd64e10b5cbe501bcb8c28c3629ea50518e90",
+        "hash": "3050192866",
+        "path": "public/images/formation-sant--environnementale---site-internet-kyOT.png"
+      },
+      "alt": "",
+      "filename": "formation-sant--environnementale---site-internet-kyOT.png",
+      "publishedAt": "2026-10-27T08:52:23.950Z",
       "source": "images",
       "type": "image"
     },
