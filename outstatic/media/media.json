@@ -1,6 +1,6 @@
 {
-  "commit": "f67297f0265ac7d85d7940b6745e638f92a1b0ad",
-  "generated": "2026-10-27T08:25:08.454Z",
+  "commit": "8cf4fa5589e2bcc03ce5fb35a8a3fa3823d86730",
+  "generated": "2026-10-27T08:25:12.973Z",
   "media": [
     {
       "__outstatic": {
@@ -201,18 +201,6 @@
       "alt": "",
       "filename": "conf-pierre---site-internet-Q1Nj.png",
       "publishedAt": "2026-10-27T08:25:08.454Z",
-      "source": "images",
-      "type": "image"
-    },
-    {
-      "__outstatic": {
-        "commit": "5a369f9f06b1c0099612b23a37638b2dc01deefd",
-        "hash": "3839828045",
-        "path": "public/images/conf-rence-pierre-cou-toux---linkedin-QyNz.png"
-      },
-      "alt": "",
-      "filename": "conf-rence-pierre-cou-toux---linkedin-QyNz.png",
-      "publishedAt": "2026-10-27T07:52:37.135Z",
       "source": "images",
       "type": "image"
     },
