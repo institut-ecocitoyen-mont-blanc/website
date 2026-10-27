@@ -1,6 +1,6 @@
 {
-  "commit": "54308784bfef2b3881f00555609fde8b57989d4b",
-  "generated": "2026-10-27T07:47:24.110Z",
+  "commit": "64eb7aa7c5337309b5230996883994e047e5d34b",
+  "generated": "2026-10-27T07:55:14.995Z",
   "metadata": [
     {
       "__outstatic": {
@@ -719,6 +719,32 @@
       "slug": "les-mardis-de-l-institut",
       "status": "published",
       "title": "Les Mardis de l'Institut"
+    },
+    {
+      "__outstatic": {
+        "commit": "64eb7aa7c5337309b5230996883994e047e5d34b",
+        "hash": "162697040",
+        "path": "outstatic/content/evenements/conference-qualite-de-l-air-en-altitude.mdx"
+      },
+      "adresse": "170 Av. Léman Mont-Blanc, 74190 Passy",
+      "author": {
+        "name": "Sarahd",
+        "picture": "https://avatars.githubusercontent.com/u/310082419?v=4"
+      },
+      "categories": [
+        {
+          "label": "Air",
+          "value": "air"
+        }
+      ],
+      "collection": "evenements",
+      "description": "Première conférence des Mardis de l'Institut",
+      "image": "/images/conf-rence-pierre-cou-toux---linkedin-QyNz.png",
+      "lieu": "Mountain Store à Passy",
+      "publishedAt": "2026-11-03T17:45:00.000Z",
+      "slug": "conference-qualite-de-l-air-en-altitude",
+      "status": "published",
+      "title": "Conférence  : Qualité de l'air en altitude"
     }
   ]
 }
