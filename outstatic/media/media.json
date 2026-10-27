@@ -1,6 +1,6 @@
 {
-  "commit": "079bed6ac936113447058826dda1223c64ad4635",
-  "generated": "2026-10-27T09:01:46.578Z",
+  "commit": "45be78a011d3c8fb53e37c1d2db4517d20fd28a6",
+  "generated": "2026-10-27T09:17:19.722Z",
   "media": [
     {
       "__outstatic": {
@@ -211,18 +211,6 @@
       "alt": "",
       "filename": "epidemiologie-Y3Mz.png",
       "publishedAt": "2025-03-28T15:08:17.472Z",
-      "type": "image"
-    },
-    {
-      "__outstatic": {
-        "commit": "079bed6ac936113447058826dda1223c64ad4635",
-        "hash": "3853476219",
-        "path": "public/images/formation-sant--environnementale---site-internet-QzOT.png"
-      },
-      "alt": "",
-      "filename": "formation-sant--environnementale---site-internet-QzOT.png",
-      "publishedAt": "2026-10-27T09:01:46.577Z",
-      "source": "images",
       "type": "image"
     },
     {
