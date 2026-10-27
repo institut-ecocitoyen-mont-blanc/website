@@ -1,6 +1,6 @@
 {
-  "commit": "64eb7aa7c5337309b5230996883994e047e5d34b",
-  "generated": "2026-10-27T07:55:14.995Z",
+  "commit": "6d27de5b7cd0ef877d2b060e04c1911e9ac9bea8",
+  "generated": "2026-10-27T08:17:40.744Z",
   "metadata": [
     {
       "__outstatic": {
@@ -700,28 +700,6 @@
     },
     {
       "__outstatic": {
-        "commit": "54308784bfef2b3881f00555609fde8b57989d4b",
-        "hash": "1849105250",
-        "path": "outstatic/content/evenements/les-mardis-de-l-institut.mdx"
-      },
-      "adresse": "170 Av. Léman Mont-Blanc, 74190 Passy",
-      "author": {
-        "name": "Sarahd",
-        "picture": "https://avatars.githubusercontent.com/u/310082419?v=4"
-      },
-      "categories": [
-      ],
-      "collection": "evenements",
-      "description": "Les Mardis de l’Institut : un rendez-vous mensuel autour de la qualité de l’air",
-      "image": "/images/affiche-les-mardis-de-l-institut--a4--paysage---E4OD.png",
-      "lieu": "Mountain Store à Passy",
-      "publishedAt": "2026-11-02T23:00:00.000Z",
-      "slug": "les-mardis-de-l-institut",
-      "status": "published",
-      "title": "Les Mardis de l'Institut"
-    },
-    {
-      "__outstatic": {
         "commit": "64eb7aa7c5337309b5230996883994e047e5d34b",
         "hash": "162697040",
         "path": "outstatic/content/evenements/conference-qualite-de-l-air-en-altitude.mdx"
@@ -745,6 +723,28 @@
       "slug": "conference-qualite-de-l-air-en-altitude",
       "status": "published",
       "title": "Conférence  : Qualité de l'air en altitude"
+    },
+    {
+      "__outstatic": {
+        "commit": "6d27de5b7cd0ef877d2b060e04c1911e9ac9bea8",
+        "hash": "2821308039",
+        "path": "outstatic/content/evenements/les-mardis-de-l-institut.mdx"
+      },
+      "adresse": "170 Av. Léman Mont-Blanc, 74190 Passy",
+      "author": {
+        "name": "Sarahd",
+        "picture": "https://avatars.githubusercontent.com/u/310082419?v=4"
+      },
+      "categories": [
+      ],
+      "collection": "evenements",
+      "description": "Les Mardis de l’Institut : un rendez-vous mensuel autour de la qualité de l’air",
+      "image": "/images/affiche-les-mardis-de-l-institut--a4--paysage----1--MxMj.png",
+      "lieu": "Mountain Store à Passy",
+      "publishedAt": "2026-11-02T23:00:00.000Z",
+      "slug": "les-mardis-de-l-institut",
+      "status": "published",
+      "title": "Les Mardis de l'Institut"
     }
   ]
 }
