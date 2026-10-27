@@ -1,6 +1,6 @@
 {
-  "commit": "dab5d0a596572797ad311e028ab09221229f7264",
-  "generated": "2026-10-27T08:17:28.380Z",
+  "commit": "f67297f0265ac7d85d7940b6745e638f92a1b0ad",
+  "generated": "2026-10-27T08:25:08.454Z",
   "media": [
     {
       "__outstatic": {
@@ -190,6 +190,18 @@
       "alt": "",
       "filename": "cnm-gxOD.png",
       "publishedAt": "2026-03-25T10:18:38.790Z",
+      "type": "image"
+    },
+    {
+      "__outstatic": {
+        "commit": "f67297f0265ac7d85d7940b6745e638f92a1b0ad",
+        "hash": "994746173",
+        "path": "public/images/conf-pierre---site-internet-Q1Nj.png"
+      },
+      "alt": "",
+      "filename": "conf-pierre---site-internet-Q1Nj.png",
+      "publishedAt": "2026-10-27T08:25:08.454Z",
+      "source": "images",
       "type": "image"
     },
     {
