@@ -1,6 +1,6 @@
 {
-  "commit": "5f90299151f631a84061914d1df304914914a58d",
-  "generated": "2026-10-23T14:36:32.270Z",
+  "commit": "5a369f9f06b1c0099612b23a37638b2dc01deefd",
+  "generated": "2026-10-27T07:52:37.135Z",
   "media": [
     {
       "__outstatic": {
@@ -178,6 +178,18 @@
       "alt": "",
       "filename": "cnm-gxOD.png",
       "publishedAt": "2026-03-25T10:18:38.790Z",
+      "type": "image"
+    },
+    {
+      "__outstatic": {
+        "commit": "5a369f9f06b1c0099612b23a37638b2dc01deefd",
+        "hash": "3839828045",
+        "path": "public/images/conf-rence-pierre-cou-toux---linkedin-QyNz.png"
+      },
+      "alt": "",
+      "filename": "conf-rence-pierre-cou-toux---linkedin-QyNz.png",
+      "publishedAt": "2026-10-27T07:52:37.135Z",
+      "source": "images",
       "type": "image"
     },
     {
