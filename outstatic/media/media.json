@@ -1,6 +1,6 @@
 {
-  "commit": "5a369f9f06b1c0099612b23a37638b2dc01deefd",
-  "generated": "2026-10-27T07:52:37.135Z",
+  "commit": "dab5d0a596572797ad311e028ab09221229f7264",
+  "generated": "2026-10-27T08:17:28.380Z",
   "media": [
     {
       "__outstatic": {
@@ -44,6 +44,18 @@
       "alt": "",
       "filename": "affiche-conf-rence-18-juin--2--M3Mz.png",
       "publishedAt": "2025-06-03T10:52:02.899Z",
+      "type": "image"
+    },
+    {
+      "__outstatic": {
+        "commit": "dab5d0a596572797ad311e028ab09221229f7264",
+        "hash": "4191935021",
+        "path": "public/images/affiche-les-mardis-de-l-institut--a4--paysage----1--MxMj.png"
+      },
+      "alt": "",
+      "filename": "affiche-les-mardis-de-l-institut--a4--paysage----1--MxMj.png",
+      "publishedAt": "2026-10-27T08:17:28.380Z",
+      "source": "images",
       "type": "image"
     },
     {
