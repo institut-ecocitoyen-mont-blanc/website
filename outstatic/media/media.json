@@ -1,6 +1,6 @@
 {
-  "commit": "8cf4fa5589e2bcc03ce5fb35a8a3fa3823d86730",
-  "generated": "2026-10-27T08:25:12.973Z",
+  "commit": "ad47e9cff7d131ee13b58a2854b79eabcc75c19d",
+  "generated": "2026-10-27T08:25:18.339Z",
   "media": [
     {
       "__outstatic": {
@@ -55,18 +55,6 @@
       "alt": "",
       "filename": "affiche-les-mardis-de-l-institut--a4--paysage----1--MxMj.png",
       "publishedAt": "2026-10-27T08:17:28.380Z",
-      "source": "images",
-      "type": "image"
-    },
-    {
-      "__outstatic": {
-        "commit": "5f90299151f631a84061914d1df304914914a58d",
-        "hash": "4284574143",
-        "path": "public/images/affiche-les-mardis-de-l-institut--a4--paysage---E4OD.png"
-      },
-      "alt": "",
-      "filename": "affiche-les-mardis-de-l-institut--a4--paysage---E4OD.png",
-      "publishedAt": "2026-10-23T14:36:32.270Z",
       "source": "images",
       "type": "image"
     },
