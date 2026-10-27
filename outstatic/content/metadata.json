@@ -1,6 +1,6 @@
 {
-  "commit": "ca64c09619b67073de469012db0c1e65d05e44f2",
-  "generated": "2026-10-27T09:02:05.826Z",
+  "commit": "66a6dd67c7c4d7c9a5f47ac619c23c47d8efca6b",
+  "generated": "2026-10-27T09:17:39.839Z",
   "metadata": [
     {
       "__outstatic": {
@@ -722,8 +722,8 @@
     },
     {
       "__outstatic": {
-        "commit": "ca64c09619b67073de469012db0c1e65d05e44f2",
-        "hash": "3463620345",
+        "commit": "66a6dd67c7c4d7c9a5f47ac619c23c47d8efca6b",
+        "hash": "586011473",
         "path": "outstatic/content/evenements/formation-en-sante-environnementale.mdx"
       },
       "adresse": "170 Av. Léman Mont-Blanc, 74190 Passy",
@@ -739,7 +739,7 @@
       ],
       "collection": "evenements",
       "description": "Une formation à destination des professionnels de santé",
-      "image": "/images/formation-sant--environnementale---site-internet-QzOT.png",
+      "image": "/images/formation-sant--environnementale---site-internet-U4NT.png",
       "lieu": "Mountain Store à Passy",
       "publishedAt": "2026-11-05T23:00:00.000Z",
       "slug": "formation-en-sante-environnementale",
