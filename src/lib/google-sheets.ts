@@ -1,6 +1,6 @@
 // Fetch and parse pollution source data from the validated Google Sheet.
 
-const SPREADSHEET_ID = "1diIR2EXPf2QfkxUw-T0r3CRjinhcJVnnNH5azd0QxZg";
+const SPREADSHEET_ID = "1-vvHlxoPf0dseKQejHbG45_rzdEym9JDYJPqHQjHD80";
 
 interface GoogleSheetsCell {
   v?: string | number | null;
@@ -210,7 +210,7 @@ export async function fetchPollutionSites(): Promise<PollutionSite[]> {
 }
 
 export async function fetchAllPollutionSites(): Promise<PollutionSitesResult> {
-  const url = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json`;
+  const url = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json&gid=0`;
 
   const response = await fetch(url, {
     next: { revalidate: 3600 },
