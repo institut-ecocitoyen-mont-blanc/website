@@ -2,6 +2,7 @@ import type { GroundwaterAnalysis } from "./groundwater";
 import type { Row } from "./environmental-layers";
 import type { BathingSample } from "./bathing-water";
 import type { AirReading } from "./atmo-stations";
+import { airReadingStatus } from "./geodair.ts";
 
 export type HistoryQualifier = "=" | "<" | "<=" | ">" | ">=" | "?";
 export interface HistoryPoint {
@@ -86,15 +87,16 @@ export function bathingHistory(samples: BathingSample[]): HistorySeries[] {
   }))));
 }
 export function airHistory(readings: AirReading[], options: { code: string; name: string; context: string; cadence?: HistorySeries["cadence"]; national?: boolean }): HistorySeries[] {
-  return group(readings.map(r => ({
-    id: JSON.stringify([options.code, r.unit, options.context, options.cadence]), code: options.code, name: options.name, unit: r.unit,
-    context: options.context, cadence: options.cadence,
-    point: { time: r.time, value: options.national && r.validity !== 1 ? null : numeric(r.value), qualifier: r.value === null || (options.national && r.validity !== 1) ? "?" : "=",
-      label: r.value === null || (options.national && r.validity !== 1) ? "Absente / invalide" : historyNumber(r.value),
-      status: options.national ? `${r.valueType || "Type non renseigné"} · validité ${r.validity ?? "non renseignée"} · qualité ${r.qualityCode || "non renseignée"}` : `Code fournisseur : ${r.validation ?? "non renseigné"}`,
-      reference: "coverage" in r && r.coverage != null ? `Couverture : ${r.coverage} %` : undefined,
-    },
-  })));
+  return group(readings.map(r => {
+    // Geod’air validity >= 1 is usable; anything else is invalid, never zero.
+    const value = options.national && !((r.validity ?? 0) >= 1) ? null : numeric(r.value);
+    return {
+      id: JSON.stringify([options.code, r.unit, options.context, options.cadence]), code: options.code, name: options.name, unit: r.unit,
+      context: options.context, cadence: options.cadence,
+      point: { time: r.time, value, qualifier: value === null ? "?" : "=", label: value === null ? "Absente / invalide" : historyNumber(value), status: airReadingStatus(r, options.national),
+        reference: "coverage" in r && r.coverage != null ? `Couverture : ${r.coverage} %` : undefined },
+    };
+  }));
 }
 export function historySegments(series: HistorySeries, points = series.points): HistoryPoint[][] {
   const gap = series.cadence === "hourly" ? 1.5 * 3600000 : series.cadence === "daily" ? 1.5 * 86400000 : series.cadence === "annual" ? 370 * 86400000 : 2 * 366 * 86400000;

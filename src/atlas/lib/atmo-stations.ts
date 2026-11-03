@@ -141,20 +141,5 @@ export function latestAirValue(station: AirStation) {
   return station.readings.findLast((reading) => reading.value !== null);
 }
 
-// Split on absent values and missing hourly slots instead of implying continuity.
-export function airChartSegments(readings: AirReading[], period: "hourly" | "daily" = "hourly"): AirReading[][] {
-  const segments: AirReading[][] = [];
-  let segment: AirReading[] = [];
-  for (const reading of readings) {
-    if (reading.value === null || (segment.length && reading.time - segment[segment.length - 1].time > (period === "daily" ? 36 * 3600000 : 90 * 60000)) || (segment.length && reading.unit !== segment[segment.length - 1].unit)) {
-      if (segment.length) segments.push(segment);
-      segment = [];
-    }
-    if (reading.value !== null) segment.push(reading);
-  }
-  if (segment.length) segments.push(segment);
-  return segments;
-}
-
 export const airDate = (time: number) => new Date(time).toLocaleString("fr-FR", { timeZone: "Europe/Paris", day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" });
 export const airIsStale = (time: number, now = Date.now()) => now - time > 48 * 3600000;

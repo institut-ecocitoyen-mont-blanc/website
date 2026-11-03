@@ -167,12 +167,6 @@
 .chip { padding: 4px 10px; border: 1px solid #e2e8f0; border-radius: 999px; font-size: 12px; font-weight: 600; background: #f1f5f9; color: #334155; }
 button.chip { cursor: pointer; }
 .chip[aria-pressed="true"] { outline: 2px solid var(--detail-accent); outline-offset: 2px; }
-.stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; padding: 14px 24px; }
-.stats > div { border: 1px solid #e2e8f0; border-radius: 10px; padding: 12px 14px; min-width: 0; }
-.stats p { font-size: 12px; color: #64748b; }
-.stats strong { display: block; font-size: 26px; font-weight: 600; overflow-wrap: anywhere; font-variant-numeric: tabular-nums; }
-.stats small { font-size: 12px; font-weight: 400; color: #64748b; }
-.stats .statNote { margin-top: 6px; }
 .visual { padding: 14px 24px; }
 .gauges { display: flex; flex-direction: column; gap: 12px; }
 .gauges li { display: grid; grid-template-columns: 150px minmax(0, 1fr) 100px; gap: 12px; align-items: center; font-size: 13px; }
@@ -196,7 +190,6 @@ button.chip { cursor: pointer; }
   .dataContent { padding-inline: 20px; }
   .allData > summary { flex-wrap: wrap; padding-inline: 20px; }
   .dataHint { width: 100%; text-align: left; padding-left: 28px; }
-  .stats { padding-inline: 20px; }
 }
 @media (max-height: 500px) {
   .hero { padding: 12px 20px; }

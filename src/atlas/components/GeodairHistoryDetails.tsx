@@ -21,24 +21,39 @@ function Values({ rows, annual = false }: { rows: GeodairHistoricalReading[]; an
   </table></div>;
 }
 
-export default function GeodairHistoryDetails() {
+// Loaded once for Passy: the cards and the detailed tables are rendered in different parts of the dialog.
+export function useGeodairHistory(enabled: boolean) {
   const [data, setData] = useState<GeodairHistory>();
   const [error, setError] = useState(false);
   const [revision, setRevision] = useState(0);
   useEffect(() => {
+    if (!enabled) return;
     const controller = new AbortController();
     loadPublishedData<GeodairHistory>("geodair-history", controller.signal).then(value => {
       if (!controller.signal.aborted) { setData(value); setError(false); }
     }).catch(() => { if (!controller.signal.aborted) setError(true); });
     return () => controller.abort();
-  }, [revision]);
+  }, [enabled, revision]);
   const series = useMemo(() => !data ? [] : GEODAIR_POLLUTANTS.flatMap(p => [
     ...airHistory(data.annual.filter(r => r.pollutant === p.id), { code: p.id, name: p.label, context: "Moyennes annuelles · Geod’air", cadence: "annual", national: true }),
     ...airHistory(data.samples.filter(r => r.pollutant === p.id), { code: p.id, name: p.label, context: "Prélèvements différés · Geod’air", national: true }),
   ]), [data]);
+  return { data, error, series, retry: () => setRevision(r => r + 1) };
+}
+type GeodairHistoryState = ReturnType<typeof useGeodairHistory>;
+
+const Unavailable = ({ history }: { history: GeodairHistoryState }) => history.error
+  ? <p role="status">Historique indisponible. <button className="underline text-blue-iec" onClick={history.retry}>Réessayer</button></p>
+  : <p role="status">Chargement de l’historique…</p>;
+
+export function GeodairHistoryCards({ history }: { history: GeodairHistoryState }) {
+  return history.data ? <HistoryCards series={history.series} title="Évolution à long terme · Geod’air" description="Moyennes annuelles et prélèvements différés : ces résultats ne décrivent pas la qualité de l’air actuelle et ne colorent pas le pin." /> : <div className={styles.visual}><Unavailable history={history} /></div>;
+}
+
+export default function GeodairHistoryDetails({ history }: { history: GeodairHistoryState }) {
+  const { data } = history;
   return <DetailSection title="Historique Geod’air" description="Moyennes annuelles et prélèvements différés : ces résultats ne décrivent pas la qualité de l’air actuelle et ne colorent pas le pin.">
-    {error ? <p role="status">Historique indisponible. <button className="underline text-blue-iec" onClick={() => setRevision(r => r + 1)}>Réessayer</button></p> : !data ? <p role="status">Chargement de l’historique…</p> : <div className="space-y-4">
-      <HistoryCards series={series} title="Évolution à long terme" />
+    {!data ? <Unavailable history={history} /> : <div className="space-y-4">
       {data.annual.length > 0 && <details className={styles.card}><summary className="cursor-pointer font-semibold text-blue-iec">Moyennes annuelles · {new Date(data.annual[0].time).getUTCFullYear()}–{new Date(data.annual.at(-1)!.time).getUTCFullYear()}</summary><Values rows={data.annual} annual /></details>}
       {data.samples.length > 0 && <details className={styles.card}><summary className="cursor-pointer font-semibold text-blue-iec">Benzo[a]pyrène · {data.samples.length} prélèvements</summary><p className="mt-3 text-sm">Dernier prélèvement disponible : {airDate(data.samples.at(-1)!.time)}. Résultats en ng/m³, distincts des concentrations horaires en µg/m³.</p><Values rows={data.samples} /></details>}
       <p className="text-xs text-slate-500">Import : {airDate(Date.parse(data.fetchedAt))}. Valeurs publiées arrondies ; les valeurs brutes sont conservées dans l’export. Résultats susceptibles de révision.</p>

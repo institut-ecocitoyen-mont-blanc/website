@@ -26,7 +26,7 @@ function sourceModule(url) {
   new Function("require", "exports", outputText)(localRequire, exports);
   return exports;
 }
-const { DetailData, DetailHeadline, DetailTable, DetailGauges, DetailStats } = componentModule("DetailCard");
+const { DetailData, DetailHeadline, DetailTable, DetailGauges } = componentModule("DetailCard");
 const { DetailFacts } = componentModule("AtlasDetailDialog");
 const render = (component, props) => renderToStaticMarkup(createElement(component, props));
 const Inventory = componentModule("AtlasInventoryDetails").default;
@@ -105,7 +105,6 @@ test("facts and summary tiles retain zero, qualifiers and missing values", () =>
   const html = render(DetailFacts, { items: [{ label: "Zéro publié", value: 0 }, { label: "Absent", value: null }] });
   assert.match(html, /<dd>0<\/dd>/);
   assert.match(html, /Non renseigné/);
-  assert.match(render(DetailStats, { items: [{ label: "E. coli", value: "<15", unit: "/100 mL" }] }), /&lt;15/);
 });
 test("neutral summary does not manufacture a quality class or divide by zero", () => {
   const html = render(DetailHeadline, { title: "Aucune donnée", subtitle: "Aucun score", count: { value: 0, total: 0 } });

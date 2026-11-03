@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { ADDITIONAL_AIR_STATIONS, combineAirStations, groupAirStations, latestAirValue, airChartSegments, airQueryUrl, dailyAirQueryUrl, loadAirStations, airIsStale } from "../lib/atmo-stations.ts";
+import { ADDITIONAL_AIR_STATIONS, combineAirStations, groupAirStations, latestAirValue, airQueryUrl, dailyAirQueryUrl, loadAirStations, airIsStale } from "../lib/atmo-stations.ts";
 
 const bounds = { west: 6.45, east: 7.1, south: 45.7, north: 46.1 };
 const time = Date.parse("2026-02-03T09:00:00Z");
@@ -71,11 +71,6 @@ test("failure of the daily feed does not discard working hourly data", async (t)
   assert.equal(stations[0].id, "FR33220");
 });
 
-test("daily charts connect consecutive days but break across missing days", () => {
-  const readings = [0, 1, 3].map((day) => ({ time: time + day * 86400000, value: day, unit: "µg/m³", validation: null, end: null }));
-  assert.deepEqual(airChartSegments(readings, "daily").map((s) => s.length), [2, 1]);
-});
-
 test("published coordinates, chronological histories, missing values and raw validation codes are preserved", () => {
   const stations = groupAirStations([
     row({ date_debut: time + 3600000, valeur: null, statut_valid: null }),
@@ -93,11 +88,6 @@ test("published coordinates, chronological histories, missing values and raw val
   assert.equal(latestAirValue(stations[0]).time, time);
   assert.ok(airIsStale(time, time + 49 * 3600000));
   assert.equal(airIsStale(time, time + 3600000), false);
-});
-
-test("charts break across null readings, missing hours and unit changes", () => {
-  const readings = [0, 1, 2, 4, 5, 6].map((hour) => ({ time: time + hour * 3600000, value: hour === 1 ? null : hour, unit: hour === 6 ? "other" : "µg/m³", validation: null, end: null }));
-  assert.deepEqual(airChartSegments(readings).map((segment) => segment.length), [1, 1, 2, 1]);
 });
 
 test("pollutants target distinct verified service layers", () => {

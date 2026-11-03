@@ -27,10 +27,6 @@ export function DetailTable<T = ReactNode[]>({ headers, rows, records, renderRow
   return <><div className={styles.tableScroll}><table className={styles.dataTable}><caption>{caption}</caption><thead><tr>{headers.map(h => <th key={h} scope="col">{h}</th>)}</tr></thead><tbody>{visible.map((row, i) => <tr key={current * 50 + i}>{row.map((cell, j) => j === 0 ? <th scope="row" key={j}>{cell ?? "Non renseigné"}</th> : <td key={j}>{cell ?? "Non renseigné"}</td>)}</tr>)}</tbody></table></div>{pages > 1 && <nav aria-label="Pagination des résultats" className="flex items-center justify-between gap-3 py-3 text-sm"><button disabled={current === 0} className="text-blue-iec disabled:opacity-40" onClick={() => setPage(current - 1)}>Précédent</button><span>Page {current + 1} / {pages} · {count.toLocaleString("fr-FR")} résultats</span><button disabled={current + 1 >= pages} className="text-blue-iec disabled:opacity-40" onClick={() => setPage(current + 1)}>Suivant</button></nav>}</>;
 }
 
-export function DetailStats({ items }: { items: { label: string; value: ReactNode; unit?: string; note?: ReactNode }[] }) {
-  return <div className={styles.stats}>{items.map(item => <div key={item.label}><p>{item.label}</p><strong>{item.value} <small>{item.unit}</small></strong>{item.note && <p className={styles.statNote}>{item.note}</p>}</div>)}</div>;
-}
-
 type Band = { color: string; label: string; max: number };
 export function DetailGauges({ rows, bands, label }: { rows: { label: string; value: number | null | undefined; text: string }[]; bands: readonly Band[]; label: string }) {
   // Equal-width, explicitly labelled classes; no invented upper bound for the final class.

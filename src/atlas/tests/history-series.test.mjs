@@ -44,7 +44,16 @@ test('air units and periods stay separate; invalid and missing hours break lines
   assert.deepEqual(historySegments(s).map(s=>s.length),[3,1]);
   const [invalid]=airHistory([{...readings[0],validity:-1}],{code:'pm10',name:'PM10',context:'Horaire',national:true});
   assert.equal(invalid.points[0].value,null);
+  const usable=airHistory([{...readings[0],validity:3},{...readings[1],validity:4}],{code:'bap',name:'BaP',context:'Prélèvements',national:true});
+  assert.deepEqual(usable[0].points.map(p=>p.value),[0,1]);
+  assert.equal(airHistory([{...readings[0],validity:undefined}],{code:'pm10',name:'PM10',context:'Horaire',national:true})[0].points[0].value,null);
   assert.equal(airHistory([...readings,{...readings[0],unit:'ng/m³'}],{code:'pm10',name:'PM10',context:'Horaire'}).length,2);
+});
+test('daily lines break across missing days; regional nulls break hourly lines', () => {
+  const daily=[0,1,3].map(day=>({time:day*86400000,value:day,unit:'µg/m³',validation:null}));
+  assert.deepEqual(historySegments(airHistory(daily,{code:'pm10',name:'PM10',context:'Journalier',cadence:'daily'})[0]).map(s=>s.length),[2,1]);
+  const hourly=[0,1,2,4,5].map(hour=>({time:hour*3600000,value:hour===1?null:hour,unit:'µg/m³',validation:null}));
+  assert.deepEqual(historySegments(airHistory(hourly,{code:'pm10',name:'PM10',context:'Horaire',cadence:'hourly'})[0]).map(s=>s.length),[1,1,2]);
 });
 test('no line connects same-time analyses; PFAS aliases are searchable', () => {
   const [s]=groundwaterHistory([g('2025-01-01',1),g('2025-01-01',2)]);
