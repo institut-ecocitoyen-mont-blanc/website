@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useAtlasUrlLayer, useAtlasUrlPin } from "./useAtlasUrlState";
 import { loadPublishedData } from "@/atlas/lib/published-data";
 import { Tooltip } from "react-leaflet";
@@ -10,7 +10,9 @@ import EvidenceLayerControl, { groundwaterPin } from "./EvidenceLayerControl";
 import { coordinatePrecision, groundwaterAnalysisUrl, groundwaterStationUrl, groundwaterResultLabel, groundwaterResultUnit, GROUNDWATER_RESULT_LIMIT, GROUNDWATER_SOURCE, type GroundwaterAnalysis, type GroundwaterCatalogue, type GroundwaterResults, type GroundwaterStation } from "@/atlas/lib/groundwater";
 import styles from "./AtlasDetails.module.css";
 import LayerAbout from "./LayerAbout";
-import { DetailData, DetailLimits, DetailStats, DetailTable } from "./DetailCard";
+import { DetailData, DetailLimits, DetailTable } from "./DetailCard";
+import HistoryCards from "./HistoryCards";
+import { groundwaterHistory } from "../lib/history-series";
 import WaterResultSummary from "./WaterResultSummary";
 import { groundwaterResultSummary } from "@/atlas/lib/water-result-summary";
 
@@ -32,9 +34,10 @@ function GroundwaterDetails({ station }: { station: GroundwaterStation }) {
     const values = groups.get(key);
     if (values) values.push(analysis); else groups.set(key, [analysis]);
   }
+  const history = useMemo(() => groundwaterHistory(results?.analyses ?? []), [results]);
   return <>
     {results && <WaterResultSummary summary={groundwaterResultSummary(results.analyses, results.more)} source="groundwater" />}
-    {results && <DetailStats items={[...new Map(results.analyses.map(a => [JSON.stringify([a.parameter, a.fraction, a.unit]), a] as const).reverse()).values()].slice(0, 4).map(a => ({ label: `${a.name} · ${a.fraction || "Fraction non renseignée"}`, value: groundwaterResultLabel(a), unit: groundwaterResultUnit(a), note: `${date(a.date)} · ${a.qualification || "Qualification non renseignée"}` }))} />}
+    {results && <HistoryCards series={history} />}
     <DetailFacts items={[{ label: "Nature du point", value: station.nature }, { label: "Dernière mesure annoncée au catalogue", value: date(station.lastMeasurement) }, { label: "Réseaux", value: station.networks.join(" · ") }]} />
     {error && <p role="alert" className={styles.visual}>Les analyses n’ont pas pu être récupérées. <button className="underline" onClick={() => setAttempt(n => n + 1)}>Réessayer</button></p>}
     {!results && !error && <p role="status" className={styles.visual}>Chargement des analyses…</p>}

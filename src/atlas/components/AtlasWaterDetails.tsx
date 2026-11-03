@@ -1,9 +1,11 @@
 "use client";
 
-import { useEffect, useState, type ReactNode } from "react";
+import { useEffect, useMemo, useState, type ReactNode } from "react";
 import { ExternalLink } from "lucide-react";
 import { DetailFacts, DetailSection } from "./AtlasDetailDialog";
-import { DetailData, DetailHeadline, DetailLimits, DetailStats, DetailTable } from "./DetailCard";
+import { DetailData, DetailHeadline, DetailLimits, DetailTable } from "./DetailCard";
+import HistoryCards from "./HistoryCards";
+import { waterHistory } from "../lib/history-series";
 import { QUALITY_COLORS } from "@/atlas/lib/environmental-quality";
 import { analysisUrl, asText, type LayerPoint, type Row } from "@/atlas/lib/environmental-layers";
 import { loadPublishedData } from "@/atlas/lib/published-data";
@@ -45,12 +47,12 @@ export default function AtlasWaterDetails({ kind, point, quality, sample, networ
     const values = groups.get(key);
     if (values) values.push(row); else groups.set(key, [row]);
   }
-  const latestRows = [...groups.values()].map(values => values[0]);
+  const history = useMemo(() => waterHistory(data ?? [], kind), [data, kind]);
   return <>
     <DetailHeadline title={quality.label} subtitle={kind === "rivers" ? "Évaluation officielle à la station · Agence de l’eau" : `Dernier prélèvement · ${network?.name ?? "Réseau"}`} color={quality.level === "unknown" ? "#e2e8f0" : QUALITY_COLORS[quality.level]} date={kind === "rivers" ? assessment?.year : sample ? dateLabel(sample.date_prelevement) : undefined} />
     {networkControls}
     {data && <WaterResultSummary summary={waterResultSummary(data, kind)} source={kind} />}
-    {error ? <div role="alert" className={styles.visual}>{error} <button className="underline" onClick={() => setAttempt(n => n + 1)}>Réessayer</button></div> : !data ? <p role="status" className={styles.visual}>Chargement des analyses…</p> : !data.length ? <p className={styles.visual}>Aucune analyse disponible pour ce point.</p> : <DetailStats items={latestRows.slice(0, 6).map(row => ({ label: asText(row.libelle_parametre) || "Paramètre non renseigné", value: resultValue(row), unit: resultUnit(row), note: <>{dateLabel(row.date_prelevement)}{kind === "rivers" ? <> · {asText(row.mnemo_remarque)}</> : row.limite_qualite_parametre ? <> · Limite publiée : {asText(row.limite_qualite_parametre)}</> : null}</> }))} />}
+    {error ? <div role="alert" className={styles.visual}>{error} <button className="underline" onClick={() => setAttempt(n => n + 1)}>Réessayer</button></div> : !data ? <p role="status" className={styles.visual}>Chargement des analyses…</p> : !data.length ? <p className={styles.visual}>Aucune analyse disponible pour ce point.</p> : <HistoryCards key={`${point.id}:${network?.id}`} series={history} />}
     <DetailFacts items={kind === "rivers" ? [
       { label: "État chimique officiel", value: assessment ? riverChemicalLabel(assessment) : "Non disponible" },
       { label: "Paramètres déclassants publiés", value: assessment?.chemicalDowngraders || "Non renseignés" },

@@ -7,12 +7,14 @@ import { atmoIndexPin } from "@/atlas/components/EnvironmentalPin";
 import { ATMO_INDEX_CLASSES, ATMO_INDEX_SOURCE, stationAtmoIndex, indexDateLabel, type AtmoIndexData } from "@/atlas/lib/atmo-index";
 import { DetailFacts, DetailSection } from "@/atlas/components/AtlasDetailDialog";
 import styles from "./AtlasDetails.module.css";
-import { DetailData, DetailHeadline, DetailLimits, DetailStats, DetailTable } from "./DetailCard";
+import { DetailData, DetailHeadline, DetailLimits, DetailTable } from "./DetailCard";
+import HistoryCards from "./HistoryCards";
+import { airHistory } from "../lib/history-series";
 import LayerAbout from "./LayerAbout";
 import { loadPublishedData } from "@/atlas/lib/published-data";
 import { airReadingStatus, GEODAIR_SOURCE, GEODAIR_STATION, GEODAIR_POLLUTANTS, withGeodairStation, type GeodairHourly, type GeodairPollutant } from "@/atlas/lib/geodair";
 import GeodairHistoryDetails from "./GeodairHistoryDetails";
-import { AIR_POLLUTANTS, combineAirStations, latestAirValue, airChartSegments, airDate, airIsStale, airQueryUrl, dailyAirQueryUrl, type AirPollutant, type AirStation } from "@/atlas/lib/atmo-stations";
+import { AIR_POLLUTANTS, combineAirStations, latestAirValue, airDate, airIsStale, airQueryUrl, dailyAirQueryUrl, type AirPollutant, type AirStation } from "@/atlas/lib/atmo-stations";
 
 type Dataset = { status: "loading" | "ready" | "error"; stations: AirStation[]; error?: string };
 type AirState = Record<AirPollutant, Dataset> & { national?: GeodairHourly; nationalError?: string; indices?: AtmoIndexData; indexError?: string };
@@ -92,27 +94,6 @@ export function AtmoControls({ state, onRetry }: { state: AirState; onRetry: () 
   </div>;
 }
 
-function HistoryChart({ station, label }: { station: AirStation; label: string }) {
-  const values = station.readings.filter((reading) => reading.value !== null);
-  if (!values.length) return <p>Aucune valeur numérique pour tracer l’historique.</p>;
-  const first = station.readings[0].time, last = station.readings.at(-1)!.time;
-  const min = Math.min(0, ...values.map((r) => r.value!)), max = Math.max(1, ...values.map((r) => r.value!));
-  const x = (time: number) => 38 + (time - first) / (last - first || 1) * 254;
-  const y = (value: number) => 114 - (value - min) / (max - min) * 98;
-  return <figure className="m-0">
-    <figcaption className="font-semibold">Historique disponible · {values[0].unit}</figcaption>
-    <svg viewBox="0 0 306 144" role="img" aria-label={`Historique ${label} à ${station.name}. Moyennes ${station.period === "daily" ? "journalières" : "horaires"} ; tableau des valeurs ci-dessous.`} className="w-full mt-3">
-      {[min, (min + max) / 2, max].map((value) => <g key={value}><line x1="38" x2="292" y1={y(value)} y2={y(value)} stroke="#e2e8f0" /><text x="32" y={y(value) + 3} textAnchor="end" fontSize="10" fill="#64748b">{value.toFixed(1)}</text></g>)}
-      {airChartSegments(station.readings, station.period).map((segment, index) => <g key={index}>
-        <polyline points={segment.map((r) => `${x(r.time)},${y(r.value!)}`).join(" ")} fill="none" stroke="var(--color-blue-iec, #1d6ab2)" strokeWidth="2" />
-        {segment.map((r) => <circle key={r.time} cx={x(r.time)} cy={y(r.value!)} r="2" fill="var(--color-blue-iec, #1d6ab2)"><title>{airDate(r.time)} · {r.value} {r.unit} · {airReadingStatus(r, station.source === "geodair")}</title></circle>)}
-      </g>)}
-      <text x="38" y="137" fontSize="9" fill="#64748b">{airDate(first)}</text><text x="292" y="137" textAnchor="end" fontSize="9" fill="#64748b">{airDate(last)}</text>
-    </svg>
-    <p className="text-xs text-slate-500">Les interruptions correspondent aux créneaux manquants. Codes de validation conservés tels que publiés, sans interprétation.</p>
-  </figure>;
-}
-
 function StationDetails({ station, pollutant }: { station: AirStation; pollutant: Exclude<GeodairPollutant, "bap"> }) {
   const latest = latestAirValue(station), slot = station.readings.at(-1)!;
   const label = GEODAIR_POLLUTANTS.find((p) => p.id === pollutant)!.label;
@@ -122,7 +103,6 @@ function StationDetails({ station, pollutant }: { station: AirStation; pollutant
     <DetailTable caption={`${label} · dernière valeur numérique disponible`} headers={["Période (Paris)", "Valeur", "Validation publiée"]} rows={latest ? [[`${station.period === "daily" ? "Journalière" : "Horaire"} · ${airDate(latest.time)}${latest.end ? ` → ${airDate(latest.end)}` : ""}`, `${latest.value!.toLocaleString("fr-FR")} ${latest.unit}`, airReadingStatus(latest, national)]] : [["Non disponible", "Non disponible", "Non renseignée"]]} />
     {slot?.value === null && <p className="text-xs text-slate-500">Dernier créneau ({airDate(slot.time)}) : mesure absente ou invalide, pas une valeur nulle.</p>}
     {airIsStale(latest?.time ?? slot?.time) && <p className="text-xs text-slate-500">Données historiques — pas une mesure actuelle.</p>}
-    <HistoryChart station={station} label={label} />
     <details><summary className="cursor-pointer text-blue-iec">Valeurs et statuts de validation ({station.readings.length})</summary>
       <DetailTable caption={`Historique · ${label}`} headers={["Début (Paris)", "Valeur", "Validation*"]} rows={[...station.readings].reverse().map(r => [airDate(r.time), r.value === null ? "Absente / invalide" : `${r.value.toLocaleString("fr-FR")} ${r.unit}`, airReadingStatus(r, national)])} />
     </details>
@@ -147,7 +127,15 @@ export function AtmoDetails({ state, stationId }: { state: AirState; stationId: 
   if (!group) return <p role="status">Les mesures de cette station ne sont plus disponibles. Actualisez la couche pour réessayer.</p>;
   const { station, measurements } = group;
   const index = stationAtmoIndex(station, state.indices, now);
-  const latest = measurements.map(({ pollutant, station: data }) => ({ label: AIR_POLLUTANTS.find(p => p.id === pollutant)!.label, data, reading: latestAirValue(data) }));
+  const historyMeasurements = [...measurements, ...(stationId === GEODAIR_STATION ? (["no", "nox"] as const).flatMap(pollutant => {
+    const data = state.national?.stations[pollutant];
+    return data ? [{ pollutant, station: data }] : [];
+  }) : [])];
+  const history = historyMeasurements.flatMap(({ pollutant, station: data }) => airHistory(data.readings, {
+    code: pollutant, name: GEODAIR_POLLUTANTS.find(p => p.id === pollutant)!.label,
+    context: `${data.period === "daily" ? "Moyennes journalières" : "Moyennes horaires"} · ${data.source === "geodair" ? "Geod’air" : "Atmo régional"}`,
+    cadence: data.period ?? "hourly", national: data.source === "geodair",
+  }));
   const newest = Math.max(...measurements.flatMap(m => m.station.readings.map(r => r.time)));
   const otherGases = stationId === GEODAIR_STATION ? (["no", "nox"] as const).flatMap(id => {
     const data = state.national?.stations[id], r = data && latestAirValue(data);
@@ -155,19 +143,19 @@ export function AtmoDetails({ state, stationId }: { state: AirState; stationId: 
   }) : [];
   return <>
     <DetailHeadline title={`Indice Atmo · ${index.label}`} color={index.available ? index.color : "#e2e8f0"} subtitle={`Commune de ${index.commune?.nom ?? "localisation inconnue"} · prévision communale, pas une mesure à la station`} date={<>{indexDateLabel(index.date)}{index.record && <><br />Diffusé le {airDate(Date.parse(index.record.publishedAt))}</>}</>} />
-    <DetailStats items={latest.map(({ label, data, reading }) => ({ label: `${label} · ${data.period === "daily" ? "journalière" : "horaire"}`, value: reading?.value?.toLocaleString("fr-FR") ?? "Non disponible", unit: reading?.unit, note: reading ? <>{airDate(reading.time)} (Paris)<br />{airReadingStatus(reading, data.source === "geodair")}</> : undefined }))} />
+    <HistoryCards key={stationId} series={history} title="Les polluants mesurés" />
     <DetailFacts items={[
       { label: "Dernier créneau du flux", value: Number.isFinite(newest) ? `${airDate(newest)} (Paris)` : "Non disponible" },
       { label: "Implantation", value: [station.typology, station.influence].filter(Boolean).join(" · ") },
       ...(otherGases.length ? [{ label: "Autres gaz (hors indice)", value: otherGases.join(" · ") }] : []),
     ]} />
+    {stationId === GEODAIR_STATION && <GeodairHistoryDetails />}
     <DetailData hint="Historiques, validation et autres polluants">
       <DetailSection title="Les polluants mesurés" description="Toutes les mesures disponibles, avec leurs dates, périodes de moyenne et codes publiés.">
         <div className={styles.cards}>{measurements.map(({ pollutant, station: data }) => <StationDetails key={pollutant} station={data} pollutant={pollutant} />)}</div>
       </DetailSection>
       {stationId === GEODAIR_STATION && <>
         {state.national && <DetailSection title="Autres gaz mesurés" description="NO et NOₓ ne participent pas au calcul de la couleur du pin."><div className={styles.cards}>{(["no", "nox"] as const).map(id => state.national?.stations[id] && <StationDetails key={id} station={state.national.stations[id]!} pollutant={id} />)}</div></DetailSection>}
-        <GeodairHistoryDetails />
       </>}
     </DetailData>
     <DetailLimits sources={<><a href={ATMO_INDEX_SOURCE} target="_blank" rel="noreferrer">Indice communal · Atmo Auvergne-Rhône-Alpes · ODbL 1.0</a><a href={GEODAIR_SOURCE} target="_blank" rel="noreferrer">Geod’air / LCSQA-Ineris · Licence Ouverte</a></>}>

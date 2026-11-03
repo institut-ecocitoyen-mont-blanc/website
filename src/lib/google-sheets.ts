@@ -210,7 +210,8 @@ export async function fetchPollutionSites(): Promise<PollutionSite[]> {
 }
 
 export async function fetchAllPollutionSites(): Promise<PollutionSitesResult> {
-  const url = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json&gid=0`;
+  // Keep every row: Google's header inference can consume source records too.
+  const url = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json&gid=0&headers=0`;
 
   const response = await fetch(url, {
     next: { revalidate: 3600 },

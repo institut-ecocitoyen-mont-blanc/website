@@ -2,7 +2,9 @@
 
 import { ExternalLink } from "lucide-react";
 import { DetailFacts, DetailSection } from "./AtlasDetailDialog";
-import { DetailData, DetailHeadline, DetailLimits, DetailStats } from "./DetailCard";
+import { DetailData, DetailHeadline, DetailLimits } from "./DetailCard";
+import HistoryCards from "./HistoryCards";
+import { bathingHistory } from "../lib/history-series";
 import { QUALITY_COLORS } from "@/atlas/lib/environmental-quality";
 import { BATHING_CATALOGUE_URL, bathingQuality, bathingSamples, type BathingPoint } from "@/atlas/lib/bathing-water";
 import styles from "./AtlasDetails.module.css";
@@ -12,13 +14,14 @@ const dateLabel = (date: string) => new Date(date).toLocaleDateString("fr-FR", {
 export default function AtlasBathingDetails({ point }: { point: BathingPoint }) {
   const samples = bathingSamples(point), latest = samples[0];
   const quality = bathingQuality(point);
+  const history = bathingHistory(samples);
   return <>
     <DetailHeadline title={quality.label} subtitle="Appréciation publiée du dernier prélèvement" date={latest ? dateLabel(latest.date) : "Non disponible"} color={quality.level === "unknown" ? "#e2e8f0" : QUALITY_COLORS[quality.level]} />
-    <DetailStats items={[{ label: "Escherichia coli (E. coli)", value: latest?.ecoli ?? "Non renseigné", unit: latest?.ecoli != null ? "/100 mL" : "" }, { label: "Entérocoques intestinaux", value: latest?.enterococci ?? "Non renseigné", unit: latest?.enterococci != null ? "/100 mL" : "" }]} />
+    <HistoryCards key={point.id} series={history} />
     <div className={styles.visual}><p className={styles.visualLabel}>Appréciations publiées · {samples.length} prélèvements</p><div className={styles.strip}>{[...samples].reverse().map((sample, i) => <span key={i} role="img" aria-label={`${dateLabel(sample.date)} · ${sample.assessment}`} title={`${dateLabel(sample.date)} · ${sample.assessment}`} style={{ background: sample.assessment === "Bon" ? QUALITY_COLORS.good : sample.assessment === "Moyen" ? QUALITY_COLORS.moderate : sample.assessment === "Mauvais" ? QUALITY_COLORS.poor : "#e2e8f0" }} />)}</div><p className="text-xs text-slate-500">{samples.length > 0 && `${dateLabel(samples.at(-1)!.date)} → ${dateLabel(samples[0].date)}`} · Un bloc par prélèvement, pas une échelle de temps.</p></div>
     <DetailFacts items={[{ label: "Site officiel", value: point.officialName }, { label: "Code européen", value: point.euId }]} />
     <DetailData hint={`${samples.length} prélèvements · ${point.seasons.length} saisons`}>
-    <DetailSection title="Historique des prélèvements" description="Deux saisons consultées. Les signes « < » et « > » sont conservés : ce ne sont pas des valeurs exactes.">
+    <DetailSection title="Historique des prélèvements" description="Saisons disponibles. Les signes « < » et « > » sont conservés : ce ne sont pas des valeurs exactes.">
       {point.seasons.map((season) => <div key={season.year} className="mb-6">
         <div className="mb-3 flex flex-wrap justify-between items-center gap-2"><h4 className="font-semibold">Saison {season.year}</h4><a className={styles.source} href={season.sourceUrl} target="_blank" rel="noreferrer">Résultats officiels {season.year}<ExternalLink size={13} /></a></div>
         {season.error ? <p role="alert" className={styles.notice}>{season.error}</p> : !season.samples.length ? <p className={styles.notice}>Aucun prélèvement publié pour cette saison.</p> : <div className="overflow-x-auto rounded-xl border border-slate-200 bg-white">
