@@ -43,6 +43,7 @@ import AtlasLayerControl from "./AtlasLayerControl";
 import { useAtmoModelLayers } from "./AtmoModelLayer";
 import { useCeremaLightLayer } from "./CeremaLightLayer";
 import { usePesticidePurchasesLayer } from "./PesticidePurchasesLayer";
+import { useRadonLayer } from "./RadonLayer";
 import { useAtlasUrlState } from "./useAtlasUrlState";
 
 type RemoteId = Exclude<LayerId, "inventory" | "wood" | "bathing" | "traffic">;
@@ -104,6 +105,7 @@ export default function AtlasMap({ inventory, bathing, riverAssessments, riverCa
   // const instituteWater = useInstituteWaterDemo();
   const lightLayer = useCeremaLightLayer();
   const pesticideLayer = usePesticidePurchasesLayer();
+  const radonLayer = useRadonLayer();
   // Resolve URL identifiers against loaded catalogues on every render. A deep
   // link is retained while its source loads; never overwrite it with defaults.
   const selection: Selection | null = (() => {
@@ -136,12 +138,12 @@ export default function AtlasMap({ inventory, bathing, riverAssessments, riverCa
   const setSelection = (value: Selection | null) => url.setPin(value ? { layer: value.kind,
     id: value.kind === "atmo" ? value.id : value.kind === "inventory" ? value.site.id : value.kind === "traffic" ? value.segment.id : value.point.id,
   } : null);
-  const activeCount = Object.entries(enabled).filter(([id, active]) => id !== "wood" && active).length + groundwaterLayer.activeCount + georisquesLayer.activeCount + lightLayer.activeCount + atmoModels.activeCount + pesticideLayer.activeCount;
+  const activeCount = Object.entries(enabled).filter(([id, active]) => id !== "wood" && active).length + groundwaterLayer.activeCount + georisquesLayer.activeCount + lightLayer.activeCount + atmoModels.activeCount + pesticideLayer.activeCount + radonLayer.activeCount;
   const groupCounts = {
     inventory: Number(enabled.inventory),
     air: Number(enabled.atmo) + Number(enabled.traffic) + atmoModels.activeCount + lightLayer.activeCount,
     water: Number(enabled.rivers) + Number(enabled.bathing) + Number(enabled.drinking) + groundwaterLayer.activeCount,
-    soil: georisquesLayer.activeCount + pesticideLayer.activeCount,
+    soil: georisquesLayer.activeCount + pesticideLayer.activeCount + radonLayer.activeCount,
   };
 
   return <><div className="grid grid-cols-1 lg:grid-cols-[360px_minmax(0,1fr)] xl:grid-cols-[390px_minmax(0,1fr)] overflow-clip rounded-2xl border border-slate-200 bg-white shadow-sm">
@@ -155,6 +157,7 @@ export default function AtlasMap({ inventory, bathing, riverAssessments, riverCa
         {/* {group.id === "soil" && soilDemo.controls} */}
         {group.id === "soil" && georisquesLayer.controls}
         {group.id === "soil" && pesticideLayer.controls}
+        {group.id === "soil" && radonLayer.controls}
         {group.layers.map((id) => {
           const layer = LAYERS.find((layer) => layer.id === id)!;
           const state = layer.id === "inventory" || layer.id === "wood" || layer.id === "atmo" || layer.id === "bathing" || layer.id === "traffic" ? null : remote[layer.id];
@@ -206,6 +209,7 @@ export default function AtlasMap({ inventory, bathing, riverAssessments, riverCa
         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>' />
         <Recenter /><ScaleControl position="bottomleft" />
         {atmoModels.layers}
+        {radonLayer.polygons}
         {lightLayer.polygons}
         {pesticideLayer.polygons}
         <PinGroups>
@@ -249,6 +253,7 @@ export default function AtlasMap({ inventory, bathing, riverAssessments, riverCa
   {georisquesLayer.details}
   {lightLayer.details}
   {pesticideLayer.details}
+  {radonLayer.details}
   {selection && <AtlasDetailDialog
     key={selection.kind + (selection.kind === "atmo" ? selection.id : selection.kind === "inventory" ? selection.site.id : selection.kind === "traffic" ? selection.segment.id : selection.point.id)}
     kind={selection.kind}

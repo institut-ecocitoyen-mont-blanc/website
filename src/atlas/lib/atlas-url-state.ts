@@ -1,7 +1,7 @@
 // Stable public URL identifiers. Keep disabled demonstration layers out of links.
 export const ATLAS_URL_LAYERS = [
   "inventory", "atmo", "atmo-model-pm25", "atmo-model-pm10", "atmo-model-no2", "atmo-model-o3",
-  "traffic", "cerema-light", "rivers", "bathing", "drinking", "groundwater", "georisques", "pesticide-purchases",
+  "traffic", "cerema-light", "rivers", "bathing", "drinking", "groundwater", "georisques", "pesticide-purchases", "radon",
 ] as const;
 export type AtlasUrlLayer = typeof ATLAS_URL_LAYERS[number];
 export type AtlasPinLayer = Exclude<AtlasUrlLayer, `atmo-model-${string}`>;

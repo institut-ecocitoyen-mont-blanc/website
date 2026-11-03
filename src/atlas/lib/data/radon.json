@@ -1,0 +1,67 @@
+{
+  "sourceUrl": "https://www.georisques.gouv.fr/api/v1/radon?code_insee=74083%2C74085%2C74089%2C74099%2C74103%2C74173%2C74208%2C74215%2C74236%2C74256&page_size=100",
+  "source": "https://www.georisques.gouv.fr/consulter-les-dossiers-thematiques/radon",
+  "license": "https://www.georisques.gouv.fr/mentions-legales",
+  "fetchedAt": "2026-11-03T14:44:46.307Z",
+  "response": {
+    "results": 10,
+    "page": 1,
+    "total_pages": 1,
+    "data": [
+      {
+        "classe_potentiel": "3",
+        "code_insee": "74236",
+        "libelle_commune": "SAINT-GERVAIS-LES-BAINS"
+      },
+      {
+        "classe_potentiel": "3",
+        "code_insee": "74208",
+        "libelle_commune": "PASSY"
+      },
+      {
+        "classe_potentiel": "2",
+        "code_insee": "74085",
+        "libelle_commune": "LES CONTAMINES-MONTJOIE"
+      },
+      {
+        "classe_potentiel": "1",
+        "code_insee": "74103",
+        "libelle_commune": "DOMANCY"
+      },
+      {
+        "classe_potentiel": "1",
+        "code_insee": "74173",
+        "libelle_commune": "MEGEVE"
+      },
+      {
+        "classe_potentiel": "1",
+        "code_insee": "74215",
+        "libelle_commune": "PRAZ-SUR-ARLY"
+      },
+      {
+        "classe_potentiel": "1",
+        "code_insee": "74083",
+        "libelle_commune": "COMBLOUX"
+      },
+      {
+        "classe_potentiel": "1",
+        "code_insee": "74256",
+        "libelle_commune": "SALLANCHES"
+      },
+      {
+        "classe_potentiel": "1",
+        "code_insee": "74089",
+        "libelle_commune": "CORDON"
+      },
+      {
+        "classe_potentiel": "1",
+        "code_insee": "74099",
+        "libelle_commune": "DEMI-QUARTIER"
+      }
+    ],
+    "response_code": 200,
+    "message": null,
+    "next": null,
+    "previous": null
+  }
+}

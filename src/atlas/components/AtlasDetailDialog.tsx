@@ -1,11 +1,11 @@
 "use client";
 
 import { useEffect, useId, useRef, type ReactNode, type CSSProperties } from "react";
-import { X, Wind, Waves, GlassWater, MapPin, Route, Leaf, FlaskConical, Shovel, Droplets, Lightbulb } from "lucide-react";
+import { X, Wind, Waves, GlassWater, MapPin, Route, Leaf, FlaskConical, Shovel, Droplets, Lightbulb, Radiation } from "lucide-react";
 import styles from "./AtlasDetails.module.css";
 
 export default function AtlasDetailDialog({ title, kind, subtitle, eyebrow, footerLabel = "Atlas environnemental · Pays du Mont-Blanc", children, onClose }: {
-  title: string; kind: "atmo" | "rivers" | "drinking" | "bathing" | "inventory" | "traffic" | "lichens" | "bioacc" | "soil" | "groundwater" | "georisques" | "institute-bathing" | "institute-rivers" | "light" | "pesticides"; subtitle: string;
+  title: string; kind: "atmo" | "rivers" | "drinking" | "bathing" | "inventory" | "traffic" | "lichens" | "bioacc" | "soil" | "groundwater" | "georisques" | "institute-bathing" | "institute-rivers" | "light" | "pesticides" | "radon"; subtitle: string;
   eyebrow?: string; footerLabel?: string; children: ReactNode; onClose: () => void;
 }) {
   const ref = useRef<HTMLDialogElement>(null);
@@ -27,10 +27,10 @@ export default function AtlasDetailDialog({ title, kind, subtitle, eyebrow, foot
       if (previousFocus?.isConnected) previousFocus.focus({ preventScroll: true });
     };
   }, []);
-  const Icon = { atmo: Wind, rivers: Waves, drinking: GlassWater, bathing: Waves, inventory: MapPin, traffic: Route, lichens: Leaf, bioacc: FlaskConical, soil: Shovel, groundwater: Droplets, georisques: Shovel, "institute-bathing": Waves, "institute-rivers": Waves, light: Lightbulb, pesticides: FlaskConical }[kind];
-  const label = { atmo: "Particules et gaz", rivers: "Cours d’eau", drinking: "Eau potable", bathing: "Eaux de baignade · ARS", inventory: "Inventaire écocitoyen", traffic: "Trafic routier annuel", lichens: "Lichens (bio-indication)", bioacc: "Bio-accumulation (retombées)", soil: "Cultures potagères/maraîchères", groundwater: "Eaux souterraines", georisques: "Géorisques", "institute-bathing": "Eaux de baignade · Institut", "institute-rivers": "Cours d’eau · Institut", light: "Pollution lumineuse", pesticides: "Achats de pesticides" }[kind];
-  const accent = { drinking: "#0f766e", bathing: "#0f766e", traffic: "#b45309", georisques: "#925323", light: "#7c3e76", pesticides: "#4d7c0f" }[kind as string] ?? "#1d6ab2";
-  const producer = { atmo: "Atmo Auvergne-Rhône-Alpes", rivers: "Agence de l’eau · Hub’Eau", drinking: "ARS · Hub’Eau", bathing: "Ministère de la Santé", inventory: "Institut écocitoyen", traffic: "DDT de Haute-Savoie", groundwater: "Hub’Eau · ADES", georisques: "État · BRGM", light: "Cerema", pesticides: "OFB · BNV-D" }[kind as string] ?? "Institut écocitoyen";
+  const Icon = { atmo: Wind, rivers: Waves, drinking: GlassWater, bathing: Waves, inventory: MapPin, traffic: Route, lichens: Leaf, bioacc: FlaskConical, soil: Shovel, groundwater: Droplets, georisques: Shovel, "institute-bathing": Waves, "institute-rivers": Waves, light: Lightbulb, pesticides: FlaskConical, radon: Radiation }[kind];
+  const label = { atmo: "Particules et gaz", rivers: "Cours d’eau", drinking: "Eau potable", bathing: "Eaux de baignade · ARS", inventory: "Inventaire écocitoyen", traffic: "Trafic routier annuel", lichens: "Lichens (bio-indication)", bioacc: "Bio-accumulation (retombées)", soil: "Cultures potagères/maraîchères", groundwater: "Eaux souterraines", georisques: "Géorisques", "institute-bathing": "Eaux de baignade · Institut", "institute-rivers": "Cours d’eau · Institut", light: "Pollution lumineuse", pesticides: "Achats de pesticides", radon: "Potentiel radon" }[kind];
+  const accent = { drinking: "#0f766e", bathing: "#0f766e", traffic: "#b45309", georisques: "#925323", light: "#7c3e76", pesticides: "#4d7c0f", radon: "#8a4826" }[kind as string] ?? "#1d6ab2";
+  const producer = { atmo: "Atmo Auvergne-Rhône-Alpes", rivers: "Agence de l’eau · Hub’Eau", drinking: "ARS · Hub’Eau", bathing: "Ministère de la Santé", inventory: "Institut écocitoyen", traffic: "DDT de Haute-Savoie", groundwater: "Hub’Eau · ADES", georisques: "État · BRGM", light: "Cerema", pesticides: "OFB · BNV-D", radon: "Géorisques · IRSN / ASNR" }[kind as string] ?? "Institut écocitoyen";
   return <dialog ref={ref} aria-labelledby={titleId} aria-modal="true" className={styles.dialog} style={{ "--detail-accent": accent } as CSSProperties}
     onCancel={(event) => { event.preventDefault(); onClose(); }}
     onKeyDown={(event) => {

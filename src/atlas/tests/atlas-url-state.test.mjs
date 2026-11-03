@@ -10,7 +10,7 @@ test('absent layers keep the inventory default, explicitly empty layers keep eve
 test('all production layers round trip, with no illustrative layers', () => {
   const state={layers:[...ATLAS_URL_LAYERS],pin:null};
   assert.deepEqual(parseAtlasUrlState(writeAtlasUrlState('',state)),state);
-  assert.equal(ATLAS_URL_LAYERS.length,14);
+  assert.equal(ATLAS_URL_LAYERS.length,15);
 });
 test('direct pin links enable their source and preserve opaque IDs', () => {
   for(const layer of ATLAS_URL_LAYERS.filter(id=>!id.startsWith('atmo-model-'))){
