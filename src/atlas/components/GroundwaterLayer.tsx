@@ -14,7 +14,7 @@ import { DetailData, DetailLimits, DetailTable } from "./DetailCard";
 import HistoryCards from "./HistoryCards";
 import { groundwaterHistory } from "../lib/history-series";
 import WaterResultSummary from "./WaterResultSummary";
-import { groundwaterResultSummary } from "@/atlas/lib/water-result-summary";
+import { groundwaterResultSummary, latestWaterSample } from "@/atlas/lib/water-result-summary";
 
 const date = (value: string) => value && Number.isFinite(Date.parse(value)) ? new Date(value).toLocaleDateString("fr-FR", { timeZone: "Europe/Paris" }) : "Non renseignée";
 function GroundwaterDetails({ station }: { station: GroundwaterStation }) {
@@ -25,7 +25,7 @@ function GroundwaterDetails({ station }: { station: GroundwaterStation }) {
     setResults(null); setError(false);
     loadPublishedData<GroundwaterResults>(`groundwater-${station.id.toLowerCase()}`, controller.signal).then((value) => { if (!controller.signal.aborted) setResults(value); }).catch(() => { if (!controller.signal.aborted) setError(true); });
     return () => controller.abort();
-  }, [station, attempt]);
+  }, [station.id, attempt]);
   const groups = new Map<string, GroundwaterAnalysis[]>();
   for (const analysis of results?.analyses ?? []) {
     if (!analysis.name.toLocaleLowerCase("fr").includes(search.toLocaleLowerCase("fr"))) continue;
@@ -35,6 +35,8 @@ function GroundwaterDetails({ station }: { station: GroundwaterStation }) {
     if (values) values.push(analysis); else groups.set(key, [analysis]);
   }
   const history = useMemo(() => groundwaterHistory(results?.analyses ?? []), [results]);
+  // Archive fragments may be ascending: never assume the first row is the newest.
+  const latest = useMemo(() => latestWaterSample(results?.analyses ?? [], a => a.date).date, [results]);
   return <>
     {results && <WaterResultSummary summary={groundwaterResultSummary(results.analyses, results.more)} source="groundwater" />}
     {results && <HistoryCards series={history} />}
@@ -43,8 +45,8 @@ function GroundwaterDetails({ station }: { station: GroundwaterStation }) {
     {!results && !error && <p role="status" className={styles.visual}>Chargement des analyses…</p>}
     <DetailData hint={results ? `${results.analyses.length} résultats sur ${results.total.toLocaleString("fr-FR")}` : "Résultats et qualifications"}>
     <DetailSection title="Analyses des eaux souterraines" description="Résultats et qualifications publiés par Hub’Eau / ADES, sans score sanitaire calculé.">
-      {error ? <div role="alert" className={styles.notice}>Les analyses n’ont pas pu être récupérées. <button className="underline" onClick={() => setAttempt((value) => value + 1)}>Réessayer</button></div> : !results ? <p role="status">Chargement des analyses…</p> : !results.analyses.length ? <p className={styles.notice}>Aucune analyse accessible pour ce point. Une date dans le catalogue ne garantit pas la disponibilité des résultats et ne signifie pas une absence de pollution.</p> : <>
-        <p className="mb-3 text-sm text-slate-600">{results.analyses.length} résultats affichés sur {results.total.toLocaleString("fr-FR")} disponibles. Dernier prélèvement récupéré : {date(results.analyses[0].date)}.</p>
+      {!results ? <p className={styles.notice}>{error ? "Analyses indisponibles pour le moment." : "Chargement des analyses…"}</p> : !results.analyses.length ? <p className={styles.notice}>Aucune analyse accessible pour ce point. Une date dans le catalogue ne garantit pas la disponibilité des résultats et ne signifie pas une absence de pollution.</p> : <>
+        <p className="mb-3 text-sm text-slate-600">{results.analyses.length} résultats affichés sur {results.total.toLocaleString("fr-FR")} disponibles. Dernier prélèvement récupéré : {date(latest ?? "")}.</p>
         {results.more && <p className="mb-4 text-xs text-slate-500">Fenêtre limitée aux {GROUNDWATER_RESULT_LIMIT} derniers résultats : elle peut ne pas couvrir tous les paramètres d’un prélèvement ni tout l’historique. Le lien source donne accès au catalogue complet et à sa pagination.</p>}
         <label className="mb-4 block text-sm text-slate-600">Rechercher un paramètre parmi les résultats affichés<input type="search" className="mt-2 block w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-900" value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Nitrates, arsenic, pesticides…" /></label>
         {!groups.size && <p className="text-sm text-slate-500">Aucun paramètre correspondant dans les résultats chargés.</p>}
@@ -59,15 +61,16 @@ function GroundwaterDetails({ station }: { station: GroundwaterStation }) {
     </DetailLimits>
   </>;
 }
-export function useGroundwaterLayer(data: GroundwaterCatalogue) {
+export function useGroundwaterLayer(data: GroundwaterCatalogue, status: "loading" | "ready" | "error") {
   const [enabled, setEnabled] = useAtlasUrlLayer("groundwater");
   const [selectedId, setSelectedId] = useAtlasUrlPin("groundwater");
   const selected = data.stations.find(station => station.id === selectedId);
   const setSelected = (station: GroundwaterStation | null) => setSelectedId(station?.id);
+  const empty = !data.stations.length && status !== "ready";
   const controls = <EvidenceLayerControl title="Eaux souterraines" source="Hub’Eau · ADES" enabled={enabled} onEnabled={setEnabled}>
-    <p>{data.stations.length} points avec analyses disponibles.</p>
+    {!empty ? <p>{data.stations.length} points avec analyses disponibles.</p> : status === "loading" ? <p role="status">Chargement du catalogue…</p> : <p role="alert" className="text-amber-800">Catalogue des eaux souterraines indisponible. Les autres couches restent accessibles.</p>}
     <p>Goutte à contour : aucune classe de qualité globale déduite des résultats. Repères publiés, sans garantie de localisation précise des prélèvements.</p>
-    {data.error && <p role="alert" className="text-amber-800">{data.error}</p>}
+    {data.error && !empty && <p role="alert" className="text-amber-800">{data.error}</p>}
     {data.fetchedAt && <p>Catalogue récupéré le {date(data.fetchedAt)} · import automatique quotidien.</p>}
     <LayerAbout>
     <p>Analyses chimiques aux points de suivi : paramètres, valeurs, unités, dates et qualifications. Les points sans résultats accessibles sont masqués. Le détail des analyses est chargé à l’ouverture d’une fiche.</p>

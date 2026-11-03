@@ -15,9 +15,10 @@ function updateUrl(update: (state: AtlasUrlState) => AtlasUrlState) {
   const url = new URL(window.location.href);
   url.search = writeAtlasUrlState(url.search, update(parseAtlasUrlState(url.search)));
   if (url.href === window.location.href) return;
-  // Preserve Next's history metadata and other query parameters/hash. No route
-  // reload or scroll reset; back/forward restores both layers and the open fiche.
-  window.history.pushState(window.history.state, "", url);
+  // Null state lets Next copy its history metadata and sync useSearchParams;
+  // passing its own state would mark the call internal and skip that sync.
+  // No route reload or scroll reset; back/forward restores layers and fiche.
+  window.history.pushState(null, "", url);
   window.dispatchEvent(new Event(CHANGE_EVENT));
 }
 const setLayer = (layer: AtlasUrlLayer, enabled: boolean) => updateUrl(state => withAtlasLayer(state, layer, enabled));

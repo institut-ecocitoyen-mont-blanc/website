@@ -1,4 +1,4 @@
-import type { Quality } from "./environmental-quality";
+import { WATER_COLOR_MAX_AGE, type Quality } from "./environmental-quality.ts";
 
 export const BATHING_CATALOGUE_URL = "https://www.data.gouv.fr/api/1/datasets/r/e659289d-fdc2-46c2-a025-d7e1264e4197";
 export interface BathingSite {
@@ -30,11 +30,12 @@ export function bathingSourceUrl(id: string, year: number) {
 export function bathingSamples(point: BathingPoint) {
   return point.seasons.flatMap((season) => season.samples).sort((a, b) => b.date.localeCompare(a.date));
 }
-export function bathingQuality(point: BathingPoint): Quality {
-  const latest = bathingSamples(point)[0];
+export function bathingQuality(point: BathingPoint, now = Date.now()): Quality {
+  const latest = bathingSamples(point)[0], time = latest ? Date.parse(latest.date) : NaN;
   const level = latest?.assessment === "Bon" ? "good" : latest?.assessment === "Moyen" ? "moderate" : latest?.assessment === "Mauvais" ? "poor" : "unknown";
   return {
-    level, label: latest ? `Prélèvement : ${latest.assessment.toLowerCase()}` : "Aucun prélèvement disponible",
+    // Same >90-day reading cue as drinking water, not a sanitary validity period.
+    level, ...(Number.isFinite(time) ? { time, historical: now - time > WATER_COLOR_MAX_AGE } : {}), label: latest ? `Prélèvement : ${latest.assessment.toLowerCase()}` : "Aucun prélèvement disponible",
     detail: "Appréciation publiée pour ce prélèvement, pas un classement annuel ni une autorisation de baignade aujourd’hui.",
   };
 }

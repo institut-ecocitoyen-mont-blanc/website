@@ -1,98 +1,54 @@
 import { createRequire } from 'node:module';
-import { readFileSync } from 'node:fs';
+import { readFile } from 'node:fs/promises';
+import { join } from 'node:path';
 import assert from 'node:assert/strict';
 import { insideCcpmb } from '../lib/ccpmb-territory.ts';
-import { WOOD_HEATMAP_BOUNDS } from '../lib/wood-heatmap.ts';
 const { chromium } = createRequire(import.meta.url)('playwright');
 
-// Inspect the static payload as well as browser-side provider refreshes.
-let inventoryCount=0, riverCount=0, checkedPoints=0;
-for(const line of readFileSync('out/atlas.txt','utf8').split('\n')) {
-  let value;
-  try { value=JSON.parse(line.slice(line.indexOf(':')+1)); } catch { continue; }
-  const visit=(value)=>{
-    if(!value||typeof value!=='object')return;
-    if(Array.isArray(value.sites))inventoryCount=value.sites.length;
-    if(value.points?.some(p=>p.properties?.code_station))riverCount=value.points.length;
-    if(typeof value.lat==='number'&&typeof value.lng==='number') {
-      assert.ok(insideCcpmb(value.lat,value.lng),`Exported point outside territory: ${value.id??value.name??JSON.stringify(value)}`);
-      checkedPoints++;
-    }
-    Object.values(value).forEach(visit);
-  };
-  visit(value);
-}
-assert.ok(inventoryCount>0&&riverCount>0&&checkedPoints>0,'Real inventory and river snapshot included');
-const browser=await chromium.launch({headless:true,channel:'chrome'});
+// Published catalogues are shared with other pages and importers: the atlas itself
+// must still clip every point to the ten communes. Inject one point per catalogue in
+// Chamonix (outside the territory) and compare the sidebar with the real inside counts.
+const OUTSIDE = { lat: 45.9237, lng: 6.8694 }, NAME = 'Hors périmètre test';
+const CATALOGUES = {
+  inventory: { field: 'sites', at: s => s.coordinates, add: s => ({ ...s, id: 'OUTSIDE', name: NAME, commune: 'CHAMONIX', coordinates: OUTSIDE }), text: n => new RegExp(`^${n} sites cartographiés`) },
+  bathing: { field: 'points', at: p => p, add: p => ({ ...p, id: 'outside', name: NAME, commune: 'Chamonix', ...OUTSIDE }), text: n => new RegExp(`^${n} sites · \\d+ prélèvements récupérés\\.$`) },
+  rivers: { field: 'points', at: p => p, add: p => ({ ...p, id: 'outside', name: NAME, ...OUTSIDE }), text: n => new RegExp(`^${n} stations · Catalogue chargé`) },
+  drinking: { field: 'points', at: p => p, add: p => ({ ...p, id: '74056', name: NAME, ...OUTSIDE }), text: n => new RegExp(`^${n} communes · Catalogue chargé`) },
+  groundwater: { field: 'stations', at: s => s, add: s => ({ ...s, id: 'OUTSIDE', name: NAME, commune: 'Chamonix', ...OUTSIDE }), text: n => new RegExp(`^${n} points avec analyses disponibles\\.$`) },
+};
+const original = async (route, path) => process.env.ATLAS_DATA_DIR ? JSON.parse(await readFile(join(process.env.ATLAS_DATA_DIR, path), 'utf8')) : (await route.fetch()).json();
+
+const browser = await chromium.launch({ headless: true, channel: 'chrome' });
 try {
-  for(const width of [1440,390]) {
-    const page=await browser.newPage({viewport:{width,height:1000}});
-    const errors=[];page.on('pageerror',e=>errors.push(e.message));
-    let riverOutage=true;
-    const waterQueries=[];
-    await page.route('**/hubeau.eaufrance.fr/**',route=>{
-      const url=new URL(route.request().url());
-      if(url.pathname.endsWith('/station_pc'))return riverOutage?route.fulfill({status:500,body:'Unavailable'}):route.fulfill({json:{data:[
-        {code_station:'inside',libelle_station:'Passy test',latitude:45.923535,longitude:6.713642},
-        {code_station:'outside',libelle_station:'Servoz test',latitude:45.93,longitude:6.762},
-      ],next:null}});
-      if(url.pathname.endsWith('/communes_udi'))waterQueries.push(url.searchParams.get('code_commune'));
-      return route.fulfill({json:{data:[],next:null}});
+  for (const width of [1440, 390]) {
+    const page = await browser.newPage({ viewport: { width, height: 1000 } });
+    const errors = [], expected = {};
+    page.on('pageerror', e => errors.push(e.message));
+    await page.route('**/iec-atlas-data/**', async route => {
+      const path = new URL(route.request().url()).pathname.split('/iec-atlas-data/')[1];
+      if (!/^(manifest\.json|data\/[a-z0-9-]+\.json)$/.test(path)) return route.abort();
+      const json = await original(route, path), key = path.match(/^data\/([a-z0-9-]+)\.json$/)?.[1], catalogue = CATALOGUES[key];
+      if (catalogue) {
+        const items = json.data[catalogue.field];
+        expected[key] = items.filter(item => insideCcpmb(catalogue.at(item).lat, catalogue.at(item).lng)).length;
+        assert.ok(items.length > 0, `${key}: published catalogue is empty`);
+        json.data = { ...json.data, [catalogue.field]: [...items, catalogue.add(items[0])] };
+      }
+      await route.fulfill({ json });
     });
-    await page.route('**/geo.api.gouv.fr/communes?**',route=>route.fulfill({json:[
-      {code:'74208',nom:'Passy test',centre:{coordinates:[6.713642,45.923535]}},
-      {code:'74266',nom:'Servoz test',centre:{coordinates:[6.762,45.93]}},
-    ]}));
-    await page.route('**/services3.arcgis.com/**',route=>route.fulfill({json:{features:decodeURIComponent(route.request().url()).includes('journalières')?[]:[
-      {attributes:{code_station:'inside',nom_station:'Passy test',x_wgs84:6.713642,y_wgs84:45.923535,date_debut:Date.parse('2026-09-09T12:00:00Z'),valeur:12,unite:'µg/m³'}},
-      {attributes:{code_station:'outside',nom_station:'Servoz test',x_wgs84:6.762,y_wgs84:45.93,date_debut:Date.parse('2026-09-09T12:00:00Z'),valeur:25,unite:'µg/m³'}},
-    ]}}));
-    await page.goto(process.env.ATLAS_URL??'http://localhost:3000/atlas',{waitUntil:'domcontentloaded'});
-    const toggle=(name)=>page.getByRole('checkbox',{name,exact:true}).check();
-    await page.getByText(new RegExp(`^${inventoryCount} sites cartographiés`)).waitFor();
-    assert.equal(await page.locator('.custom-marker').count(),inventoryCount);
-    await toggle('Cours d’eau Agence de l’eau · Hub’Eau · Naïades');
-    await page.getByText('Hub’Eau est temporairement indisponible. Le catalogue conservé reste affiché ; les analyses détaillées peuvent être indisponibles.',{exact:true}).waitFor();
-    assert.equal(await page.locator('.rivers-station-pin').count(),riverCount,'Clipped snapshot survives outage');
-    riverOutage=false;
-    await page.getByRole('button',{name:'Réessayer',exact:true}).click();
-    await page.getByText(/1 stations · Catalogue chargé/).waitFor();
-    assert.equal(await page.locator('.rivers-station-pin').count(),1);
-    await toggle('Eau potable · contrôle ARS Ministère de la Santé · Hub’Eau');
-    await page.getByText(/1 communes · Catalogue chargé/).waitFor();
-    await page.getByRole('button',{name:'Eau potable · Passy test',exact:true}).waitFor();
-    assert.equal(await page.locator('.drinking-station-pin').count(),1);
-    await toggle('Stations de mesure · Atmo Atmo Auvergne-Rhône-Alpes');
-    await page.getByText('3 station(s) · un pin par station, tous ses polluants dans la fiche.',{exact:true}).waitFor();
-    await page.getByRole('button',{name:'Station Atmo · Passy test',exact:true}).waitFor();
-    await toggle('Eaux de baignade · ARS Ministère de la Santé');
-    await page.getByText(/^3 sites · \d+ prélèvements récupérés\.$/).waitFor();
-    assert.equal(await page.locator('.bathing-station-pin').count(),3);
-    for(const name of ['Thyez','Morillon','Samoëns','Servoz test']) assert.equal(await page.locator(`.leaflet-marker-icon[title*="${name}"]`).count(),0);
-    await toggle('Lichens (bio-indication) Démonstration · données fictives');
-    await toggle('Bio-accumulation (retombées) Démonstration · données fictives');
-    await toggle('Analyses de sols Démonstration · données fictives');
-    assert.equal(await page.locator('.lichens-demo-pin').count(),13);
-    assert.equal(await page.locator('.bioacc-demo-pin').count(),10);
-    assert.equal(await page.locator('.soil-demo-pin').count(),15);
-    await toggle('Chauffage résidentiel Démonstration · données fictives');
-    const heat=page.locator('.leaflet-image-layer');await heat.waitFor();
-    await heat.evaluate(image=>image.decode());
-    const samples=await heat.evaluate((image,bounds)=>{
-      const canvas=document.createElement('canvas');canvas.width=image.naturalWidth;canvas.height=image.naturalHeight;
-      const ctx=canvas.getContext('2d');ctx.drawImage(image,0,0);
-      const mercator=lat=>Math.log(Math.tan(Math.PI/4+lat*Math.PI/360));
-      return [[45.93,6.770],[45.924,6.870],[45.821,6.728],[45.837,6.572]].map(([lat,lng])=>{
-        const x=Math.round((lng-bounds.west)/(bounds.east-bounds.west)*(canvas.width-1));
-        const y=Math.round((mercator(bounds.north)-mercator(lat))/(mercator(bounds.north)-mercator(bounds.south))*(canvas.height-1));
-        return ctx.getImageData(x,y,1,1).data[3];
-      });
-    },WOOD_HEATMAP_BOUNDS);
-    assert.deepEqual(samples.slice(0,2),[0,0]);assert.ok(samples[2]>200&&samples[3]>200);
-    assert.ok(waterQueries.length>0&&waterQueries.every(q=>q==='74208'));
-    await page.screenshot({path:`/tmp/atlas-commune-clipping-${width}.png`});
-    assert.deepEqual(errors,[]);
-    console.log(`PASS ${width}px: ${inventoryCount} inventory, ${riverCount} cached rivers; filtered live water/air, 3 bathing sites, all demos, heatmap and counts`);
+    await page.goto(`${process.env.ATLAS_URL ?? 'http://localhost:3000/atlas'}?layers=${Object.keys(CATALOGUES).join(',')}`, { waitUntil: 'domcontentloaded' });
+    if (width < 1024) await page.getByRole('button', { name: /^Couches/ }).click();
+    const panel = width < 1024 ? page.getByRole('dialog', { name: 'Couches de l’atlas' }) : page.getByRole('complementary', { name: 'Couches de l’atlas' });
+    for (const [key, catalogue] of Object.entries(CATALOGUES)) {
+      await panel.getByText(catalogue.text('\\d+')).first().waitFor({ timeout: 30000 });
+      assert.ok(expected[key] > 0, `${key}: no published point inside the territory`);
+      await panel.getByText(catalogue.text(expected[key])).first().waitFor();
+    }
+    if (width < 1024) await page.getByRole('button', { name: 'Voir la carte' }).click();
+    assert.equal(await page.locator(`.leaflet-marker-icon[title*="${NAME}"]`).count(), 0, 'No pin outside the ten communes');
+    await page.screenshot({ path: `/tmp/atlas-territory-${width}.png` });
+    assert.deepEqual(errors, []);
+    console.log(`PASS ${width}px: ${Object.entries(expected).map(([key, n]) => `${n} ${key}`).join(', ')} inside; injected outside points hidden`);
     await page.close();
   }
-} finally {await browser.close();}
+} finally { await browser.close(); }

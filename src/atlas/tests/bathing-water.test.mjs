@@ -19,6 +19,18 @@ test("keeps dates, zero, missing values and less-than qualifiers; excludes thres
     { date: "2026-07-16", ecoli: "110", enterococci: null, assessment: "Moyen" },
   ]);
 });
+test("ignores assessment cells outside the all-samples section", () => {
+  const html = page().replace('<td class="cadre_dotted fondMoyen"><strong>16/07/2026</strong>Moyen</td>', "")
+    .replace('<a name="details">', '<td class="cadre_dotted fondMauvais"><strong>16/07/2026</strong>Mauvais</td><td class="cadre_dotted fondBon"><strong>01/01/2020</strong>Classement</td><a name="details">');
+  assert.deepEqual(parseBathingPage(html, BATHING_SITES[0], 2026).map((s) => s.assessment), ["Bon", "Non renseigné"]);
+});
+test("marks samples over 90 days old as historical, like drinking water", () => {
+  const point = { ...BATHING_SITES[0], seasons: [{ samples: [{ date: "2026-07-01", assessment: "Bon" }] }] };
+  assert.equal(bathingQuality(point, Date.parse("2026-08-01")).historical, false);
+  assert.equal(bathingQuality(point, Date.parse("2026-11-01")).historical, true);
+  assert.equal(bathingQuality(point, Date.parse("2026-11-01")).level, "good");
+  assert.equal(bathingQuality({ ...BATHING_SITES[0], seasons: [] }).historical, undefined);
+});
 test("rejects different sites, wrong seasons, invalid dates, units and shifted columns", () => {
   for (const html of [
     page(BATHING_SITES[1]), page(undefined, 2025), page().replaceAll("30/06/2026", "31/06/2026"),

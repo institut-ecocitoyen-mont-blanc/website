@@ -37,10 +37,10 @@ test("every coloured heatmap pixel lies inside the commune union", () => {
   const top=mercator(north),bottom=mercator(south);
   let visible=0;
   for(let y=0;y<raster.height;y++) {
-    const lat=(2*Math.atan(Math.exp(top-y/(raster.height-1)*(top-bottom)))-Math.PI/2)*180/Math.PI;
+    const lat=(2*Math.atan(Math.exp(top-(y+0.5)/raster.height*(top-bottom)))-Math.PI/2)*180/Math.PI;
     for(let x=0;x<raster.width;x++) if(raster.pixels[(y*raster.width+x)*4+3]) {
       visible++;
-      assert.ok(insideCcpmb(lat,west+x/(raster.width-1)*(east-west)),`Out-of-territory pixel ${x},${y}`);
+      assert.ok(insideCcpmb(lat,west+(x+0.5)/raster.width*(east-west)),`Out-of-territory pixel ${x},${y}`);
     }
   }
   assert.ok(visible>100);
@@ -51,8 +51,8 @@ test("residential demo excludes Chamonix and Les Houches and adds Les Contamines
   const { west, east, south, north } = WOOD_HEATMAP_BOUNDS;
   const mercator = (lat) => Math.log(Math.tan(Math.PI / 4 + lat * Math.PI / 360));
   const pixel = (lat, lng) => {
-    const x = Math.round((lng - west) / (east - west) * (raster.width - 1));
-    const y = Math.round((mercator(north) - mercator(lat)) / (mercator(north) - mercator(south)) * (raster.height - 1));
+    const x = Math.floor((lng - west) / (east - west) * raster.width);
+    const y = Math.floor((mercator(north) - mercator(lat)) / (mercator(north) - mercator(south)) * raster.height);
     return [...raster.pixels.slice((y * raster.width + x) * 4, (y * raster.width + x) * 4 + 4)];
   };
   for (const [lat, lng] of [[45.909,6.836],[45.925,6.868],[45.944,6.892],[45.979,6.925]]) {

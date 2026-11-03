@@ -54,3 +54,12 @@ test('empty, invalid dates and incomplete archives never claim a clean bill of h
   assert.equal(waterSummaryTitle(partial),'Synthèse partielle du dernier prélèvement');
   assert.equal(waterSummaryTitle({...partial,incomplete:false,within:0}),'Résultats sans classement de qualité');
 });
+test('a truncated legacy preview never reports a complete clean latest sample', () => {
+  const row={date_prelevement:'2026-01-02',code_prelevement:'sample',reference_analyse:'ref',...reading('0.1','<=1 µg/L'),code_parametre:'one'};
+  assert.equal(waterSummaryTitle(waterResultSummary([row],'drinking')),'Aucun écart aux repères publiés');
+  for (const kind of ['drinking','rivers']) {
+    const partial=waterResultSummary([row],kind,true);
+    assert.equal(partial.incomplete,true);
+    assert.equal(waterSummaryTitle(partial),'Synthèse partielle du dernier prélèvement');
+  }
+});

@@ -30,6 +30,9 @@ function MobileDrawer({ children, activeCount, onClose }: { children: ReactNode;
   }, []);
   return createPortal(<dialog ref={ref} id="atlas-mobile-layers" aria-label="Couches de l’atlas" aria-modal="true" className={styles.drawer}
     onCancel={(event) => { event.preventDefault(); onClose(); }}
+    // Escape may close a modal without a cancellable cancel event (close watcher).
+    // Ignore the close queued by unmounting, or by a Strict Mode remount.
+    onClose={(event) => { if (event.currentTarget.isConnected && !event.currentTarget.open) onClose(); }}
     onKeyDown={(event) => {
       if (event.key !== "Tab") return;
       const controls = [...event.currentTarget.querySelectorAll<HTMLElement>('button:not(:disabled), input:not(:disabled), select:not(:disabled), summary, a[href], [tabindex="0"]')].filter((el) => el.getClientRects().length > 0);

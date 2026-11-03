@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { existsSync, readFileSync } from "node:fs";
 import { createRequire } from "node:module";
 import ts from "typescript";
-import { createElement } from "react";
+import { createElement, Fragment } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 
 // Render the actual TSX primitives without requiring a Next/CSS build.
@@ -11,15 +11,20 @@ const require = createRequire(import.meta.url);
 function componentModule(file) {
   return sourceModule(new URL(`../components/${file}.tsx`, import.meta.url));
 }
+// Leaflet needs a browser window: stub only the map primitives.
+const stubs = { "react-leaflet": { Tooltip: () => null }, "./AtlasMarker": { __esModule: true, default: () => null }, "./EvidenceLayerControl": { __esModule: true, default: ({ children }) => createElement(Fragment, null, children), groundwaterPin: () => null } };
 function sourceModule(url) {
   const source = readFileSync(url, "utf8");
   const { outputText } = ts.transpileModule(source, { compilerOptions: { target: ts.ScriptTarget.ES2022, jsx: ts.JsxEmit.ReactJSX, module: ts.ModuleKind.CommonJS, esModuleInterop: true } });
   const exports = {};
   const localRequire = name => {
     if (name.endsWith(".module.css")) return { __esModule: true, default: new Proxy({}, { get: (_, key) => String(key) }) };
-    if (name.startsWith("./") || name.startsWith("@/")) {
+    if (name in stubs) return stubs[name];
+    if (name.startsWith(".") || name.startsWith("@/")) {
       const base = name.startsWith("@/") ? new URL(`../../${name.slice(2)}`, import.meta.url) : new URL(name, url);
-      return sourceModule(new URL(base.href + (existsSync(new URL(base.href + ".tsx")) ? ".tsx" : ".ts")));
+      if (name.endsWith(".json")) return require(base.pathname);
+      const href = base.href.replace(/\.tsx?$/, "");
+      return sourceModule(new URL(href + (existsSync(new URL(href + ".tsx")) ? ".tsx" : ".ts")));
     }
     return require(name);
   };
@@ -126,4 +131,22 @@ test("full data tables retain published qualifiers, dates and validation codes",
   assert.match(html, /Correcte · Brute/);
   assert.match(html, /<td>0<\/td>/);
   assert.match(html, /Non renseigné/);
+});
+test("groundwater catalogue loading and failure are not reported as zero points", () => {
+  const { useGroundwaterLayer } = componentModule("GroundwaterLayer");
+  const Controls = ({ data, status }) => createElement(Fragment, null, useGroundwaterLayer(data, status).controls);
+  const empty = { stations: [], fetchedAt: null, error: "Erreur fournisseur" };
+  const loading = render(Controls, { data: empty, status: "loading" }), failed = render(Controls, { data: empty, status: "error" });
+  assert.match(loading, /role="status"[^>]*>Chargement du catalogue…/);
+  assert.match(failed, /role="alert"[^>]*>Catalogue des eaux souterraines indisponible/);
+  assert.equal((failed.match(/role="alert"/g) ?? []).length, 1);
+  for (const html of [loading, failed]) assert.doesNotMatch(html, /0 points avec analyses/);
+  assert.match(render(Controls, { data: { stations: [], fetchedAt: null }, status: "ready" }), /0 points avec analyses disponibles/);
+});
+test("drinking network chips are an accessible group", () => {
+  const Drinking = componentModule("AtlasDrinkingDetails").default;
+  const quality = { level: "good", label: "Conforme", detail: "Détail" };
+  const html = render(Drinking, { point: { id: "74208", name: "Passy" }, summary: { quality, year: 2026, networks: [{ id: "074000001", name: "Réseau", quality }] } });
+  assert.match(html, /<div role="group"[^>]*aria-label="Réseaux de distribution · catalogue 2026"/);
+  assert.equal((html.match(/role="status"/g) ?? []).length, 1);
 });

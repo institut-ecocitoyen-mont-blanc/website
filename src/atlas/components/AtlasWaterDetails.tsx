@@ -8,7 +8,7 @@ import HistoryCards from "./HistoryCards";
 import { waterHistory } from "../lib/history-series";
 import { QUALITY_COLORS } from "@/atlas/lib/environmental-quality";
 import { analysisUrl, asText, type LayerPoint, type Row } from "@/atlas/lib/environmental-layers";
-import { loadPublishedData } from "@/atlas/lib/published-data";
+import { loadPublishedSnapshot } from "@/atlas/lib/published-data";
 import type { Quality } from "@/atlas/lib/environmental-quality";
 import type { DrinkingNetwork } from "@/atlas/lib/drinking-networks";
 import { riverAssessmentUrl, riverChemicalLabel, type RiverAssessment } from "@/atlas/lib/river-assessments";
@@ -23,23 +23,28 @@ const dateLabel = (value: unknown) => {
 const networkNames = (row: Row) => Array.isArray(row.reseaux) ? row.reseaux.map((r: Row) => asText(r.nom)).join(", ") : "Réseau non renseigné";
 const resultValue = (row: Row) => asText(row.resultat_alphanumerique ?? row.resultat ?? row.resultat_numerique) || "Non renseigné";
 const resultUnit = (row: Row) => asText(row.libelle_unite ?? row.symbole_unite);
+// Same-date rows can differ by support, fraction or analysis place: keep that context visible.
+const coded = (label: unknown, code: unknown, prefix: string) => asText(label) || (asText(code) && `${prefix} ${asText(code)}`);
+const rowContext = (row: Row, kind: "rivers" | "drinking") => (kind === "drinking" ? [row.code_lieu_analyse === "L" ? "Laboratoire" : row.code_lieu_analyse === "T" ? "Terrain" : coded(row.libelle_lieu_analyse, row.code_lieu_analyse, "Lieu d’analyse")]
+  : [coded(row.libelle_support, row.code_support, "Support"), coded(row.libelle_fraction, row.code_fraction, "Fraction"), coded(row.libelle_insitu, row.code_insitu, "In situ")]).filter(Boolean).join(" · ");
 
 export default function AtlasWaterDetails({ kind, point, quality, sample, network, assessment, assessmentFetchedAt, networkControls, networkContext }: { kind: "rivers" | "drinking"; point: LayerPoint; quality: Quality; sample?: Row; network?: DrinkingNetwork; assessment?: RiverAssessment; assessmentFetchedAt?: string | null; networkControls?: ReactNode; networkContext?: ReactNode }) {
-  const [data, setData] = useState<Row[] | null>(null);
+  const [data, setData] = useState<Row[] | null>(null), [preview, setPreview] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [attempt, setAttempt] = useState(0);
   const [search, setSearch] = useState("");
-  const url = kind === "drinking" && !network ? null : analysisUrl(kind, network?.id ?? point.id);
+  const networkId = network?.id, url = kind === "drinking" && !networkId ? null : analysisUrl(kind, networkId ?? point.id);
+  // Stable ids only: a data refresh recreates the network object without changing its results.
   useEffect(() => {
     const controller = new AbortController();
-    setError(null); setData(null);
+    setError(null); setData(null); setPreview(false);
     if (!url) return () => controller.abort();
-    loadPublishedData<Row[]>(`${kind === "rivers" ? "river" : "drinking"}-${(network?.id ?? point.id).toLowerCase()}`, controller.signal).then((data) => {
-      if (network && data.some((r) => !Array.isArray(r.reseaux) || !r.reseaux.some((n: Row) => asText(n.code) === network.id))) throw new Error("Réseau incorrect.");
-      if (!controller.signal.aborted) setData(data);
+    loadPublishedSnapshot<Row[]>(`${kind === "rivers" ? "river" : "drinking"}-${(networkId ?? point.id).toLowerCase()}`, controller.signal).then(({ data, preview }) => {
+      if (networkId && data.some((r) => !Array.isArray(r.reseaux) || !r.reseaux.some((n: Row) => asText(n.code) === networkId))) throw new Error("Réseau incorrect.");
+      if (!controller.signal.aborted) { setData(data); setPreview(preview); }
     }).catch(() => { if (!controller.signal.aborted) setError("Les analyses sont temporairement indisponibles. Réessayez."); });
     return () => controller.abort();
-  }, [url, attempt, network, kind, point.id]);
+  }, [url, attempt, networkId, kind, point.id]);
   // Preserve every result, date, unit and qualifier. Only group the presentation.
   const groups = new Map<string, Row[]>();
   for (const row of data ?? []) {
@@ -51,18 +56,19 @@ export default function AtlasWaterDetails({ kind, point, quality, sample, networ
   return <>
     <DetailHeadline title={quality.label} subtitle={kind === "rivers" ? "Évaluation officielle à la station · Agence de l’eau" : `Dernier prélèvement · ${network?.name ?? "Réseau"}`} color={quality.level === "unknown" ? "#e2e8f0" : QUALITY_COLORS[quality.level]} date={kind === "rivers" ? assessment?.year : sample ? dateLabel(sample.date_prelevement) : undefined} />
     {networkControls}
-    {data && <WaterResultSummary summary={waterResultSummary(data, kind)} source={kind} />}
+    {data && <WaterResultSummary summary={waterResultSummary(data, kind, preview)} source={kind} />}
+    {data && preview && <p role="note" className={styles.visual}>Aperçu partiel uniquement : l’historique complet de ce point n’est pas encore publié. Le dernier prélèvement, les tendances et le tableau peuvent être incomplets.</p>}
     {error ? <div role="alert" className={styles.visual}>{error} <button className="underline" onClick={() => setAttempt(n => n + 1)}>Réessayer</button></div> : !data ? <p role="status" className={styles.visual}>Chargement des analyses…</p> : !data.length ? <p className={styles.visual}>Aucune analyse disponible pour ce point.</p> : <HistoryCards key={`${point.id}:${network?.id}`} series={history} />}
     <DetailFacts items={kind === "rivers" ? [
       { label: "État chimique officiel", value: assessment ? riverChemicalLabel(assessment) : "Non disponible" },
       { label: "Paramètres déclassants publiés", value: assessment?.chemicalDowngraders || "Non renseignés" },
-      { label: "Analyses récupérées", value: data ? `${data.length} résultats · ${groups.size} paramètres` : "Chargement…" },
+      { label: "Analyses récupérées", value: data ? `${data.length} résultats · ${groups.size} paramètres${preview ? " · aperçu partiel" : ""}` : "Chargement…" },
     ] : [{ label: "Réseau de distribution", value: network?.id }, { label: "Prélèvement", value: sample ? asText(sample.code_prelevement) : "Non renseigné" }]} />
-    <DetailData hint={`${data?.length ?? 0} résultats · unités et qualifications`}>
+    <DetailData hint={`${data?.length ?? 0} résultats${preview ? " (aperçu partiel)" : ""} · unités et qualifications`}>
       {sample && <DetailSection title="Conclusion du prélèvement"><p className="text-sm">{asText(sample.conclusion_conformite_prelevement)}</p><p className="text-xs text-slate-500">{networkNames(sample)}</p></DetailSection>}
       <label className="mb-4 block text-sm">Rechercher un paramètre<input type="search" value={search} onChange={e => setSearch(e.target.value)} placeholder="PFAS, nitrates, arsenic…" className="mt-2 block w-full rounded-lg border border-slate-300 px-3 py-2" /></label>
-      <DetailTable key={`${point.id}:${network?.id}:${search}`} caption="Historique des analyses importées · dates et qualifications conservées" headers={kind === "rivers" ? ["Paramètre", "Date", "Résultat", "Remarque publiée"] : ["Paramètre", "Date", "Résultat", "Limite · référence", "Réseau · conclusion"]} records={(data ?? []).filter(row => `${asText(row.libelle_parametre)} ${asText(row.code_parametre)}`.toLocaleLowerCase("fr").includes(search.toLocaleLowerCase("fr")))} renderRow={row => [
-        asText(row.libelle_parametre) || asText(row.code_parametre), dateLabel(row.date_prelevement), `${resultValue(row)} ${resultUnit(row)}`,
+      <DetailTable key={`${point.id}:${network?.id}:${search}`} caption="Historique des analyses importées · dates et qualifications conservées" headers={kind === "rivers" ? ["Paramètre · support · fraction", "Date", "Résultat", "Remarque publiée"] : ["Paramètre · lieu d’analyse", "Date", "Résultat", "Limite · référence", "Réseau · conclusion"]} records={(data ?? []).filter(row => `${asText(row.libelle_parametre)} ${asText(row.code_parametre)}`.toLocaleLowerCase("fr").includes(search.toLocaleLowerCase("fr")))} renderRow={row => [
+        [asText(row.libelle_parametre) || asText(row.code_parametre), rowContext(row, kind)].filter(Boolean).join(" · "), dateLabel(row.date_prelevement), `${resultValue(row)} ${resultUnit(row)}`,
         ...(kind === "rivers" ? [asText(row.mnemo_remarque)] : [[asText(row.limite_qualite_parametre), asText(row.reference_qualite_parametre)].filter(Boolean).join(" · ") || "Non renseignées", `${networkNames(row)} · ${asText(row.conclusion_conformite_prelevement)}`]),
       ]} />
       <DetailSection title="Lire cette donnée"><p className="text-sm">{kind === "rivers" ? "L’état chimique est distinct de l’état ou du potentiel écologique qui colore le repère. Aucune classe par paramètre ni bilan sur 24 mois n’est déduit automatiquement de ces analyses." : `Résultats du réseau ${network?.name} uniquement. Les limites et références sont reproduites dans leurs unités et formulations publiées.`}</p></DetailSection>

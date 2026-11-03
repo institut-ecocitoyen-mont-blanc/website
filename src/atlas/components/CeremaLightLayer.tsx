@@ -16,8 +16,10 @@ const positions = (geometry: typeof boundaries.features[number]["geometry"]) => 
   const polygons = geometry.type === "Polygon" ? [geometry.coordinates] : geometry.coordinates;
   return (polygons as number[][][][]).map((polygon) => polygon.map((ring) => ring.map(([lng, lat]) => [lat, lng] as [number, number])));
 };
+// Stable references: new arrays would make react-leaflet reset every polygon on each map render.
+const shapes = new Map(boundaries.features.map(({ properties, geometry }) => [properties.code, positions(geometry)]));
 
-export function useCeremaLightLayer() {
+export function useCeremaLightLayer(dataRevision: number) {
   const [enabled, setEnabled] = useAtlasUrlLayer("cerema-light");
   const [opacity, setOpacity] = useState(0.55);
   const [data, setData] = useState<LightData>();
@@ -39,7 +41,7 @@ export function useCeremaLightLayer() {
       if (!controller.signal.aborted) setError(error instanceof Error ? error.message : "Cerema est temporairement indisponible.");
     }).finally(() => { if (!controller.signal.aborted) setLoading(false); });
     return () => controller.abort();
-  }, [enabled, revision]);
+  }, [enabled, revision, dataRevision]);
   return {
     activeCount: Number(enabled),
     controls: <EvidenceLayerControl title="Pollution lumineuse" source="Cerema · observations satellitaires" enabled={enabled} onEnabled={setEnabled} opacityControl={{ value: opacity, onChange: setOpacity }}>
@@ -59,9 +61,8 @@ export function useCeremaLightLayer() {
       </LayerAbout>
     </EvidenceLayerControl>,
     polygons: enabled && data && <Pane name="cerema-light" style={{ zIndex: 360 }}>{data.communes.map((commune) => {
-      const feature = boundaries.features.find(({ properties }) => properties.code === commune.code)!;
       const value = commune.monthly[month];
-      return <Polygon key={commune.code} positions={positions(feature.geometry)} pathOptions={{ color: "#7c3e76", weight: 1, opacity: 0.8, fillColor: lightColor(value), fillOpacity: opacity }} attribution="Cerema · OFB · DarkSkyLab · Licence Ouverte 2.0" eventHandlers={{ click: () => setSelection(commune) }}>
+      return <Polygon key={commune.code} positions={shapes.get(commune.code)!} pathOptions={{ color: "#7c3e76", weight: 1, opacity: 0.8, fillColor: lightColor(value), fillOpacity: opacity }} attribution="Cerema · OFB · DarkSkyLab · Licence Ouverte 2.0" eventHandlers={{ click: () => setSelection(commune) }}>
         <Tooltip pane="tooltipPane">{commune.name}<br />{lightMonth(month)} · {amount(value)}{value != null ? " nW/cm²/sr" : ""}</Tooltip>
       </Polygon>;
     })}</Pane>,

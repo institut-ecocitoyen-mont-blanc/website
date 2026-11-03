@@ -11,75 +11,86 @@ import EvidenceLayerControl from "./EvidenceLayerControl";
 import LayerAbout from "./LayerAbout";
 import AtmoModelLegend from "./AtmoModelLegend";
 
-export type ModelStatus = "loading" | "ready" | "error";
+export type ModelStatus = "loading" | "ready" | "error" | "stale";
 
+type ModelImage = { image: HTMLImageElement; bbox: [number, number, number, number] };
 // Render the published, territory-clipped image. Browsers never request WMS tiles.
-export default function AtmoModelLayer({ pollutant, opacity, onStatus }: { pollutant: AtmoModelId; opacity: number; onStatus: (id: AtmoModelId, status: ModelStatus) => void }) {
+export default function AtmoModelLayer({ pollutant, opacity, revision, onStatus }: { pollutant: AtmoModelId; opacity: number; revision: number; onStatus: (id: AtmoModelId, status: ModelStatus) => void }) {
   const map = useMap();
   const layerRef = useRef<L.GridLayer | null>(null);
   const opacityRef = useRef(opacity);
+  const [source, setSource] = useState<ModelImage>();
+  const shownUrl = useRef<string>(undefined);
+  // A failed refresh keeps the previously decoded image on the map.
   useEffect(() => {
-    let disposed = false;
+    let disposed = false, loaded = false;
     const controller = new AbortController();
     const image = new Image();
     onStatus(pollutant, "loading");
     async function load() {
       const data = parseAtmoModelSnapshot(await loadPublishedData(`atmo-model-${pollutant}`, controller.signal), pollutant);
       if (disposed) return;
+      if (data.imageDataUrl === shownUrl.current) return onStatus(pollutant, "ready");
       image.src = data.imageDataUrl;
       await image.decode();
       if (disposed) return;
       if (image.naturalWidth !== data.width || image.naturalHeight !== data.height) throw new Error("Dimensions de la carte Atmo incompatibles.");
-      const [west, south, east, north] = data.bbox;
-      const ClippedTiles = L.GridLayer.extend({
-        createTile(coords: L.Coords, done: L.DoneCallback) {
-          const canvas = document.createElement("canvas");
-          canvas.width = canvas.height = 256;
-          canvas.className = "atmo-model-tile";
-          canvas.dataset.pollutant = pollutant;
-          canvas.setAttribute("aria-label", "Modélisation Atmo publiée, limitée aux dix communes");
-          const origin = L.point(coords.x * 256, coords.y * 256);
-          const nw = L.CRS.EPSG3857.project(map.unproject(origin, coords.z));
-          const se = L.CRS.EPSG3857.project(map.unproject(origin.add([256, 256]), coords.z));
-          const context = canvas.getContext("2d");
-          if (context) {
-            // Keep a final vector mask at every zoom to avoid edge interpolation outside the territory.
-            context.beginPath();
-            for (const polygon of CCPMB_POLYGONS) for (const ring of polygon) {
-              ring.forEach(([lng, lat], index) => {
-                const p = map.project([lat, lng], coords.z).subtract(origin);
-                if (index === 0) context.moveTo(p.x, p.y); else context.lineTo(p.x, p.y);
-              });
-              context.closePath();
-            }
-            context.clip("evenodd");
-            context.drawImage(image, (west - nw.x) / (se.x - nw.x) * 256, (nw.y - north) / (nw.y - se.y) * 256, (east - west) / (se.x - nw.x) * 256, (north - south) / (nw.y - se.y) * 256);
-          }
-          requestAnimationFrame(() => { if (!disposed) done(context ? undefined : new Error("Canvas indisponible"), canvas); });
-          return canvas;
-        },
-      });
-      const layer = new ClippedTiles();
-      L.setOptions(layer, {
-        bounds: [[CCPMB_BOUNDS.south, CCPMB_BOUNDS.west], [CCPMB_BOUNDS.north, CCPMB_BOUNDS.east]],
-        tileSize: 256, opacity: opacityRef.current, zIndex: 250 + ATMO_MODELS.findIndex(({ id }) => id === pollutant), keepBuffer: 1, noWrap: true,
-        attribution: '<a href="https://www.atmo-auvergnerhonealpes.fr/carte/exposition-la-pollution-atmospherique-en-2025">Atmo Auvergne-Rhône-Alpes · modélisation 2025 · ODbL 1.0</a>',
-      });
-      layer.on("load", () => { if (!disposed) onStatus(pollutant, "ready"); });
-      layer.on("tileerror", () => { if (!disposed) onStatus(pollutant, "error"); });
-      layerRef.current = layer;
-      layer.addTo(map);
-      onStatus(pollutant, "ready");
+      loaded = true; shownUrl.current = data.imageDataUrl;
+      setSource({ image, bbox: data.bbox });
     }
-    void load().catch(() => { if (!disposed) onStatus(pollutant, "error"); });
+    void load().catch(() => { if (!disposed) onStatus(pollutant, shownUrl.current ? "stale" : "error"); });
+    return () => { disposed = true; controller.abort(); if (!loaded) image.src = ""; };
+  }, [pollutant, revision, onStatus]);
+  useEffect(() => {
+    if (!source) return;
+    let disposed = false;
+    const { image, bbox: [west, south, east, north] } = source;
+    const ClippedTiles = L.GridLayer.extend({
+      createTile(coords: L.Coords, done: L.DoneCallback) {
+        const canvas = document.createElement("canvas");
+        canvas.width = canvas.height = 256;
+        canvas.className = "atmo-model-tile";
+        canvas.dataset.pollutant = pollutant;
+        canvas.setAttribute("aria-label", "Modélisation Atmo publiée, limitée aux dix communes");
+        const origin = L.point(coords.x * 256, coords.y * 256);
+        const nw = L.CRS.EPSG3857.project(map.unproject(origin, coords.z));
+        const se = L.CRS.EPSG3857.project(map.unproject(origin.add([256, 256]), coords.z));
+        const context = canvas.getContext("2d");
+        if (context) {
+          // Keep a final vector mask at every zoom to avoid edge interpolation outside the territory.
+          context.beginPath();
+          for (const polygon of CCPMB_POLYGONS) for (const ring of polygon) {
+            ring.forEach(([lng, lat], index) => {
+              const p = map.project([lat, lng], coords.z).subtract(origin);
+              if (index === 0) context.moveTo(p.x, p.y); else context.lineTo(p.x, p.y);
+            });
+            context.closePath();
+          }
+          context.clip("evenodd");
+          context.drawImage(image, (west - nw.x) / (se.x - nw.x) * 256, (nw.y - north) / (nw.y - se.y) * 256, (east - west) / (se.x - nw.x) * 256, (north - south) / (nw.y - se.y) * 256);
+        }
+        requestAnimationFrame(() => { if (!disposed) done(context ? undefined : new Error("Canvas indisponible"), canvas); });
+        return canvas;
+      },
+    });
+    const layer = new ClippedTiles();
+    L.setOptions(layer, {
+      bounds: [[CCPMB_BOUNDS.south, CCPMB_BOUNDS.west], [CCPMB_BOUNDS.north, CCPMB_BOUNDS.east]],
+      tileSize: 256, opacity: opacityRef.current, zIndex: 250 + ATMO_MODELS.findIndex(({ id }) => id === pollutant), keepBuffer: 1, noWrap: true,
+      attribution: '<a href="https://www.atmo-auvergnerhonealpes.fr/carte/exposition-la-pollution-atmospherique-en-2025">Atmo Auvergne-Rhône-Alpes · modélisation 2025 · ODbL 1.0</a>',
+    });
+    layer.on("load", () => { if (!disposed) onStatus(pollutant, "ready"); });
+    layer.on("tileerror", () => { if (!disposed) onStatus(pollutant, "error"); });
+    layerRef.current = layer;
+    layer.addTo(map);
+    onStatus(pollutant, "ready");
     return () => {
       disposed = true;
-      controller.abort();
-      layerRef.current?.remove();
-      layerRef.current = null;
-      image.src = "";
+      layer.remove();
+      if (layerRef.current === layer) layerRef.current = null;
     };
-  }, [map, pollutant, onStatus]);
+  }, [map, pollutant, source, onStatus]);
+  useEffect(() => () => { if (source) source.image.src = ""; }, [source]);
   useEffect(() => { opacityRef.current = opacity; layerRef.current?.setOpacity(opacity); }, [opacity, pollutant]);
   return null;
 }
@@ -91,7 +102,7 @@ function AtmoModelControls({ pollutant, status, onRetry }: {
   return <div className="space-y-3 text-xs">
       <p>{model.metric} · {model.period}. Modélisation historique, pas la qualité de l’air actuelle.</p>
       {status === "loading" && <p role="status">Chargement de la carte {model.label}…</p>}
-      {status === "error" && <p role="alert" className="text-amber-800">La carte publiée {model.label} est indisponible. Les autres couches restent accessibles. <button className="underline" onClick={onRetry}>Réessayer la carte {model.label}</button></p>}
+      {(status === "error" || status === "stale") && <p role="alert" className="text-amber-800">La carte publiée {model.label} est indisponible.{status === "stale" ? " Les dernières données chargées restent affichées." : ""} Les autres couches restent accessibles. <button className="underline" onClick={onRetry}>Réessayer la carte {model.label}</button></p>}
       <AtmoModelLegend pollutant={pollutant} />
       <LayerAbout>
       <p className="text-slate-500">Limites : incertitude à l’échelle d’un bâtiment ; cette carte n’identifie pas les sources d’émission. Image précalculée, pas une grille de concentrations interrogeable.</p>
@@ -102,7 +113,7 @@ function AtmoModelControls({ pollutant, status, onRetry }: {
 }
 
 type ModelState = { opacity: number; status: ModelStatus; revision: number };
-export function useAtmoModelLayers() {
+export function useAtmoModelLayers(revision: number) {
   const url = useAtlasUrlState();
   const enabled = (id: AtmoModelId) => url.layers.includes(`atmo-model-${id}`);
   const [states, setStates] = useState<Record<AtmoModelId, ModelState>>(() => Object.fromEntries(
@@ -120,6 +131,6 @@ export function useAtmoModelLayers() {
       <AtmoModelControls pollutant={id} status={states[id].status} onRetry={() => update(id, { revision: states[id].revision + 1 })} />
     </EvidenceLayerControl>),
     layers: ATMO_MODELS.map(({ id }) => enabled(id) && <AtmoModelLayer
-      key={`${id}-${states[id].revision}`} pollutant={id} opacity={states[id].opacity} onStatus={onStatus} />),
+      key={id} pollutant={id} opacity={states[id].opacity} revision={states[id].revision + revision} onStatus={onStatus} />),
   };
 }

@@ -38,8 +38,9 @@ export function createWoodHeatmap(width = 900) {
   const top = mercatorY(north), bottom = mercatorY(south);
   const height = Math.round(width * (top - bottom) / ((east - west) * Math.PI / 180));
   const field = new Float32Array(width * height);
-  const xFor = (longitude: number) => (longitude - west) / (east - west) * (width - 1);
-  const yFor = (latitude: number) => (top - mercatorY(latitude)) / (top - bottom) * (height - 1);
+  // ImageOverlay stretches pixels over the bounds: pixel i covers [i, i + 1], so its centre is i + 0.5.
+  const xFor = (longitude: number) => (longitude - west) / (east - west) * width - 0.5;
+  const yFor = (latitude: number) => (top - mercatorY(latitude)) / (top - bottom) * height - 0.5;
 
   for (const [lat, lng, weight, spreadX, spreadY] of HOTSPOTS) {
     const cx = xFor(lng), cy = yFor(lat);
@@ -53,7 +54,7 @@ export function createWoodHeatmap(width = 900) {
 
   const mask = new Uint8Array(width * height);
   for (let y = 0; y < height; y++) {
-    const lat = (2 * Math.atan(Math.exp(top - y / (height - 1) * (top - bottom))) - Math.PI / 2) * 180 / Math.PI;
+    const lat = (2 * Math.atan(Math.exp(top - (y + 0.5) / height * (top - bottom))) - Math.PI / 2) * 180 / Math.PI;
     for (const [left, right] of ccpmbLongitudeSpans(lat)) {
       const start = Math.max(0, Math.ceil(xFor(left))), end = Math.min(width - 1, Math.floor(xFor(right)));
       if (start <= end) mask.fill(1, y * width + start, y * width + end + 1);

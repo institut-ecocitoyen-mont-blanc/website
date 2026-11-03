@@ -33,6 +33,9 @@ export default function AtlasDetailDialog({ title, kind, subtitle, eyebrow, foot
   const producer = { atmo: "Atmo Auvergne-Rhône-Alpes", rivers: "Agence de l’eau · Hub’Eau", drinking: "ARS · Hub’Eau", bathing: "Ministère de la Santé", inventory: "Institut écocitoyen", traffic: "DDT de Haute-Savoie", groundwater: "Hub’Eau · ADES", georisques: "État · BRGM", light: "Cerema", pesticides: "OFB · BNV-D", radon: "Géorisques · IRSN / ASNR" }[kind as string] ?? "Institut écocitoyen";
   return <dialog ref={ref} aria-labelledby={titleId} aria-modal="true" className={styles.dialog} style={{ "--detail-accent": accent } as CSSProperties}
     onCancel={(event) => { event.preventDefault(); onClose(); }}
+    // Escape may close a modal without a cancellable cancel event (close watcher).
+    // Ignore the close queued by unmounting, or by a Strict Mode remount.
+    onClose={(event) => { if (event.currentTarget.isConnected && !event.currentTarget.open) onClose(); }}
     onKeyDown={(event) => {
       if (event.key !== "Tab") return;
       const controls = [...event.currentTarget.querySelectorAll<HTMLElement>('button:not(:disabled), input:not(:disabled), select:not(:disabled), a[href], summary, [tabindex="0"]')].filter((el) => el.getClientRects().length > 0);
