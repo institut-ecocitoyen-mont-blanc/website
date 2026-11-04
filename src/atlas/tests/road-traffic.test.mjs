@@ -52,7 +52,7 @@ test('D339 and N205 are included without adding neighbouring routes or out-of-te
 });
 test('latest common year never borrows older counts or counts for a different vehicle category', () => {
   for (const tmja of ['0','-99','','NC','NaN','Infinity']) {
-    const data=parseRoadTraffic(collection(member({tmja,extra:'<ms:TMJA_PL_25>1900</ms:TMJA_PL_25>'})),2026);
+    const data=parseRoadTraffic(collection(member({tmja,extra:'<ms:TMJA_PL_25>1900</ms:TMJA_PL_25>'}),member({road:'D13',id:'CDP11'})),2026);
     assert.equal(data.year,2024);
     assert.equal(data.segments[0].vehicles,null);
     assert.equal(data.segments[0].heavyVehiclesPercent,null);
@@ -98,4 +98,26 @@ test('loader uses verified WFS1.1 axis order and returns empty explicit error on
   assert.deepEqual(bad.segments,[]);
   assert.equal(bad.fetchedAt,null);
   assert.ok(bad.error);
+});
+test('a year column holding only sentinels is not the counting year', () => {
+  const data=parseRoadTraffic(collection(member({extra:'<ms:TMJA_25>0</ms:TMJA_25>'}),member({road:'D13',id:'CDP11',extra:'<ms:TMJA_25>-99</ms:TMJA_25>'})),2026);
+  assert.equal(data.year,2024);
+  assert.deepEqual(data.segments.map(s=>s.vehicles),[29492,29492]);
+  const old=parseRoadTraffic(collection(member({tmja:'0'}),member({road:'D13',id:'CDP11',tmja:'-99'})),2026);
+  assert.equal(old.year,2023);
+  assert.deepEqual(old.segments.map(s=>s.vehicles),[30000,30000]);
+  assert.throws(()=>parseRoadTraffic(collection(member({tmja:'0',prior:'0'})),2026),/Année/);
+});
+test('a 0 % heavy-vehicle share is a sentinel unless heavy vehicles were counted', () => {
+  const pct=(extra)=>parseRoadTraffic(collection(member().replace('<ms:PCT_PL_24>6.58</ms:PCT_PL_24>',extra)),2026).segments[0].heavyVehiclesPercent;
+  assert.equal(pct('<ms:PCT_PL_24>0</ms:PCT_PL_24>'),null);
+  assert.equal(pct('<ms:PCT_PL_24>0</ms:PCT_PL_24><ms:TMJA_PL_24>0</ms:TMJA_PL_24>'),null);
+  assert.equal(pct('<ms:PCT_PL_24>0</ms:PCT_PL_24><ms:TMJA_PL_24>12</ms:TMJA_PL_24>'),0);
+  assert.equal(pct('<ms:PCT_PL_24>6.58</ms:PCT_PL_24><ms:TMJA_PL_24>0</ms:TMJA_PL_24>'),6.58);
+  assert.equal(pct('<ms:PCT_PL_24>101</ms:PCT_PL_24>'),null);
+});
+test('XML entities are decoded once, with &amp; last', () => {
+  const name=(value)=>parseRoadTraffic(collection(member().replace('<ms:N_COMPT>9</ms:N_COMPT>',`<ms:N_COMPT>${value}</ms:N_COMPT>`)),2026).segments[0].name;
+  assert.equal(name('A&amp;lt;B'),'Point de comptage A&lt;B');
+  assert.equal(name('A&amp;amp;B &lt;C&gt; &quot;D&quot; &apos;E&apos;'),'Point de comptage A&amp;B <C> "D" \'E\'');
 });

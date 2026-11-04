@@ -37,5 +37,7 @@ export function parseRadonResponse(value: unknown, fetchedAt: string): RadonData
     categories.set(row.code_insee, category);
   }
   if (categories.size !== CCPMB_COMMUNES.length) throw new Error("La couverture radon des dix communes est incomplète.");
+  // A renamed or blanked field must not replace the snapshot with ten unknown categories.
+  if (!response.data.some(row => "classe_potentiel" in row) || ![...categories.values()].some(category => category !== null)) throw new Error("Catégories radon absentes de la réponse.");
   return { communes: CCPMB_COMMUNES.map(({ code, nom }) => ({ code, name: nom, category: categories.get(code) ?? null })), fetchedAt };
 }

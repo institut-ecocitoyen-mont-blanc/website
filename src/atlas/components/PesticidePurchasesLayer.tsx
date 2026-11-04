@@ -19,7 +19,7 @@ const zones = PESTICIDE_ZONES.map((zone) => {
 });
 const scopeNote = "Les contours regroupent les communes du Pays du Mont-Blanc par code postal : ce ne sont pas des limites postales officielles. Les chiffres concernent toute la zone postale, sans répartition entre communes.";
 
-export function usePesticidePurchasesLayer() {
+export function usePesticidePurchasesLayer(dataRevision: number) {
   const [enabled, setEnabled] = useAtlasUrlLayer("pesticide-purchases");
   const [opacity, setOpacity] = useState(0.55);
   const [data, setData] = useState<PurchaseData>();
@@ -39,7 +39,7 @@ export function usePesticidePurchasesLayer() {
       if (!controller.signal.aborted) setError(error instanceof Error ? error.message : "Les achats sont temporairement indisponibles.");
     }).finally(() => { if (!controller.signal.aborted) setLoading(false); });
     return () => controller.abort();
-  }, [enabled, revision]);
+  }, [enabled, revision, dataRevision]);
   const annualZones = zones.map((zone) => {
     const rows = data?.rows.filter((row) => row.zone === zone.code && row.year === year) ?? [];
     return { ...zone, rows, summary: purchaseSummary(rows) };
@@ -71,7 +71,7 @@ export function usePesticidePurchasesLayer() {
       <Tooltip pane="tooltipPane">Zone postale {zone.code} · {year}<br />{purchaseLabel(zone.summary)} de substances actives<br />Achats déclarés, pas une mesure de pollution</Tooltip>
     </Polygon>)}</Pane>,
     details: selection && data && <AtlasDetailDialog kind="pesticides" title={`Zone postale ${selection.code}`} subtitle={selection.name} onClose={() => setSelectedCode(undefined)}>
-      <DetailHeadline title={purchaseLabel(selection.summary)} subtitle="Somme des masses de substances actives renseignées" date={year} color={selection.summary.quantity == null ? "#e2e8f0" : pesticideColor(selection.summary.quantity)} />
+      <DetailHeadline title={purchaseLabel(selection.summary)} subtitle="Somme des masses de substances actives renseignées" date={year} color={pesticideColor(selection.summary.quantity)} />
       <DetailGauges label="Achats déclarés · classes de quantité de l’atlas" bands={PESTICIDE_BANDS} rows={[year, ...data.years.filter(y => y < (year ?? 0)).slice(0, 1)].filter((y): y is number => y !== undefined).map(y => { const summary = purchaseSummary(data.rows.filter(r => r.zone === selection.code && r.year === y)); return { label: String(y), value: summary.quantity, text: purchaseLabel(summary) }; })} />
       <DetailBars label="Principales substances · masses renseignées (échelle relative commune)" rows={barRows.map(s => ({ label: s.name, value: s.quantity, max: Math.max(0, ...barRows.map(r => r.quantity ?? 0)), text: purchaseLabel(s), color: "#4d7c0f" }))} />
       <DetailFacts items={[{ label: "Substances recensées", value: substances.length }, { label: "Lignes sans quantité exploitable", value: selection.summary.missing }]} />

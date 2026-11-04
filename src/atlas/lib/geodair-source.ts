@@ -19,13 +19,13 @@ function numeric(value: string | undefined) {
   if (!/^[+-]?\d+(?:\.\d+)?$/.test(value.trim()) || !Number.isFinite(Number(value))) throw new Error("Valeur Geod’air invalide.");
   return Number(value);
 }
-function rows(csv: string): Row[] {
+function rows(csv: string, allowEmpty = false): Row[] {
   if (Buffer.byteLength(csv, "utf8") > 2_000_000) throw new Error("Export Geod’air trop volumineux.");
   const result = parse(csv, { bom: true, delimiter: ";", skip_empty_lines: true, columns: (headers: string[]) => {
     if (new Set(headers).size !== headers.length || required.some(field => !headers.includes(field))) throw new Error("Colonnes Geod’air absentes.");
     return headers;
   } }) as Row[];
-  if (!result.length) throw new Error("Export Geod’air vide.");
+  if (!result.length && !allowEmpty) throw new Error("Export Geod’air vide.");
   return result;
 }
 function reading(row: Row): AirReading {
@@ -70,7 +70,8 @@ export function parseGeodairHourly(csv: string, from: number, to: number): Geoda
 }
 export function parseGeodairHistory(csv: string, kind: "annual" | "samples", from: number, to: number): GeodairHistoricalReading[] {
   const result: GeodairHistoricalReading[] = [], seen = new Set<string>();
-  for (const row of rows(csv)) {
+  // Deferred BaP analyses are published late: no sample in the window is a valid empty series.
+  for (const row of rows(csv, kind === "samples")) {
     location(row);
     const pollutant = GEODAIR_POLLUTANTS.find(p => p.name === row.Polluant);
     if (!pollutant) continue; // Old, unsupported species (e.g. invalid SO2 in 2013).
@@ -82,7 +83,7 @@ export function parseGeodairHistory(csv: string, kind: "annual" | "samples", fro
     seen.add(key);
     result.push({ ...value, pollutant: pollutant.id, coverage: numeric(row["couverture de données"]) });
   }
-  if (!result.length) throw new Error("Historique Geod’air absent.");
+  if (!result.length && kind === "annual") throw new Error("Historique Geod’air absent.");
   return result.sort((a,b) => a.time - b.time || a.pollutant.localeCompare(b.pollutant));
 }
 const dateParameter = (time: number) => { const s = new Date(time).toISOString(); return `${s.slice(8,10)}/${s.slice(5,7)}/${s.slice(0,4)} ${s.slice(11,16)}`; };
@@ -93,7 +94,7 @@ async function responseText(response: Response) {
   try { for (;;) { const { done, value } = await reader.read(); if (done) return body + decoder.decode(); bytes += value.length; if (bytes > 2_000_000) throw new Error("Réponse Geod’air trop volumineuse."); body += decoder.decode(value, { stream: true }); } }
   finally { await reader.cancel(); }
 }
-export async function geodairExport(key: string, params: Record<string, string>, fetcher: typeof fetch = fetch, pause = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))) {
+export async function geodairExport(key: string, params: Record<string, string>, fetcher: typeof fetch = fetch, pause = (ms: number) => new Promise(resolve => setTimeout(resolve, ms)), allowEmpty = false) {
   if (!key?.trim()) throw new Error("Clé Geod’air absente.");
   const signal = AbortSignal.timeout(60000), init = { headers: { apikey: key }, signal, redirect: "error" as const };
   const job = await fetcher(`https://www.geodair.fr/api-ext/statistique/export?${new URLSearchParams({ station: GEODAIR_STATION, ...params })}`, init);
@@ -104,6 +105,7 @@ export async function geodairExport(key: string, params: Record<string, string>,
     const response = await fetcher(`https://www.geodair.fr/api-ext/download?${new URLSearchParams({ id })}`, init);
     if (response.status === 200) return responseText(response);
     await response.body?.cancel();
+    if (response.status === 204 && allowEmpty) return "";
     if (response.status !== 412) throw new Error(`Téléchargement Geod’air HTTP ${response.status}.`);
     await pause(1000 * (attempt + 1)); signal.throwIfAborted();
   }
@@ -113,9 +115,10 @@ export async function loadGeodairHourly(key: string, now = Date.now()) {
   const to = Math.floor(now / HOUR) * HOUR, from = to - 7 * 24 * HOUR;
   return parseGeodairHourly(await geodairExport(key, { date_debut: dateParameter(from), date_fin: dateParameter(to), type_donnee: "a1", famille_polluant: "2000", date_calcul: "true" }), from, to);
 }
-export async function loadGeodairHistory(key: string, now = Date.now()): Promise<GeodairHistory> {
-  const year = new Date(now).getUTCFullYear(), to = Date.UTC(year,0,1), from = Date.UTC(2013,0,1), sampleFrom = Date.UTC(year-1,0,1), sampleTo = Math.floor(now / HOUR) * HOUR;
-  const annual = parseGeodairHistory(await geodairExport(key, { date_debut: dateParameter(from), date_fin: dateParameter(to - 60000), type_donnee: "a7", famille_polluant: "2000" }), "annual", from, to);
-  const samples = parseGeodairHistory(await geodairExport(key, { date_debut: dateParameter(sampleFrom), date_fin: dateParameter(sampleTo), type_donnee: "01", polluant: "P6" }), "samples", sampleFrom, sampleTo);
+export async function loadGeodairHistory(key: string, now = Date.now(), fetcher: typeof fetch = fetch, pause?: (ms: number) => Promise<unknown>): Promise<GeodairHistory> {
+  // Samples start two years back so January keeps the last published year before current-year analyses appear.
+  const year = new Date(now).getUTCFullYear(), to = Date.UTC(year,0,1), from = Date.UTC(2013,0,1), sampleFrom = Date.UTC(year-2,0,1), sampleTo = Math.floor(now / HOUR) * HOUR;
+  const annual = parseGeodairHistory(await geodairExport(key, { date_debut: dateParameter(from), date_fin: dateParameter(to - 60000), type_donnee: "a7", famille_polluant: "2000" }, fetcher, pause), "annual", from, to);
+  const samples = parseGeodairHistory(await geodairExport(key, { date_debut: dateParameter(sampleFrom), date_fin: dateParameter(sampleTo), type_donnee: "01", polluant: "P6" }, fetcher, pause, true), "samples", sampleFrom, sampleTo);
   return { stationId: GEODAIR_STATION, annual, samples, fetchedAt: new Date().toISOString() };
 }

@@ -34,10 +34,16 @@ export function parseSnapshot<T>(value: unknown, key: string): T {
   if (!value || typeof value !== "object" || !("schemaVersion" in value) || value.schemaVersion !== 1 || !("key" in value) || value.key !== key || !("data" in value) || value.data == null) throw new Error("Jeu de données incompatible ou incomplet.");
   return value.data as T;
 }
+// `preview` is true when a snapshot has no archive: a history dataset may then
+// hold only its truncated legacy preview, which must never be presented as complete.
+export interface PublishedSnapshot<T> { data: T; preview: boolean }
 export async function expandSnapshot<T>(value: unknown, key: string, signal?: AbortSignal): Promise<T> {
+  return (await expandPublishedSnapshot<T>(value, key, signal)).data;
+}
+export async function expandPublishedSnapshot<T>(value: unknown, key: string, signal?: AbortSignal): Promise<PublishedSnapshot<T>> {
   const preview = parseSnapshot<T>(value, key);
   const archive = (value as { archive?: { version: number; complete: boolean; field: string; count: number; parts: { path: string; hash: string; count: number }[] } }).archive;
-  if (!archive) return preview; // Previously published snapshots remain readable.
+  if (!archive) return { data: preview, preview: true }; // Previously published snapshots remain readable.
   if (archive.version !== 1 || archive.complete !== true || !["$", "analyses", "records"].includes(archive.field) || !Number.isSafeInteger(archive.count) || archive.count < 0 || !Array.isArray(archive.parts)) throw new Error("Historique incompatible.");
   const paths = new Set<string>();
   for (const part of archive.parts) {
@@ -62,9 +68,12 @@ export async function expandSnapshot<T>(value: unknown, key: string, signal?: Ab
     }
   }));
   const records = chunks.flat();
-  return (archive.field === "$" ? records : { ...preview, [archive.field]: records, ...(archive.field === "analyses" ? { total: archive.count, more: false } : {}) }) as T;
+  return { data: (archive.field === "$" ? records : { ...preview, [archive.field]: records, ...(archive.field === "analyses" ? { total: archive.count, more: false } : {}) }) as T, preview: false };
 }
 export async function loadPublishedData<T>(key: string, signal?: AbortSignal): Promise<T> {
+  return (await loadPublishedSnapshot<T>(key, signal)).data;
+}
+export async function loadPublishedSnapshot<T>(key: string, signal?: AbortSignal): Promise<PublishedSnapshot<T>> {
   if (!/^[a-z0-9-]+$/.test(key)) throw new Error("Identifiant de données invalide.");
   const manifest = await loadDataManifest();
   signal?.throwIfAborted();
@@ -73,12 +82,12 @@ export async function loadPublishedData<T>(key: string, signal?: AbortSignal): P
   if (entry.path !== `data/${key}.json`) throw new Error("Chemin de données invalide.");
   const response = await fetch(`${ATLAS_DATA_URL}/${entry.path}?v=${encodeURIComponent(entry.hash ?? "")}`, { signal: AbortSignal.any([AbortSignal.timeout(15000), ...(signal ? [signal] : [])]) });
   if (!response.ok) throw new Error("Les données publiées sont temporairement indisponibles.");
-  const data = await expandSnapshot<T>(await response.json(), key, signal);
+  const { data, preview } = await expandPublishedSnapshot<T>(await response.json(), key, signal);
   // Observation dates remain untouched. These fields represent successful imports.
   if (data && typeof data === "object" && !Array.isArray(data) && entry.lastSuccessAt) {
-    return { ...data, ...("fetchedAt" in data ? { fetchedAt: entry.lastSuccessAt } : {}), ...("lastUpdated" in data ? { lastUpdated: entry.lastSuccessAt } : {}) };
+    return { data: { ...data, ...("fetchedAt" in data ? { fetchedAt: entry.lastSuccessAt } : {}), ...("lastUpdated" in data ? { lastUpdated: entry.lastSuccessAt } : {}) }, preview };
   }
-  return data;
+  return { data, preview };
 }
 export function datasetNeedsAttention(entry: DatasetStatus, now = Date.now()) {
   if (entry.retiredAt) return false;

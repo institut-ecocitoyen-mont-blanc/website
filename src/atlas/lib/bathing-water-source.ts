@@ -66,7 +66,7 @@ export function parseBathingPage(html: string, site: BathingSite, year: number):
   const entero = resultRow(/Entérocoques intestinaux.*\/100mL/);
   const ecoli = resultRow(/Escherichia coli.*\/100mL/);
   const assessments = new Map<string, BathingAssessment>();
-  for (const m of html.matchAll(/<td\b[^>]*class="cadre_dotted fond(Bon|Moyen|Mauvais)"[^>]*>([\s\S]*?)<\/td>/g)) {
+  for (const m of section.matchAll(/<td\b[^>]*class="cadre_dotted fond(Bon|Moyen|Mauvais)"[^>]*>([\s\S]*?)<\/td>/g)) {
     const date = text(m[2]).match(/\d{2}\/\d{2}\/\d{4}/)?.[0];
     if (date) assessments.set(isoDate(date, year), m[1] as BathingAssessment);
   }

@@ -87,7 +87,8 @@ export function groundwaterResultSummary(analyses: readonly GroundwaterAnalysis[
   // ADES qualification and analytical detection limits are not quality references.
   return summarize(sample.date, sample.rows, () => "unknown", incomplete || analyses.length > 0 && !sample.date);
 }
-export function waterResultSummary(rows: readonly Row[], kind: "drinking" | "rivers"): WaterResultSummary {
+// `incomplete`: the rows are a truncated preview, so the latest sample may lack results.
+export function waterResultSummary(rows: readonly Row[], kind: "drinking" | "rivers", incomplete = false): WaterResultSummary {
   const sample = latestWaterSample(rows, row => text(row.date_prelevement), row => text(row.code_prelevement));
   // A distributed-water analysis can be repeated for each commune served.
   // Deduplicate only identified, identical analytical records; don't merge values.
@@ -99,7 +100,7 @@ export function waterResultSummary(rows: readonly Row[], kind: "drinking" | "riv
     if (seen.has(key)) return false;
     seen.add(key); return true;
   });
-  return summarize(sample.date, unique, kind === "drinking" ? assessDrinkingResult : () => "unknown", rows.length > 0 && !sample.date);
+  return summarize(sample.date, unique, kind === "drinking" ? assessDrinkingResult : () => "unknown", incomplete || rows.length > 0 && !sample.date);
 }
 
 export function waterSummaryTitle(summary: WaterResultSummary): string {

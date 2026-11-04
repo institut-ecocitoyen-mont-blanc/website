@@ -45,3 +45,13 @@ test("missing categories stay unknown; unsupported categories fail rather than r
     assert.throws(() => parseRadonResponse(value, snapshot.fetchedAt), /Catégorie radon inconnue/);
   }
 });
+test("a renamed or blanked category field cannot replace the snapshot with unknown categories", () => {
+  const renamed = response(); for (const row of renamed.data) { row.classe_potentiel_radon = row.classe_potentiel; delete row.classe_potentiel; }
+  assert.throws(() => parseRadonResponse(renamed, snapshot.fetchedAt), /Catégories radon absentes/);
+  for (const missing of [null, ""]) {
+    const blank = response(); for (const row of blank.data) row.classe_potentiel = missing;
+    assert.throws(() => parseRadonResponse(blank, snapshot.fetchedAt), /Catégories radon absentes/);
+  }
+  const partial = response(); for (const row of partial.data.slice(1)) row.classe_potentiel = null;
+  assert.equal(parseRadonResponse(partial, snapshot.fetchedAt).communes.filter(({ category }) => category !== null).length, 1);
+});

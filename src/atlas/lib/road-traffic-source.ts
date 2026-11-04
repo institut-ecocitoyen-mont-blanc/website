@@ -13,7 +13,7 @@ export function roadTrafficUrl() {
 // XML interpreter. Refuse changed geometry/CRS, entities and partial exports.
 function field(xml: string, name: string) {
   const value = xml.match(new RegExp(`<ms:${name}(?:\\s[^>]*?)?(?:\\s*\\/>|>([^<]*)<\\/ms:${name}>)`))?.[1]?.trim() ?? "";
-  return value.replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, '"').replace(/&apos;/g, "'");
+  return value.replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, '"').replace(/&apos;/g, "'").replace(/&amp;/g, "&");
 }
 function positiveNumber(value: string) {
   // In this dataset 0 and -99 are missing/no-count sentinels, not zero traffic.
@@ -25,7 +25,8 @@ export function parseRoadTraffic(xml: string, currentYear = new Date().getUTCFul
   if (xml.length > 4_000_000 || /<!DOCTYPE|<!ENTITY|ExceptionReport|ServiceException/i.test(xml) || !/<wfs:FeatureCollection\b/.test(xml) || !/<\/wfs:FeatureCollection>\s*$/.test(xml)) throw new Error("Réponse WFS invalide ou incomplète.");
   const members = [...xml.matchAll(/<gml:featureMember>\s*<ms:L_RESEAU_TRAFIC_ROUTIER_L_074>([\s\S]*?)<\/ms:L_RESEAU_TRAFIC_ROUTIER_L_074>\s*<\/gml:featureMember>/g)];
   if (!members.length || members.length >= 1000 || members.length !== [...xml.matchAll(/<gml:featureMember\b/g)].length) throw new Error("Catalogue routier vide, incomplet ou trop volumineux.");
-  const years = [...xml.matchAll(/<ms:TMJA_(\d{2})(?:\s|>)/g)].map((m) => { const suffix = Number(m[1]); return suffix >= 70 ? 1900 + suffix : 2000 + suffix; });
+  // An empty column (all 0/-99 sentinels) is not a published counting year.
+  const years = [...xml.matchAll(/<ms:TMJA_(\d{2})(?:\s[^>]*)?>([^<]*)<\/ms:TMJA_\1>/g)].filter((m) => positiveNumber(m[2].trim()) !== null).map((m) => { const suffix = Number(m[1]); return suffix >= 70 ? 1900 + suffix : 2000 + suffix; });
   const year = Math.max(...years.filter((y) => y < currentYear));
   if (!Number.isFinite(year)) throw new Error("Année de comptage non identifiée.");
   const suffix = String(year).slice(-2);
@@ -61,7 +62,9 @@ export function parseRoadTraffic(xml: string, currentYear = new Date().getUTCFul
     const vehicles = positiveNumber(field(member, `TMJA_${suffix}`));
     const percentRaw = field(member, `PCT_PL_${suffix}`);
     const percent = /^\d+(?:\.\d+)?$/.test(percentRaw) ? Number(percentRaw) : NaN;
-    const heavyVehiclesPercent = vehicles !== null && percent >= 0 && percent <= 100 ? percent : null;
+    // 0 % is the same no-count sentinel unless heavy vehicles were actually counted.
+    const heavyCounted = positiveNumber(field(member, `TMJA_PL_${suffix}`)) !== null;
+    const heavyVehiclesPercent = vehicles !== null && (percent > 0 || (percent === 0 && heavyCounted)) && percent <= 100 ? percent : null;
     segments.push({ id, sourceId, road: road as TrafficRoad, name: sourceId ? `Point de comptage ${point || sourceId}` : "Tronçon sans point de comptage", paths, vehicles, year, heavyVehiclesPercent, countingType });
   }
   if (!segments.length) throw new Error("Aucune des routes demandées n’est disponible.");

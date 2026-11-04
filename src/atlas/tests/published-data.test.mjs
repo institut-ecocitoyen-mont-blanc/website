@@ -1,6 +1,6 @@
 import { test, afterEach } from "node:test";
 import assert from "node:assert/strict";
-import { clearManifestCache, datasetNeedsAttention, loadPublishedData, parseSnapshot, expandSnapshot } from "../lib/published-data.ts";
+import { clearManifestCache, datasetNeedsAttention, loadPublishedData, loadPublishedSnapshot, parseSnapshot, expandSnapshot, expandPublishedSnapshot } from "../lib/published-data.ts";
 import { gzipSync } from "node:zlib";
 import { createHash } from "node:crypto";
 const original = globalThis.fetch;
@@ -66,4 +66,17 @@ test("loads the complete compressed archive rather than the backwards-compatible
   await assert.rejects(expandSnapshot({...snapshot,archive:{...snapshot.archive,parts:[{...parts[0],path:'https://other.invalid'}]}},'groundwater-test'), /invalide/);
   globalThis.fetch = async () => new Response(gzipSync('[]'));
   await assert.rejects(expandSnapshot(snapshot,'groundwater-test'), /corrompu/);
+});
+test("legacy snapshots without an archive stay readable but are flagged as a preview", async () => {
+  const rows = [{ code_parametre: "1", date_prelevement: "2026-01-01" }];
+  const legacy = { schemaVersion: 1, key: "river-06580009", data: rows };
+  assert.deepEqual(await expandSnapshot(legacy, "river-06580009"), rows);
+  assert.deepEqual(await expandPublishedSnapshot(legacy, "river-06580009"), { data: rows, preview: true });
+  globalThis.fetch = async (url) => Response.json(url.includes("manifest.json") ? { ...manifest, datasets: { "river-06580009": { ...entry, path: "data/river-06580009.json" } } } : legacy);
+  assert.deepEqual(await loadPublishedData("river-06580009"), rows);
+  assert.deepEqual(await loadPublishedSnapshot("river-06580009"), { data: rows, preview: true });
+  const bytes = gzipSync(JSON.stringify(rows)), hash = createHash("sha256").update(bytes).digest("hex");
+  globalThis.fetch = async () => new Response(bytes);
+  const archived = { ...legacy, archive: { version: 1, complete: true, field: "$", count: 1, parts: [{ path: `history/river-06580009/${hash}.json.gz`, hash, count: 1 }] } };
+  assert.equal((await expandPublishedSnapshot(archived, "river-06580009")).preview, false);
 });

@@ -1,6 +1,7 @@
 "use client";
 
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
+import L from "leaflet";
 import { MapContainer, TileLayer, Tooltip, ScaleControl, useMap } from "react-leaflet";
 import Marker from "@/atlas/components/AtlasMarker";
 import PinGroups from "@/components/map/PinGroups";
@@ -45,6 +46,7 @@ import { useCeremaLightLayer } from "./CeremaLightLayer";
 import { usePesticidePurchasesLayer } from "./PesticidePurchasesLayer";
 import { useRadonLayer } from "./RadonLayer";
 import { useAtlasUrlState } from "./useAtlasUrlState";
+import type { AtlasLoads } from "@/atlas/AtlasClient";
 
 type RemoteId = Exclude<LayerId, "inventory" | "wood" | "bathing" | "traffic">;
 interface RemoteState { points: LayerPoint[]; status: "idle" | "loading" | "ready" | "error"; error?: string; fetchedAt?: string; cached?: boolean }
@@ -62,11 +64,9 @@ const dateLabel = (value: string) => {
 };
 const errorLabel = (error: unknown) => error instanceof Error && error.name === "TimeoutError" ? "Le fournisseur met trop de temps à répondre. Réessayez." : error instanceof TypeError ? "Connexion au fournisseur indisponible. Réessayez." : error instanceof Error ? error.message : "Données temporairement indisponibles.";
 
-function useRemoteLayer(id: Exclude<RemoteId, "atmo">, enabled: boolean, revision: number, snapshot?: RiverCatalogue) {
-  const [state, setState] = useState<RemoteState>(() => {
-    const points = filterCcpmbPoints(snapshot?.points ?? []);
-    return points.length ? { points, status: "ready", fetchedAt: snapshot?.fetchedAt ?? undefined, cached: true } : EMPTY;
-  });
+// A failed refresh keeps the last loaded catalogue, flagged as cached.
+function useRemoteLayer(id: Exclude<RemoteId, "atmo">, enabled: boolean, revision: number) {
+  const [state, setState] = useState<RemoteState>(EMPTY);
   useEffect(() => {
     if (!enabled) return;
     const controller = new AbortController();
@@ -83,28 +83,30 @@ function useRemoteLayer(id: Exclude<RemoteId, "atmo">, enabled: boolean, revisio
 
 
 function Recenter() {
-  const map = useMap();
-  return <button type="button" onClick={() => map.fitBounds([[AREA.south, AREA.west], [AREA.north, AREA.east]])} className="absolute right-3 top-3 z-[800] flex items-center gap-2 bg-white rounded-lg border shadow px-3 py-2 text-sm text-slate-700" aria-label="Recentrer sur le Pays du Mont-Blanc"><LocateFixed size={16} />Recentrer</button>;
+  const map = useMap(), ref = useRef<HTMLButtonElement>(null);
+  // Clicks, drags and wheel events on the control must not also move the map.
+  useEffect(() => { if (ref.current) { L.DomEvent.disableClickPropagation(ref.current); L.DomEvent.disableScrollPropagation(ref.current); } }, []);
+  return <button ref={ref} type="button" onClick={() => map.fitBounds([[AREA.south, AREA.west], [AREA.north, AREA.east]])} className="absolute right-3 top-3 z-[800] flex items-center gap-2 bg-white rounded-lg border shadow px-3 py-2 text-sm text-slate-700" aria-label="Recentrer sur le Pays du Mont-Blanc"><LocateFixed size={16} />Recentrer</button>;
 }
 
-export default function AtlasMap({ inventory, bathing, riverAssessments, riverCatalogue, traffic, emissions, groundwater, georisques, dataRevision = 0 }: { inventory: PollutionSitesResult | null; bathing: BathingData; riverAssessments: RiverAssessments; riverCatalogue: RiverCatalogue; traffic: RoadTrafficData; emissions: IndustrialEmissionsData; groundwater: GroundwaterCatalogue; georisques: GeorisquesData; dataRevision?: number }) {
+export default function AtlasMap({ inventory, bathing, riverAssessments, traffic, emissions, groundwater, georisques, loads, dataRevision = 0 }: { inventory: PollutionSitesResult | null; bathing: BathingData; riverAssessments: RiverAssessments; traffic: RoadTrafficData; emissions: IndustrialEmissionsData; groundwater: GroundwaterCatalogue; georisques: GeorisquesData; loads: AtlasLoads; dataRevision?: number }) {
   const url = useAtlasUrlState();
   const enabled = Object.fromEntries(LAYERS.map(({ id }) => [id, url.layers.some(layer => layer === id)])) as Record<LayerId, boolean>;
   const [opacity, setOpacity] = useState<Record<LayerId, number>>({ inventory: 1, wood: 0.65, atmo: 0.8, rivers: 0.9, drinking: 0.9, bathing: 0.9, traffic: 0.9 });
   const [revision, setRevision] = useState<Record<RemoteId, number>>({ atmo: 0, rivers: 0, drinking: 0 });
-  const atmoModels = useAtmoModelLayers();
+  const atmoModels = useAtmoModelLayers(dataRevision);
   const atmo = useAtmoStations(enabled.atmo, revision.atmo + dataRevision);
-  const rivers = useRemoteLayer("rivers", enabled.rivers, revision.rivers + dataRevision, riverCatalogue);
+  const rivers = useRemoteLayer("rivers", enabled.rivers, revision.rivers + dataRevision);
   const drinking = useRemoteLayer("drinking", enabled.drinking, revision.drinking + dataRevision);
   const drinkingSummaries = useDrinkingQuality(drinking.points, enabled.drinking, revision.drinking + dataRevision);
   const remote = { rivers, drinking };
   // const bioDemo = useBioMonitoringDemo();
   // const soilDemo = useSoilDemoLayer();
-  const groundwaterLayer = useGroundwaterLayer(groundwater);
+  const groundwaterLayer = useGroundwaterLayer(groundwater, loads.groundwater);
   const georisquesLayer = useGeorisquesLayer(georisques);
   // const instituteWater = useInstituteWaterDemo();
-  const lightLayer = useCeremaLightLayer();
-  const pesticideLayer = usePesticidePurchasesLayer();
+  const lightLayer = useCeremaLightLayer(dataRevision);
+  const pesticideLayer = usePesticidePurchasesLayer(dataRevision);
   const radonLayer = useRadonLayer();
   // Resolve URL identifiers against loaded catalogues on every render. A deep
   // link is retained while its source loads; never overwrite it with defaults.
@@ -166,22 +168,22 @@ export default function AtlasMap({ inventory, bathing, riverAssessments, riverCa
             <div className="space-y-3">
               {(layer.id === "wood" || layer.id === "traffic") && <label className="flex items-center gap-2 text-xs text-slate-600">Opacité<input aria-label={`Opacité · ${layer.title}`} className="min-w-0 flex-1 accent-blue-iec" type="range" min="0.15" max="1" step="0.05" value={opacity[layer.id]} onChange={(event) => setOpacity((prev) => ({ ...prev, [layer.id]: Number(event.target.value) }))} /><span>{Math.round(opacity[layer.id] * 100)} %</span></label>}
               {layer.id === "inventory" && emissions.error && <p role="status" className="text-xs text-amber-800">{emissions.error}</p>}
-              {layer.id === "inventory" ? inventory ? <p className="text-xs text-slate-500">{inventory.sites.length} sites cartographiés · {inventory.unmappedSites.length} sans coordonnées, consultables dans l’inventaire.<br />Inventaire récupéré le {dateLabel(inventory.lastUpdated)}.</p> : <p role="alert" className="text-xs text-red-700">Inventaire indisponible. Les autres couches restent accessibles.</p> : <div aria-live="polite" className="text-xs">
+              {layer.id === "inventory" ? !inventory && loads.inventory === "loading" ? <p role="status" className="text-xs text-slate-500">Chargement de l’inventaire…</p> : inventory ? <p className="text-xs text-slate-500">{inventory.sites.length} sites cartographiés · {inventory.unmappedSites.length} sans coordonnées, consultables dans l’inventaire.<br />Inventaire récupéré le {dateLabel(inventory.lastUpdated)}.</p> : <p role="alert" className="text-xs text-red-700">Inventaire indisponible. Les autres couches restent accessibles.</p> : <div aria-live="polite" className="text-xs">
                 {state?.status === "loading" && <p className="text-slate-500">Chargement du fournisseur…</p>}
                 {state?.status === "error" && <div role="alert" className="text-red-700"><p>{state.error}</p><button className="underline mt-1" onClick={() => { const id = layer.id as RemoteId; setRevision((prev) => ({ ...prev, [id]: prev[id] + 1 })); }}>Réessayer</button></div>}
                 {state?.cached && state.points.length > 0 && <p className="text-slate-600">{state.points.length} repères conservés · catalogue enregistré{state.fetchedAt ? ` le ${dateLabel(state.fetchedAt)}` : ""}.</p>}
-                {state?.status === "ready" && state.error && <div role="status" className="text-amber-800"><p>Hub’Eau est temporairement indisponible. Le catalogue conservé reste affiché ; les analyses détaillées peuvent être indisponibles.</p><button className="underline mt-1" onClick={() => { const id = layer.id as RemoteId; setRevision((prev) => ({ ...prev, [id]: prev[id] + 1 })); }}>Réessayer</button></div>}
+                {state?.status === "ready" && state.error && <div role="status" className="text-amber-800"><p>Le catalogue publié est temporairement indisponible. Le dernier catalogue chargé reste affiché ; les analyses détaillées peuvent être indisponibles.</p><button className="underline mt-1" onClick={() => { const id = layer.id as RemoteId; setRevision((prev) => ({ ...prev, [id]: prev[id] + 1 })); }}>Réessayer</button></div>}
                 {state?.status === "ready" && !state.cached && <p className="text-slate-500">{state.points.length} {layer.id === "rivers" ? "stations" : "communes"} · {state.points.length ? "Catalogue chargé" : "Aucune donnée dans ce périmètre"}{state.fetchedAt && ` le ${dateLabel(state.fetchedAt)}`}.</p>}
               </div>}
               {layer.id === "atmo" && <AtmoControls state={atmo} onRetry={() => setRevision((prev) => ({ ...prev, atmo: prev.atmo + 1 }))} />}
-              {layer.id === "traffic" && <RoadTrafficControls data={traffic} />}
+              {layer.id === "traffic" && (loads.traffic === "loading" ? <p role="status" className="text-xs text-slate-500">Chargement des comptages…</p> : loads.traffic === "error" ? <p role="alert" className="text-xs text-red-700">{traffic.error}</p> : <RoadTrafficControls data={traffic} />)}
               {layer.id === "bathing" && <div className="space-y-2 text-xs text-slate-600">
-                <p>{bathing.points.length} sites · {bathing.points.reduce((count, point) => count + bathingSamples(point).length, 0)} prélèvements récupérés.</p>
+                {loads.bathing === "loading" ? <p role="status" className="text-slate-500">Chargement des sites de baignade…</p> : loads.bathing === "error" ? <p role="alert" className="text-red-700">Sites de baignade indisponibles. Les autres couches restent accessibles.</p> : <p>{bathing.points.length} sites · {bathing.points.reduce((count, point) => count + bathingSamples(point).length, 0)} prélèvements récupérés.</p>}
                 <p>Icône nageur · vert : bon, orange : moyen, rouge : mauvais. Appréciation du dernier prélèvement disponible, pas de la situation actuelle.</p>
                 <p>Import automatique quotidien. Dates de récupération dans chaque fiche.</p>
                 {bathing.points.some((point) => point.seasons.some((season) => season.error)) && <p role="alert" className="text-amber-800">Certaines saisons n’ont pas pu être récupérées. Les fiches donnent accès aux sources officielles.</p>}
               </div>}
-              {layer.id === "rivers" && <div className="text-xs text-slate-600 space-y-2"><p>Icône vagues · état ou potentiel écologique : vert = très bon / bon, orange = moyen, rouge = médiocre / mauvais. Classe officielle et état chimique séparé dans la fiche.</p><p>Évaluations importées quotidiennement{riverAssessments.fetchedAt ? ` · récupérées le ${dateLabel(riverAssessments.fetchedAt)}` : ""}.</p>{riverAssessments.error && <p role="alert" className="text-amber-800">{riverAssessments.error}</p>}</div>}
+              {layer.id === "rivers" && <div className="text-xs text-slate-600 space-y-2"><p>Icône vagues · état ou potentiel écologique : vert = très bon / bon, orange = moyen, rouge = médiocre / mauvais. Classe officielle et état chimique séparé dans la fiche.</p>{loads.riverAssessments === "loading" && <p role="status" className="text-slate-500">Chargement des évaluations officielles…</p>}<p>Évaluations importées quotidiennement{riverAssessments.fetchedAt ? ` · récupérées le ${dateLabel(riverAssessments.fetchedAt)}` : ""}.</p>{riverAssessments.error && <p role="alert" className="text-amber-800">{riverAssessments.error}</p>}</div>}
               {layer.id === "drinking" && <p className="text-xs text-slate-600">Icône verre · vert : derniers contrôles conformes pour tous les réseaux recensés. Orange : dérogation ou référence non respectée sur au moins un réseau. Rouge : limite non respectée sur au moins un réseau. Contour seul : couverture insuffisante. Dates et réseaux concernés dans la fiche.</p>}
               {/* {layer.id === "wood" && <div className="text-xs space-y-2">
                 <p className="font-semibold text-amber-800">Données fictives · aucune valeur réelle</p>

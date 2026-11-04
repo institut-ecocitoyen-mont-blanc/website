@@ -1,6 +1,6 @@
 "use client";
 
-import { Fragment, useState } from "react";
+import { Fragment, useMemo, useState } from "react";
 import { GeoJSON, Tooltip } from "react-leaflet";
 import AtlasMarker from "./AtlasMarker";
 import AtlasDetailDialog, { DetailFacts } from "./AtlasDetailDialog";
@@ -17,6 +17,8 @@ export function useGeorisquesLayer(data: GeorisquesData) {
   const [selectedId, setSelectedId] = useAtlasUrlPin("georisques");
   const selected = data.sites.find(site => site.id === selectedId);
   const setSelected = (site: GeorisquesSite | null) => setSelectedId(site?.id);
+  // GeoJSON ignores new data after mount: remount only when a refreshed polygon actually changes.
+  const geometryKeys = useMemo(() => new Map(data.sites.map(site => [site, JSON.stringify(site.geometry)])), [data.sites]);
   const controls = <EvidenceLayerControl title="Géorisques" source="Sols, installations et sites inspectés · État" enabled={enabled} onEnabled={setEnabled} opacityControl={data.sites.some(site => site.geometry.type === "MultiPolygon") ? { value: opacity, onChange: setOpacity } : undefined}>
     {data.fetchedAt ? <p>{data.sites.length} entrées cartographiées · {data.sites.reduce((sum, site) => sum + site.records.length, 0)} dossiers officiels. Un même site physique peut relever de plusieurs catégories.</p> : <p role="status" className="text-amber-800">Catalogue indisponible ou en cours de chargement. Aucune absence de pollution ne peut en être déduite.</p>}
     <p><span style={{ color: "#925323" }}>●</span> Brun : dossier d’instruction. <span style={{ color: "#7c3aed" }}>●</span> Violet : secteur SIS. <span style={{ color: "#247184" }}>●</span> Bleu pétrole : installation ou site inspecté. Couleurs de catégories, pas de gravité.</p>
@@ -35,7 +37,7 @@ export function useGeorisquesLayer(data: GeorisquesData) {
     // not a newly invented sampling coordinate or pollution-source position.
     const [lng, lat] = site.geometry.type === "Point" ? site.geometry.coordinates : site.geometry.coordinates[0][0][0];
     return <Fragment key={site.id}>
-      {site.geometry.type === "MultiPolygon" && <GeoJSON key={JSON.stringify(site.geometry)} data={site.geometry} style={{ color: soilRecordColor(site), weight: 2, opacity, fillOpacity: opacity * 0.2 }} eventHandlers={{ click: () => setSelected(site) }} />}
+      {site.geometry.type === "MultiPolygon" && <GeoJSON key={geometryKeys.get(site)} data={site.geometry} style={{ color: soilRecordColor(site), weight: 2, opacity, fillOpacity: opacity * 0.2 }} eventHandlers={{ click: () => setSelected(site) }} />}
       <AtlasMarker position={[lat, lng]} title={`Géorisques · ${site.name}`} icon={georisquesPin(site.records.some((record) => record.kind === "sis") ? "sis" : site.records[0].kind)} opacity={opacity} attribution="Géorisques · Ministère de la Transition écologique / BRGM · Licence Ouverte" onSelect={() => setSelected(site)}><Tooltip>{site.name} · {site.commune}</Tooltip></AtlasMarker>
     </Fragment>;
   });
