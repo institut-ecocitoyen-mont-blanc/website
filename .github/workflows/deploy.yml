@@ -19,8 +19,10 @@ permissions:
 
 env:
   VERCEL_CLI: vercel@64.7.0
-  VERCEL_PROJECT: iecmb-website
-  VERCEL_TEAM: mathieudutours-projects
+  # The project token has no user: give the CLI the IDs instead of a scope,
+  # which it would resolve through the token's user.
+  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
   VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
 
 jobs:
@@ -36,7 +38,6 @@ jobs:
       # Hobby teams block deployments whose commit author isn't a member:
       # deploy without Git metadata, as the mirror used to.
       - run: rm -rf .git
-      - run: npx --yes "$VERCEL_CLI" link --yes --project "$VERCEL_PROJECT" --team "$VERCEL_TEAM" --token "$VERCEL_TOKEN"
       - run: npx --yes "$VERCEL_CLI" pull --yes --environment=production --token "$VERCEL_TOKEN"
       - run: npx --yes "$VERCEL_CLI" build --prod --token "$VERCEL_TOKEN"
       - run: npx --yes "$VERCEL_CLI" deploy --prebuilt --prod --token "$VERCEL_TOKEN"
