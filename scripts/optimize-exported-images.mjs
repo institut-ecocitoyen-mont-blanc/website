@@ -178,9 +178,11 @@ for (const input of imageFiles) {
 
     const output = path.join(EXPORT_ROOT, publicOutput.slice(1));
     await mkdir(path.dirname(output), { recursive: true });
+    // srcset lists every width: a variant wider than its source keeps the
+    // source size rather than being upscaled into a larger, blurrier file.
     await sharp(input)
       .rotate()
-      .resize({ width })
+      .resize({ width, withoutEnlargement: true })
       .webp({ quality: 82, smartSubsample: true })
       .toFile(output);
 

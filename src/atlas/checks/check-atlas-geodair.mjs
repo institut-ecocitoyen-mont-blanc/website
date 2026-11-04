@@ -1,6 +1,6 @@
 import { createRequire } from "node:module";
 import assert from "node:assert/strict";
-import { usePublishedFixture } from "./published-fixture.mjs";
+import { routePublishedFixture } from "./published-fixture.mjs";
 const { chromium } = createRequire(import.meta.url)("playwright");
 const browser = await chromium.launch({ headless: true, channel: "chrome" });
 try {
@@ -9,7 +9,7 @@ try {
     const errors = [], upstream = [];
     page.on("pageerror", error => errors.push(error.message));
     page.on("request", request => { if (/geodair\.fr\/api-ext|services3\.arcgis\.com/.test(request.url())) upstream.push(request.url()); });
-    await usePublishedFixture(page);
+    await routePublishedFixture(page);
     await page.goto(`${process.env.ATLAS_URL || "http://localhost:3000/atlas"}?layers=atmo&pin=atmo:FR33220`);
     const dialog = page.getByRole("dialog");
     await dialog.getByRole("heading", { name: "Autres gaz mesurés", exact: true }).waitFor();

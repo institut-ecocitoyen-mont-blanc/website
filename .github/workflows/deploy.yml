@@ -1,22 +1,42 @@
-name: CI
+name: Deploy CMS
 
+# The public site builds on Cloudflare straight from this repository. Vercel's
+# free plan can't deploy organization repositories through Git, so the CMS is
+# built here and uploaded with the Vercel CLI. Content saves don't change the
+# CMS (Outstatic reads content through the GitHub API) and don't deploy it.
 on:
   push:
     branches: [main]
+    paths: ["cms/**", ".github/workflows/deploy.yml"]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-cms
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+env:
+  VERCEL_CLI: vercel@64.7.0
+  VERCEL_PROJECT: iecmb-website
+  VERCEL_TEAM: mathieudutours-projects
+  VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - run: rm -rf .github
-      - run: rm -rf .git
-      - name: Pushes to another repository
-        uses: cpina/github-action-push-to-another-repository@v1.7.2
-        env:
-          SSH_DEPLOY_KEY: ${{ secrets.SSH_DEPLOY_KEY }}
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          source-directory: "."
-          destination-github-username: "mathieudutour"
-          destination-repository-name: "iecmb-website"
-          user-email: mathieu@dutour.me
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 22
+      # Hobby teams block deployments whose commit author isn't a member:
+      # deploy without Git metadata, as the mirror used to.
+      - run: rm -rf .git
+      - run: npx --yes "$VERCEL_CLI" link --yes --project "$VERCEL_PROJECT" --team "$VERCEL_TEAM" --token "$VERCEL_TOKEN"
+      - run: npx --yes "$VERCEL_CLI" pull --yes --environment=production --token "$VERCEL_TOKEN"
+      - run: npx --yes "$VERCEL_CLI" build --prod --token "$VERCEL_TOKEN"
+      - run: npx --yes "$VERCEL_CLI" deploy --prebuilt --prod --token "$VERCEL_TOKEN"

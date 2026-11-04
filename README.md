@@ -37,22 +37,35 @@ Chacunes des deux collections contiennent des données structurées qui apparais
 
 The public website and its content editor are deployed independently:
 
-- The repository root is a statically exported Next.js site hosted on
-  Cloudflare Pages at `https://institut-ecocitoyen-pmb.fr`.
+- The repository root is a statically exported Next.js site served by a
+  Cloudflare Worker with static assets at `https://institut-ecocitoyen-pmb.fr`
+  (configured in [`wrangler.jsonc`](./wrangler.jsonc)).
 - [`cms/`](./cms) is a minimal dynamic Next.js application hosted as a separate
   Vercel project at `https://cms.institut-ecocitoyen-pmb.fr`.
 - Outstatic stores content in this repository under [`outstatic/`](./outstatic).
-  Saving content creates a commit, which triggers a new Cloudflare Pages build.
-- Spreadsheet edits trigger a Pages build through the Google Apps Script in
-  [`integrations/google-sheets/`](./integrations/google-sheets).
+  Saving content creates a commit on `main`, which triggers a new Cloudflare
+  build.
+- Vercel's free plan can't deploy organization repositories through Git, so
+  the [deploy workflow](./.github/workflows/deploy.yml) builds the CMS and
+  uploads it with the Vercel CLI (`VERCEL_TOKEN` secret) when `cms/` changes on
+  `main`. Run it by hand from the Actions tab to redeploy after changing the
+  Vercel project's environment variables.
+- Spreadsheet edits trigger a Cloudflare build through the Google Apps Script
+  in [`integrations/google-sheets/`](./integrations/google-sheets).
 
-The Cloudflare Pages project uses the **Next.js (Static HTML Export)** preset:
+The Cloudflare Workers Builds project uses:
 
 ```text
 Production branch: main
 Build command: npm run build
-Build directory: out
+Deploy command: npx wrangler deploy
 ```
+
+`wrangler deploy` uploads `out/` as static assets and serves `404.html` for
+unknown paths. `workers.dev` and preview URLs are disabled.
+
+The build fails when the pollution inventory spreadsheet can't be read or is
+empty, so the previous deployment stays online rather than an empty `/carte`.
 
 After attaching the production domain, enable Cloudflare Web Analytics for the
 site in the Cloudflare dashboard.

@@ -14,8 +14,6 @@ export const metadata = createPageMetadata({
   path: "/carte",
 });
 
-export const revalidate = 3600; // Revalidate every hour
-
 export default async function CartePage() {
   let sites: PollutionSite[] = [];
   let unmappedSites: UnmappedPollutionSite[] = [];
@@ -24,10 +22,16 @@ export default async function CartePage() {
 
   try {
     const result = await fetchAllPollutionSites();
+    if (result.sites.length === 0 && result.unmappedSites.length === 0) {
+      throw new Error("The pollution inventory is empty");
+    }
     sites = result.sites;
     unmappedSites = result.unmappedSites;
     lastUpdated = result.lastUpdated;
   } catch (error) {
+    // The static export would ship an empty map until the next build: fail
+    // the build so the previous deployment stays online.
+    if (process.env.NODE_ENV === "production") throw error;
     dataError = true;
     console.error("Unable to load the pollution inventory", error);
   }

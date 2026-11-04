@@ -2,7 +2,7 @@ import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 
 // Local export QA before publication, without changing the application's transport.
-export async function usePublishedFixture(page) {
+export async function routePublishedFixture(page) {
   if (!process.env.ATLAS_DATA_DIR) return;
   await page.route("**/iec-atlas-data/**", async (route) => {
     const path = new URL(route.request().url()).pathname.split("/iec-atlas-data/")[1];

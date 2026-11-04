@@ -3,11 +3,23 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "./ui/button";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Menu } from "lucide-react";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const menuButton = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (!isMenuOpen) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key !== "Escape") return;
+      setIsMenuOpen(false);
+      menuButton.current?.focus();
+    };
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [isMenuOpen]);
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-white/50 text-blue-iec py-2">
@@ -35,17 +47,20 @@ export default function Header() {
 
         {/* Mobile menu button */}
         <Button
+          ref={menuButton}
           variant="ghost"
           size="icon"
           className="md:hidden"
+          aria-expanded={isMenuOpen}
+          aria-controls="mobile-menu"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
         >
-          <Menu className="h-6 w-6" />
+          <Menu aria-hidden="true" className="h-6 w-6" />
           <span className="sr-only">Menu</span>
         </Button>
 
         {/* Desktop navigation */}
-        <nav className="hidden md:block">
+        <nav aria-label="Navigation principale" className="hidden md:block">
           <ul className="flex space-x-4">
             <li>
               <Link href="/#missions" className="hover:underline">
@@ -75,8 +90,11 @@ export default function Header() {
 
         {/* Mobile navigation */}
         {isMenuOpen && (
-          <div className="absolute top-full left-0 right-0 bg-white shadow-md md:hidden">
-            <nav className="container py-8">
+          <div
+            id="mobile-menu"
+            className="absolute top-full left-0 right-0 bg-white shadow-md md:hidden"
+          >
+            <nav aria-label="Navigation principale" className="container py-8">
               <ul className="flex flex-col space-y-4">
                 <li>
                   <Link

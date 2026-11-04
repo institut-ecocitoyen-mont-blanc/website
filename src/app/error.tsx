@@ -8,12 +8,12 @@ import { cn } from "@/lib/utils";
 
 type ErrorPageProps = {
   error: Error & { digest?: string };
-  unstable_retry: () => void;
+  retry: () => void;
 };
 
 export default function ErrorPage({
   error,
-  unstable_retry,
+  retry,
 }: ErrorPageProps) {
   useEffect(() => {
     console.error(error);
@@ -49,7 +49,7 @@ export default function ErrorPage({
           <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
             <button
               type="button"
-              onClick={unstable_retry}
+              onClick={retry}
               className={cn(
                 buttonVariants({ size: "lg" }),
                 "bg-blue-iec text-white hover:bg-blue-700",

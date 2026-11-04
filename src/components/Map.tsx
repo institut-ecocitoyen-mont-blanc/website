@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import {
   MapContainer,
   TileLayer,
@@ -110,20 +110,40 @@ function getSectorIconMarkup(sector: string): string {
   return `<circle cx="12" cy="12" r="2.5" fill="#64748b" stroke="none"/>`;
 }
 
-// Create custom marker icons based on sector color and activity.
+const iconCache = new globalThis.Map<string, L.DivIcon>();
+
+// Create custom marker icons based on sector color and activity. Icons are
+// shared so re-renders never make Leaflet replace (and unfocus) marker elements.
 export const createCustomIcon = (color: string, sector: string) => {
-  const sectorIcon = getSectorIconMarkup(sector);
-  return createPinIcon({ className: "custom-marker", fill: color, glyph: sectorIcon, glyphColor: color, whiteCenter: true });
+  const key = color + "|" + sector;
+  let icon = iconCache.get(key);
+  if (!icon) {
+    icon = createPinIcon({ className: "custom-marker", fill: color, glyph: getSectorIconMarkup(sector), glyphColor: color, whiteCenter: true });
+    iconCache.set(key, icon);
+  }
+  return icon;
 };
 
 function FitMapToSites({ sites }: { sites: PollutionSite[] }) {
   const map = useMap();
+  const latest = useRef(sites);
+  // Refit only when the displayed set changes, not on every URL update
+  // (selecting a pin rebuilds the filtered list with the same sites).
+  const key = useMemo(
+    () => sites.map((site) => site.id + "@" + site.coordinates.lat + "," + site.coordinates.lng).join("|"),
+    [sites],
+  );
 
   useEffect(() => {
-    if (sites.length === 0) return;
+    latest.current = sites;
+  });
 
-    if (sites.length === 1) {
-      const site = sites[0];
+  useEffect(() => {
+    const shown = latest.current;
+    if (shown.length === 0) return;
+
+    if (shown.length === 1) {
+      const site = shown[0];
       map.setView([site.coordinates.lat, site.coordinates.lng], 14, {
         animate: true,
       });
@@ -131,7 +151,7 @@ function FitMapToSites({ sites }: { sites: PollutionSite[] }) {
     }
 
     const bounds = L.latLngBounds(
-      sites.map((site) => [
+      shown.map((site) => [
         site.coordinates.lat,
         site.coordinates.lng,
       ]),
@@ -141,7 +161,7 @@ function FitMapToSites({ sites }: { sites: PollutionSite[] }) {
       maxZoom: 14,
       padding: [40, 40],
     });
-  }, [map, sites]);
+  }, [map, key]);
 
   return null;
 }

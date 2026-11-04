@@ -156,6 +156,7 @@ export default function CarteClient({
   const [filterMenuOpen, setFilterMenuOpen] = useState(false);
   const filterMenuRef = useRef<HTMLDivElement>(null);
   const filterMenuPanelRef = useRef<HTMLDivElement>(null);
+  const filterButtonRef = useRef<HTMLButtonElement>(null);
   const [filterMenuPosition, setFilterMenuPosition] = useState<{
     top: number;
     left: number;
@@ -185,7 +186,9 @@ export default function CarteClient({
       }
     };
     const closeOnEscape = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setFilterMenuOpen(false);
+      if (event.key !== "Escape") return;
+      setFilterMenuOpen(false);
+      filterButtonRef.current?.focus();
     };
 
     document.addEventListener("mousedown", closeOnOutsideClick);
@@ -256,6 +259,32 @@ export default function CarteClient({
       );
     };
   }, [filterMenuOpen]);
+
+  // The panel is portaled to the end of the page: move focus into it on open.
+  const filterMenuShown = filterMenuOpen && filterMenuPosition !== null;
+  useEffect(() => {
+    if (filterMenuShown) filterMenuPanelRef.current?.focus();
+  }, [filterMenuShown]);
+
+  // Tabbing out of either end of the panel returns to the Filtres button.
+  const keepFocusNearFilterButton = (event: React.KeyboardEvent) => {
+    if (event.key !== "Tab") return;
+    const focusable = filterMenuPanelRef.current?.querySelectorAll<HTMLElement>(
+      "button, input",
+    );
+    if (!focusable?.length) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    const target = event.target;
+    if (
+      (event.shiftKey && (target === first || target === filterMenuPanelRef.current)) ||
+      (!event.shiftKey && target === last)
+    ) {
+      event.preventDefault();
+      setFilterMenuOpen(false);
+      filterButtonRef.current?.focus();
+    }
+  };
 
   useEffect(() => {
     const hasServerData = sites.length > 0 || unmappedSites.length > 0;
@@ -435,7 +464,8 @@ export default function CarteClient({
 
   useEffect(() => {
     const urlQuery = searchParams.get("q") ?? "";
-    if (urlQuery !== searchQuery) setSearchQuery(urlQuery);
+    // The URL holds the trimmed query: keep the spaces being typed.
+    if (urlQuery !== searchQuery.trim()) setSearchQuery(urlQuery);
     // searchParams changing through browser navigation is the only trigger here.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]);
@@ -630,7 +660,7 @@ export default function CarteClient({
             <label htmlFor="inventory-search" className="sr-only">
               Rechercher dans l’inventaire
             </label>
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
+            <Search aria-hidden="true" className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
             <input
               id="inventory-search"
               type="search"
@@ -646,12 +676,13 @@ export default function CarteClient({
                 onClick={() => setSearchQuery("")}
                 className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-700"
               >
-                <X className="w-4 h-4" />
+                <X aria-hidden="true" className="w-4 h-4" />
               </button>
             )}
           </div>
 
           <button
+            ref={filterButtonRef}
             type="button"
             aria-label={
               selectedFilterCount > 0
@@ -689,6 +720,10 @@ export default function CarteClient({
             <div
               ref={filterMenuPanelRef}
               id="map-filter-menu"
+              role="dialog"
+              aria-labelledby="map-filter-menu-title"
+              tabIndex={-1}
+              onKeyDown={keepFocusNearFilterButton}
               style={{
                 position: "fixed",
                 top: filterMenuPosition.top,
@@ -696,11 +731,14 @@ export default function CarteClient({
                 width: filterMenuPosition.width,
                 maxHeight: filterMenuPosition.maxHeight,
               }}
-              className="z-[3000] overflow-y-auto rounded-xl border border-gray-200 bg-white p-4 sm:p-5 shadow-xl"
+              className="z-[3000] overflow-y-auto rounded-xl outline-none border border-gray-200 bg-white p-4 sm:p-5 shadow-xl"
             >
               <div className="flex items-center justify-between gap-3 mb-5">
                 <div>
-                  <h2 className="font-semibold text-gray-900">
+                  <h2
+                    id="map-filter-menu-title"
+                    className="font-semibold text-gray-900"
+                  >
                     Filtrer la carte
                   </h2>
                   <p className="text-xs text-gray-500 mt-0.5">
@@ -710,7 +748,10 @@ export default function CarteClient({
                 <button
                   type="button"
                   aria-label="Fermer les filtres"
-                  onClick={() => setFilterMenuOpen(false)}
+                  onClick={() => {
+                    setFilterMenuOpen(false);
+                    filterButtonRef.current?.focus();
+                  }}
                   className="p-1.5 text-gray-400 hover:text-gray-700"
                 >
                   <X className="w-5 h-5" />

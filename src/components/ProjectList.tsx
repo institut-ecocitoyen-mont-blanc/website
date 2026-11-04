@@ -116,9 +116,10 @@ export function ProjectList({
       {/* Search Bar */}
       <div className="max-w-2xl mx-auto mb-4">
         <div className="relative">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+          <Search aria-hidden="true" className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
           <Input
             type="text"
+            aria-label="Rechercher un projet"
             placeholder="Rechercher un projet..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
@@ -126,10 +127,12 @@ export function ProjectList({
           />
           {searchQuery && (
             <button
+              type="button"
+              aria-label="Effacer la recherche"
               onClick={() => setSearchQuery("")}
               className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
             >
-              <X className="h-4 w-4" />
+              <X aria-hidden="true" className="h-4 w-4" />
             </button>
           )}
         </div>
@@ -145,13 +148,14 @@ export function ProjectList({
             return (
               <Button
                 key={filter.id}
+                aria-pressed={isActive}
                 onClick={() => toggleFilter(filter.id)}
                 variant={isActive ? "default" : "outline"}
                 className={cn(
                   "gap-2 transition-colors",
                   isActive
                     ? `${styles.background} ${styles.hover} border-transparent`
-                    : `border-2 ${styles.border} ${styles.text} hover:${styles.lightBg}`,
+                    : `border-2 ${styles.border} ${styles.text} ${styles.lightHover}`,
                 )}
               >
                 {filter.icon}

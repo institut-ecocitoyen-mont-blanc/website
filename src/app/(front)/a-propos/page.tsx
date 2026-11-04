@@ -17,7 +17,7 @@ import {
   Wrench,
   Building2,
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { getSingletonBySlug, load } from "outstatic/server";
 import { createPageMetadata } from "@/lib/seo";
@@ -344,11 +344,12 @@ export default async function AboutPage() {
           <div className="bg-blue-50 rounded-xl p-8 text-center">
             <h2 className="text-2xl font-semibold mb-4">{content[2]}</h2>
             <p className="text-gray-600 mb-6 max-w-2xl mx-auto">{content[3]}</p>
-            <Link href="/etre-acteur">
-              <Button size="lg" className="gap-2">
-                Comment Agir
-                <ArrowRight className="w-4 h-4" />
-              </Button>
+            <Link
+              href="/etre-acteur"
+              className={buttonVariants({ size: "lg", className: "gap-2" })}
+            >
+              Comment Agir
+              <ArrowRight aria-hidden="true" className="w-4 h-4" />
             </Link>
           </div>
         </div>

@@ -1,11 +1,11 @@
 import { createRequire } from "node:module";
 import assert from "node:assert/strict";
-import { usePublishedFixture } from "./published-fixture.mjs";
+import { routePublishedFixture } from "./published-fixture.mjs";
 const { chromium } = createRequire(import.meta.url)("playwright");
 const browser = await chromium.launch({ headless: true, channel: "chrome" });
 try {
   const page = await browser.newPage({ viewport: { width: 1440, height: 1000 } });
-  await usePublishedFixture(page);
+  await routePublishedFixture(page);
   const upstream = [];
   page.on("request", (request) => { if (/hubeau\.eaufrance/.test(request.url())) upstream.push(request.url()); });
   const errors = [], warnings = [];
@@ -51,7 +51,7 @@ try {
   console.log("PASS live pesticide data, five zones, quantities, partial records, years, detail overlay, toggle and console-only import diagnostics");
 
   const mobile = await browser.newPage({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true });
-  await usePublishedFixture(mobile);
+  await routePublishedFixture(mobile);
   await mobile.route("**/data/pesticide-purchases.json*", (route) => route.fulfill({ status: 503, body: "unavailable" }));
   await mobile.goto(process.env.ATLAS_URL || "http://localhost:3000/atlas");
   await mobile.locator(".leaflet-container").waitFor();

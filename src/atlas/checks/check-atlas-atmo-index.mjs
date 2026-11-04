@@ -2,7 +2,7 @@ import { createRequire } from "node:module";
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
-import { usePublishedFixture } from "./published-fixture.mjs";
+import { routePublishedFixture } from "./published-fixture.mjs";
 const { chromium } = createRequire(import.meta.url)("playwright");
 if (!process.env.ATLAS_DATA_DIR) throw new Error("Set ATLAS_DATA_DIR to the export repo public directory");
 const snapshot = JSON.parse(await readFile(join(process.env.ATLAS_DATA_DIR, "data/atmo-index.json"), "utf8"));
@@ -14,7 +14,7 @@ try {
     page.on("pageerror", e => errors.push(e.message));
     page.on("request", r => { if (/sig\.atmo-auvergnerhonealpes\.fr|geodair\.fr\/api-ext/.test(r.url())) upstream.push(r.url()); });
     await page.clock.install({ time: new Date("2026-10-05T08:00:00Z") });
-    await usePublishedFixture(page);
+    await routePublishedFixture(page);
     let stale = false;
     await page.route("**/data/atmo-index.json*", route => route.fulfill({ json: { ...snapshot, data: { ...snapshot.data, records: snapshot.data.records.filter(r => !stale || r.date === "2026-10-04") } } }));
     const url = `${process.env.ATLAS_URL || "http://localhost:3000/atlas"}?layers=atmo&pin=atmo:FR33220`;

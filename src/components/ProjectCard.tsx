@@ -23,6 +23,7 @@ export const categoryStyles: Record<
     border: string;
     text: string;
     lightBg: string;
+    lightHover: string;
     lightText: string;
   }
 > = {
@@ -32,6 +33,7 @@ export const categoryStyles: Record<
     border: "border-sky-600",
     text: "text-sky-600",
     lightBg: "bg-sky-50",
+    lightHover: "hover:bg-sky-50",
     lightText: "text-sky-900",
   },
   Eau: {
@@ -40,6 +42,7 @@ export const categoryStyles: Record<
     border: "border-blue-600",
     text: "text-blue-600",
     lightBg: "bg-blue-50",
+    lightHover: "hover:bg-blue-50",
     lightText: "text-blue-900",
   },
   Sol: {
@@ -48,6 +51,7 @@ export const categoryStyles: Record<
     border: "border-amber-700",
     text: "text-amber-700",
     lightBg: "bg-amber-50",
+    lightHover: "hover:bg-amber-50",
     lightText: "text-amber-900",
   },
   Santé: {
@@ -56,6 +60,7 @@ export const categoryStyles: Record<
     border: "border-red-600",
     text: "text-red-600",
     lightBg: "bg-red-50",
+    lightHover: "hover:bg-red-50",
     lightText: "text-red-900",
   },
   "Science Participative": {
@@ -64,6 +69,7 @@ export const categoryStyles: Record<
     border: "border-emerald-600",
     text: "text-emerald-600",
     lightBg: "bg-emerald-50",
+    lightHover: "hover:bg-emerald-50",
     lightText: "text-emerald-900",
   },
 };

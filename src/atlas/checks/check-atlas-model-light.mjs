@@ -1,11 +1,11 @@
 import { createRequire } from "node:module";
 import assert from "node:assert/strict";
-import { usePublishedFixture } from "./published-fixture.mjs";
+import { routePublishedFixture } from "./published-fixture.mjs";
 const { chromium } = createRequire(import.meta.url)("playwright");
 const browser = await chromium.launch({ headless: true, channel: "chrome" });
 try {
   const page = await browser.newPage({ viewport: { width: 1440, height: 1050 } });
-  await usePublishedFixture(page);
+  await routePublishedFixture(page);
   const upstream = [];
   page.on("request", (request) => { if (/sig\.atmo-auvergnerhonealpes|cartagene\.cerema/.test(request.url())) upstream.push(request.url()); });
   // Let time advance: a frozen Date keeps Leaflet's tile fade at opacity zero.
@@ -85,7 +85,7 @@ try {
 
   // Independent provider failures must not disable the rest of the atlas.
   const outage = await browser.newPage({ viewport: { width: 1440, height: 1000 } });
-  await usePublishedFixture(outage);
+  await routePublishedFixture(outage);
   const wmsPattern = "**/data/atmo-model-pm25.json*";
   const lightPattern = "**/data/cerema-light.json*";
   await outage.route(wmsPattern, (route) => route.abort());

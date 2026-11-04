@@ -213,9 +213,8 @@ export async function fetchAllPollutionSites(): Promise<PollutionSitesResult> {
   // Keep every row: Google's header inference can consume source records too.
   const url = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json&gid=0&headers=0`;
 
-  const response = await fetch(url, {
-    next: { revalidate: 3600 },
-  });
+  // Not cached (the default): each static build embeds the sheet as it is now.
+  const response = await fetch(url);
 
   if (!response.ok) {
     throw new Error(`Failed to fetch spreadsheet: ${response.status}`);
