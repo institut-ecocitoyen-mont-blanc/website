@@ -89,6 +89,12 @@ function Recenter() {
   return <button ref={ref} type="button" onClick={() => map.fitBounds([[AREA.south, AREA.west], [AREA.north, AREA.east]])} className="absolute right-3 top-3 z-[800] flex items-center gap-2 bg-white rounded-lg border shadow px-3 py-2 text-sm text-slate-700" aria-label="Recentrer sur le Pays du Mont-Blanc"><LocateFixed size={16} />Recentrer</button>;
 }
 
+// Snapshots published before `reference` existed carry the sheet number in `id`.
+function inventoryEyebrow(site: PollutionSite) {
+  const reference = site.reference ?? site.id;
+  return reference ? `Inventaire écocitoyen · source ${reference}` : "Inventaire écocitoyen";
+}
+
 export default function AtlasMap({ inventory, bathing, riverAssessments, traffic, emissions, groundwater, georisques, loads, dataRevision = 0 }: { inventory: PollutionSitesResult | null; bathing: BathingData; riverAssessments: RiverAssessments; traffic: RoadTrafficData; emissions: IndustrialEmissionsData; groundwater: GroundwaterCatalogue; georisques: GeorisquesData; loads: AtlasLoads; dataRevision?: number }) {
   const url = useAtlasUrlState();
   const enabled = Object.fromEntries(LAYERS.map(({ id }) => [id, url.layers.some(layer => layer === id)])) as Record<LayerId, boolean>;
@@ -259,7 +265,7 @@ export default function AtlasMap({ inventory, bathing, riverAssessments, traffic
   {selection && <AtlasDetailDialog
     key={selection.kind + (selection.kind === "atmo" ? selection.id : selection.kind === "inventory" ? selection.site.id : selection.kind === "traffic" ? selection.segment.id : selection.point.id)}
     kind={selection.kind}
-    eyebrow={selection.kind === "inventory" ? `Inventaire écocitoyen · source ${selection.site.id}` : undefined}
+    eyebrow={selection.kind === "inventory" ? inventoryEyebrow(selection.site) : undefined}
     title={selection.kind === "atmo" ? selection.name : selection.kind === "inventory" ? selection.site.name : selection.kind === "traffic" ? `${selection.segment.road} · ${selection.segment.name}` : selection.point.name}
     subtitle={(() => {
       if (selection.kind === "atmo") {

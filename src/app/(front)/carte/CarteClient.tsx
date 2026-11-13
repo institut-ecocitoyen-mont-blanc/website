@@ -55,6 +55,7 @@ interface InventoryData {
 }
 
 const INVENTORY_CACHE_KEY = "iec-pollution-inventory-v2";
+const PAST_STATUS = "Passée";
 
 interface FilterOption {
   value: string;
@@ -337,10 +338,6 @@ export default function CarteClient({
     () => new Set(searchParams.getAll("sector")),
     [searchParams],
   );
-  const selectedStatuses = useMemo(
-    () => new Set(searchParams.getAll("status")),
-    [searchParams],
-  );
   const selectedLocalizationTypes = useMemo(
     () => new Set(searchParams.getAll("localization")),
     [searchParams],
@@ -385,6 +382,25 @@ export default function CarteClient({
       })
       .map((value) => ({ value }));
   }, [allSites]);
+  // Past sources stay hidden until the visitor ticks “Passée”: without a
+  // `status` parameter, every other status is selected.
+  const defaultStatuses = useMemo(
+    () =>
+      new Set(
+        statusOptions
+          .map(({ value }) => value)
+          .filter((value) => value !== PAST_STATUS),
+      ),
+    [statusOptions],
+  );
+  const hasStatusParam = searchParams.has("status");
+  const selectedStatuses = useMemo(
+    () =>
+      hasStatusParam
+        ? new Set(searchParams.getAll("status").filter(Boolean))
+        : defaultStatuses,
+    [hasStatusParam, searchParams, defaultStatuses],
+  );
   const localizationOptions = useMemo(() => {
     const values = getUniqueValues(allSites, (site) => site.localizationType);
     const order = ["Localisée", "Diffuse"];
@@ -462,6 +478,39 @@ export default function CarteClient({
     [getCurrentSearchParams, replaceSearchParams],
   );
 
+  const setStatuses = useCallback(
+    (statuses: Set<string>) => {
+      const params = getCurrentSearchParams();
+      params.delete("status");
+      const isDefault =
+        statuses.size === defaultStatuses.size &&
+        [...statuses].every((status) => defaultStatuses.has(status));
+
+      if (!isDefault) {
+        // An empty value keeps “no status ticked” distinct from the default.
+        if (statuses.size === 0) params.append("status", "");
+        Array.from(statuses)
+          .sort((a, b) => a.localeCompare(b, "fr"))
+          .forEach((status) => params.append("status", status));
+      }
+      replaceSearchParams(params);
+    },
+    [defaultStatuses, getCurrentSearchParams, replaceSearchParams],
+  );
+
+  const toggleStatus = useCallback(
+    (value: string) => {
+      const statuses = new Set(selectedStatuses);
+      if (statuses.has(value)) {
+        statuses.delete(value);
+      } else {
+        statuses.add(value);
+      }
+      setStatuses(statuses);
+    },
+    [selectedStatuses, setStatuses],
+  );
+
   useEffect(() => {
     const urlQuery = searchParams.get("q") ?? "";
     // The URL holds the trimmed query: keep the spaces being typed.
@@ -490,7 +539,7 @@ export default function CarteClient({
 
   const normalizedQuery = normalizeSearchText(searchQuery);
 
-  const matchesFilters = useCallback(
+  const matchesOtherFilters = useCallback(
     (site: PollutionSiteBase) => {
       if (normalizedQuery) {
         const pollutionText = site.pollutions
@@ -531,12 +580,6 @@ export default function CarteClient({
         return false;
       }
       if (
-        selectedStatuses.size > 0 &&
-        !selectedStatuses.has(site.activityStatus)
-      ) {
-        return false;
-      }
-      if (
         selectedLocalizationTypes.size > 0 &&
         !selectedLocalizationTypes.has(site.localizationType)
       ) {
@@ -557,11 +600,30 @@ export default function CarteClient({
       normalizedQuery,
       selectedCommunes,
       selectedSectors,
-      selectedStatuses,
       selectedLocalizationTypes,
       selectedCompartments,
     ],
   );
+  const matchesFilters = useCallback(
+    (site: PollutionSiteBase) =>
+      matchesOtherFilters(site) &&
+      (selectedStatuses.size === 0 ||
+        selectedStatuses.has(site.activityStatus)),
+    [matchesOtherFilters, selectedStatuses],
+  );
+  // Past sources that the default status selection alone keeps off the map.
+  const hiddenPastCount = useMemo(
+    () =>
+      hasStatusParam
+        ? 0
+        : allSites.filter(
+            (site) =>
+              site.activityStatus === PAST_STATUS && matchesOtherFilters(site),
+          ).length,
+    [hasStatusParam, allSites, matchesOtherFilters],
+  );
+  const showsPastSources =
+    hasStatusParam && selectedStatuses.has(PAST_STATUS);
 
   const filteredSites = useMemo(
     () => inventory.sites.filter(matchesFilters),
@@ -572,18 +634,18 @@ export default function CarteClient({
     [inventory.unmappedSites, matchesFilters],
   );
   const filteredCount = filteredSites.length + filteredUnmappedSites.length;
-  const hasActiveFilters =
-    normalizedQuery.length > 0 ||
-    selectedCommunes.size > 0 ||
-    selectedSectors.size > 0 ||
-    selectedStatuses.size > 0 ||
-    selectedLocalizationTypes.size > 0 ||
-    selectedCompartments.size > 0;
+  const hasActiveFilters = filteredCount < allSites.length;
 
+  // Neither the default status selection nor ticking every status narrows
+  // the inventory by the visitor's choice.
+  const statusFilterCount =
+    hasStatusParam && selectedStatuses.size < statusOptions.length
+      ? selectedStatuses.size
+      : 0;
   const selectedFilterCount =
     selectedCommunes.size +
     selectedSectors.size +
-    selectedStatuses.size +
+    statusFilterCount +
     selectedLocalizationTypes.size +
     selectedCompartments.size;
   const formattedLastUpdated = formatLastUpdated(inventory.lastUpdated);
@@ -772,9 +834,7 @@ export default function CarteClient({
                   title="Activité actuelle ou passée"
                   options={statusOptions}
                   selectedValues={selectedStatuses}
-                  onToggle={(value) =>
-                    toggleFilterValue("status", value)
-                  }
+                  onToggle={toggleStatus}
                 />
                 <MultiSelectFilterGroup
                   title="Source localisée ou diffuse"
@@ -828,6 +888,34 @@ export default function CarteClient({
           sites={filteredSites}
           onSelectSite={handleSelectSite}
         />
+        {(hiddenPastCount > 0 || showsPastSources) && (
+          <div className="absolute top-3 right-3 left-14 sm:left-auto z-[800] flex justify-end pointer-events-none">
+            <p className="pointer-events-auto rounded-lg bg-white/95 px-3 py-2 text-sm text-gray-700 shadow-md">
+              {hiddenPastCount > 0 ? (
+                <>
+                  {hiddenPastCount} source{hiddenPastCount > 1 ? "s" : ""}{" "}
+                  passée{hiddenPastCount > 1 ? "s" : ""} masquée
+                  {hiddenPastCount > 1 ? "s" : ""} ·{" "}
+                  <button
+                    type="button"
+                    onClick={() => toggleStatus(PAST_STATUS)}
+                    className="font-semibold text-blue-iec hover:underline"
+                  >
+                    Afficher
+                  </button>
+                </>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => setStatuses(defaultStatuses)}
+                  className="font-semibold text-blue-iec hover:underline"
+                >
+                  Masquer les sources passées
+                </button>
+              )}
+            </p>
+          </div>
+        )}
       </div>
 
       {filteredUnmappedSites.length > 0 && (
@@ -889,7 +977,11 @@ export default function CarteClient({
           key={selectedSite.id}
           kind="inventory"
           title={selectedSite.name}
-          eyebrow={`Inventaire écocitoyen · source ${selectedSite.id}`}
+          eyebrow={
+            selectedSite.reference
+              ? `Inventaire écocitoyen · source ${selectedSite.reference}`
+              : "Inventaire écocitoyen"
+          }
           subtitle={selectedSite.commune}
           footerLabel="Inventaire participatif · Pays du Mont-Blanc"
           onClose={() => handleSelectSite(null)}

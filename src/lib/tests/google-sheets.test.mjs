@@ -74,6 +74,26 @@ test("inventory loads when Google would infer the source rows as headers", async
   assert.equal(result.unmappedSites[0].coordinates, null);
 });
 
+test("a named row without a source number starts its own source", async (t) => {
+  t.mock.method(globalThis, "fetch", async () => response([
+    row(headers),
+    row(["S001", "Déchetterie", "PASSY", "45.92", "6.72", "", "", "Actuelle", "", "", "", "Combustion"]),
+    row([null, null, null, null, null, null, null, null, null, null, null, "Ruissellement"]),
+    row([null, "Ancien transformateur", "PASSY", "45.91", "6.72", "", "", "Passée", "", "", "", "Fuite"]),
+    row([null, "Ancien transformateur", "PASSY", "45.90", "6.69", "", "", "Passée", "", "", "", "Fuite"]),
+  ]));
+
+  const { sites } = await fetchAllPollutionSites();
+
+  assert.deepEqual(sites.map(({ id, reference }) => [id, reference]), [
+    ["S001", "S001"],
+    ["ancien-transformateur-passy", ""],
+    ["ancien-transformateur-passy-2", ""],
+  ]);
+  assert.deepEqual(sites[0].pollutions.map(({ process }) => process), ["Combustion", "Ruissellement"]);
+  assert.equal(sites[1].activityStatus, "Passée");
+});
+
 test("inventory still rejects a sheet missing a required column", async (t) => {
   t.mock.method(globalThis, "fetch", async () => response([
     row(headers.filter((header) => header !== "Latitude")),

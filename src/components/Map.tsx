@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef } from "react";
 import {
   MapContainer,
   TileLayer,
+  Tooltip,
   useMap,
 } from "react-leaflet";
 import L from "leaflet";
@@ -201,7 +202,9 @@ export default function Map({ sites, onSelectSite }: MapProps) {
               alt={`${site.name} — ${site.sector}`}
               title={`${site.name} — ${site.sector}`}
               onSelect={() => onSelectSite(site)}
-            />
+            >
+              <Tooltip>{site.name}</Tooltip>
+            </Marker>
           );
         })}
         </PinGroups>

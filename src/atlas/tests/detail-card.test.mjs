@@ -67,11 +67,11 @@ test("inventory shows full description, risk and emission rows before collapsed 
   assert.doesNotMatch(html, /<details[^>]*\sopen/);
   assert.equal((html.match(/<details/g) ?? []).length, 1);
   const disclosure = html.slice(html.indexOf("<details"), html.indexOf("</details>"));
-  assert.doesNotMatch(disclosure, /Référence de l’inventaire|Ouvrir la fiche/);
+  assert.doesNotMatch(disclosure, /annuaire-entreprises|Ouvrir la fiche/);
   const afterDisclosure = html.slice(html.indexOf("</details>"));
-  assert.match(afterDisclosure, /Référence de l’inventaire/);
+  assert.match(afterDisclosure, /<h3[^>]*>Référence<\/h3>/);
   assert.doesNotMatch(html, /Ouvrir la fiche/);
-  assert.equal((html.match(/Référence de l’inventaire/g) ?? []).length, 1);
+  assert.equal((html.match(/href="https:\/\/annuaire-entreprises\.data\.gouv\.fr\/entreprise\/site-123456789"/g) ?? []).length, 1);
 });
 test("inventory without a match or risk keeps links without an empty disclosure", () => {
   const html = render(Inventory, { site: { ...site, risk: " ", link: "Référence imprimée", pollutions: [] }, emissions });
@@ -87,7 +87,7 @@ test("standalone inventory supports unmapped records without an emissions datase
   const html = render(Inventory, { site: unmappedSite });
   assert.match(html, /Description intégrale/);
   assert.match(html, /Risque déclaré &lt;/);
-  assert.match(html, /Référence de l’inventaire/);
+  assert.match(html, /href="https:\/\/annuaire-entreprises\.data\.gouv\.fr\/entreprise\/site-123456789"/);
   assert.doesNotMatch(html, /<details|data-industrial-emissions|Données IREP récupérées/);
 });
 
