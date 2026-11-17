@@ -1,6 +1,6 @@
 {
-  "commit": "63b1b9ea7818753ac33c704f910b4caee97ee880",
-  "generated": "2026-11-17T09:56:40.793Z",
+  "commit": "8164a1ea5311faf4f4718023a5edd0335c4ca9d1",
+  "generated": "2026-11-17T10:09:13.492Z",
   "media": [
     {
       "__outstatic": {
@@ -166,18 +166,6 @@
       "alt": "",
       "filename": "cnm-gxOD.png",
       "publishedAt": "2026-03-25T10:18:38.790Z",
-      "type": "image"
-    },
-    {
-      "__outstatic": {
-        "commit": "63b1b9ea7818753ac33c704f910b4caee97ee880",
-        "hash": "3944227050",
-        "path": "public/images/conf-lichens---site-internet-M4Mz.png"
-      },
-      "alt": "",
-      "filename": "conf-lichens---site-internet-M4Mz.png",
-      "publishedAt": "2026-11-17T09:56:40.793Z",
-      "source": "images",
       "type": "image"
     },
     {
