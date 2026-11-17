@@ -1,6 +1,6 @@
 {
-  "commit": "cb6a0c64bc3f3fba091ce89bdf13c258b2a788f5",
-  "generated": "2026-11-17T09:26:36.897Z",
+  "commit": "d2e2b89994f5ac286fd9b8ce05ac48dee630c916",
+  "generated": "2026-11-17T09:32:38.610Z",
   "metadata": [
     {
       "__outstatic": {
@@ -700,32 +700,6 @@
     },
     {
       "__outstatic": {
-        "commit": "1cb8141d11326d734e15a2d7dc25f705f32fd3f1",
-        "hash": "1458179923",
-        "path": "outstatic/content/evenements/conference-et-si-les-lichens-pouvaient-nous-renseigner-sur-la-qualite-de-l-air.mdx"
-      },
-      "adresse": "170 Av. Léman Mont-Blanc, 74190 Passy",
-      "author": {
-        "name": "Sarahd",
-        "picture": "https://avatars.githubusercontent.com/u/310082419?v=4"
-      },
-      "categories": [
-        {
-          "label": "Air",
-          "value": "air"
-        }
-      ],
-      "collection": "evenements",
-      "description": "Mardis de l'Institut - Conférence du mois de Décembre",
-      "image": "/images/conf-serge---site-internet-M5MT.png",
-      "lieu": "Mountain Store à Passy",
-      "publishedAt": "2026-12-01T17:45:00.000Z",
-      "slug": "conference-et-si-les-lichens-pouvaient-nous-renseigner-sur-la-qualite-de-l-air",
-      "status": "published",
-      "title": "Conférence : Surveillance de la qualité de l'air par les lichens"
-    },
-    {
-      "__outstatic": {
         "commit": "db83361bdc7751a55e8af792359e643071abc3a0",
         "hash": "2794540298",
         "path": "outstatic/content/evenements/formation-en-sante-environnementale.mdx"
@@ -771,6 +745,32 @@
       "slug": "les-mardis-de-l-institut",
       "status": "published",
       "title": "Lancement des \"Mardis de l'Institut\""
+    },
+    {
+      "__outstatic": {
+        "commit": "d2e2b89994f5ac286fd9b8ce05ac48dee630c916",
+        "hash": "766028551",
+        "path": "outstatic/content/evenements/conference-et-si-les-lichens-pouvaient-nous-renseigner-sur-la-qualite-de-l-air.mdx"
+      },
+      "adresse": "170 Av. Léman Mont-Blanc, 74190 Passy",
+      "author": {
+        "name": "Sarahd",
+        "picture": "https://avatars.githubusercontent.com/u/310082419?v=4"
+      },
+      "categories": [
+        {
+          "label": "Air",
+          "value": "air"
+        }
+      ],
+      "collection": "evenements",
+      "description": "Mardis de l'Institut - Conférence du mois de Décembre",
+      "image": "/images/conf-lichens---site-internet-U3Nj.png",
+      "lieu": "Mountain Store à Passy",
+      "publishedAt": "2026-12-01T17:45:00.000Z",
+      "slug": "conference-et-si-les-lichens-pouvaient-nous-renseigner-sur-la-qualite-de-l-air",
+      "status": "published",
+      "title": "Conférence : Surveillance de la qualité de l'air par les lichens"
     }
   ]
 }
