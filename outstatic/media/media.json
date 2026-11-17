@@ -1,6 +1,6 @@
 {
-  "commit": "1b369752907b009ef3c7569b5959922bb3b78f05",
-  "generated": "2026-11-17T08:40:09.065Z",
+  "commit": "0f6bfb143b7bc7c5f9d38dbf7958cd6966b59534",
+  "generated": "2026-11-17T08:40:13.271Z",
   "media": [
     {
       "__outstatic": {
@@ -22,18 +22,6 @@
       "alt": "",
       "filename": "1769095789384-E3MT.jpg",
       "publishedAt": "2026-01-29T09:11:00.682Z",
-      "type": "image"
-    },
-    {
-      "__outstatic": {
-        "commit": "688036614f638115e403e79433294e8366be1bd6",
-        "hash": "3963130766",
-        "path": "public/images/2-Q1OT.png"
-      },
-      "alt": "",
-      "filename": "2-Q1OT.png",
-      "publishedAt": "2026-11-17T08:40:00.697Z",
-      "source": "images",
       "type": "image"
     },
     {
