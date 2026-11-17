@@ -1,6 +1,6 @@
 {
-  "commit": "1cb8141d11326d734e15a2d7dc25f705f32fd3f1",
-  "generated": "2026-11-17T09:25:09.583Z",
+  "commit": "db83361bdc7751a55e8af792359e643071abc3a0",
+  "generated": "2026-11-17T09:25:26.950Z",
   "metadata": [
     {
       "__outstatic": {
@@ -722,32 +722,6 @@
     },
     {
       "__outstatic": {
-        "commit": "66a6dd67c7c4d7c9a5f47ac619c23c47d8efca6b",
-        "hash": "586011473",
-        "path": "outstatic/content/evenements/formation-en-sante-environnementale.mdx"
-      },
-      "adresse": "170 Av. Léman Mont-Blanc, 74190 Passy",
-      "author": {
-        "name": "Sarahd",
-        "picture": "https://avatars.githubusercontent.com/u/310082419?v=4"
-      },
-      "categories": [
-        {
-          "label": "Santé",
-          "value": "santé"
-        }
-      ],
-      "collection": "evenements",
-      "description": "Une formation à destination des professionnels de santé",
-      "image": "/images/formation-sant--environnementale---site-internet-U4NT.png",
-      "lieu": "Mountain Store à Passy",
-      "publishedAt": "2026-11-05T23:00:00.000Z",
-      "slug": "formation-en-sante-environnementale",
-      "status": "published",
-      "title": "Formation en santé environnementale"
-    },
-    {
-      "__outstatic": {
         "commit": "1cb8141d11326d734e15a2d7dc25f705f32fd3f1",
         "hash": "1458179923",
         "path": "outstatic/content/evenements/conference-et-si-les-lichens-pouvaient-nous-renseigner-sur-la-qualite-de-l-air.mdx"
@@ -771,6 +745,32 @@
       "slug": "conference-et-si-les-lichens-pouvaient-nous-renseigner-sur-la-qualite-de-l-air",
       "status": "published",
       "title": "Conférence : Surveillance de la qualité de l'air par les lichens"
+    },
+    {
+      "__outstatic": {
+        "commit": "db83361bdc7751a55e8af792359e643071abc3a0",
+        "hash": "2794540298",
+        "path": "outstatic/content/evenements/formation-en-sante-environnementale.mdx"
+      },
+      "adresse": "170 Av. Léman Mont-Blanc, 74190 Passy",
+      "author": {
+        "name": "Sarahd",
+        "picture": "https://avatars.githubusercontent.com/u/310082419?v=4"
+      },
+      "categories": [
+        {
+          "label": "Santé",
+          "value": "santé"
+        }
+      ],
+      "collection": "evenements",
+      "description": "Une formation à destination des professionnels de santé",
+      "image": "/images/formation-sant--environnementale---site-internet-U4NT.png",
+      "lieu": "Mountain Store à Passy",
+      "publishedAt": "2026-11-05T23:00:00.000Z",
+      "slug": "formation-en-sante-environnementale",
+      "status": "published",
+      "title": "Formation : Santé environnementale"
     }
   ]
 }
