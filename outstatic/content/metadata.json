@@ -1,6 +1,6 @@
 {
-  "commit": "7bdb352dbe3142aee2a616194de88d5a6d290080",
-  "generated": "2026-11-17T08:42:35.933Z",
+  "commit": "f5b1d7e51fc263474ae9144374529d91168a16f1",
+  "generated": "2026-11-17T08:42:55.284Z",
   "metadata": [
     {
       "__outstatic": {
@@ -748,8 +748,8 @@
     },
     {
       "__outstatic": {
-        "commit": "7bdb352dbe3142aee2a616194de88d5a6d290080",
-        "hash": "3355328079",
+        "commit": "f5b1d7e51fc263474ae9144374529d91168a16f1",
+        "hash": "2405047902",
         "path": "outstatic/content/evenements/conference-et-si-les-lichens-pouvaient-nous-renseigner-sur-la-qualite-de-l-air.mdx"
       },
       "author": {
@@ -757,6 +757,10 @@
         "picture": "https://avatars.githubusercontent.com/u/310082419?v=4"
       },
       "categories": [
+        {
+          "label": "Air",
+          "value": "air"
+        }
       ],
       "collection": "evenements",
       "description": "Conf",
