@@ -1,6 +1,6 @@
 {
-  "commit": "8288295be2212263fecfff668f3e977aeafb3ea4",
-  "generated": "2026-11-17T09:21:27.470Z",
+  "commit": "98ef3959477baf79cf99efe1e6ba24c33b697b05",
+  "generated": "2026-11-17T09:21:32.204Z",
   "media": [
     {
       "__outstatic": {
@@ -177,6 +177,18 @@
       "alt": "",
       "filename": "conf-pierre---site-internet-Q1Nj.png",
       "publishedAt": "2026-10-27T08:25:08.454Z",
+      "source": "images",
+      "type": "image"
+    },
+    {
+      "__outstatic": {
+        "commit": "98ef3959477baf79cf99efe1e6ba24c33b697b05",
+        "hash": "3957400523",
+        "path": "public/images/conf-serge---site-internet-M5MT.png"
+      },
+      "alt": "",
+      "filename": "conf-serge---site-internet-M5MT.png",
+      "publishedAt": "2026-11-17T09:21:32.204Z",
       "source": "images",
       "type": "image"
     },
