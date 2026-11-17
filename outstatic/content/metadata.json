@@ -1,6 +1,6 @@
 {
-  "commit": "66a6dd67c7c4d7c9a5f47ac619c23c47d8efca6b",
-  "generated": "2026-10-27T09:17:39.839Z",
+  "commit": "ccc96978c14850b3cf9d4ec6c088b43e32c7b88b",
+  "generated": "2026-11-17T08:40:49.146Z",
   "metadata": [
     {
       "__outstatic": {
@@ -745,6 +745,26 @@
       "slug": "formation-en-sante-environnementale",
       "status": "published",
       "title": "Formation en santé environnementale"
+    },
+    {
+      "__outstatic": {
+        "commit": "ccc96978c14850b3cf9d4ec6c088b43e32c7b88b",
+        "hash": "3105803109",
+        "path": "outstatic/content/evenements/conference-et-si-les-lichens-pouvaient-nous-renseigner-sur-la-qualite-de-l-air.mdx"
+      },
+      "author": {
+        "name": "Sarahd",
+        "picture": "https://avatars.githubusercontent.com/u/310082419?v=4"
+      },
+      "categories": [
+      ],
+      "collection": "evenements",
+      "description": "Conf",
+      "image": "/images/conf-serge---linkedin--publication-facebook--g0OT.png",
+      "publishedAt": "2026-11-17T08:38:51.902Z",
+      "slug": "conference-et-si-les-lichens-pouvaient-nous-renseigner-sur-la-qualite-de-l-air",
+      "status": "draft",
+      "title": "Conférence : Et si les lichens pouvaient nous renseigner sur la qualité de l’air ?"
     }
   ]
 }
