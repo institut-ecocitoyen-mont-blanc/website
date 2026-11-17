@@ -1,6 +1,6 @@
 {
-  "commit": "ccc96978c14850b3cf9d4ec6c088b43e32c7b88b",
-  "generated": "2026-11-17T08:40:49.146Z",
+  "commit": "bd4de2b93c37df0cde75b174aca706a55573fe09",
+  "generated": "2026-11-17T08:41:21.505Z",
   "metadata": [
     {
       "__outstatic": {
@@ -748,8 +748,8 @@
     },
     {
       "__outstatic": {
-        "commit": "ccc96978c14850b3cf9d4ec6c088b43e32c7b88b",
-        "hash": "3105803109",
+        "commit": "bd4de2b93c37df0cde75b174aca706a55573fe09",
+        "hash": "3666577097",
         "path": "outstatic/content/evenements/conference-et-si-les-lichens-pouvaient-nous-renseigner-sur-la-qualite-de-l-air.mdx"
       },
       "author": {
@@ -764,7 +764,7 @@
       "publishedAt": "2026-11-17T08:38:51.902Z",
       "slug": "conference-et-si-les-lichens-pouvaient-nous-renseigner-sur-la-qualite-de-l-air",
       "status": "draft",
-      "title": "Conférence : Et si les lichens pouvaient nous renseigner sur la qualité de l’air ?"
+      "title": "Conférence : Lichens et qualité de l’air"
     }
   ]
 }
