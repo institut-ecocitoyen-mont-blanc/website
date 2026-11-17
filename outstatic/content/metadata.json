@@ -1,6 +1,6 @@
 {
-  "commit": "2d61433412da55348aaa5042537683104581103d",
-  "generated": "2026-11-17T09:18:13.808Z",
+  "commit": "cc0a4503ce86d7e6ba4e6335fd2ca95fd994ca78",
+  "generated": "2026-11-17T09:21:43.379Z",
   "metadata": [
     {
       "__outstatic": {
@@ -748,8 +748,8 @@
     },
     {
       "__outstatic": {
-        "commit": "2d61433412da55348aaa5042537683104581103d",
-        "hash": "3685657630",
+        "commit": "cc0a4503ce86d7e6ba4e6335fd2ca95fd994ca78",
+        "hash": "2963287902",
         "path": "outstatic/content/evenements/conference-et-si-les-lichens-pouvaient-nous-renseigner-sur-la-qualite-de-l-air.mdx"
       },
       "adresse": "170 Av. Léman Mont-Blanc, 74190 Passy",
@@ -765,7 +765,7 @@
       ],
       "collection": "evenements",
       "description": "Mardis de l'Institut - Décembre",
-      "image": "/images/conf-serge---linkedin--publication-facebook--g0OT.png",
+      "image": "/images/conf-serge---site-internet-M5MT.png",
       "lieu": "Mountain Store à Passy",
       "publishedAt": "2026-12-01T17:45:00.000Z",
       "slug": "conference-et-si-les-lichens-pouvaient-nous-renseigner-sur-la-qualite-de-l-air",
