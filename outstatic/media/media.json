@@ -1,6 +1,6 @@
 {
-  "commit": "8d385485a3c2b2b791dbd0aace68630f4b98a511",
-  "generated": "2026-11-17T10:34:54.983Z",
+  "commit": "d187ff353cda2317bf3c21a9e299723c777e2d1b",
+  "generated": "2026-11-24T13:06:18.635Z",
   "media": [
     {
       "__outstatic": {
@@ -189,6 +189,18 @@
       "alt": "",
       "filename": "conf-rence-lichens---site-internet-AwNT.png",
       "publishedAt": "2026-11-17T10:34:54.983Z",
+      "source": "images",
+      "type": "image"
+    },
+    {
+      "__outstatic": {
+        "commit": "d187ff353cda2317bf3c21a9e299723c777e2d1b",
+        "hash": "2637957839",
+        "path": "public/images/conf-serge---site-internet--1--I4NT.png"
+      },
+      "alt": "",
+      "filename": "conf-serge---site-internet--1--I4NT.png",
+      "publishedAt": "2026-11-24T13:06:18.635Z",
       "source": "images",
       "type": "image"
     },
