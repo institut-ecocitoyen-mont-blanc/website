@@ -1,6 +1,6 @@
 {
-  "commit": "a829e7e70120a8234410a472867d5e1f9a845261",
-  "generated": "2026-11-24T13:06:32.350Z",
+  "commit": "7f7bd424da0efc017129daba17f5139e42c08f83",
+  "generated": "2026-11-25T08:06:50.617Z",
   "metadata": [
     {
       "__outstatic": {
@@ -471,40 +471,6 @@
     },
     {
       "__outstatic": {
-        "commit": "98acc88f888229272af8d0c0755f822cf76ec54b",
-        "hash": "3299358351",
-        "path": "outstatic/content/projets/lichens.mdx"
-      },
-      "author": {
-        "name": "Marine",
-        "picture": "https://avatars.githubusercontent.com/u/204351074?v=4"
-      },
-      "categories": [
-        {
-          "label": "Air",
-          "value": "Air"
-        },
-        {
-          "label": "Science Participative",
-          "value": "Science Participative"
-        }
-      ],
-      "collection": "projets",
-      "description": "Des bénévoles étudient les lichens selon un protocole scientifique afin d’évaluer la qualité de l’air et de caractériser les polluants accumulés.",
-      "etat": [
-        {
-          "label": "En cours",
-          "value": "En cours"
-        }
-      ],
-      "image": "/images/capture-d--cran-du-2025-03-24-17-03-17-E5OT.png",
-      "publishedAt": "2025-03-24T16:03:04.927Z",
-      "slug": "lichens",
-      "status": "published",
-      "title": "Etudes participatives des lichens "
-    },
-    {
-      "__outstatic": {
         "commit": "5f13db7680ce07b8efd0d23e0aa248f7293215a3",
         "hash": "2409948303",
         "path": "outstatic/content/projets/livre-blanc-pollutions-polluants.mdx"
@@ -771,6 +737,40 @@
       "slug": "conference-et-si-les-lichens-pouvaient-nous-renseigner-sur-la-qualite-de-l-air",
       "status": "published",
       "title": "Conférence : Surveillance de la qualité de l'air par les lichens"
+    },
+    {
+      "__outstatic": {
+        "commit": "7f7bd424da0efc017129daba17f5139e42c08f83",
+        "hash": "2866082431",
+        "path": "outstatic/content/projets/lichens.mdx"
+      },
+      "author": {
+        "name": "Marine",
+        "picture": "https://avatars.githubusercontent.com/u/204351074?v=4"
+      },
+      "categories": [
+        {
+          "label": "Air",
+          "value": "Air"
+        },
+        {
+          "label": "Science Participative",
+          "value": "Science Participative"
+        }
+      ],
+      "collection": "projets",
+      "description": "Des bénévoles étudient les lichens selon un protocole scientifique afin d’évaluer la qualité de l’air et de caractériser les polluants accumulés.",
+      "etat": [
+        {
+          "label": "En cours",
+          "value": "En cours"
+        }
+      ],
+      "image": "/images/lichens-YyMD.jpg",
+      "publishedAt": "2025-03-24T16:03:04.927Z",
+      "slug": "lichens",
+      "status": "published",
+      "title": "Etudes participatives des lichens "
     }
   ]
 }
