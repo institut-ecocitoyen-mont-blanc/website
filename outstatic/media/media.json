@@ -1,6 +1,6 @@
 {
-  "commit": "0f6af419e1456f4675c143590f7a79feea9d7898",
-  "generated": "2026-11-25T08:05:04.194Z",
+  "commit": "db92928294c5fbe9c5a048513a37c4e160df1a8b",
+  "generated": "2026-11-25T08:06:36.645Z",
   "media": [
     {
       "__outstatic": {
@@ -324,6 +324,18 @@
       "alt": "",
       "filename": "lettre_info-QwOD.png",
       "publishedAt": "2025-03-28T15:07:04.362Z",
+      "type": "image"
+    },
+    {
+      "__outstatic": {
+        "commit": "db92928294c5fbe9c5a048513a37c4e160df1a8b",
+        "hash": "817041920",
+        "path": "public/images/lichens-YyMD.jpg"
+      },
+      "alt": "",
+      "filename": "lichens-YyMD.jpg",
+      "publishedAt": "2026-11-25T08:06:36.645Z",
+      "source": "images",
       "type": "image"
     },
     {
