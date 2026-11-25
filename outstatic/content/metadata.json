@@ -1,6 +1,6 @@
 {
-  "commit": "a678d6d3a17b7bf69014afe7477a66bbb1ec38f5",
-  "generated": "2026-11-25T09:32:48.508Z",
+  "commit": "d3c3075a5def160eede5a443140438119d738ecd",
+  "generated": "2026-11-25T09:35:24.765Z",
   "metadata": [
     {
       "__outstatic": {
@@ -731,8 +731,8 @@
     },
     {
       "__outstatic": {
-        "commit": "a678d6d3a17b7bf69014afe7477a66bbb1ec38f5",
-        "hash": "95716551",
+        "commit": "d3c3075a5def160eede5a443140438119d738ecd",
+        "hash": "4049373383",
         "path": "outstatic/content/projets/livre-blanc-pollutions-polluants.mdx"
       },
       "author": {
@@ -758,7 +758,7 @@
         }
       ],
       "collection": "projets",
-      "description": "Un inventaire participatif recense et cartographie les sources potentielles de pollution de l’air, de l’eau et des sols dans la vallée de l’Arve.",
+      "description": "Une cartographie interactive des activités anciennes et actuelles susceptibles d’avoir un impact sur l’air, l’eau, les sols et la végétation au Pays du Mont-Blanc.",
       "etat": [
         {
           "label": "En cours",
