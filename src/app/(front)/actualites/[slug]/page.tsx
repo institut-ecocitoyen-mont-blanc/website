@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, Calendar, CalendarDays } from "lucide-react";
-import { getDocumentBySlug, getDocumentSlugs } from "outstatic/server";
+import { getDocumentBySlug, getDocumentPaths } from "outstatic/server";
 import { ActualiteCategory } from "@/lib/types";
 import { categoryFilters, categoryStyles } from "@/components/NewsCard";
 import { Badge } from "@/components/ui/badge";
@@ -238,12 +238,16 @@ async function getData(params: { slug: string }) {
   };
 }
 
+// getDocumentSlugs also lists drafts, which getDocumentBySlug hides: exporting
+// them would publish not-found pages at real URLs. Only list published ones.
 export async function generateStaticParams() {
   const posts = Array.from(
-    new Set([
-      ...getDocumentSlugs("actualites"),
-      ...getDocumentSlugs("evenements"),
-    ]),
+    new Set(
+      [
+        ...getDocumentPaths("actualites"),
+        ...getDocumentPaths("evenements"),
+      ].map(({ params }) => params.slug),
+    ),
   );
   return posts.map((slug) => ({ slug }));
 }

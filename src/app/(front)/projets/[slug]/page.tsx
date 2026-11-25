@@ -4,7 +4,7 @@ import { ArrowLeft, Clock, CheckCircle2 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import {
   getDocumentBySlug,
-  getDocumentSlugs,
+  getDocumentPaths,
 } from "outstatic/server";
 import { ProjectCategory } from "@/lib/types";
 import { categoryStyles, categoryFilters } from "@/components/ProjectCard";
@@ -225,7 +225,8 @@ async function getData(params: { slug: string }) {
   return { projet, relatedNews };
 }
 
+// getDocumentSlugs also lists drafts, which getDocumentBySlug hides: exporting
+// them would publish not-found pages at real URLs. Only list published ones.
 export async function generateStaticParams() {
-  const posts = getDocumentSlugs("projets");
-  return posts.map((slug) => ({ slug }));
+  return getDocumentPaths("projets").map(({ params }) => params);
 }
