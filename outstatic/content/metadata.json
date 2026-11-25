@@ -1,6 +1,6 @@
 {
-  "commit": "b1a3b03c517406cd059d278481e1176d52651c1f",
-  "generated": "2026-11-25T09:32:23.523Z",
+  "commit": "a678d6d3a17b7bf69014afe7477a66bbb1ec38f5",
+  "generated": "2026-11-25T09:32:48.508Z",
   "metadata": [
     {
       "__outstatic": {
@@ -650,49 +650,6 @@
     },
     {
       "__outstatic": {
-        "commit": "6b4c84439dcdc47689db04ad1c0f5052b53fc0bc",
-        "hash": "900573593",
-        "path": "outstatic/content/projets/livre-blanc-pollutions-polluants.mdx"
-      },
-      "author": {
-        "name": "Marine",
-        "picture": "https://avatars.githubusercontent.com/u/204351074?v=4"
-      },
-      "categories": [
-        {
-          "label": "Eau",
-          "value": "Eau"
-        },
-        {
-          "label": "Air",
-          "value": "Air"
-        },
-        {
-          "label": "Sol",
-          "value": "Sol"
-        },
-        {
-          "label": "Science Participative",
-          "value": "Science Participative"
-        }
-      ],
-      "collection": "projets",
-      "description": "Un inventaire participatif recense et cartographie les sources potentielles de pollution de l’air, de l’eau et des sols dans la vallée de l’Arve.",
-      "etat": [
-        {
-          "label": "En cours",
-          "value": "En cours"
-        }
-      ],
-      "image": "/images/20261115-527a8627-2-U1Mj.jpg",
-      "lienScienceParticipative": "",
-      "publishedAt": "2025-03-28T15:22:28.896Z",
-      "slug": "livre-blanc-pollutions-polluants",
-      "status": "published",
-      "title": "Inventaire participatif : cartographier les potentielles sources de pollutions"
-    },
-    {
-      "__outstatic": {
         "commit": "171e2b7134b8b2c4fea91a1e63a7b893bb3276fb",
         "hash": "3748499909",
         "path": "outstatic/content/projets/lichens.mdx"
@@ -771,6 +728,49 @@
       "slug": "livre-blanc-etudes-documents",
       "status": "published",
       "title": "Le Livre Blanc : recenser les connaissances sur les pollutions au Pays du Mont-Blanc"
+    },
+    {
+      "__outstatic": {
+        "commit": "a678d6d3a17b7bf69014afe7477a66bbb1ec38f5",
+        "hash": "95716551",
+        "path": "outstatic/content/projets/livre-blanc-pollutions-polluants.mdx"
+      },
+      "author": {
+        "name": "Marine",
+        "picture": "https://avatars.githubusercontent.com/u/204351074?v=4"
+      },
+      "categories": [
+        {
+          "label": "Eau",
+          "value": "Eau"
+        },
+        {
+          "label": "Air",
+          "value": "Air"
+        },
+        {
+          "label": "Sol",
+          "value": "Sol"
+        },
+        {
+          "label": "Science Participative",
+          "value": "Science Participative"
+        }
+      ],
+      "collection": "projets",
+      "description": "Un inventaire participatif recense et cartographie les sources potentielles de pollution de l’air, de l’eau et des sols dans la vallée de l’Arve.",
+      "etat": [
+        {
+          "label": "En cours",
+          "value": "En cours"
+        }
+      ],
+      "image": "/images/20261115-527a8627-2-U1Mj.jpg",
+      "lienScienceParticipative": "https://forms.gle/HsLtRHuVu5HFczGy8",
+      "publishedAt": "2025-03-28T15:22:28.896Z",
+      "slug": "livre-blanc-pollutions-polluants",
+      "status": "published",
+      "title": "Inventaire participatif : cartographier les potentielles sources de pollutions"
     }
   ]
 }
