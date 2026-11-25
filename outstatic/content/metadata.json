@@ -1,6 +1,6 @@
 {
-  "commit": "60c160ea327d71b1c287bf604f29716795f87dc1",
-  "generated": "2026-11-25T09:30:27.596Z",
+  "commit": "b1a3b03c517406cd059d278481e1176d52651c1f",
+  "generated": "2026-11-25T09:32:23.523Z",
   "metadata": [
     {
       "__outstatic": {
@@ -727,8 +727,8 @@
     },
     {
       "__outstatic": {
-        "commit": "60c160ea327d71b1c287bf604f29716795f87dc1",
-        "hash": "1096091496",
+        "commit": "b1a3b03c517406cd059d278481e1176d52651c1f",
+        "hash": "2704834155",
         "path": "outstatic/content/projets/livre-blanc-etudes-documents.mdx"
       },
       "author": {
