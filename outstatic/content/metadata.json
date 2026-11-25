@@ -1,6 +1,6 @@
 {
-  "commit": "94fd4bb8032d57f92eb12f9bf7a3075bd8bb2054",
-  "generated": "2026-11-25T09:50:49.017Z",
+  "commit": "ddb7b6e2e5cacfcf0a2ef2bf289d98e05a30cef0",
+  "generated": "2026-11-25T09:51:43.878Z",
   "metadata": [
     {
       "__outstatic": {
@@ -650,53 +650,6 @@
     },
     {
       "__outstatic": {
-        "commit": "b1a3b03c517406cd059d278481e1176d52651c1f",
-        "hash": "2704834155",
-        "path": "outstatic/content/projets/livre-blanc-etudes-documents.mdx"
-      },
-      "author": {
-        "name": "JPP",
-        "picture": ""
-      },
-      "categories": [
-        {
-          "label": "Eau",
-          "value": "Eau"
-        },
-        {
-          "label": "Air",
-          "value": "Air"
-        },
-        {
-          "label": "Sol",
-          "value": "Sol"
-        },
-        {
-          "label": "Santé",
-          "value": "Santé"
-        },
-        {
-          "label": "Science Participative",
-          "value": "Science Participative"
-        }
-      ],
-      "collection": "projets",
-      "description": "Un état des lieux des études et connaissances existantes sur les pollutions et leurs impacts sanitaires au Pays du Mont-Blanc, pour identifier les lacunes et les besoins de recherche.",
-      "etat": [
-        {
-          "label": "En cours",
-          "value": "En cours"
-        }
-      ],
-      "image": "/images/dylan-gillis-kdeqa3atnby-unsplash-A1MD.jpg",
-      "lienScienceParticipative": "",
-      "publishedAt": "2025-03-28T15:27:14.211Z",
-      "slug": "livre-blanc-etudes-documents",
-      "status": "published",
-      "title": "Le Livre Blanc : recenser les connaissances sur les pollutions au Pays du Mont-Blanc"
-    },
-    {
-      "__outstatic": {
         "commit": "c2af2683e3f3c47c3ba3d9f02ed1b35afb3c9a1c",
         "hash": "1458618283",
         "path": "outstatic/content/projets/livre-blanc-pollutions-polluants.mdx"
@@ -771,6 +724,53 @@
       "slug": "lichens",
       "status": "draft",
       "title": "Etudes participatives des lichens "
+    },
+    {
+      "__outstatic": {
+        "commit": "ddb7b6e2e5cacfcf0a2ef2bf289d98e05a30cef0",
+        "hash": "3710641007",
+        "path": "outstatic/content/projets/livre-blanc-etudes-documents.mdx"
+      },
+      "author": {
+        "name": "JPP",
+        "picture": ""
+      },
+      "categories": [
+        {
+          "label": "Eau",
+          "value": "Eau"
+        },
+        {
+          "label": "Air",
+          "value": "Air"
+        },
+        {
+          "label": "Sol",
+          "value": "Sol"
+        },
+        {
+          "label": "Santé",
+          "value": "Santé"
+        },
+        {
+          "label": "Science Participative",
+          "value": "Science Participative"
+        }
+      ],
+      "collection": "projets",
+      "description": "Un état des lieux des études et connaissances existantes sur les pollutions et leurs impacts sanitaires au Pays du Mont-Blanc, pour identifier les lacunes et les besoins de recherche.",
+      "etat": [
+        {
+          "label": "En cours",
+          "value": "En cours"
+        }
+      ],
+      "image": "/images/dylan-gillis-kdeqa3atnby-unsplash-A1MD.jpg",
+      "lienScienceParticipative": "",
+      "publishedAt": "2025-03-28T15:27:14.211Z",
+      "slug": "livre-blanc-etudes-documents",
+      "status": "published",
+      "title": "Le Livre Blanc : recenser les connaissances sur les pollutions au Pays du Mont-Blanc"
     }
   ]
 }
