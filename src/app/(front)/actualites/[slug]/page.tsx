@@ -222,9 +222,16 @@ async function getData(params: { slug: string }) {
   const content = await markdownToHtml(newsItem.content || "");
   const categories = normalizeCategories(newsItem.categories);
   const isEvent = Boolean(evenement) || categories.includes("Événement");
+  // Draft projects have no page, so only link to a project that is published.
+  const slugProjet =
+    newsItem.slugProjet &&
+    getDocumentBySlug("projets", newsItem.slugProjet, ["slug"])
+      ? newsItem.slugProjet
+      : undefined;
 
   return {
     ...newsItem,
+    slugProjet,
     publishedAt: new Date(newsItem.publishedAt),
     dateEvenement: newsItem.dateEvenement
       ? new Date(newsItem.dateEvenement as string)
