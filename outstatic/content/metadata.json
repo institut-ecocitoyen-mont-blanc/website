@@ -1,6 +1,6 @@
 {
-  "commit": "db18728237e9c17525cb3dbd0050c015f1a4c094",
-  "generated": "2026-11-25T09:54:53.729Z",
+  "commit": "78a9fa74f6b1b58634c124fab34d0a3a93849c1f",
+  "generated": "2026-11-25T09:56:28.616Z",
   "metadata": [
     {
       "__outstatic": {
@@ -198,26 +198,6 @@
       "slug": "page-d-accueil",
       "status": "published",
       "title": "Page d'Accueil"
-    },
-    {
-      "__outstatic": {
-        "commit": "8ef6c8fbbb6a6e5bb442275234c04eea86081e5b",
-        "hash": "4055680097",
-        "path": "outstatic/content/actualites/rapport-d-activite-2025.mdx"
-      },
-      "author": {
-        "name": "Mathieu Dutour",
-        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
-      },
-      "categories": [
-      ],
-      "collection": "actualites",
-      "description": "Découvrez tout ce que l'institut a réalisé en 2025",
-      "image": "/images/rapport-activite-e-gwNz.png",
-      "publishedAt": "2025-12-31T23:00:00.000Z",
-      "slug": "rapport-d-activite-2025",
-      "status": "published",
-      "title": "RAPPORT\nD'ACTIVITÉ\n2025"
     },
     {
       "__outstatic": {
@@ -771,6 +751,26 @@
       "slug": "lichens",
       "status": "draft",
       "title": "Biosurveillance des lichens : observer la qualité de l’air"
+    },
+    {
+      "__outstatic": {
+        "commit": "78a9fa74f6b1b58634c124fab34d0a3a93849c1f",
+        "hash": "3798531146",
+        "path": "outstatic/content/actualites/rapport-d-activite-2025.mdx"
+      },
+      "author": {
+        "name": "Mathieu Dutour",
+        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
+      },
+      "categories": [
+      ],
+      "collection": "actualites",
+      "description": "Découvrez tout ce que l'institut a réalisé en 2025",
+      "image": "/images/rapport-activite-e-gwNz.png",
+      "publishedAt": "2025-12-31T23:00:00.000Z",
+      "slug": "rapport-d-activite-2025",
+      "status": "published",
+      "title": "Rapport d'activité 2025"
     }
   ]
 }
