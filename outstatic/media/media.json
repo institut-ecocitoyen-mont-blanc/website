@@ -1,6 +1,6 @@
 {
-  "commit": "96df565c13e2e40613e940f33f6b81792e3c10ef",
-  "generated": "2026-11-25T08:20:53.111Z",
+  "commit": "a008f2a3afbd30d529352b6971d79658fc8578de",
+  "generated": "2026-11-25T10:00:24.432Z",
   "media": [
     {
       "__outstatic": {
@@ -371,6 +371,18 @@
       "alt": "",
       "filename": "logo---rvb-U5OD.jpg",
       "publishedAt": "2025-04-03T07:30:51.057Z",
+      "type": "image"
+    },
+    {
+      "__outstatic": {
+        "commit": "a008f2a3afbd30d529352b6971d79658fc8578de",
+        "hash": "3736929021",
+        "path": "public/images/logo-ppa-2022-vfinale-k5MD.png"
+      },
+      "alt": "",
+      "filename": "logo-ppa-2022-vfinale-k5MD.png",
+      "publishedAt": "2026-11-25T10:00:24.432Z",
+      "source": "images",
       "type": "image"
     },
     {
