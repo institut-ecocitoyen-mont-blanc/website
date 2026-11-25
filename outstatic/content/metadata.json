@@ -1,6 +1,6 @@
 {
-  "commit": "78a9fa74f6b1b58634c124fab34d0a3a93849c1f",
-  "generated": "2026-11-25T09:56:28.616Z",
+  "commit": "05eeb916bbf15ba0e74aaff8066dd66240b77fc9",
+  "generated": "2026-11-25T09:58:17.803Z",
   "metadata": [
     {
       "__outstatic": {
@@ -198,24 +198,6 @@
       "slug": "page-d-accueil",
       "status": "published",
       "title": "Page d'Accueil"
-    },
-    {
-      "__outstatic": {
-        "commit": "c2f568041108a7dc3ea7352cbc715fef87995aa3",
-        "hash": "3178996412",
-        "path": "outstatic/content/partenaires/institut-ecocitoyen-de-fos-sur-mer.mdx"
-      },
-      "author": {
-        "name": "DESMEDT Aurore",
-        "picture": "https://avatars.githubusercontent.com/u/222664085?v=4"
-      },
-      "collection": "partenaires",
-      "image": "/images/institut_logo-gyMz.png",
-      "lien": "https://www.institut-ecocitoyen.fr/index.html",
-      "publishedAt": "2026-03-24T16:50:06.517Z",
-      "slug": "institut-ecocitoyen-de-fos-sur-mer",
-      "status": "published",
-      "title": "Institut Écocitoyen de Fos sur mer"
     },
     {
       "__outstatic": {
@@ -771,6 +753,24 @@
       "slug": "rapport-d-activite-2025",
       "status": "published",
       "title": "Rapport d'activité 2025"
+    },
+    {
+      "__outstatic": {
+        "commit": "05eeb916bbf15ba0e74aaff8066dd66240b77fc9",
+        "hash": "512848898",
+        "path": "outstatic/content/partenaires/institut-ecocitoyen-de-fos-sur-mer.mdx"
+      },
+      "author": {
+        "name": "DESMEDT Aurore",
+        "picture": ""
+      },
+      "collection": "partenaires",
+      "image": "/images/institut_logo-gyMz.png",
+      "lien": "https://www.institut-ecocitoyen.fr/",
+      "publishedAt": "2026-03-24T16:50:06.517Z",
+      "slug": "institut-ecocitoyen-de-fos-sur-mer",
+      "status": "published",
+      "title": "Institut Écocitoyen de Fos-sur-Mer"
     }
   ]
 }
