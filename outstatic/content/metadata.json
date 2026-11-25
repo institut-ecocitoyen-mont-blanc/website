@@ -1,6 +1,6 @@
 {
-  "commit": "05eeb916bbf15ba0e74aaff8066dd66240b77fc9",
-  "generated": "2026-11-25T09:58:17.803Z",
+  "commit": "3c6e4e9177faee5793ec238cec4aea4e71406bbd",
+  "generated": "2026-11-25T09:58:48.405Z",
   "metadata": [
     {
       "__outstatic": {
@@ -109,24 +109,6 @@
       "slug": "sciences-participatives",
       "status": "published",
       "title": "Sciences Participatives"
-    },
-    {
-      "__outstatic": {
-        "commit": "2d87e5960cdcf1101794e16f7994b7242975ba07",
-        "hash": "2252661255",
-        "path": "outstatic/content/partenaires/patagonia.mdx"
-      },
-      "author": {
-        "name": "Mathieu Dutour",
-        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
-      },
-      "collection": "partenaires",
-      "image": "/images/patagonia_-unternehmen-_logo-M5MT.svg",
-      "lien": "https://www.patagonia.com/",
-      "publishedAt": "2025-04-01T07:33:55.823Z",
-      "slug": "patagonia",
-      "status": "draft",
-      "title": "Patagonia"
     },
     {
       "__outstatic": {
@@ -771,6 +753,24 @@
       "slug": "institut-ecocitoyen-de-fos-sur-mer",
       "status": "published",
       "title": "Institut Écocitoyen de Fos-sur-Mer"
+    },
+    {
+      "__outstatic": {
+        "commit": "3c6e4e9177faee5793ec238cec4aea4e71406bbd",
+        "hash": "2839433439",
+        "path": "outstatic/content/partenaires/patagonia.mdx"
+      },
+      "author": {
+        "name": "Mathieu Dutour",
+        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
+      },
+      "collection": "partenaires",
+      "image": "/images/patagonia_-unternehmen-_logo-M5MT.svg",
+      "lien": "https://www.patagonia.com/",
+      "publishedAt": "2025-04-01T07:33:55.823Z",
+      "slug": "patagonia",
+      "status": "draft",
+      "title": "Patagonia"
     }
   ]
 }
