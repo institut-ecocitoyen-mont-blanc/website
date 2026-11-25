@@ -363,7 +363,7 @@ async function getData() {
 
   const db = await load();
   const partenaires = await db
-    .find({ collection: "partenaires" }, ["title", "content", "image", "lien"])
+    .find({ collection: "partenaires", status: "published" }, ["title", "content", "image", "lien"])
     .sort({ publishedAt: 1 })
     .toArray();
 

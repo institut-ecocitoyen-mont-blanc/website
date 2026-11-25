@@ -132,7 +132,7 @@ export default async function Footer() {
 async function getData() {
   const db = await load();
   const partenaires = (await db
-    .find({ collection: "partenaires" }, ["title", "lien", "image"])
+    .find({ collection: "partenaires", status: "published" }, ["title", "lien", "image"])
     .sort({ publishedAt: 1 })
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     .toArray()) as any[] as {

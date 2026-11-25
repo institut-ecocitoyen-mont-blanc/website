@@ -137,7 +137,7 @@ async function getData() {
   const db = await load();
   const projects = (
     await db
-      .find({ collection: "projets" }, [
+      .find({ collection: "projets", status: "published" }, [
         "title",
         "description",
         "etat",
