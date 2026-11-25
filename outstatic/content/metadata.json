@@ -1,6 +1,6 @@
 {
-  "commit": "4eeb702c4a87f87aca1e633778f4b70d48fe6b9e",
-  "generated": "2026-11-25T09:59:45.635Z",
+  "commit": "0613b0c9d14985887bd7597e153686bc02cf26d4",
+  "generated": "2026-11-25T13:20:37.601Z",
   "metadata": [
     {
       "__outstatic": {
@@ -771,6 +771,24 @@
       "slug": "centre-de-la-nature-montagnarde",
       "status": "published",
       "title": "Centre de la Nature Montagnarde"
+    },
+    {
+      "__outstatic": {
+        "commit": "0613b0c9d14985887bd7597e153686bc02cf26d4",
+        "hash": "3000600162",
+        "path": "outstatic/content/partenaires/plan-de-protection-de-l-atmosphere-de-l-arve-ppa.mdx"
+      },
+      "author": {
+        "name": "Sarahd",
+        "picture": "https://avatars.githubusercontent.com/u/310082419?v=4"
+      },
+      "collection": "partenaires",
+      "image": "/images/logo-ppa-2022-vfinale-k5MD.png",
+      "lien": "https://www.ppa-arve.fr/",
+      "publishedAt": "2026-11-25T09:59:50.564Z",
+      "slug": "plan-de-protection-de-l-atmosphere-de-l-arve-ppa",
+      "status": "draft",
+      "title": "Plan de Protection de l'Atmosphère de l'Arve (PPA)"
     }
   ]
 }
