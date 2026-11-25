@@ -1,6 +1,6 @@
 {
-  "commit": "38241d4d66235550e1e5bbc74e3a1b7e441e09a6",
-  "generated": "2026-11-25T09:39:10.776Z",
+  "commit": "dfcd01cf2aff0768c91278d7c20002e1d81672b3",
+  "generated": "2026-11-25T09:47:45.683Z",
   "metadata": [
     {
       "__outstatic": {
@@ -650,40 +650,6 @@
     },
     {
       "__outstatic": {
-        "commit": "171e2b7134b8b2c4fea91a1e63a7b893bb3276fb",
-        "hash": "3748499909",
-        "path": "outstatic/content/projets/lichens.mdx"
-      },
-      "author": {
-        "name": "Marine",
-        "picture": "https://avatars.githubusercontent.com/u/204351074?v=4"
-      },
-      "categories": [
-        {
-          "label": "Air",
-          "value": "Air"
-        },
-        {
-          "label": "Science Participative",
-          "value": "Science Participative"
-        }
-      ],
-      "collection": "projets",
-      "description": "Des bénévoles étudient les lichens selon un protocole scientifique afin d’évaluer la qualité de l’air et de caractériser les polluants accumulés.",
-      "etat": [
-        {
-          "label": "En cours",
-          "value": "En cours"
-        }
-      ],
-      "image": "/images/lichens-YyMD.jpg",
-      "publishedAt": "2026-12-02T09:00:00.000Z",
-      "slug": "lichens",
-      "status": "draft",
-      "title": "Etudes participatives des lichens "
-    },
-    {
-      "__outstatic": {
         "commit": "b1a3b03c517406cd059d278481e1176d52651c1f",
         "hash": "2704834155",
         "path": "outstatic/content/projets/livre-blanc-etudes-documents.mdx"
@@ -771,6 +737,40 @@
       "slug": "livre-blanc-pollutions-polluants",
       "status": "published",
       "title": "Inventaire participatif : cartographier les potentielles sources de pollutions"
+    },
+    {
+      "__outstatic": {
+        "commit": "dfcd01cf2aff0768c91278d7c20002e1d81672b3",
+        "hash": "2148088334",
+        "path": "outstatic/content/projets/lichens.mdx"
+      },
+      "author": {
+        "name": "Marine",
+        "picture": "https://avatars.githubusercontent.com/u/204351074?v=4"
+      },
+      "categories": [
+        {
+          "label": "Air",
+          "value": "Air"
+        },
+        {
+          "label": "Science Participative",
+          "value": "Science Participative"
+        }
+      ],
+      "collection": "projets",
+      "description": "Des bénévoles étudient les lichens selon un protocole scientifique afin d’évaluer la qualité de l’air et de caractériser les polluants accumulés.",
+      "etat": [
+        {
+          "label": "En cours",
+          "value": "En cours"
+        }
+      ],
+      "image": "/images/lichens-YyMD.jpg",
+      "publishedAt": "2026-12-02T09:00:00.000Z",
+      "slug": "lichens",
+      "status": "draft",
+      "title": "Biosurveillance des lichens : suivre la qualité de l’air au Pays du Mont-Blanc"
     }
   ]
 }
