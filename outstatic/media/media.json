@@ -1,6 +1,6 @@
 {
-  "commit": "ffbe2bf64cadf4deff66d4078c53e709861387c4",
-  "generated": "2026-11-25T08:08:49.748Z",
+  "commit": "96df565c13e2e40613e940f33f6b81792e3c10ef",
+  "generated": "2026-11-25T08:20:53.111Z",
   "media": [
     {
       "__outstatic": {
@@ -225,6 +225,18 @@
       "alt": "",
       "filename": "couverture-1-M0OT.png",
       "publishedAt": "2026-04-27T12:10:57.640Z",
+      "type": "image"
+    },
+    {
+      "__outstatic": {
+        "commit": "96df565c13e2e40613e940f33f6b81792e3c10ef",
+        "hash": "3928197379",
+        "path": "public/images/dylan-gillis-kdeqa3atnby-unsplash-A1MD.jpg"
+      },
+      "alt": "",
+      "filename": "dylan-gillis-kdeqa3atnby-unsplash-A1MD.jpg",
+      "publishedAt": "2026-11-25T08:20:53.111Z",
+      "source": "images",
       "type": "image"
     },
     {
