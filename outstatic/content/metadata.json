@@ -1,6 +1,6 @@
 {
-  "commit": "1f5f2c41c66a8c0a4fda97d40f4716cfef40f799",
-  "generated": "2026-11-25T09:53:30.446Z",
+  "commit": "db18728237e9c17525cb3dbd0050c015f1a4c094",
+  "generated": "2026-11-25T09:54:53.729Z",
   "metadata": [
     {
       "__outstatic": {
@@ -740,8 +740,8 @@
     },
     {
       "__outstatic": {
-        "commit": "1f5f2c41c66a8c0a4fda97d40f4716cfef40f799",
-        "hash": "651880075",
+        "commit": "db18728237e9c17525cb3dbd0050c015f1a4c094",
+        "hash": "1688423642",
         "path": "outstatic/content/projets/lichens.mdx"
       },
       "author": {
@@ -770,7 +770,7 @@
       "publishedAt": "2026-12-02T09:00:00.000Z",
       "slug": "lichens",
       "status": "draft",
-      "title": "iosurveillance des lichens : observer la qualité de l’air"
+      "title": "Biosurveillance des lichens : observer la qualité de l’air"
     }
   ]
 }
