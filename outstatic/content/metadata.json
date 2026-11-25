@@ -1,6 +1,6 @@
 {
-  "commit": "da40647dd9ef8ebb6537c424824968cb9d2302ff",
-  "generated": "2026-11-25T08:10:40.808Z",
+  "commit": "65ef3c42291f0e865e7265baf9cbb1743fe6f5a1",
+  "generated": "2026-11-25T08:21:07.816Z",
   "metadata": [
     {
       "__outstatic": {
@@ -727,8 +727,8 @@
     },
     {
       "__outstatic": {
-        "commit": "da40647dd9ef8ebb6537c424824968cb9d2302ff",
-        "hash": "2876336226",
+        "commit": "65ef3c42291f0e865e7265baf9cbb1743fe6f5a1",
+        "hash": "804189651",
         "path": "outstatic/content/projets/livre-blanc-etudes-documents.mdx"
       },
       "author": {
@@ -765,7 +765,7 @@
           "value": "En cours"
         }
       ],
-      "image": "/images/journee-recherche-Y3Nz.png",
+      "image": "/images/dylan-gillis-kdeqa3atnby-unsplash-A1MD.jpg",
       "lienScienceParticipative": "https://docs.google.com/forms/d/1qTt_72Y2AS3Q7Y5ZhVfZUtLsoCetEqLddHt8Jt5kda4/edit?usp=sharing_eil&ts=67f8ede6",
       "publishedAt": "2025-03-28T15:27:14.211Z",
       "slug": "livre-blanc-etudes-documents",
