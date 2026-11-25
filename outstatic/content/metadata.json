@@ -1,6 +1,6 @@
 {
-  "commit": "65cb5d0fb93395253ee2fa54da31b348fba47659",
-  "generated": "2026-11-25T13:20:54.994Z",
+  "commit": "451954f1e9797f29fd348138bf55a1a97fa63773",
+  "generated": "2026-11-25T13:22:36.831Z",
   "metadata": [
     {
       "__outstatic": {
@@ -749,12 +749,12 @@
     },
     {
       "__outstatic": {
-        "commit": "65cb5d0fb93395253ee2fa54da31b348fba47659",
-        "hash": "1458618283",
+        "commit": "451954f1e9797f29fd348138bf55a1a97fa63773",
+        "hash": "304068460",
         "path": "outstatic/content/projets/livre-blanc-pollutions-polluants.mdx"
       },
       "author": {
-        "name": "Marine",
+        "name": "Marine puis MàJ Sarah",
         "picture": "https://avatars.githubusercontent.com/u/204351074?v=4"
       },
       "categories": [
