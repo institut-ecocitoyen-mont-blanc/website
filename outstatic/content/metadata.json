@@ -1,6 +1,6 @@
 {
-  "commit": "03224cc6826e2806e320ab2388368a0bf5508de4",
-  "generated": "2026-11-25T09:59:22.310Z",
+  "commit": "4eeb702c4a87f87aca1e633778f4b70d48fe6b9e",
+  "generated": "2026-11-25T09:59:45.635Z",
   "metadata": [
     {
       "__outstatic": {
@@ -180,24 +180,6 @@
       "slug": "page-d-accueil",
       "status": "published",
       "title": "Page d'Accueil"
-    },
-    {
-      "__outstatic": {
-        "commit": "cbe4c9d721f79723adb6d4a7d4b3f7c612b8aeba",
-        "hash": "2718762533",
-        "path": "outstatic/content/partenaires/centre-de-la-nature-montagnarde.mdx"
-      },
-      "author": {
-        "name": "DESMEDT Aurore",
-        "picture": "https://avatars.githubusercontent.com/u/222664085?v=4"
-      },
-      "collection": "partenaires",
-      "image": "/images/cnm-gxOD.png",
-      "lien": "https://www.centrenaturemontagnarde.org",
-      "publishedAt": "2026-03-25T10:24:15.962Z",
-      "slug": "centre-de-la-nature-montagnarde",
-      "status": "published",
-      "title": "Centre de la Nature Montagnarde"
     },
     {
       "__outstatic": {
@@ -771,6 +753,24 @@
       "slug": "crea-mont-blanc",
       "status": "published",
       "title": "CREA Mont-Blanc"
+    },
+    {
+      "__outstatic": {
+        "commit": "4eeb702c4a87f87aca1e633778f4b70d48fe6b9e",
+        "hash": "4114521332",
+        "path": "outstatic/content/partenaires/centre-de-la-nature-montagnarde.mdx"
+      },
+      "author": {
+        "name": "DESMEDT Aurore",
+        "picture": ""
+      },
+      "collection": "partenaires",
+      "image": "/images/cnm-gxOD.png",
+      "lien": "https://www.centrenaturemontagnarde.org",
+      "publishedAt": "2026-03-25T10:24:15.962Z",
+      "slug": "centre-de-la-nature-montagnarde",
+      "status": "published",
+      "title": "Centre de la Nature Montagnarde"
     }
   ]
 }
