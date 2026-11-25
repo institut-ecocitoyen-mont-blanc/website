@@ -1,6 +1,6 @@
 {
-  "commit": "fac92b5e31cdebc9ea43efdc9ede81d62ac0949e",
-  "generated": "2026-11-25T08:04:47.601Z",
+  "commit": "0f6af419e1456f4675c143590f7a79feea9d7898",
+  "generated": "2026-11-25T08:05:04.194Z",
   "media": [
     {
       "__outstatic": {
@@ -357,18 +357,6 @@
       "alt": "",
       "filename": "marc-kargel-qb3Z5BfiAgg-unsplash.jpg",
       "publishedAt": "2025-02-18T09:13:41.885Z",
-      "type": "image"
-    },
-    {
-      "__outstatic": {
-        "commit": "fac92b5e31cdebc9ea43efdc9ede81d62ac0949e",
-        "hash": "817041920",
-        "path": "public/images/minna-autio-zwkxrkva_sq-unsplash-cxNT.jpg"
-      },
-      "alt": "",
-      "filename": "minna-autio-zwkxrkva_sq-unsplash-cxNT.jpg",
-      "publishedAt": "2026-11-25T08:04:47.601Z",
-      "source": "images",
       "type": "image"
     },
     {
