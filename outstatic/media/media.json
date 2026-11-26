@@ -1,6 +1,6 @@
 {
-  "commit": "a008f2a3afbd30d529352b6971d79658fc8578de",
-  "generated": "2026-11-25T10:00:24.432Z",
+  "commit": "a0a1d2ac4ce1bb59947edf7eb84e7bb99dd51de7",
+  "generated": "2026-11-26T15:44:42.811Z",
   "media": [
     {
       "__outstatic": {
@@ -112,6 +112,18 @@
       "alt": "",
       "filename": "azeta_web-kxMT.jpg",
       "publishedAt": "2026-04-09T13:40:52.323Z",
+      "type": "image"
+    },
+    {
+      "__outstatic": {
+        "commit": "a0a1d2ac4ce1bb59947edf7eb84e7bb99dd51de7",
+        "hash": "1837131935",
+        "path": "public/images/brands-people-rix6hx3gczk-unsplash-A2MD.jpg"
+      },
+      "alt": "",
+      "filename": "brands-people-rix6hx3gczk-unsplash-A2MD.jpg",
+      "publishedAt": "2026-11-26T15:44:42.810Z",
+      "source": "images",
       "type": "image"
     },
     {
