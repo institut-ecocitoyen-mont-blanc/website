@@ -1,6 +1,6 @@
 {
-  "commit": "facacbf9dcd6f17064a0427908afb7eaa5c240a8",
-  "generated": "2026-11-26T15:45:13.351Z",
+  "commit": "e3d9a6347738379b1a1bae49ade5b0fd915b69a6",
+  "generated": "2026-11-26T15:50:57.913Z",
   "metadata": [
     {
       "__outstatic": {
@@ -536,26 +536,6 @@
     },
     {
       "__outstatic": {
-        "commit": "78a9fa74f6b1b58634c124fab34d0a3a93849c1f",
-        "hash": "3798531146",
-        "path": "outstatic/content/actualites/rapport-d-activite-2025.mdx"
-      },
-      "author": {
-        "name": "Mathieu Dutour",
-        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
-      },
-      "categories": [
-      ],
-      "collection": "actualites",
-      "description": "Découvrez tout ce que l'institut a réalisé en 2025",
-      "image": "/images/rapport-activite-e-gwNz.png",
-      "publishedAt": "2025-12-31T23:00:00.000Z",
-      "slug": "rapport-d-activite-2025",
-      "status": "published",
-      "title": "Rapport d'activité 2025"
-    },
-    {
-      "__outstatic": {
         "commit": "05eeb916bbf15ba0e74aaff8066dd66240b77fc9",
         "hash": "512848898",
         "path": "outstatic/content/partenaires/institut-ecocitoyen-de-fos-sur-mer.mdx"
@@ -789,6 +769,26 @@
       "slug": "journee-recherche",
       "status": "published",
       "title": "Journée Recherche"
+    },
+    {
+      "__outstatic": {
+        "commit": "e3d9a6347738379b1a1bae49ade5b0fd915b69a6",
+        "hash": "2383483658",
+        "path": "outstatic/content/actualites/rapport-d-activite-2025.mdx"
+      },
+      "author": {
+        "name": "Mathieu Dutour",
+        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
+      },
+      "categories": [
+      ],
+      "collection": "actualites",
+      "description": "Découvrez tout ce que l'institut a réalisé en 2025",
+      "image": "/images/kelly-sikkema-y2pzmnyinu0-unsplash-I0MT.jpg",
+      "publishedAt": "2025-12-31T23:00:00.000Z",
+      "slug": "rapport-d-activite-2025",
+      "status": "published",
+      "title": "Rapport d'activité 2025"
     }
   ]
 }
