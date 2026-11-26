@@ -1,6 +1,6 @@
 {
-  "commit": "20abb1296c9c89b10236664c8ca4767f8fe62dd9",
-  "generated": "2026-11-26T07:14:42.359Z",
+  "commit": "6366ac4ec8455362d8608c326d2365ccaff9748b",
+  "generated": "2026-11-26T07:14:53.413Z",
   "metadata": [
     {
       "__outstatic": {
@@ -668,49 +668,6 @@
     },
     {
       "__outstatic": {
-        "commit": "451954f1e9797f29fd348138bf55a1a97fa63773",
-        "hash": "304068460",
-        "path": "outstatic/content/projets/livre-blanc-pollutions-polluants.mdx"
-      },
-      "author": {
-        "name": "Marine puis MàJ Sarah",
-        "picture": "https://avatars.githubusercontent.com/u/204351074?v=4"
-      },
-      "categories": [
-        {
-          "label": "Eau",
-          "value": "Eau"
-        },
-        {
-          "label": "Air",
-          "value": "Air"
-        },
-        {
-          "label": "Sol",
-          "value": "Sol"
-        },
-        {
-          "label": "Science Participative",
-          "value": "Science Participative"
-        }
-      ],
-      "collection": "projets",
-      "description": "Une cartographie interactive des activités anciennes et actuelles susceptibles d’avoir un impact sur l’air, l’eau, les sols et la végétation au Pays du Mont-Blanc.",
-      "etat": [
-        {
-          "label": "En cours",
-          "value": "En cours"
-        }
-      ],
-      "image": "/images/20261115-527a8627-2-U1Mj.jpg",
-      "lienScienceParticipative": "https://forms.gle/HsLtRHuVu5HFczGy8",
-      "publishedAt": "2025-03-28T15:22:28.896Z",
-      "slug": "livre-blanc-pollutions-polluants",
-      "status": "published",
-      "title": "Inventaire participatif : cartographier les potentielles sources de pollutions"
-    },
-    {
-      "__outstatic": {
         "commit": "30026db9db632e33b4a7650ab994e6159adb41b5",
         "hash": "3689833212",
         "path": "outstatic/content/projets/lichens.mdx"
@@ -789,6 +746,49 @@
       "slug": "livre-blanc-etudes-documents",
       "status": "published",
       "title": "Livre Blanc : recenser les connaissances sur les pollutions au Pays du Mont-Blanc"
+    },
+    {
+      "__outstatic": {
+        "commit": "6366ac4ec8455362d8608c326d2365ccaff9748b",
+        "hash": "1720088625",
+        "path": "outstatic/content/projets/livre-blanc-pollutions-polluants.mdx"
+      },
+      "author": {
+        "name": "Marine puis MàJ Sarah",
+        "picture": "https://avatars.githubusercontent.com/u/204351074?v=4"
+      },
+      "categories": [
+        {
+          "label": "Eau",
+          "value": "Eau"
+        },
+        {
+          "label": "Air",
+          "value": "Air"
+        },
+        {
+          "label": "Sol",
+          "value": "Sol"
+        },
+        {
+          "label": "Science Participative",
+          "value": "Science Participative"
+        }
+      ],
+      "collection": "projets",
+      "description": "Une cartographie interactive des activités anciennes et actuelles susceptibles d’avoir un impact sur l’air, l’eau, les sols et la végétation au Pays du Mont-Blanc.",
+      "etat": [
+        {
+          "label": "En cours",
+          "value": "En cours"
+        }
+      ],
+      "image": "/images/20261115-527a8627-2-U1Mj.jpg",
+      "lienScienceParticipative": "https://forms.gle/HsLtRHuVu5HFczGy8",
+      "publishedAt": "2025-03-28T15:22:28.896Z",
+      "slug": "livre-blanc-pollutions-polluants",
+      "status": "published",
+      "title": "Inventaire participatif : cartographier les potentielles sources de pollutions"
     }
   ]
 }
