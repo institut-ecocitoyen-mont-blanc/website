@@ -1,6 +1,6 @@
 {
-  "commit": "a0a1d2ac4ce1bb59947edf7eb84e7bb99dd51de7",
-  "generated": "2026-11-26T15:44:42.811Z",
+  "commit": "dc0daad1c7450ad5b56a27d8e2c1cbe0c3966176",
+  "generated": "2026-11-26T15:50:36.921Z",
   "media": [
     {
       "__outstatic": {
@@ -316,6 +316,18 @@
       "alt": "",
       "filename": "journee-recherche-Y3Nz.png",
       "publishedAt": "2026-02-27T17:03:04.183Z",
+      "type": "image"
+    },
+    {
+      "__outstatic": {
+        "commit": "dc0daad1c7450ad5b56a27d8e2c1cbe0c3966176",
+        "hash": "3522515782",
+        "path": "public/images/kelly-sikkema-y2pzmnyinu0-unsplash-I0MT.jpg"
+      },
+      "alt": "",
+      "filename": "kelly-sikkema-y2pzmnyinu0-unsplash-I0MT.jpg",
+      "publishedAt": "2026-11-26T15:50:36.921Z",
+      "source": "images",
       "type": "image"
     },
     {
