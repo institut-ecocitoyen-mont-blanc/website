@@ -1,6 +1,6 @@
 {
-  "commit": "6366ac4ec8455362d8608c326d2365ccaff9748b",
-  "generated": "2026-11-26T07:14:53.413Z",
+  "commit": "facacbf9dcd6f17064a0427908afb7eaa5c240a8",
+  "generated": "2026-11-26T15:45:13.351Z",
   "metadata": [
     {
       "__outstatic": {
@@ -436,28 +436,6 @@
     },
     {
       "__outstatic": {
-        "commit": "9b95643ee95055b92601167816b06ce56b0baa15",
-        "hash": "140672247",
-        "path": "outstatic/content/evenements/journee-recherche.mdx"
-      },
-      "adresse": "54 route des Vorziers, 74700 Sallanches",
-      "author": {
-        "name": "Mathieu Dutour",
-        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
-      },
-      "categories": [
-      ],
-      "collection": "evenements",
-      "description": "Et si la recherche scientifique sur les pollutions au Pays du Mont-Blanc partait des préoccupations des habitants et structures du territoire ?",
-      "image": "/images/journee-recherche-Y3Nz.png",
-      "lieu": "Espace Mont-Blanc Coworking",
-      "publishedAt": "2026-05-11T22:00:00.000Z",
-      "slug": "journee-recherche",
-      "status": "published",
-      "title": "Journée Recherche"
-    },
-    {
-      "__outstatic": {
         "commit": "ecb3e507dbcbc572b0fa01afc437b399bd0fba7e",
         "hash": "231776297",
         "path": "outstatic/content/evenements/conference-qualite-de-l-air-en-altitude.mdx"
@@ -789,6 +767,28 @@
       "slug": "livre-blanc-pollutions-polluants",
       "status": "published",
       "title": "Inventaire participatif : cartographier les potentielles sources de pollutions"
+    },
+    {
+      "__outstatic": {
+        "commit": "facacbf9dcd6f17064a0427908afb7eaa5c240a8",
+        "hash": "31569824",
+        "path": "outstatic/content/evenements/journee-recherche.mdx"
+      },
+      "adresse": "54 route des Vorziers, 74700 Sallanches",
+      "author": {
+        "name": "Mathieu Dutour",
+        "picture": "https://avatars.githubusercontent.com/u/3254314?v=4"
+      },
+      "categories": [
+      ],
+      "collection": "evenements",
+      "description": "Et si la recherche scientifique sur les pollutions au Pays du Mont-Blanc partait des préoccupations des habitants et structures du territoire ?",
+      "image": "/images/brands-people-rix6hx3gczk-unsplash-A2MD.jpg",
+      "lieu": "Espace Mont-Blanc Coworking",
+      "publishedAt": "2026-05-11T22:00:00.000Z",
+      "slug": "journee-recherche",
+      "status": "published",
+      "title": "Journée Recherche"
     }
   ]
 }
